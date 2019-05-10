@@ -4,21 +4,14 @@ namespace NS\SentinelBundle\Entity\IBD\Types;
 
 use NS\UtilBundle\Entity\Types\ArrayChoice;
 
-/**
- * Class PathogenIdentifier
- * @package NS\SentinelBundle\Entity\IBD\Types
- */
+use NS\SentinelBundle\Form\IBD\Types\PathogenIdentifier as FormType;
+
 class PathogenIdentifier extends ArrayChoice
 {
-    /**
-     * @var string
-     */
-    protected $convert_class = 'NS\SentinelBundle\Form\IBD\Types\PathogenIdentifier';
+    /** @var string */
+    protected $convert_class = FormType::class;
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'PathogenIdentifier';
     }

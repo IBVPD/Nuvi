@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gnat
- * Date: 2017-03-07
- * Time: 1:07 PM
- */
 
 namespace NS\SentinelBundle\Tests\Entity;
 
@@ -56,7 +50,7 @@ class RotaVirusTest extends KernelTestCase
         $this->rotaVirusCase->setStoolCollected($this->tripleNo);
     }
 
-    public function testBirthdayOrYearMonth()
+    public function testBirthdayOrYearMonth(): void
     {
         $violations = $this->validator->validate($this->rotaVirusCase);
         $this->assertCount(0, $violations);
@@ -67,7 +61,7 @@ class RotaVirusTest extends KernelTestCase
         $this->assertCount(0, $violations);
     }
 
-    public function testRequiredFields()
+    public function testRequiredFields(): void
     {
         $rv = new RotaVirus();
         /** @var ConstraintViolationList $violations */
@@ -82,7 +76,7 @@ class RotaVirusTest extends KernelTestCase
         $this->assertEquals('case_id', $violations[2]->getPropertyPath());
     }
 
-    public function testVaccinationBeforeAdmission()
+    public function testVaccinationBeforeAdmission(): void
     {
         $this->rotaVirusCase->setAdmDate($this->past);
         $this->rotaVirusCase->setFirstVaccinationDose($this->future);
@@ -108,7 +102,7 @@ class RotaVirusTest extends KernelTestCase
         $this->assertEquals('thirdVaccinationDose', $violationList[0]->getConstraint()->lessThanField);
     }
 
-    public function testStoolCollectionDateAfterAdmission()
+    public function testStoolCollectionDateAfterAdmission(): void
     {
         $this->rotaVirusCase->setAdmDate($this->future);
         $this->rotaVirusCase->setStoolCollectionDate($this->past);
@@ -122,7 +116,7 @@ class RotaVirusTest extends KernelTestCase
         $this->assertCount(0, $violationList);
     }
 
-    public function testDischargeDateAfterAdmission()
+    public function testDischargeDateAfterAdmission(): void
     {
         $this->rotaVirusCase->setAdmDate($this->future);
         $this->rotaVirusCase->setDischargeDate($this->past);
@@ -136,16 +130,16 @@ class RotaVirusTest extends KernelTestCase
         $this->assertCount(0, $violationList);
     }
 
-    public function testStoolCollectionDateRequiredWhenStoolIsCollected()
+    public function testStoolCollectionDateRequiredWhenStoolIsCollected(): void
     {
         $this->rotaVirusCase->setStoolCollected($this->tripleYes);
         $violationList = $this->validator->validate($this->rotaVirusCase);
         $this->assertCount(1, $violationList);
-        $this->assertEquals("Due to response for 'stoolCollected' field, related field 'stoolCollectionDate' is required", $violationList[0]->getMessage());
+        $this->assertEquals('This value should not be blank', $violationList[0]->getMessage());
     }
 
 // date of collection, date of local lab reception
-    public function testSiteLabReceivedBeforeCollected()
+    public function testSiteLabReceivedBeforeCollected(): void
     {
         $this->rotaVirusCase->setStoolCollected($this->tripleYes);
         $this->rotaVirusCase->setStoolCollectionDate($this->future);
@@ -163,7 +157,7 @@ class RotaVirusTest extends KernelTestCase
     }
 
     // date of sent to national lab, date of reception to the national lab
-    public function testNationalLabReceivedBeforeSent()
+    public function testNationalLabReceivedBeforeSent(): void
     {
         $siteLab = new RotaVirus\SiteLab();
         $siteLab->setCaseFile($this->rotaVirusCase);
@@ -182,7 +176,7 @@ class RotaVirusTest extends KernelTestCase
     }
 
     //date of results at the national lab
-    public function testNationalLabResultsBeforeReceived()
+    public function testNationalLabResultsBeforeReceived(): void
     {
         $nationalLab = new RotaVirus\NationalLab();
         $nationalLab->setLabId('labId');

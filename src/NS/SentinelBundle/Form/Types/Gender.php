@@ -12,9 +12,9 @@ use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
  */
 class Gender extends TranslatableArrayChoice implements TranslationContainerInterface
 {
-    const MALE    = 1;
-    const FEMALE  = 2;
-    const UNKNOWN = 99;
+    public const MALE    = 1;
+    public const FEMALE  = 2;
+    public const UNKNOWN = 99;
 
     protected $values = [
         self::MALE => "Male",

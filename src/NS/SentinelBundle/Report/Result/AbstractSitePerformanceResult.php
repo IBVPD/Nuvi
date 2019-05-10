@@ -4,9 +4,9 @@ namespace NS\SentinelBundle\Report\Result;
 
 abstract class AbstractSitePerformanceResult extends AbstractSiteBasedResult
 {
-    const GOOD = 1;
-    const WARN = 2;
-    const BAD = 3;
+    public const GOOD = 1;
+    public const WARN = 2;
+    public const BAD = 3;
 
     /**
      * @var int
@@ -56,7 +56,7 @@ abstract class AbstractSitePerformanceResult extends AbstractSiteBasedResult
 
     abstract public function getMinimumLabConfirmedString();
 
-    const CONSISTENT_REPORTING_STR = '12 months or zero reporting';
+    public const CONSISTENT_REPORTING_STR = '12 months or zero reporting';
 
     public function getConsistentReportingString()
     {

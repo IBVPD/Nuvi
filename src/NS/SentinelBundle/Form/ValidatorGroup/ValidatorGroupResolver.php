@@ -1,45 +1,31 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gnat
- * Date: 19/05/16
- * Time: 10:49 AM
- */
 
 namespace NS\SentinelBundle\Form\ValidatorGroup;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use NS\SentinelBundle\Entity\ACL;
+use NS\SentinelBundle\Entity\User;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class ValidatorGroupResolver
 {
-    /**
-     * @var ObjectManager
-     */
+    /** @var ObjectManager */
     private $entityMgr;
 
-    /**
-     * @var TokenStorageInterface
-     */
+    /** @var TokenStorageInterface */
     private $tokenStorage;
 
-    /**
-     * ValidatorGroupResolver constructor.
-     * @param ObjectManager $entityMgr
-     * @param TokenStorageInterface $tokenStorage
-     */
     public function __construct(ObjectManager $entityMgr, TokenStorageInterface $tokenStorage)
     {
-        $this->entityMgr = $entityMgr;
+        $this->entityMgr    = $entityMgr;
         $this->tokenStorage = $tokenStorage;
     }
 
     /**
      * @inheritDoc
      *
-     * @param array|null $groups
+     * @param array|null    $groups
      * @param FormInterface $form
      *
      * @return array
@@ -49,22 +35,24 @@ class ValidatorGroupResolver
         return array_merge(['Default'], $this->getRegionNames());
     }
 
-    /**
-     * @return array
-     */
-    public function getRegionNames()
+    public function getRegionNames(): array
     {
-        $user      = $this->tokenStorage->getToken()->getUser();
-        $roles     = $user->getRoles();
-        $objectIds = $this->getObjectsFromAcls($user->getAcls());
+        /** @var User|null $user */
+        $user = $this->tokenStorage->getToken()->getUser();
+        if (!$user) {
+            return [];
+        }
 
-        if (in_array('ROLE_REGION', $roles)) {
+        $roles     = $user->getRoles();
+        $objectIds = $this->getObjectsFromAcls($user->getAcls()->toArray());
+
+        if (in_array('ROLE_REGION', $roles, true)) {
             return $objectIds;
         }
 
         $repo = $this->entityMgr->getRepository('NSSentinelBundle:Region');
 
-        if (in_array('ROLE_COUNTRY', $roles)) {
+        if (in_array('ROLE_COUNTRY', $roles, true)) {
             $objects = $repo->getByCountryIds($objectIds);
         } else {
             $objects = $repo->getBySiteIds($objectIds);
@@ -73,11 +61,7 @@ class ValidatorGroupResolver
         return $this->getObjectNames($objects);
     }
 
-    /**
-     * @param $acls
-     * @return array
-     */
-    public function getObjectsFromAcls($acls)
+    public function getObjectsFromAcls(iterable $acls): array
     {
         $ids = [];
         /** @var ACL $acl */
@@ -88,14 +72,10 @@ class ValidatorGroupResolver
         return $ids;
     }
 
-    /**
-     * @param array $objects
-     * @return array
-     */
-    public function getObjectNames($objects)
+    public function getObjectNames(array $objects): array
     {
         $names = [];
-        foreach ((array)$objects as $object) {
+        foreach ($objects as $object) {
             $names[] = $object->getCode();
         }
 

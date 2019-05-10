@@ -10,9 +10,9 @@ use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
  */
 class IsolateViable extends TranslatableArrayChoice
 {
-    const YES            = 1;
-    const NO             = 2;
-    const NOT_APPLICABLE = 3;
+    public const YES            = 1;
+    public const NO             = 2;
+    public const NOT_APPLICABLE = 3;
 
     protected $values = [
         self::YES            => 'Yes',

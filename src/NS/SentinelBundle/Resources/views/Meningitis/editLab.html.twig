@@ -129,14 +129,6 @@
                             </div>
                         </div>
                         <hr/>
-                        {% if form.rlCsfSent is defined %}
-                            <div class="row">
-                                <div class="col-sm-3">{{ form_row(form.rlCsfSent) }}</div>
-                                <div class="col-sm-3">{{ form_row(form.rlCsfDate) }}</div>
-                                <div class="col-sm-3">{{ form_row(form.rlIsolCsfSent) }}</div>
-                                <div class="col-sm-3">{{ form_row(form.rlIsolCsfDate) }}</div>
-                            </div>
-                        {% endif %}
                         {% if form.nlCsfSent is defined %}
                             <div class="row">
                                 <div class="col-sm-3">{{ form_row(form.nlCsfSent) }}</div>
@@ -209,14 +201,6 @@
                             </div>
                         </div>
                         <hr/>
-                        {% if form.rlIsolBloodSent is defined %}
-                            <div class="row">
-                                <div class="col-sm-3">{{ form_row(form.rlIsolBloodSent) }}</div>
-                                <div class="col-sm-3">{{ form_row(form.rlIsolBloodDate) }}</div>
-                                <div class="col-sm-3">{{ form_row(form.rlBrothSent) }}</div>
-                                <div class="col-sm-3">{{ form_row(form.rlBrothDate) }}</div>
-                            </div>
-                        {% endif %}
                         {% if form.nlIsolBloodSent is defined %}
                             <div class="row">
                                 <div class="col-sm-3">{{ form_row(form.nlIsolBloodSent) }}</div>
@@ -337,12 +321,6 @@
                             </div>
                         </div>
                         <hr/>
-                        {% if form.rlOtherSent is defined %}
-                            <div class="row">
-                                <div class="col-sm-3">{{ form_row(form.rlOtherSent) }}</div>
-                                <div class="col-sm-3">{{ form_row(form.rlOtherDate) }}</div>
-                            </div>
-                        {% endif %}
                         {% if form.nlOtherSent is defined %}
                             <div class="row">
                                 <div class="col-sm-3">{{ form_row(form.nlOtherSent) }}</div>

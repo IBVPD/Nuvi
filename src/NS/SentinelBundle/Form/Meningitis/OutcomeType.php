@@ -7,35 +7,22 @@ use NS\SentinelBundle\Form\IBD\Types\DischargeClassification;
 use NS\SentinelBundle\Form\IBD\Types\DischargeDiagnosis;
 use NS\SentinelBundle\Form\IBD\Types\DischargeOutcome;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
-/**
- * Description of OutcomeType
- *
- * @author gnat
- */
 class OutcomeType extends AbstractType
 {
     /** @var AuthorizationCheckerInterface */
     private $authChecker;
 
-    /**
-     * OutcomeType constructor.
-     * @param AuthorizationCheckerInterface $authChecker
-     */
     public function __construct(AuthorizationCheckerInterface $authChecker)
     {
         $this->authChecker = $authChecker;
     }
 
-    /**
-     * @param FormBuilderInterface $builder
-     * @param array $options
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $isPaho = $this->authChecker->isGranted('ROLE_AMR');
 
@@ -48,13 +35,11 @@ class OutcomeType extends AbstractType
                 'label' => 'ibd-form.discharge-class',
                 'exclude_choices' => $isPaho ? [DischargeClassification::SUSPECT]:[],
             ])
+            ->add('dischClassOther', TextType::class, ['required' => false, 'label' => 'ibd-form.discharge-class-other', 'hidden' => ['parent'=> 'dischClass', 'value' => DischargeClassification::CONFIRMED_OTHER]])
             ->add('comment', null, ['required' => false, 'label' => 'ibd-form.comment']);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Meningitis::class,

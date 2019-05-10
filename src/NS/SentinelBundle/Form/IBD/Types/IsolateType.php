@@ -11,10 +11,10 @@ use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
  */
 class IsolateType extends TranslatableArrayChoice implements TranslationContainerInterface
 {
-    const SPN   = 1;
-    const HI    = 2;
-    const NM    = 3;
-    const OTHER = 4;
+    public const SPN   = 1;
+    public const HI    = 2;
+    public const NM    = 3;
+    public const OTHER = 4;
 
     protected $values = [
         self::SPN => 'Spn',

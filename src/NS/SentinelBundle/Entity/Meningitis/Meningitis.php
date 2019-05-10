@@ -27,22 +27,50 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\Meningitis\MeningitisRepository")
  * @ORM\Table(name="mening_cases",uniqueConstraints={@ORM\UniqueConstraint(name="mening_site_case_id_idx",columns={"site_id","case_id"})})
- * @ORM\HasLifecycleCallbacks
+ * @ORM\EntityListeners(value={"NS\SentinelBundle\Entity\Listener\MeningitisListener"})
+ *
  * @Secured(conditions={
  *      @SecuredCondition(roles={"ROLE_REGION"},relation="region",class="NSSentinelBundle:Region"),
  *      @SecuredCondition(roles={"ROLE_COUNTRY","ROLE_RRL_LAB","ROLE_NL_LAB"},relation="country",class="NSSentinelBundle:Country"),
  *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB"},relation="site",class="NSSentinelBundle:Site"),
  *      })
- * @SuppressWarnings(PHPMD.ShortVariable)
- * @ORM\EntityListeners(value={"NS\SentinelBundle\Entity\Listener\MeningitisListener"})
  *
  * @LocalAssert\GreaterThanDate(atPath="adm_date",lessThanField="onsetDate",greaterThanField="admDate",message="form.validation.admission-after-onset")
  * @LocalAssert\GreaterThanDate(atPath="onset_date",lessThanField="birthdate",greaterThanField="onsetDate",message="form.validation.onset-after-dob")
  * @LocalAssert\GreaterThanDate(lessThanField="admDate",greaterThanField="csfCollectDate",message="form.validation.admission-after-csf-collection")
  * @LocalAssert\GreaterThanDate(lessThanField="admDate",greaterThanField="bloodCollectDate",message="form.validation.admission-after-blood-collection")
- *
  * @LocalAssert\RelatedField(sourceField="admDx",sourceValue={"1"},fields={"menSeizures","menFever","menAltConscious","menInabilityFeed","menNeckStiff","menRash","menFontanelleBulge","menLethargy"},message="field-is-required-due-to-adm-diagnosis")
  * @LocalAssert\PCV()
+ *
+ * @LocalAssert\Other(groups={"Completeness"},field="admDx",otherField="admDxOther",value="NS\SentinelBundle\Form\IBD\Types\Diagnosis::OTHER")
+ * @LocalAssert\Other(groups={"Completeness"},field="antibiotics",otherField="antibioticName",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
+ *
+ * @LocalAssert\Other(groups={"Completeness"},field="dischDx",otherField="dischDxOther",value={"NS\SentinelBundle\Form\IBD\Types\DischargeDiagnosis::OTHER","NS\SentinelBundle\Form\IBD\Types\DischargeDiagnosis::OTHER_MENINGITIS","NS\SentinelBundle\Form\IBD\Types\DischargeDiagnosis::OTHER_PNEUMONIA"})
+ * @LocalAssert\Other(groups={"Completeness"},field="dischClass",otherField="dischClassOther",value={"NS\SentinelBundle\Form\IBD\Types\DischargeClassification::CONFIRMED_OTHER"})
+ *
+ * @LocalAssert\Other(groups={"Completeness"}, field="csfCollected", otherField="csfCollectDate",value={"NS\SentinelBundle\Form\Types\TripleChoice::YES"})
+ * @LocalAssert\Other(groups={"Completeness"}, field="csfCollected", otherField="csfCollectTime",value={"NS\SentinelBundle\Form\Types\TripleChoice::YES"})
+ * @LocalAssert\Other(groups={"Completeness"}, field="csfCollected", otherField="csfAppearance",value={"NS\SentinelBundle\Form\Types\TripleChoice::YES"})
+ *
+ * @LocalAssert\Other(groups={"Completeness"}, field="bloodCollected", otherField="bloodCollectDate",value={"NS\SentinelBundle\Form\Types\TripleChoice::YES"})
+ * @LocalAssert\Other(groups={"Completeness"}, field="bloodCollected", otherField="bloodCollectTime",value={"NS\SentinelBundle\Form\Types\TripleChoice::YES"})
+ * @LocalAssert\Other(groups={"AMR+Completeness"},field="bloodCollected",otherField="bloodNumberOfSamples",value={"NS\SentinelBundle\Form\Types\TripleChoice::YES"})
+ *
+ * @LocalAssert\Other(groups={"Completeness"},field="hibReceived",otherField="hibDoses",value={"NS\SentinelBundle\Form\Types\VaccinationReceived::YES_HISTORY","NS\SentinelBundle\Form\Types\VaccinationReceived::YES_CARD"})
+ * @LocalAssert\Other(groups={"Completeness"},field="hibReceived",otherField="hibMostRecentDose",value={"NS\SentinelBundle\Form\Types\VaccinationReceived::YES_HISTORY","NS\SentinelBundle\Form\Types\VaccinationReceived::YES_CARD"})
+ *
+ * @LocalAssert\Other(groups={"Completeness"},field="pcvReceived",otherField="pcvType",value={"NS\SentinelBundle\Form\Types\VaccinationReceived::YES_HISTORY","NS\SentinelBundle\Form\Types\VaccinationReceived::YES_CARD"})
+ * @LocalAssert\Other(groups={"Completeness"},field="pcvReceived",otherField="pcvMostRecentDose",value={"NS\SentinelBundle\Form\Types\VaccinationReceived::YES_HISTORY","NS\SentinelBundle\Form\Types\VaccinationReceived::YES_CARD"})
+ *
+ * @LocalAssert\Other(groups={"Completeness"},field="meningReceived",otherField="meningType",value={"NS\SentinelBundle\Form\Types\VaccinationReceived::YES_HISTORY","NS\SentinelBundle\Form\Types\VaccinationReceived::YES_CARD"})
+ * @LocalAssert\Other(groups={"Completeness"},field="meningReceived",otherField="meningDate",value={"NS\SentinelBundle\Form\Types\VaccinationReceived::YES_HISTORY","NS\SentinelBundle\Form\Types\VaccinationReceived::YES_CARD"})
+ *
+ * @LocalAssert\Other(
+ *     groups={"ARF+Completeness","EMR+Completeness","EUR+Completeness","SEAR+Completeness","WPR+Completeness"},
+ *     field="otherSpecimenCollected",
+ *     otherField="otherSpecimenOther",
+ *     value={"NS\SentinelBundle\Form\IBD\Types\OtherSpecimen::OTHER"})
+ *
  * @Serializer\AccessorOrder("custom", custom = {"region.code", "country.code", "site.code", "case_id","firstName","lastName","parentalName","gender","dobKnown","birthdate","district","state","id","age_months","ageDistribution","adm_date",
  *     "adm_dx","adm_dx_other","onset_date","antibiotics",
  *     "men_seizures","men_fever","men_alt_conscious","men_inability_feed","men_neck_stiff","men_rash","men_fontanelle_bulge","men_lethargy","men_irritability","men_vomit","men_malnutrition",
@@ -142,6 +170,7 @@ class Meningitis extends BaseCase
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
      * @Assert\DateTime
      * @LocalAssert\NoFutureDate()
+     * @Assert\NotBlank(groups={"Completeness"})
      */
     private $onset_date;
 
@@ -149,8 +178,7 @@ class Meningitis extends BaseCase
      * @var Diagnosis|null
      * @ORM\Column(name="adm_dx",type="Diagnosis",nullable=true)
      * @Serializer\Groups({"api","export"})
-     * @Assert\NotBlank(groups={"AMR"})
-     * @ArrayChoiceConstraint(groups={"AMR"})
+     * @ArrayChoiceConstraint(groups={"AMR","Completeness"})
      */
     private $adm_dx;
 
@@ -165,6 +193,7 @@ class Meningitis extends BaseCase
      * @var TripleChoice|null
      * @ORM\Column(name="antibiotics",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $antibiotics;
 
@@ -180,6 +209,7 @@ class Meningitis extends BaseCase
      * @var TripleChoice|null
      * @ORM\Column(name="men_seizures",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $men_seizures;
 
@@ -187,6 +217,7 @@ class Meningitis extends BaseCase
      * @var TripleChoice|null
      * @ORM\Column(name="men_fever",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $men_fever;
 
@@ -194,6 +225,7 @@ class Meningitis extends BaseCase
      * @var TripleChoice|null
      * @ORM\Column(name="men_alt_conscious",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $men_alt_conscious;
 
@@ -201,6 +233,7 @@ class Meningitis extends BaseCase
      * @var TripleChoice|null
      * @ORM\Column(name="men_inability_feed",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $men_inability_feed;
 
@@ -208,6 +241,7 @@ class Meningitis extends BaseCase
      * @var TripleChoice|null
      * @ORM\Column(name="men_neck_stiff",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $men_neck_stiff;
 
@@ -215,6 +249,7 @@ class Meningitis extends BaseCase
      * @var TripleChoice|null
      * @ORM\Column(name="men_rash",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $men_rash;
 
@@ -222,6 +257,7 @@ class Meningitis extends BaseCase
      * @var TripleChoice|null
      * @ORM\Column(name="men_fontanelle_bulge",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $men_fontanelle_bulge;
 
@@ -229,6 +265,7 @@ class Meningitis extends BaseCase
      * @var TripleChoice|null
      * @ORM\Column(name="men_lethargy",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $men_lethargy;
 
@@ -237,6 +274,7 @@ class Meningitis extends BaseCase
      * @var TripleChoice|null
      * @ORM\Column(name="men_irritability",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $men_irritability;
 
@@ -244,6 +282,7 @@ class Meningitis extends BaseCase
      * @var TripleChoice|null
      * @ORM\Column(name="men_vomit",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $men_vomit;
 
@@ -251,6 +290,7 @@ class Meningitis extends BaseCase
      * @var TripleChoice|null
      * @ORM\Column(name="men_malnutrition",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $men_malnutrition;
 
@@ -259,8 +299,7 @@ class Meningitis extends BaseCase
      * @var VaccinationReceived|null
      * @ORM\Column(name="hib_received",type="VaccinationReceived",nullable=true)
      * @Serializer\Groups({"api","export"})
-     * @Assert\NotBlank(groups={"AMR"})
-     * @ArrayChoiceConstraint(groups={"AMR"})
+     * @ArrayChoiceConstraint(groups={"AMR", "Completeness"})
      */
     private $hib_received;
 
@@ -285,8 +324,7 @@ class Meningitis extends BaseCase
      * @var VaccinationReceived|null
      * @ORM\Column(name="pcv_received",type="VaccinationReceived",nullable=true)
      * @Serializer\Groups({"api","export"})
-     * @Assert\NotBlank(groups={"AMR"})
-     * @ArrayChoiceConstraint(groups={"AMR"})
+     * @ArrayChoiceConstraint(groups={"AMR","Completeness"})
      */
     private $pcv_received;
 
@@ -317,8 +355,7 @@ class Meningitis extends BaseCase
      * @var VaccinationReceived|null
      * @ORM\Column(name="mening_received",type="VaccinationReceived",nullable=true)
      * @Serializer\Groups({"api","export"})
-     * @Assert\NotBlank(groups={"AMR"})
-     * @ArrayChoiceConstraint(groups={"AMR"})
+     * @ArrayChoiceConstraint(groups={"AMR", "Completeness"})
      */
     private $mening_received;
 
@@ -345,6 +382,7 @@ class Meningitis extends BaseCase
      * @var TripleChoice|null
      * @ORM\Column(name="csf_collected",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $csf_collected;
 
@@ -376,6 +414,7 @@ class Meningitis extends BaseCase
      * @var TripleChoice|null
      * @ORM\Column(name="blood_collected", type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $blood_collected;
 
@@ -400,6 +439,7 @@ class Meningitis extends BaseCase
      * @var OtherSpecimen|null
      * @ORM\Column(name="other_specimen_collected",type="OtherSpecimen",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @ArrayChoiceConstraint(groups={"ARF+Completeness","EMR+Completeness","EUR+Completeness","SEAR+Completeness","WPR+Completeness"})
      */
     private $other_specimen_collected;
 
@@ -415,6 +455,7 @@ class Meningitis extends BaseCase
      * @var DischargeOutcome|null
      * @ORM\Column(name="disch_outcome",type="IBDDischargeOutcome",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $disch_outcome;
 
@@ -422,6 +463,7 @@ class Meningitis extends BaseCase
      * @var DischargeDiagnosis|null
      * @ORM\Column(name="disch_dx",type="IBDDischargeDiagnosis",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $disch_dx;
 
@@ -436,6 +478,7 @@ class Meningitis extends BaseCase
      * @var DischargeClassification|null
      * @ORM\Column(name="disch_class",type="IBDDischargeClassification",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $disch_class;
 
@@ -473,6 +516,7 @@ class Meningitis extends BaseCase
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
      * @LocalAssert\NoFutureDate()
+     * @LocalAssert\SecondBlood(groups={"AMR+Completeness"})
      */
     private $blood_second_collect_date;
 
@@ -481,6 +525,7 @@ class Meningitis extends BaseCase
      * @ORM\Column(name="blood_second_collect_time",type="time",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'H:i:s'>")
+     * @LocalAssert\SecondBlood(groups={"AMR+Completeness"})
      */
     private $blood_second_collect_time;
 
@@ -911,7 +956,7 @@ class Meningitis extends BaseCase
         $this->disch_class_other= $dischClassOther;
     }
 
-    //========================================
+    //****************************************
     //PAHO/AMR specific fields
 
     public function getBloodNumberOfSamples(): ?int
@@ -943,57 +988,4 @@ class Meningitis extends BaseCase
     {
         $this->blood_second_collect_time = $blood_second_collect_time;
     }
-
-//    /**
-//     * @param ExecutionContextInterface $context
-//     */
-//    public function validate(ExecutionContextInterface $context)
-//    {
-//        // with both an admission date and onset date, ensure the admission happened after onset
-//        if($this->admDate && $this->onsetDate && $this->admDate < $this->onsetDate)
-//            $context->addViolationAt('admDate', "form.validation.admission-after-onset");
-//
-//        // with both an birthdate and onset date, ensure the onset is after birthdate
-//        if($this->birthdate && $this->onsetDate && $this->onsetDate < $this->birthdate)
-//            $context->addViolationAt ('birthdate', "form.validation.onset-after-dob");
-//
-// The following validations need to store errors in the object or force form validation prior to form submission
-//        // if admission diagnosis is other, enforce value in 'admission diagnosis other' field
-//        if($this->adm_dx && $this->adm_dx->equal(Diagnosis::OTHER) && empty($this->adm_dxOther))
-//            $context->addViolationAt('adm_dx',"form.validation.admissionDx-other-without-other-text");
-//
-//        // if discharge diagnosis is other, enforce value in 'discharge diagnosis other' field
-//        if($this->dischDx && $this->dischDx->equal(Diagnosis::OTHER) && empty($this->dischDxOther))
-//            $context->addViolationAt('dischDx',"form.validation.dischargeDx-other-without-other-text");
-//
-//        if($this->hibReceived && $this->hibReceived->equal(?TripleChoice::YES) && (is_null($this->hibDoses) || $this->hibDoses->equal(ArrayChoice::NO_SELECTION)))
-//            $context->addViolationAt('hibDoses', "form.validation.hibReceived-other-hibDoses-unselected");
-//
-//        if($this->pcvReceived && $this->pcvReceived->equal(?TripleChoice::YES) && (is_null($this->pcvDoses) || $this->pcvDoses->equal(ArrayChoice::NO_SELECTION)))
-//            $context->addViolationAt('pcvDoses', "form.validation.pcvReceived-other-pcvDoses-unselected '".$this->pcvReceived."'" );
-//
-//        if($this->meningReceived && ($this->meningReceived->equal(MeningitisVaccinationReceived::YES_CARD ) || $this->meningReceived->equal(MeningitisVaccinationReceived::YES_HISTORY)))
-//        {
-//            if(is_null($this->meningType))
-//                $context->addViolationAt('meningType', "form.validation.meningReceived-meningType-empty");
-//
-//            if($this->meningType->equal(ArrayChoice::NO_SELECTION))
-//                $context->addViolationAt('meningType', "form.validation.meningReceived-meningType-empty");
-//
-//            if(is_null($this->mening_date))
-//                $context->addViolationAt('meningType', "form.validation.meningReceived-meningMostRecentDose-empty");
-//        }
-//
-//        if($this->csfCollected && $this->csfCollected->equal(?TripleChoice::YES))
-//        {
-//            if(is_null($this->csfId) || empty($this->csfId))
-//                $context->addViolationAt('csfId', "form.validation.csfCollected-csfId-empty");
-//
-//            if(is_null($this->csfCollectDateTime))
-//                $context->addViolationAt('csfId', "form.validation.csfCollected-csfCollectDateTime-empty");
-//
-//            if(is_null($this->csfAppearance) || $this->csfAppearance->equal(ArrayChoice::NO_SELECTION))
-//                $context->addViolationAt('csfId', "form.validation.csfCollected-csfAppearance-empty");
-//        }
-//    }
 }

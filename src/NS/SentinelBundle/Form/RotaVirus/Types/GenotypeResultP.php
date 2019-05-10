@@ -11,25 +11,25 @@ use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
  */
 class GenotypeResultP extends TranslatableArrayChoice implements TranslationContainerInterface
 {
-    const P1 = 1;
-    const P2 = 2;
-    const P3 = 3;
-    const P4 = 4;
-    const P5 = 5;
-    const P6 = 6;
-    const P7 = 7;
-    const P8 = 8;
-    const P9 = 9;
-    const P10 = 10;
-    const P11 = 11;
-    const P12 = 12;
-    const P14 = 14;
-    const P19 = 19;
-    const P25 = 25;
-    const P28 = 28;
-    const NON_TYPEABLE = 30;
-    const MIXED = 40;
-    const OTHER = 50;
+    public const P1 = 1;
+    public const P2 = 2;
+    public const P3 = 3;
+    public const P4 = 4;
+    public const P5 = 5;
+    public const P6 = 6;
+    public const P7 = 7;
+    public const P8 = 8;
+    public const P9 = 9;
+    public const P10 = 10;
+    public const P11 = 11;
+    public const P12 = 12;
+    public const P14 = 14;
+    public const P19 = 19;
+    public const P25 = 25;
+    public const P28 = 28;
+    public const NON_TYPEABLE = 30;
+    public const MIXED = 40;
+    public const OTHER = 50;
 
     protected $values = [
         self::P1 => 'P[1]',

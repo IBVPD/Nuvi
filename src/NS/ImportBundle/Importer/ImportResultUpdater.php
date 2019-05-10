@@ -42,7 +42,7 @@ class ImportResultUpdater
 
         $this->buildWarnings($import, $result->getReports(), $writeHeaders);
         $this->buildExceptions($import, $result->getExceptions(), $writeHeaders);
-        $this->buildErrors($import, $result->getReports(), ($writeHeaders && $result->getExceptions()->count() > 0));
+        $this->buildErrors($import, $result->getReports(), $writeHeaders && $result->getExceptions()->count() > 0);
         $this->buildSuccesses($import, $entities, $writeHeaders);
     }
 
@@ -76,7 +76,7 @@ class ImportResultUpdater
         while ($reports->valid()) {
             $obj = $reports->current();
             foreach ($obj->getMessages($severity) as $message) {
-                $item = ['row' => $obj->getRow(), 'message' => $message->getMessage(),'column'=>($message->getColumn()?$message->getColumn():'unknown')];
+                $item = ['row' => $obj->getRow(), 'message' => $message->getMessage(),'column'=> $message->getColumn()?$message->getColumn():'unknown'];
 
                 if ($writeHeader && $first) {
                     $headers = array_keys($item);
@@ -111,7 +111,7 @@ class ImportResultUpdater
             $object = $exceptions->current(); // similar to current($s)
             $row = $exceptions->offsetGet($object);
 
-            $item = ['row' => $row, 'column' => $object->getMessage(), 'message' => ($object->getPrevious()) ? $object->getPrevious()->getMessage() : null];
+            $item = ['row' => $row, 'column' => $object->getMessage(), 'message' => $object->getPrevious() ? $object->getPrevious()->getMessage() : null];
             if ($writeHeader && $first) {
                 $headers = array_keys($item);
                 $fileWriter->fputcsv($headers);
@@ -135,7 +135,7 @@ class ImportResultUpdater
         while ($reports->valid()) {
             $obj = $reports->current();
             foreach ($obj->getMessages(ReporterInterface::ERROR) as $message) {
-                $item = ['row' => $obj->getRow(), 'message' => $message->getMessage(),'column'=>($message->getColumn()?$message->getColumn():'unknown')];
+                $item = ['row' => $obj->getRow(), 'message' => $message->getMessage(),'column'=> $message->getColumn()?$message->getColumn():'unknown'];
 
                 if ($writeHeader && $first) {
                     $headers = array_keys($item);

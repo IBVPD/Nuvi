@@ -19,24 +19,17 @@ class NationalLabType extends AbstractType
     /** @var SerializedSites */
     private $siteSerializer;
 
-    /**
-     * NationalLabType constructor.
-     * @param SerializedSites $siteSerializer
-     */
     public function __construct(SerializedSites $siteSerializer)
     {
         $this->siteSerializer = $siteSerializer;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->addEventListener(FormEvents::POST_SET_DATA,[$this,'postSetData']);
     }
 
-    public function postSetData(FormEvent $event)
+    public function postSetData(FormEvent $event): void
     {
         $data = $event->getData();
         $form = $event->getForm();
@@ -63,20 +56,14 @@ class NationalLabType extends AbstractType
         }
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => NationalLab::class
         ]);
     }
 
-    /**
-     * @return string
-     */
-    public function getParent()
+    public function getParent(): string
     {
         return BaseLabType::class;
     }

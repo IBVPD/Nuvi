@@ -19,14 +19,13 @@
                 <td>{{ row.lastName }}</td>
                 <td>{% if row.admDate %}{{ row.admDate|date('d/m/Y') }}{% endif %}</td>
                 <td class='hidden-480'>
-                    {{case_label(row,'EPI'|trans)}}
-                    {{case_lab_label(row,'LAB'|trans)}}
+                    {{ case_label(row,'EPI'|trans) }}
+                    {{ case_lab_label(row,'LAB'|trans) }}
+                    {{ case_nl_label(row,'NL'|trans) }}
+                    {{ case_rrl_label(row,'RRL'|trans) }}
                 </td>
                 <td>
-                    <div class="visible-md visible-lg hidden-sm hidden-xs btn-group">{{case_big_actions(row,false)}}</div>
-                    <div class="visible-xs visible-sm hidden-md hidden-lg">
-                        <div class="inline position-relative">{{case_sm_actions(row)}}</div>
-                    </div>
+                    <div class="inline position-relative">{{case_sm_actions(row)}}</div>
                 </td>
             </tr>
         {% endfor %}

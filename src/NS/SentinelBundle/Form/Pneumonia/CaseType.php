@@ -149,6 +149,7 @@ class CaseType extends AbstractType
             ->add('admDate', DatePickerType::class, ['required' => $required || $isPaho, 'label' => 'ibd-form.adm-date', 'property_path' => 'adm_date'])
             ->add('dischDx',    DischargeDiagnosis::class, ['required' => false, 'label' => 'ibd-form.discharge-diagnosis', 'exclude_choices' => $isPaho ? [DischargeDiagnosis::UNKNOWN, DischargeDiagnosis::SEPSIS]:null])
             ->add('dischClass', DischargeClassification::class, ['required' => false, 'label' => 'ibd-form.discharge-class', 'exclude_choices' => $isPaho ? [DischargeClassification::UNKNOWN, DischargeClassification::SUSPECT] : null])
+            ->add('dischClassOther', TextType::class, ['required' => false, 'label' => 'ibd-form.discharge-class-other', 'hidden' => ['parent'=> 'dischClass', 'value' => DischargeClassification::CONFIRMED_OTHER]])
             ->add('hibReceived', VaccinationReceived::class, ['required' => $required || $isPaho, 'label' => 'ibd-form.hib-received','property_path'=>'hib_received'])
             ->add('pcvReceived', VaccinationReceived::class, ['required' => $required || $isPaho, 'label' => 'ibd-form.pcv-received','property_path'=>'pcv_received'])
             ->add('meningReceived', VaccinationReceived::class, ['required' => $required || $isPaho, 'label' => 'ibd-form.men-received','property_path' => 'mening_received'])
@@ -168,11 +169,12 @@ class CaseType extends AbstractType
                 ->add('pleuralFluidCollected', TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pleural-fluid-collected'])
                 ->add('pleuralFluidCollectDate', DatePickerType::class, ['required' => $required, 'hidden' => ['parent' => 'pleuralFluidCollected', 'value' => TripleChoice::YES], 'label' => 'ibd-form.pleural-fluid-collection-date'])
                 ->add('pleuralFluidCollectTime', TimeType::class, ['required' => $required, 'hidden' => ['parent' => 'pleuralFluidCollected', 'value' => TripleChoice::YES], 'label' => 'ibd-form.pleural-fluid-collection-time']);
-        } else {
-            $form
-                ->add('otherSpecimenCollected', OtherSpecimen::class, ['required' => $required, 'label' => 'ibd-form.otherSpecimenCollected'])
-                ->add('otherSpecimenOther', null, ['required' => $required, 'label' => 'ibd-form.otherSpecimenOther', 'hidden' => ['parent' => 'otherSpecimenCollected', 'value' => OtherSpecimen::OTHER]]);
+            return;
         }
+
+        $form
+            ->add('otherSpecimenCollected', OtherSpecimen::class, ['required' => $required, 'label' => 'ibd-form.otherSpecimenCollected'])
+            ->add('otherSpecimenOther', null, ['required' => $required, 'label' => 'ibd-form.otherSpecimenOther', 'hidden' => ['parent' => 'otherSpecimenCollected', 'value' => OtherSpecimen::OTHER]]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

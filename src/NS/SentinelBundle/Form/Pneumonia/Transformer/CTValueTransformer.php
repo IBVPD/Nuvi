@@ -4,17 +4,8 @@ namespace NS\SentinelBundle\Form\Pneumonia\Transformer;
 
 use Symfony\Component\Form\DataTransformerInterface;
 
-/**
- * Description of CTValueTransformer
- *
- * @author gnat
- */
 class CTValueTransformer implements DataTransformerInterface
 {
-
-    /**
-     * {@inheritdoc}
-     */
     public function reverseTransform($value)
     {
         if (empty($value)) {
@@ -32,9 +23,6 @@ class CTValueTransformer implements DataTransformerInterface
         return null;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function transform($value)
     {
         if (is_numeric($value)) {

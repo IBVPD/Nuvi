@@ -7,28 +7,23 @@ use NS\SentinelBundle\Form\IBD\Types\CultureResult;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-/**
- * Description of SiteLabTest
- *
- * @author gnat
- */
 class SiteLabTest extends WebTestCase
 {
 
     /**
      * @dataProvider getIncompleteSiteLabs
+     *
      * @param $failSite
      * @param $failures
      * @param $message
      * @param $path
      * @param $passSite
      */
-    public function testSiteLabValidation($failSite, $failures, $message, $path, $passSite)
+    public function testSiteLabValidation($failSite, $failures, $message, $path, $passSite): void
     {
-        $kernel    = $this->getKernel();
-        $validator = $kernel->getContainer()->get('validator');
-
-        $violationList1 = $validator->validate($failSite);
+        $kernel         = $this->getKernel();
+        $validator      = $kernel->getContainer()->get('validator');
+        $violationList1 = $validator->validate($failSite, null, ['Default']);
 
         $this->assertEquals($failures, $violationList1->count());
         $this->assertEquals($message, $violationList1[0]->getMessage());
@@ -38,19 +33,19 @@ class SiteLabTest extends WebTestCase
         $this->assertEquals(0, $violationList2->count());
     }
 
-    public function getSiteLab()
+    public function getSiteLab(): SiteLab
     {
         return new SiteLab();
     }
 
-    public function getIncompleteSiteLabs()
+    public function getIncompleteSiteLabs(): array
     {
         return [
             [
                 'failSite' => $this->getSiteLab()->setCsfCultDone(new TripleChoice(TripleChoice::YES)),
                 'failures' => 1,
-                'message'  => 'form.validation.ibd-sitelab-csfCult-was-done-without-result',
-                'path'     => 'csfCultDone',
+                'message' => 'This value should not be blank',
+                'path' => 'csfCultResult',
                 'passSite' => $this->getSiteLab()->setCsfCultDone(new TripleChoice(TripleChoice::YES))->setCsfCultResult(new CultureResult(CultureResult::NEGATIVE)),
             ],
 //            [

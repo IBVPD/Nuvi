@@ -7,136 +7,136 @@ use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 
 class SpnSerotype extends TranslatableArrayChoice implements TranslationContainerInterface
 {
-    const _1 = 1;
-    const _2 = 2;
-    const _3 = 3;
-    const _4 = 4;
-    const _5 = 5;
-    const _8 = 6;
-    const _13 = 7;
-    const _14 = 8;
-    const _20 = 9;
-    const _21 = 10;
-    const _31 = 11;
-    const _34 = 12;
-    const _38 = 13;
-    const _39 = 14;
-    const _45 = 15;
-    const _46 = 16;
+    public const _1 = 1;
+    public const _2 = 2;
+    public const _3 = 3;
+    public const _4 = 4;
+    public const _5 = 5;
+    public const _8 = 6;
+    public const _13 = 7;
+    public const _14 = 8;
+    public const _20 = 9;
+    public const _21 = 10;
+    public const _31 = 11;
+    public const _34 = 12;
+    public const _38 = 13;
+    public const _39 = 14;
+    public const _45 = 15;
+    public const _46 = 16;
 
-    const _6A = 47;
-    const _6A_VARIANT = 48;
-    const _6B = 49;
-    const _6C = 50;
-    const _7C_VARIANT = 51;
+    public const _6A = 47;
+    public const _6A_VARIANT = 48;
+    public const _6B = 49;
+    public const _6C = 50;
+    public const _7C_VARIANT = 51;
 
-    const _6D = 100;
-    const _6ABCD = 101;
-    const _6CD = 102;
+    public const _6D = 100;
+    public const _6ABCD = 101;
+    public const _6CD = 102;
 
-    const _7C = 52;
-    const _7F = 53;
-    const _7F_VARIANT = 54;
-    const _9A = 55;
-    const _9N = 56;
-    const _9N_VARIANT = 57;
-    const _9V = 58;
-    const _9V_VARIANT = 59;
+    public const _7C = 52;
+    public const _7F = 53;
+    public const _7F_VARIANT = 54;
+    public const _9A = 55;
+    public const _9N = 56;
+    public const _9N_VARIANT = 57;
+    public const _9V = 58;
+    public const _9V_VARIANT = 59;
 
-    const _7A = 103;
-    const _7B = 104;
+    public const _7A = 103;
+    public const _7B = 104;
 
-    const _9L = 107;
+    public const _9L = 107;
 
-    const _10B = 110;
-    const _10C = 111;
-    const _10FC33C = 112;
+    public const _10B = 110;
+    public const _10C = 111;
+    public const _10FC33C = 112;
 
-    const _10A = 17;
-    const _10F = 18;
-    const _11A = 19;
-    const _11A_VARIANT = 20;
+    public const _10A = 17;
+    public const _10F = 18;
+    public const _11A = 19;
+    public const _11A_VARIANT = 20;
 
-    const _11B = 113;
-    const _11C = 114;
-    const _11D = 115;
-    const _11F = 116;
+    public const _11B = 113;
+    public const _11C = 114;
+    public const _11D = 115;
+    public const _11F = 116;
 
-    const _12A = 21;
-    const _12F = 22;
-    const _12F_VARIANT = 23;
+    public const _12A = 21;
+    public const _12F = 22;
+    public const _12F_VARIANT = 23;
 
-    const _12B = 118;
+    public const _12B = 118;
 
-    const _15A = 24;
-    const _15B = 25;
-    const _15B_VARIANT = 26;
-    const _15C = 27;
+    public const _15A = 24;
+    public const _15B = 25;
+    public const _15B_VARIANT = 26;
+    public const _15C = 27;
 
-    const _15F = 120;
+    public const _15F = 120;
 
-    const _16A = 123;
-    const _16F = 28;
+    public const _16A = 123;
+    public const _16F = 28;
 
-    const _17A = 124;
+    public const _17A = 124;
 
-    const _17F = 29;
-    const _18A = 127;
-    const _18C = 31;
+    public const _17F = 29;
+    public const _18A = 127;
+    public const _18C = 31;
 
-    const _18B = 125;
-    const _18F = 126;
-    const _18_ABCF = 30;
+    public const _18B = 125;
+    public const _18F = 126;
+    public const _18_ABCF = 30;
 
-    const _19A = 32;
-    const _19B = 128;
-    const _19C = 129;
-    const _19F = 33;
-    const _19BF = 130;
-    const _19F_VARIANT = 131;
+    public const _19A = 32;
+    public const _19B = 128;
+    public const _19C = 129;
+    public const _19F = 33;
+    public const _19BF = 130;
+    public const _19F_VARIANT = 131;
 
-    const _22A = 132;
-    const _22F = 34;
-    const _22FA = 35;
-    const _23A = 36;
-    const _23B = 37;
-    const _23F = 38;
-    const _24A = 135;
-    const _24B = 133;
-    const _24F = 134;
-    const _24_ABF = 39;
-    const _25A = 136;
-    const _25F = 137;
-    const _25_FA_38 = 41;
+    public const _22A = 132;
+    public const _22F = 34;
+    public const _22FA = 35;
+    public const _23A = 36;
+    public const _23B = 37;
+    public const _23F = 38;
+    public const _24A = 135;
+    public const _24B = 133;
+    public const _24F = 134;
+    public const _24_ABF = 39;
+    public const _25A = 136;
+    public const _25F = 137;
+    public const _25_FA_38 = 41;
 
-    const _28A = 138;
-    const _28F = 139;
+    public const _28A = 138;
+    public const _28F = 139;
 
-    const _32A = 140;
-    const _32F = 141;
-    const _33A = 142;
-    const _33B = 143;
-    const _33C = 144;
-    const _33D = 145;
+    public const _32A = 140;
+    public const _32F = 141;
+    public const _33A = 142;
+    public const _33B = 143;
+    public const _33C = 144;
+    public const _33D = 145;
 
-    const _33F = 42;
-    const _33F_VARIANT = 43;
-    const _35A = 44;
-    const _35B = 45;
-    const _35C = 147;
-    const _35F = 46;
-    const _35_AC_42 = 148;
-    const _35F_47F = 149;
-    const _38_25F_25A = 150;
-    const _41A = 151;
-    const _41F = 152;
-    const _47A = 153;
-    const _47F = 154;
+    public const _33F = 42;
+    public const _33F_VARIANT = 43;
+    public const _35A = 44;
+    public const _35B = 45;
+    public const _35C = 147;
+    public const _35F = 46;
+    public const _35_AC_42 = 148;
+    public const _35F_47F = 149;
+    public const _38_25F_25A = 150;
+    public const _41A = 151;
+    public const _41F = 152;
+    public const _47A = 153;
+    public const _47F = 154;
 
-    const _HIGH_LYTA_VALUE = 90;
-    const _NON_PCV_13_SEROTYPE = 91;
-    const _NOT_DONE = 92;
-    const OTHER = 99;
+    public const _HIGH_LYTA_VALUE = 90;
+    public const _NON_PCV_13_SEROTYPE = 91;
+    public const _NOT_DONE = 92;
+    public const OTHER = 99;
 
     protected $values = [
         self::_1 => '1',

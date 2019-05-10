@@ -26,8 +26,12 @@ services:
     tags:
       - { name: twig.extension }
 
+  ns_sentinel.camel_case_to_snake_case:
+    class: Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter
+
   ns.sentinel.twig.case_status:
     class: NS\SentinelBundle\Twig\CaseStatus
+    arguments: ['@ns_sentinel.cached_validator', '@ns_sentinel.camel_case_to_snake_case']
     tags:
       - { name: twig.extension }
 

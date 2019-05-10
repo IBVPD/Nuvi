@@ -1,9 +1,21 @@
-{%extends "NSSentinelBundle::layout.html.twig" %}
+{% extends "NSSentinelBundle::layout.html.twig" %}
 {% block pagetitle %}{{'View Case %id%'|trans({'%id%': record.id})}}{%endblock %}
 
-{%block pageactions %}
+{% block pageactions %}
     <div class="pull-right">{{case_big_actions(record,true)}}</div>
-{%endblock %}
+{% endblock %}
+
+{% block inlinestyles %}
+    {{ parent() }}
+    <style>
+        ul.complete {
+            list-style: none;
+            color: red;
+        }
+    </style>
+{% endblock %}
+
+{% import 'NSSentinelBundle:Case:show-macros.html.twig' as macros %}
 
 {% block body %}
     <div class="col-sm-12">
@@ -25,217 +37,162 @@
             <div class="tab-content">
                 <div id="demographics" class="tab-pane active">
                     <table class="table table-striped table-bordered table-hover">
-                        <tr>
-                            <th>{{'ibd-form.id'|trans}}</th>
-                            <td>{{record.id}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.case-id'|trans}}</th>
-                            <td>{{record.caseId}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.dob'|trans}}</th>
-                            <td>{%if record.birthdate %}{{record.birthdate|date('F j, Y')}}{%endif%}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.age'|trans}}</th>
-                            <td>{{record.age}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.gender'|trans}}</th>
-                            <td>{{record.gender|trans}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.first-name'|trans}}</th>
-                            <td>{{record.firstName}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.last-name'|trans}}</th>
-                            <td>{{record.lastName}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.parental-name'|trans}}</th>
-                            <td>{{record.parentalName}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'rotavirus-form.district'|trans}}</th>
-                            <td>{{record.district}}</td>
-                        </tr>
+                        {{ macros.case_row(record,'id', 'ibd-form.id', false) }}
+                        {{ macros.case_row(record,'caseId', 'ibd-form.case-id', false) }}
+                        {{ macros.case_row(record,'birthdate', 'ibd-form.dob', 'F j, Y') }}
+                        {{ macros.case_row(record,'age', 'ibd-form.age') }}
+                        {{ macros.case_row(record,'gender', 'ibd-form.gender') }}
+                        {{ macros.case_row(record,'firstName', 'ibd-form.first-name') }}
+                        {{ macros.case_row(record,'lastName', 'ibd-form.last-name') }}
+                        {{ macros.case_row(record,'parentalName', 'ibd-form.parental-name') }}
+                        {{ macros.case_row(record,'district', 'ibd-form.district') }}
                     </table>
                 </div>
 
                 <div id="vacination" class="tab-pane">
                     <table class="table table-striped table-bordered table-hover">
-                        <tr>
-                            <th>{{'ibd-form.hib-received'|trans}}</th>
-                            <td>{{record.hibReceived|trans}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.hib-doses'|trans}}</th>
-                            <td>{{record.hibDoses|trans}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.hib-most-recent-dose'|trans}}</th>
-                            <td>{% if record.hibMostRecentDose %}
-                                    {{ record.hibMostRecentDose|date }}
-                                {% endif %}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.pcv-received'|trans}}</th>
-                            <td>{{record.pcvReceived|trans}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.pcv-doses'|trans}}</th>
-                            <td>{{record.pcvDoses|trans}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.pcv-type'|trans}}</th>
-                            <td>{{record.pcvType|trans}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.pcv-most-recent-dose'|trans}}</th>
-                            <td>{% if record.pcvMostRecentDose %}
-                                    {{record.pcvMostRecentDose|date}}
-                                {% endif %}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.mening-received'|trans}}</th>
-                            <td>{{record.meningReceived|trans}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.men-type'|trans}}</th>
-                            <td>{{record.meningType|trans}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.meningMostRecentDose'|trans}}</th>
-                            <td>{% if record.meningDate %}{{ record.meningDate|date }}{% endif %}</td>
-                        </tr>
+                        {{ macros.case_row(record, 'hibReceived', 'ibd-form.hib-received') }}
+                        {{ macros.case_row(record, 'hibDoses', 'ibd-form.hib-doses') }}
+                        {{ macros.case_row(record, 'hibMostRecentDose', 'ibd-form.hib-most-recent-dose') }}
+
+                        {{ macros.case_row(record, 'pcvReceived', 'ibd-form.pcv-received') }}
+                        {{ macros.case_row(record, 'pcvDoses', 'ibd-form.pcv-doses') }}
+                        {{ macros.case_row(record, 'pcvType', 'ibd-form.pcv-type') }}
+                        {{ macros.case_row(record, 'pcvMostRecentDose', 'ibd-form.pcv-most-recent-dose') }}
+
+                        {{ macros.case_row(record, 'meningReceived', 'ibd-form.mening-received') }}
+                        {{ macros.case_row(record, 'meningType', 'ibd-form.men-type') }}
+                        {{ macros.case_row(record, 'meningDate', 'ibd-form.meningMostRecentDose') }}
                     </table>
                 </div>
 
                 <div id="clinical" class="tab-pane">
                     <table class="table table-striped table-bordered table-hover">
-                        <tr>
-                            <th>{{'ibd-form.adm-date'|trans}}</th>
-                            <td>{%if record.admDate %}{{record.admDate|date}}{%endif%}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.adm-dx'|trans}}</th>
-                            <td>{{record.admDx|trans}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.adm-dx-other'|trans}}</th>
-                            <td>{{record.admDxOther|trans}}</td>
-                        </tr>
+                        {{ macros.case_row(record, 'admDate', 'ibd-form.adm-date') }}
+                        {{ macros.case_row(record, 'admDx', 'ibd-form.adm-dx') }}
+                        {{ macros.case_row(record, 'admDxOther', 'ibd-form.adm-dx-other') }}
                     </table>
                 </div>
 
                 <div id="meningitis" class="tab-pane">
                     <table class="table table-striped table-bordered table-hover">
-                        <tr>
-                            <th>{{'ibd-form.men-seizures'|trans}}</th>
-                            <td>{{record.menSeizures|trans}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.men-fever'|trans}}</th>
-                            <td>{{record.menFever|trans}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.men-alt-conscious'|trans}}</th>
-                            <td>{{record.menAltConscious|trans}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.men-inability-feed'|trans}}</th>
-                            <td>{{record.menInabilityFeed|trans}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.men-neck-stiff'|trans}}</th>
-                            <td>{{record.menNeckStiff|trans}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.men-rash'|trans}}</th>
-                            <td>{{record.menRash|trans}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.men-fontanelle-bulge'|trans}}</th>
-                            <td>{{record.menFontanelleBulge|trans}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.men-lethargy'|trans}}</th>
-                            <td>{{record.menLethargy|trans}}</td>
-                        </tr>
+                        {{ macros.case_row(record, 'menSeizures', 'ibd-form.men-seizures') }}
+                        {{ macros.case_row(record, 'menFever', 'ibd-form.men-fever') }}
+                        {{ macros.case_row(record, 'menAltConscious', 'ibd-form.men-alt-conscious') }}
+                        {{ macros.case_row(record, 'menInabilityFeed', 'ibd-form.men-inability-feed') }}
+                        {{ macros.case_row(record, 'menNeckStiff', 'ibd-form.men-neck-stiff') }}
+                        {{ macros.case_row(record, 'menRash', 'ibd-form.men-rash') }}
+                        {{ macros.case_row(record, 'menFontanelleBulge', 'ibd-form.men-fontanelle-bulge') }}
+                        {{ macros.case_row(record, 'menLethargy', 'ibd-form.men-lethargy') }}
                     </table>
                 </div>
 
                 <div id="collectionData" class="tab-pane">
                     <table class="table table-striped table-bordered table-hover">
-                        <tr>
-                            <th>{{'ibd-form.csf-collected'|trans}}</th>
-                            <td>{{record.csfCollected|trans}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.csf-collect-datetime'|trans}}</th>
-                            <td>{% if record.csfCollectDate %}{{ record.csfCollectDate|date('Y-m-d') }} {{ record.csfCollectTime|date('H:i') }}{% endif %}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.csf-appearance'|trans}}</th>
-                            <td>{{record.csfAppearance|trans}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.blood-collected'|trans}}</th>
-                            <td>{{record.bloodCollected|trans}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.blood-collect-date'|trans}}</th>
-                            <td>{% if record.bloodCollectDate %}{{ record.bloodCollectDate|date('Y-m-d') }} {{ record.bloodCollectTime|date('H:i') }}{% endif %}</td>
-                        </tr>
+                        {{ macros.case_row(record, 'csfCollected', 'ibd-form.csf-collected') }}
+                        {{ macros.case_row(record, 'csfCollectDate', 'ibd-form.csf-collect-datetime') }}
+                        {{ macros.case_row(record, 'csfAppearance', 'ibd-form.csf-appearance') }}
+
+                        {{ macros.case_row(record, 'bloodCollected', 'ibd-form.blood-collected') }}
+                        {{ macros.case_row(record, 'bloodCollectDate', 'ibd-form.blood-collect-date') }}
+                        {{ macros.case_row(record, 'bloodCollectTime', 'ibd-form.blood-collect-time','H:i') }}
+                        {% if is_granted('ROLE_AMR') %}
+                            {{ macros.case_row(record, 'bloodNumberOfSamples', 'ibd-form.blood-number-of-samples') }}
+                            {{ macros.case_row(record, 'bloodSecondCollectDate', 'ibd-form.blood-collect-date-second-sample') }}
+                            {{ macros.case_row(record, 'bloodSecondCollectTime', 'ibd-form.blood-collect-time-second-sample', 'H:i') }}
+                        {% endif %}
                     </table>
                 </div>
 
                 {% if is_granted('ROLE_CAN_SEE_LAB') %}
                     {% if record.hasSiteLab %}
+                        {% set lab = record.siteLab %}
                         <div id="labData" class="tab-pane">
                             <table class="table table-striped table-bordered table-hover">
                                 <tr><th colspan="3">{{ 'CSF'|trans }}</th></tr>
-                                <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.csfSiteId'|trans}}</th><td>{{record.siteLab.csfId}}</td></tr>
-                                <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.csfDateTime'|trans}}</th><td>{%if record.siteLab.csfLabTime %}{{record.siteLab.csfLabDate|date('Y-m-d')}} {{record.siteLab.csfLabTime|date('H:i')}}{%endif%}</td></tr>
-                                <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.csf-wcc'|trans}}</th><td>{{record.siteLab.csfWcc}}</td></tr>
-                                <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.csf-glucose'|trans}}</th><td>{{record.siteLab.csfGlucose}}</td></tr>
-                                <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.csf-protein'|trans}}</th><td>{{record.siteLab.csfProtein}}</td></tr>
-                                <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.csf-cult-done'|trans}}</th><td>{{record.siteLab.csfCultDone|trans}}</td></tr>
-                                <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.csf-gram-done'|trans}}</th><td>{{record.siteLab.csfGramDone|trans}}</td></tr>
-                                <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.csf-binax-done'|trans}}</th><td>{{record.siteLab.csfBinaxDone|trans}}</td></tr>
-                                <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.csf-lat-done'|trans}}</th><td>{{record.siteLab.csfLatDone|trans}}</td></tr>
-                                <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.csf-pcr-done'|trans}}</th><td>{{record.siteLab.csfPcrDone|trans}}</td></tr>
-                                <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.csf-culture-other'|trans}}</th><td>{{record.siteLab.csfCultOther}}</td></tr>
-                                <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.csf-store'|trans}}</th><td>{{record.siteLab.csfStore|trans}}</td></tr>
-                                <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.isol-store'|trans}}</th><td>{{record.siteLab.isolStore|trans}}</td></tr>
-                                <tr><th colspan="3">{{ 'Blood'|trans }}</th></tr>
+                                {{ macros.lab_row(lab,'csfId','ibd-form.csf-id') }}
+                                {{ macros.lab_row(lab,'csfLabDate','ibd-form.csf-lab-datetime') }}
+                                {{ macros.lab_row(lab,'csfLabTime','ibd-form.csf-lab-time','H:i') }}
+                                {{ macros.lab_row(lab,'csfWcc','ibd-form.csf-wcc') }}
+                                {{ macros.lab_row(lab,'csfGlucose','ibd-form.csf-glucose') }}
+                                {{ macros.lab_row(lab,'csfProtein','ibd-form.csf-protein') }}
 
-                                <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.blood-id'|trans}}</th><td>{{record.siteLab.bloodId}}</td></tr>
-                                <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.blood-cult-done'|trans}}</th><td>{{record.siteLab.bloodCultDone|trans}}</td></tr>
-                                <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.blood-gram-done'|trans}}</th><td>{{record.siteLab.bloodGramDone|trans}}</td></tr>
-                                <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.blood-pcr-done'|trans}}</th><td>{{record.siteLab.bloodPcrDone|trans}}</td></tr>
-                                <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.blood-cult-other'|trans}}</th><td>{{record.siteLab.bloodCultOther}}</td></tr>
-                                <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.blood-gram-result'|trans}}</th><td>{{record.siteLab.bloodGramResult|trans}}</td></tr>
-                                <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.blood-pcr-result'|trans}}</th><td>{{record.siteLab.bloodPcrResult|trans}}</td></tr>
+                                {{ macros.lab_row(lab,'csfCultDone','ibd-form.csf-cult-done') }}
+                                {{ macros.lab_row(lab,'csfCultResult','ibd-form.csf-cult-result') }}
+                                {{ macros.lab_row(lab,'csfCultOther','ibd-form.csf-culture-other') }}
+                                {{ macros.lab_row(lab,'csfCultContaminant','ibd-form.csf-culture-contaminant') }}
+
+                                {{ macros.lab_row(lab,'csfGramDone','ibd-form.csf-gram-done') }}
+                                {{ macros.lab_row(lab,'csfGramStain','ibd-form.csf-gram-result') }}
+                                {{ macros.lab_row(lab,'csfGramResult','ibd-form.csf-gram-result-organism') }}
+                                {{ macros.lab_row(lab,'csfGramOther','ibd-form.csf-gram-other') }}
+
+                                {{ macros.lab_row(lab,'csfBinaxDone','ibd-form.csf-binax-done') }}
+                                {{ macros.lab_row(lab,'csfBinaxResult','ibd-form.csf-binax-result') }}
+
+                                {{ macros.lab_row(lab,'csfLatDone','ibd-form.csf-lat-done') }}
+                                {{ macros.lab_row(lab,'csfLatResult','ibd-form.csf-lat-result') }}
+                                {{ macros.lab_row(lab,'csfLatOther','ibd-form.csf-lat-other') }}
+
+                                {{ macros.lab_row(lab,'csfPcrDone','ibd-form.csf-pcr-done') }}
+                                {{ macros.lab_row(lab,'csfPcrResult','ibd-form.csf-pcr-result') }}
+                                {{ macros.lab_row(lab,'csfPcrOther','ibd-form.csf-pcr-other') }}
+
+                                {{ macros.lab_row(lab,'csfStore','ibd-form.csf-store') }}
+
+                                {{ macros.lab_row(lab,'nlCsfSent','ibd-form.blood-sent-to-nl') }}
+                                {{ macros.lab_row(lab,'nlCsfDate','ibd-form.blood-sent-to-nl-date') }}
+
+                                {{ macros.lab_row(lab,'isolStore','ibd-form.isol-store') }}
+                                {{ macros.lab_row(lab,'nlIsolBloodSent','ibd-form.csf-isol-sent-to-nl') }}
+                                {{ macros.lab_row(lab,'nlIsolBloodDate','ibd-form.csf-isol-sent-to-nl-date') }}
+
+                                <tr><th colspan="3">{{ 'Blood'|trans }}</th></tr>
+                                {{ macros.lab_row(lab,'bloodId','ibd-form.blood-id') }}
+                                {{ macros.lab_row(lab,'bloodCultDone','ibd-form.blood-cult-done') }}
+                                {{ macros.lab_row(lab,'bloodCultResult','ibd-form.blood-cult-result') }}
+                                {{ macros.lab_row(lab,'bloodCultOther','ibd-form.blood-cult-other') }}
+
+                                {{ macros.lab_row(lab,'bloodGramDone','ibd-form.blood-gram-done') }}
+                                {{ macros.lab_row(lab,'bloodGramStain','ibd-form.blood-gram-result') }}
+                                {{ macros.lab_row(lab,'bloodGramResult','ibd-form.blood-gram-result-organism') }}
+                                {{ macros.lab_row(lab,'bloodGramOther','ibd-form.blood-gram-other') }}
+
+                                {{ macros.lab_row(lab,'bloodPcrDone','ibd-form.blood-pcr-done') }}
+                                {{ macros.lab_row(lab,'bloodPcrResult','ibd-form.blood-pcr-result') }}
+                                {{ macros.lab_row(lab,'bloodPcrOther','ibd-form.blood-pcr-other') }}
+                                {{ macros.lab_row(lab,'nlIsolBloodSent','ibd-form.blood-sent-to-nl') }}
+                                {{ macros.lab_row(lab,'nlIsolBloodDate','ibd-form.blood-sent-to-nl-date') }}
+
                                 {% if is_granted('ROLE_AMR') %}
                                     <tr><th colspan="3">{{ '2nd Blood'|trans }}</th></tr>
-                                    <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.blood-id'|trans}}</th><td>{{record.siteLab.bloodSecondId}}</td></tr>
-                                    <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.blood-cult-done'|trans}}</th><td>{{record.siteLab.bloodSecondCultDone|trans}}</td></tr>
-                                    <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.blood-gram-done'|trans}}</th><td>{{record.siteLab.bloodSecondGramDone|trans}}</td></tr>
-                                    <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.blood-pcr-done'|trans}}</th><td>{{record.siteLab.bloodSecondPcrDone|trans}}</td></tr>
-                                    <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.blood-cult-other'|trans}}</th><td>{{record.siteLab.bloodSecondCultOther}}</td></tr>
-                                    <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.blood-gram-result'|trans}}</th><td>{{record.siteLab.bloodSecondGramResult|trans}}</td></tr>
-                                    <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.blood-pcr-result'|trans}}</th><td>{{record.siteLab.bloodSecondPcrResult|trans}}</td></tr>
+                                    {{ macros.lab_row(lab,'bloodSecondId','ibd-form.blood-id') }}
+                                    {{ macros.lab_row(lab,'bloodSecondCultDone','ibd-form.blood-cult-done') }}
+                                    {{ macros.lab_row(lab,'bloodSecondCultResult','ibd-form.blood-cult-result') }}
+                                    {{ macros.lab_row(lab,'bloodSecondCultOther','ibd-form.blood-cult-other') }}
+
+                                    {{ macros.lab_row(lab,'bloodSecondGramDone','ibd-form.blood-gram-done') }}
+                                    {{ macros.lab_row(lab,'bloodSecondGramStain','ibd-form.blood-gram-result') }}
+                                    {{ macros.lab_row(lab,'bloodSecondGramResult','ibd-form.blood-gram-result-organism') }}
+                                    {{ macros.lab_row(lab,'bloodSecondGramOther','ibd-form.blood-gram-other') }}
+
+                                    {{ macros.lab_row(lab,'bloodSecondPcrDone','ibd-form.blood-pcr-done') }}
+                                    {{ macros.lab_row(lab,'bloodSecondPcrResult','ibd-form.blood-pcr-result') }}
+                                    {{ macros.lab_row(lab,'bloodSecondPcrOther','ibd-form.blood-pcr-other') }}
                                 {% endif %}
                                 <tr style="display: none;"><td></td></tr>
                                 <tr><th colspan="3">{{ 'Other Fluids'|trans }}</th></tr>
-                                <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.other-culture'|trans}}</th><td>{{record.siteLab.otherCultDone|trans}}</td></tr>
-                                <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.other-cult-result'|trans}}</th><td>{{record.siteLab.otherCultResult|trans}}</td></tr>
-                                <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.other-cult-other'|trans}}</th><td>{{record.siteLab.otherCultOther}}</td></tr>
+                                {{ macros.lab_row(lab,'otherCultDone','ibd-form.other-cult-done1') }}
+                                {{ macros.lab_row(lab,'otherCultResult','ibd-form.other-cult-result') }}
+                                {{ macros.lab_row(lab,'otherCultOther','ibd-form.other-cult-other') }}
+                                {{ macros.lab_row(lab,'nlOtherSent','ibd-form.other-sent-to-nl') }}
+                                {{ macros.lab_row(lab,'nlOtherDate','ibd-form.other-sent-to-nl-date') }}
+                                <tr>
+                                    <th colspan="3">
+                                        Unmatched issues
+                                        {{ case_lab_field_error(lab) }}
+                                    </th>
+                                </tr>
                             </table>
                         </div>
                     {%else%}
@@ -257,25 +214,44 @@
                         <th>{{'meningitis.has-site-national-lab'|trans}}</th>
                         <td>{{'Yes'|trans}}</td>
                     </tr>
-                    <tr><th>{{'ibd.sampleType'|trans}}</th><td>{{record.nationalLab.sampleType|trans}}</td></tr>
-                    <tr><th>{{'ibd.dateReceived'|trans}}</th><td>{%if record.nationalLab.dateReceived %}{{record.nationalLab.dateReceived| date('Y-m-d')}}{% endif %}</td></tr>
-                    <tr><th>{{'ibd.isolateViable'|trans}}</th><td>{{record.nationalLab.isolateViable|trans}}</td></tr>
-                    <tr><th>{{'ibd.isolateType'|trans}}</th><td>{{record.nationalLab.isolateType|trans}}</td></tr>
-                    <tr><th>{{'ibd.pathogenIdentifierMethod'|trans}}</th><td>{{record.nationalLab.pathogenIdentifierMethod|trans}}</td></tr>
-                    <tr><th>{{'ibd.pathogenIdentifierOther'|trans}}</th><td>{{record.nationalLab.pathogenIdentifierOther}}</td></tr>
-                    <tr><th>{{'ibd.serotypeIdentifier'|trans}}</th><td>{{record.nationalLab.serotypeIdentifier|trans}}</td></tr>
-                    <tr><th>{{'ibd.serotypeIdentifierOther'|trans}}</th><td>{{record.nationalLab.serotypeIdentifierOther}}</td></tr>
-                    <tr><th>{{'ibd.lytA'|trans}}</th><td>{{record.nationalLab.lytA|ct_value|trans}}</td></tr>
-                    <tr><th>{{'ibd.ctrA'|trans}}</th><td>{{record.nationalLab.ctrA|ct_value|trans}}</td></tr>
-                    <tr><th>{{'ibd.sodC'|trans}}</th><td>{{record.nationalLab.sodC|ct_value|trans}}</td></tr>
-                    <tr><th>{{'ibd.hpd1'|trans}}</th><td>{{record.nationalLab.hpd1|ct_value|trans}}</td></tr>
-                    <tr><th>{{'ibd.hpd3'|trans}}</th><td>{{record.nationalLab.hpd3|ct_value|trans}}</td></tr>
-                    <tr><th>{{'ibd.bexA'|trans}}</th><td>{{record.nationalLab.bexA|ct_value|trans}}</td></tr>
-                    <tr><th>{{'ibd.rNaseP'|trans}}</th><td>{{record.nationalLab.rNaseP|ct_value|trans}}</td></tr>
-                    <tr><th>{{'ibd.spnSerotype'|trans}}</th><td>{{record.nationalLab.spnSerotype|trans}}</td></tr>
-                    <tr><th>{{'ibd.hiSerotype'|trans}}</th><td>{{record.nationalLab.hiSerotype|trans}}</td></tr>
-                    <tr><th>{{'ibd.nmSerogroup'|trans}}</th><td>{{record.nationalLab.nmSerogroup|trans}}</td></tr>
-                    <tr><th>{{'ibd.comment'|trans}}</th><td>{{record.nationalLab.comment}}</td></tr>
+                    {% set lab = record.nationalLab %}
+
+                    {{ macros.external_lab_row(lab, 'typeSampleRecd', 'ibd.sampleType') }}
+                    {{ macros.external_lab_row(lab, 'dtSampleRecd', 'ibd.dateReceived') }}
+                    {{ macros.external_lab_row(lab, 'isolateViable', 'ibd.isolateViable') }}
+                    {{ macros.external_lab_row(lab, 'isolateType', 'ibd.isolateType') }}
+                    {{ macros.external_lab_row(lab, 'methodUsedPathogenIdentify', 'ibd.pathogenIdentifierMethod') }}
+                    {{ macros.external_lab_row(lab, 'methodUsedPathogenIdentifyOther', 'ibd.pathogenIdentifierOther') }}
+
+                    {{ macros.external_lab_row(lab, 'methodUsedStSg', 'ibd.serotypeIdentifier') }}
+                    {{ macros.external_lab_row(lab, 'methodUsedStSgOther', 'ibd.serotypeIdentifierOther') }}
+
+                    {{ macros.external_lab_row(lab, 'spnLyta', 'ibd-rrl-form.lytA') }}
+                    {{ macros.external_lab_row(lab, 'nmCtrA', 'ibd.ctrA') }}
+                    {{ macros.external_lab_row(lab, 'nmSodC', 'ibd.sodC') }}
+                    {{ macros.external_lab_row(lab, 'hiHpd1', 'ibd.hpd1') }}
+                    {{ macros.external_lab_row(lab, 'hiHpd3', 'ibd.hpd3') }}
+                    {{ macros.external_lab_row(lab, 'hiBexA', 'ibd.bexA') }}
+                    {{ macros.external_lab_row(lab, 'humanDNARNAseP', 'ibd.rNaseP') }}
+                    {{ macros.external_lab_row(lab, 'FinalRLResultDetection', 'ibd-rrl-form.finalResult', false) }}
+                    {{ macros.external_lab_row(lab, 'spnSerotype', 'ibd.spnSerotype') }}
+                    {{ macros.external_lab_row(lab, 'hiSerotype', 'ibd.hiSerotype') }}
+                    {{ macros.external_lab_row(lab, 'nmSerogroup', 'ibd.nmSerogroup') }}
+
+                    {{ macros.external_lab_row(lab, 'rlIsolCsfSent', 'ibd-form.csf-isol-sent-to-rrl') }}
+                    {{ macros.external_lab_row(lab, 'rlIsolCsfDate', 'ibd-form.csf-isol-sent-to-rrl-date') }}
+                    {{ macros.external_lab_row(lab, 'rlIsolBloodSent', 'ibd-form.blood-sent-to-rrl') }}
+                    {{ macros.external_lab_row(lab, 'rlIsolBloodDate', 'ibd-form.blood-sent-to-rrl-date') }}
+                    {{ macros.external_lab_row(lab, 'rlOtherSent', 'ibd-form.other-sent-to-rrl') }}
+                    {{ macros.external_lab_row(lab, 'rlOtherDate', 'ibd-form.other-sent-to-rrl-date') }}
+
+                    {{ macros.external_lab_row(lab, 'comment', 'ibd.comment', false) }}
+                    <tr>
+                        <th colspan="2">
+                            Unmatched issues
+                            {{ case_external_field_error(lab) }}
+                        </th>
+                    </tr>
                 {% else %}
                     <tr>
                         <th>{{'meningitis.has-site-national-lab'|trans}}</th>
@@ -292,25 +268,36 @@
                         <th>{{'meningitis.has-site-national-lab'|trans}}</th>
                         <td>{{'Yes'|trans}}</td>
                     </tr>
-                    <tr><th>{{'ibd.sampleType'|trans}}</th><td>{{record.referenceLab.sampleType|trans}}</td></tr>
-                    <tr><th>{{'ibd.dateReceived'|trans}}</th><td>{%if record.referenceLab.dateReceived %}{{record.referenceLab.dateReceived| date('Y-m-d')}}{% endif %}</td></tr>
-                    <tr><th>{{'ibd.isolateViable'|trans}}</th><td>{{record.referenceLab.isolateViable|trans}}</td></tr>
-                    <tr><th>{{'ibd.isolateType'|trans}}</th><td>{{record.referenceLab.isolateType|trans}}</td></tr>
-                    <tr><th>{{'ibd.pathogenIdentifierMethod'|trans}}</th><td>{{record.referenceLab.pathogenIdentifierMethod|trans}}</td></tr>
-                    <tr><th>{{'ibd.pathogenIdentifierOther'|trans}}</th><td>{{record.referenceLab.pathogenIdentifierOther}}</td></tr>
-                    <tr><th>{{'ibd.serotypeIdentifier'|trans}}</th><td>{{record.referenceLab.serotypeIdentifier|trans}}</td></tr>
-                    <tr><th>{{'ibd.serotypeIdentifierOther'|trans}}</th><td>{{record.referenceLab.serotypeIdentifierOther}}</td></tr>
-                    <tr><th>{{'ibd.lytA'|trans}}</th><td>{{record.referenceLab.lytA|ct_value|trans}}</td></tr>
-                    <tr><th>{{'ibd.ctrA'|trans}}</th><td>{{record.referenceLab.ctrA|ct_value|trans}}</td></tr>
-                    <tr><th>{{'ibd.sodC'|trans}}</th><td>{{record.referenceLab.sodC|ct_value|trans}}</td></tr>
-                    <tr><th>{{'ibd.hpd1'|trans}}</th><td>{{record.referenceLab.hpd1|ct_value|trans}}</td></tr>
-                    <tr><th>{{'ibd.hpd3'|trans}}</th><td>{{record.referenceLab.hpd3|ct_value|trans}}</td></tr>
-                    <tr><th>{{'ibd.bexA'|trans}}</th><td>{{record.referenceLab.bexA|ct_value|trans}}</td></tr>
-                    <tr><th>{{'ibd.rNaseP'|trans}}</th><td>{{record.referenceLab.rNaseP|ct_value|trans}}</td></tr>
-                    <tr><th>{{'ibd.spnSerotype'|trans}}</th><td>{{record.referenceLab.spnSerotype|trans}}</td></tr>
-                    <tr><th>{{'ibd.hiSerotype'|trans}}</th><td>{{record.referenceLab.hiSerotype|trans}}</td></tr>
-                    <tr><th>{{'ibd.nmSerogroup'|trans}}</th><td>{{record.referenceLab.nmSerogroup|trans}}</td></tr>
-                    <tr><th>{{'ibd.comment'|trans}}</th><td>{{record.nationalLab.comment}}</td></tr>
+                    {% set lab = record.referenceLab %}
+
+                    {{ macros.external_lab_row(lab, 'typeSampleRecd', 'ibd.sampleType') }}
+                    {{ macros.external_lab_row(lab, 'dtSampleRecd', 'ibd.dateReceived') }}
+                    {{ macros.external_lab_row(lab, 'isolateViable', 'ibd.isolateViable') }}
+                    {{ macros.external_lab_row(lab, 'isolateType', 'ibd.isolateType') }}
+                    {{ macros.external_lab_row(lab, 'methodUsedPathogenIdentify', 'ibd.pathogenIdentifierMethod') }}
+                    {{ macros.external_lab_row(lab, 'methodUsedPathogenIdentifyOther', 'ibd.pathogenIdentifierOther') }}
+
+                    {{ macros.external_lab_row(lab, 'methodUsedStSg', 'ibd.serotypeIdentifier') }}
+                    {{ macros.external_lab_row(lab, 'methodUsedStSgOther', 'ibd.serotypeIdentifierOther') }}
+
+                    {{ macros.external_lab_row(lab, 'spnLyta', 'ibd-rrl-form.lytA') }}
+                    {{ macros.external_lab_row(lab, 'nmCtrA', 'ibd.ctrA') }}
+                    {{ macros.external_lab_row(lab, 'nmSodC', 'ibd.sodC') }}
+                    {{ macros.external_lab_row(lab, 'hiHpd1', 'ibd.hpd1') }}
+                    {{ macros.external_lab_row(lab, 'hiHpd3', 'ibd.hpd3') }}
+                    {{ macros.external_lab_row(lab, 'hiBexA', 'ibd.bexA') }}
+                    {{ macros.external_lab_row(lab, 'humanDNARNAseP', 'ibd.rNaseP') }}
+                    {{ macros.external_lab_row(lab, 'FinalRLResultDetection', 'ibd-rrl-form.finalResult', false) }}
+                    {{ macros.external_lab_row(lab, 'spnSerotype', 'ibd.spnSerotype') }}
+                    {{ macros.external_lab_row(lab, 'hiSerotype', 'ibd.hiSerotype') }}
+                    {{ macros.external_lab_row(lab, 'nmSerogroup', 'ibd.nmSerogroup') }}
+                    {{ macros.external_lab_row(lab, 'comment', 'ibd.comment', false) }}
+                    <tr>
+                        <th colspan="2">
+                            Unmatched issues
+                            {{ case_external_field_error(lab) }}
+                        </th>
+                    </tr>
                 {% else %}
                     <tr>
                         <th>{{'meningitis.has-site-reference-lab'|trans}}</th>
@@ -322,11 +309,17 @@
 
                 <div id="outcome" class="tab-pane">
                     <table class="table table-striped table-bordered table-hover">
-                        <tr><th>{{'ibd-form.discharge-outcome'|trans}}</th><td>{{record.dischOutcome|trans}}</td></tr>
-                        <tr><th>{{'ibd-form.discharge-diagnosis'|trans}}</th><td>{{record.dischDx|trans}}</td></tr>
-                        <tr><th>{{'ibd-form.discharge-diagnosis-other'|trans}}</th><td>{{record.dischDxOther}}</td></tr>
-                        <tr><th>{{'ibd-form.discharge-class'|trans}}</th><td>{{record.dischClass|trans}}</td></tr>
-                        <tr><th>{{'ibd-form.comment'|trans}}</th><td>{{record.comment}}</td></tr>
+                        {{ macros.case_row(record, 'dischOutcome', 'ibd-form.discharge-outcome') }}
+                        {{ macros.case_row(record, 'dischDx', 'ibd-form.discharge-diagnosis') }}
+                        {{ macros.case_row(record, 'dischDxOther', 'ibd-form.discharge-diagnosis-other') }}
+                        {{ macros.case_row(record, 'dischClass', 'ibd-form.discharge-class') }}
+                        {{ macros.case_row(record, 'comment', 'ibd-form.comment', false) }}
+                        <tr>
+                            <th colspan="3">
+                                Unmatched issues
+                                {{ case_field_error(record) }}
+                            </th>
+                        </tr>
                     </table>
                 </div>
             </div>

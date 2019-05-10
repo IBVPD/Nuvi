@@ -14,11 +14,6 @@ use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
-/**
- * Description of CaseActionsTest
- *
- * @author gnat
- */
 class CaseActionsTest extends TestCase
 {
     /** @var AuthorizationCheckerInterface|MockObject */
@@ -187,9 +182,12 @@ class CaseActionsTest extends TestCase
 
         $obj = new Meningitis\Meningitis();
         $lab = new Meningitis\SiteLab();
-        $lab->setRlBrothSent(true);
+//        $lab->setRlBrothSent(true);
         $lab->setNlBrothSent(true);
         $obj->setSiteLab($lab);
+        $nlLab = new Meningitis\NationalLab();
+        $nlLab->setRlIsolCsfSent(true);
+        $obj->setNationalLab($nlLab);
 
         $bigResults = $action->getBigActions($obj);
 
@@ -249,7 +247,6 @@ class CaseActionsTest extends TestCase
 
         $obj = new Meningitis\Meningitis();
         $lab = new Meningitis\SiteLab();
-        $lab->setRlCsfSent(true);
         $lab->setNlCsfSent(true);
         $obj->setSiteLab($lab);
 
@@ -310,9 +307,11 @@ class CaseActionsTest extends TestCase
 
         $obj    = new Meningitis\Meningitis();
         $lab    = new Meningitis\SiteLab();
-        $lab->setRlCsfSent(true);
+        $nlLab  = new Meningitis\NationalLab();
+        $nlLab->setRlIsolCsfSent(true);
         $lab->setNlCsfSent(true);
         $obj->setSiteLab($lab);
+        $obj->setNationalLab($nlLab);
 
         $bigResults = $action->getBigActions($obj);
 
@@ -364,7 +363,6 @@ class CaseActionsTest extends TestCase
 
         $obj    = new Meningitis\Meningitis();
         $lab    = new Meningitis\SiteLab();
-        $lab->setRlCsfSent(true);
         $lab->setNlCsfSent(true);
         $obj->setSiteLab($lab);
 
@@ -478,9 +476,11 @@ class CaseActionsTest extends TestCase
 
         $obj    = new Meningitis\Meningitis();
         $lab    = new Meningitis\SiteLab();
-        $lab->setRlCsfSent(true);
+        $nlLab  = new Meningitis\NationalLab();
+        $nlLab->setRlIsolCsfSent(true);
         $lab->setNlCsfSent(true);
         $obj->setSiteLab($lab);
+        $obj->setNationalLab($nlLab);
 
         $bigResults = $action->getSmallActions($obj);
 
@@ -535,7 +535,7 @@ class CaseActionsTest extends TestCase
 
         $obj    = new Meningitis\Meningitis();
         $lab    = new Meningitis\SiteLab();
-        $lab->setRlCsfSent(true);
+//        $lab->setRlCsfSent(true);
         $lab->setNlCsfSent(true);
         $obj->setSiteLab($lab);
 
@@ -593,9 +593,11 @@ class CaseActionsTest extends TestCase
 
         $obj    = new Meningitis\Meningitis();
         $lab    = new Meningitis\SiteLab();
-        $lab->setRlCsfSent(true);
+        $nlLab  = new Meningitis\NationalLab();
+        $nlLab->setRlIsolCsfSent(true);
         $lab->setNlCsfSent(true);
         $obj->setSiteLab($lab);
+        $obj->setNationalLab($nlLab);
 
         $bigResults = $action->getSmallActions($obj);
 

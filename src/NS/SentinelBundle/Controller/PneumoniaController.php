@@ -2,7 +2,6 @@
 
 namespace NS\SentinelBundle\Controller;
 
-use Doctrine\ORM\UnexpectedResultException;
 use NS\SentinelBundle\Entity\Pneumonia\NationalLab;
 use NS\SentinelBundle\Entity\Pneumonia\Pneumonia;
 use NS\SentinelBundle\Entity\Pneumonia\ReferenceLab;
@@ -31,7 +30,7 @@ class PneumoniaController extends BaseCaseController
      * @param Request $request
      * @return Response
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request): Response
     {
         return $this->render('NSSentinelBundle:Pneumonia:index.html.twig', $this->index($request, Pneumonia::class, FilterType::class, 'pneumonia.index'));
     }
@@ -43,7 +42,7 @@ class PneumoniaController extends BaseCaseController
      *
      * @return Response|RedirectResponse
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request): Response
     {
         $returnValue = $this->create($request, Pneumonia::class, 'pneumoniaIndex', 'pneumonia', FilterType::class, 'pneumonia.index');
 
@@ -62,7 +61,7 @@ class PneumoniaController extends BaseCaseController
      *
      * @return array|RedirectResponse|Response
      */
-    public function editAction(Request $request, $id = null)
+    public function editAction(Request $request, $id = null): Response
     {
         $response = $this->edit($request, CaseType::class, 'pneumoniaIndex', 'pneumoniaEdit', $id);
 
@@ -75,7 +74,7 @@ class PneumoniaController extends BaseCaseController
      *
      * @return RedirectResponse
      */
-    public function deleteAction($id)
+    public function deleteAction($id): RedirectResponse
     {
         return $this->delete( CaseType::class, $id, 'pneumoniaIndex');
     }
@@ -86,9 +85,9 @@ class PneumoniaController extends BaseCaseController
      * @param Request $request
      * @param null $id
      *
-     * @return array|RedirectResponse|Response
+     * @return RedirectResponse|Response
      */
-    public function editRRLAction(Request $request, $id = null)
+    public function editRRLAction(Request $request, $id = null): Response
     {
         $response = $this->edit($request, ReferenceLabType::class, 'pneumoniaIndex', 'pneumoniaRRLEdit', $id);
         return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:Pneumonia:editBaseLab.html.twig', $response);
@@ -100,9 +99,9 @@ class PneumoniaController extends BaseCaseController
      * @param Request $request
      * @param null    $id
      *
-     * @return array|RedirectResponse|Response
+     * @return RedirectResponse|Response
      */
-    public function editNLAction(Request $request, $id = null)
+    public function editNLAction(Request $request, $id = null): Response
     {
         $response = $this->edit($request, NationalLabType::class, 'pneumoniaIndex', 'pneumoniaNLEdit', $id);
 
@@ -115,9 +114,9 @@ class PneumoniaController extends BaseCaseController
      * @param Request $request
      * @param null    $id
      *
-     * @return array|RedirectResponse|Response
+     * @return RedirectResponse|Response
      */
-    public function editLabAction(Request $request, $id = null)
+    public function editLabAction(Request $request, $id = null): Response
     {
         $response = $this->edit($request, SiteLabType::class, 'pneumoniaIndex', 'pneumoniaLabEdit', $id);
         return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:Pneumonia:editLab.html.twig', $response);
@@ -129,9 +128,9 @@ class PneumoniaController extends BaseCaseController
      * @param Request $request
      * @param null    $id
      *
-     * @return array|RedirectResponse|Response
+     * @return RedirectResponse|Response
      */
-    public function editOutcomeAction(Request $request, $id = null)
+    public function editOutcomeAction(Request $request, $id = null): Response
     {
         $response = $this->edit($request, OutcomeType::class, 'pneumoniaIndex', 'pneumoniaOutcomeEdit', $id);
         return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:Pneumonia:editOutcome.html.twig', $response);
@@ -142,7 +141,6 @@ class PneumoniaController extends BaseCaseController
      * @param string $objId
      * @param bool $forDelete
      * @return mixed|\NS\SentinelBundle\Entity\Pneumonia|null
-     * @throws UnexpectedResultException
      */
     protected function getObject($type, $objId, $forDelete = false)
     {
@@ -175,7 +173,7 @@ class PneumoniaController extends BaseCaseController
      * @param $id
      * @return Response
      */
-    public function showAction($id)
+    public function showAction($id): Response
     {
         $ret = $this->show(Pneumonia::class, $id);
         if ($ret instanceof Response) {

@@ -17,41 +17,53 @@ use NS\SentinelBundle\Form\IBD\Types\PCRResult;
 use NS\SentinelBundle\Form\Types\CaseStatus;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Validators as LocalAssert;
-use NS\UtilBundle\Form\Types\ArrayChoice;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- *
- * Description of SiteLab
- * @author gnat
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\Meningitis\SiteLabRepository")
  * @ORM\Table(name="mening_site_labs")
+ * @ORM\EntityListeners(value={"NS\SentinelBundle\Entity\Listener\BaseStatusListener"})
+ *
  * @Security\Secured(conditions={
  *      @Security\SecuredCondition(roles={"ROLE_REGION"},through={"caseFile"},relation="region",class="NSSentinelBundle:Region"),
  *      @Security\SecuredCondition(roles={"ROLE_COUNTRY","ROLE_RRL_LAB","ROLE_NL_LAB"},through={"caseFile"},relation="country",class="NSSentinelBundle:Country"),
  *      @Security\SecuredCondition(roles={"ROLE_SITE","ROLE_LAB"},through={"caseFile"},relation="site",class="NSSentinelBundle:Site"),
  *      })
- * @LocalAssert\AllOther( {
- *                      @LocalAssert\Other(field="csfCultDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="csfCultResult",message="form.validation.ibd-sitelab-csfCult-was-done-without-result"),
- *                      @LocalAssert\Other(field="csfCultResult",value="\NS\SentinelBundle\Form\IBD\Types\CultureResult::OTHER",otherField="csfCultOther",message="form.validation.ibd-sitelab-csfCult-was-done-without-result-other"),
  *
- *                      @LocalAssert\Other(field="csfLatDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="csfLatResult",message="form.validation.ibd-sitelab-csfLat-was-done-without-result"),
- *                      @LocalAssert\Other(field="csfLatResult",value="\NS\SentinelBundle\Form\IBD\Types\LatResult::OTHER",otherField="csfLatOther",message="form.validation.ibd-sitelab-csfLat-was-done-without-result-other"),
+ * @LocalAssert\Other(groups={"Completeness"}, field="csfCultDone", otherField="csfCultResult", value="\NS\SentinelBundle\Form\Types\TripleChoice::YES")
+ * @LocalAssert\Other(groups={"Completeness"}, field="csfCultResult", otherField="csfCultOther", value="\NS\SentinelBundle\Form\IBD\Types\CultureResult::OTHER",)
+ *
+ * @LocalAssert\Other(groups={"Completeness"}, field="csfLatDone", otherField="csfLatResult", value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",)
+ * @LocalAssert\Other(groups={"Completeness"}, field="csfLatResult", otherField="csfLatOther", value="\NS\SentinelBundle\Form\IBD\Types\LatResult::OTHER")
  * 
- *                      @LocalAssert\Other(field="csfPcrDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="csfPcrResult",message="form.validation.ibd-sitelab-csfPcr-was-done-without-result"),
- *                      @LocalAssert\Other(field="csfPcrResult",value="\NS\SentinelBundle\Form\IBD\Types\PCRResult::OTHER",otherField="csfPcrOther",message="form.validation.ibd-sitelab-csfPcr-was-done-without-result-other"),
+ * @LocalAssert\Other(groups={"Completeness"}, field="csfPcrDone", otherField="csfPcrResult", value="\NS\SentinelBundle\Form\Types\TripleChoice::YES")
+ * @LocalAssert\Other(groups={"Completeness"}, field="csfPcrResult", otherField="csfPcrOther", value="\NS\SentinelBundle\Form\IBD\Types\PCRResult::OTHER")
+ * 
+ * @LocalAssert\Other(groups={"Completeness"},field="csfGramDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="csfGramStain")
+ * @LocalAssert\Other(groups={"Completeness"},field="csfGramStain",value={"\NS\SentinelBundle\Form\IBD\Types\GramStain::GM_POSITIVE","\NS\SentinelBundle\Form\IBD\Types\GramStain::GM_NEGATIVE","\NS\SentinelBundle\Form\IBD\Types\GramStain::GM_VARIABLE"},otherField="csfGramResult")
+ * @LocalAssert\Other(groups={"Completeness"},field="csfGramResult",value="\NS\SentinelBundle\Form\IBD\Types\GramStainResult::OTHER",otherField="csfGramOther")
  *
- *                      @LocalAssert\Other(field="bloodCultDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="bloodCultResult",message="form.validation.ibd-sitelab-bloodCult-was-done-without-result"),
- *                      @LocalAssert\Other(field="bloodCultResult",value="\NS\SentinelBundle\Form\IBD\Types\CultureResult::OTHER",otherField="bloodCultOther",message="form.validation.ibd-sitelab-bloodCult-was-done-without-result-other"),
+ * @LocalAssert\Other(groups={"Completeness"},field="bloodGramDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="bloodGramStain")
+ * @LocalAssert\Other(groups={"Completeness"},field="bloodGramStain",value={"\NS\SentinelBundle\Form\IBD\Types\GramStain::GM_POSITIVE","\NS\SentinelBundle\Form\IBD\Types\GramStain::GM_NEGATIVE","\NS\SentinelBundle\Form\IBD\Types\GramStain::GM_VARIABLE"},otherField="bloodGramResult")
+ * @LocalAssert\Other(groups={"Completeness"},field="bloodGramResult",value="\NS\SentinelBundle\Form\IBD\Types\GramStainResult::OTHER",otherField="bloodGramOther")
  *
- *                      @LocalAssert\Other(field="otherCultDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="otherCultResult",message="form.validation.ibd-sitelab-otherCult-was-done-without-result"),
- *                      @LocalAssert\Other(field="otherCultResult",value="\NS\SentinelBundle\Form\IBD\Types\CultureResult::OTHER",otherField="otherCultOther",message="form.validation.ibd-sitelab-otherCult-was-done-without-result-other"),
+ * @LocalAssert\Other(groups={"Completeness"}, field="bloodCultDone", otherField="bloodCultResult", value="\NS\SentinelBundle\Form\Types\TripleChoice::YES")
+ * @LocalAssert\Other(groups={"Completeness"}, field="bloodCultResult", otherField="bloodCultOther", value="\NS\SentinelBundle\Form\IBD\Types\CultureResult::OTHER")
  *
- *                      @LocalAssert\Other(field="otherTestDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="otherTestResult",message="form.validation.ibd-sitelab-otherTest-was-done-without-result"),
- *                      @LocalAssert\Other(field="otherTestResult",value="\NS\SentinelBundle\Form\IBD\Types\CultureResult::OTHER",otherField="otherTestOther",message="form.validation.ibd-sitelab-otherTest-was-done-without-result-other"),
+ * @LocalAssert\Other(groups={"Completeness"}, field="bloodPcrDone", otherField="bloodPcrResult", value="\NS\SentinelBundle\Form\Types\TripleChoice::YES")
+ * @LocalAssert\Other(groups={"Completeness"}, field="bloodPcrResult", otherField="bloodPcrOther", value="\NS\SentinelBundle\Form\IBD\Types\PCRResult::OTHER")
  *
- *                      @LocalAssert\Other(field="csfBinaxDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="csfBinaxResult",message="form.validation.ibd-sitelab-csfBinax-was-done-without-result"),
- *                      } )
+ * @LocalAssert\Other(groups={"Completeness"}, field="otherCultDone", otherField="otherCultResult", value="\NS\SentinelBundle\Form\Types\TripleChoice::YES")
+ * @LocalAssert\Other(groups={"Completeness"}, field="otherCultResult", otherField="otherCultOther", value="\NS\SentinelBundle\Form\IBD\Types\CultureResult::OTHER")
+ *
+ * @LocalAssert\Other(groups={"Completeness"}, field="otherTestDone", otherField="otherTestResult", value="\NS\SentinelBundle\Form\Types\TripleChoice::YES")
+ * @LocalAssert\Other(groups={"Completeness"}, field="otherTestResult", otherField="otherTestOther", value="\NS\SentinelBundle\Form\IBD\Types\CultureResult::OTHER")
+ *
+ * @LocalAssert\Other(groups={"Completeness"}, field="csfBinaxDone", otherField="csfBinaxResult", value="\NS\SentinelBundle\Form\Types\TripleChoice::YES")
+ *
+ * @LocalAssert\RelatedField(sourceField="nlCsfSent",sourceValue={true},fields={"nlCsfDate"}, groups={"Completeness"})
+ * @LocalAssert\RelatedField(sourceField="nlIsolCsfSent",sourceValue={true},fields={"nlIsolCsfDate"}, groups={"Completeness"})
+ * @LocalAssert\RelatedField(sourceField="nlIsolBloodSent",sourceValue={true},fields={"nlIsolBloodDate"}, groups={"Completeness"})
  */
 class SiteLab implements BaseSiteLabInterface
 {
@@ -70,6 +82,7 @@ class SiteLab implements BaseSiteLabInterface
      * @var string|null
      * @ORM\Column(name="csf_id",type="string",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @LocalAssert\CaseRelated(groups={"Completeness"}, caseField="csf_collected", caseFieldValue="1", message="CSF was collected, so this field is expected")
      */
     private $csf_id;
 
@@ -80,6 +93,7 @@ class SiteLab implements BaseSiteLabInterface
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
+     * @LocalAssert\CaseRelated(groups={"Completeness"}, caseField="csf_collected", caseFieldValue="1", message="CSF was collected, so this field is expected")
      */
     private $csf_lab_date;
 
@@ -89,6 +103,7 @@ class SiteLab implements BaseSiteLabInterface
      * @Assert\DateTime
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'H:i:s'>")
+     * @LocalAssert\CaseRelated(groups={"Completeness"}, caseField="csf_collected", caseFieldValue="1", message="CSF was collected, so this field is expected")
      */
     private $csf_lab_time;
 
@@ -98,6 +113,7 @@ class SiteLab implements BaseSiteLabInterface
      *
      * @Assert\Range(min=0,max=9999,minMessage="You cannot have a negative white blood cell count",maxMessage="Invalid value")
      * @Serializer\Groups({"api","export"})
+     * @LocalAssert\CaseRelated(groups={"Completeness"}, caseField="csf_collected", caseFieldValue="1", message="CSF was collected, so this field is expected")
      */
     private $csf_wcc;
 
@@ -108,6 +124,7 @@ class SiteLab implements BaseSiteLabInterface
      * @Assert\Type(type="numeric", message="Invalid value. Must be a number")
      * @Assert\GreaterThanOrEqual(value=0, message="Invalid value - value must be greater than 0")
      * @Serializer\Groups({"api","export"})
+     * @LocalAssert\CaseRelated(groups={"Completeness"}, caseField="csf_collected", caseFieldValue="1", message="CSF was collected, so this field is expected")
      */
     private $csf_glucose;
 
@@ -118,6 +135,7 @@ class SiteLab implements BaseSiteLabInterface
      * @Assert\Type(type="numeric", message="Invalid value. Must be a number")
      * @Assert\GreaterThanOrEqual(value=0, message="Invalid value - value must be greater than 0")
      * @Serializer\Groups({"api","export"})
+     * @LocalAssert\CaseRelated(groups={"Completeness"}, caseField="csf_collected", caseFieldValue="1", message="CSF was collected, so this field is expected")
      */
     private $csf_protein;
 
@@ -125,6 +143,7 @@ class SiteLab implements BaseSiteLabInterface
      * @var TripleChoice|null
      * @ORM\Column(name="csf_cult_done",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @LocalAssert\CaseRelated(groups={"Completeness"}, caseField="csf_collected", caseFieldValue="1", message="CSF was collected, so this field is expected")
      */
     private $csf_cult_done;
 
@@ -132,6 +151,7 @@ class SiteLab implements BaseSiteLabInterface
      * @var TripleChoice|null
      * @ORM\Column(name="csf_gram_done",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @LocalAssert\CaseRelated(groups={"Completeness"}, caseField="csf_collected", caseFieldValue="1", message="CSF was collected, so this field is expected")
      */
     private $csf_gram_done;
 
@@ -139,6 +159,7 @@ class SiteLab implements BaseSiteLabInterface
      * @var TripleChoice|null
      * @ORM\Column(name="csf_binax_done",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @LocalAssert\CaseRelated(groups={"Completeness"}, caseField="csf_collected", caseFieldValue="1", message="CSF was collected, so this field is expected")
      */
     private $csf_binax_done;
 
@@ -146,6 +167,7 @@ class SiteLab implements BaseSiteLabInterface
      * @var TripleChoice|null
      * @ORM\Column(name="csf_lat_done",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @LocalAssert\CaseRelated(groups={"Completeness"}, caseField="csf_collected", caseFieldValue="1", message="CSF was collected, so this field is expected")
      */
     private $csf_lat_done;
 
@@ -153,6 +175,7 @@ class SiteLab implements BaseSiteLabInterface
      * @var TripleChoice|null
      * @ORM\Column(name="csf_pcr_done",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @LocalAssert\CaseRelated(groups={"Completeness"}, caseField="csf_collected", caseFieldValue="1", message="CSF was collected, so this field is expected")
      */
     private $csf_pcr_done;
 
@@ -253,6 +276,7 @@ class SiteLab implements BaseSiteLabInterface
      * @var string|null
      * @ORM\Column(name="blood_id",type="string",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @LocalAssert\CaseRelated(groups={"Completeness"}, caseField="blood_collected", caseFieldValue="1", message="Blood was collected, so this field is expected")
      */
     private $blood_id;
 
@@ -263,6 +287,7 @@ class SiteLab implements BaseSiteLabInterface
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
+     * @LocalAssert\CaseRelated(groups={"Completeness"}, caseField="blood_collected", caseFieldValue="1", message="Blood was collected, so this field is expected")
      */
     private $blood_lab_date;
 
@@ -272,6 +297,7 @@ class SiteLab implements BaseSiteLabInterface
      * @Assert\DateTime
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'H:i:s'>")
+     * @LocalAssert\CaseRelated(groups={"Completeness"}, caseField="blood_collected", caseFieldValue="1", message="Blood was collected, so this field is expected")
      */
     private $blood_lab_time;
 
@@ -279,6 +305,7 @@ class SiteLab implements BaseSiteLabInterface
      * @var TripleChoice|null
      * @ORM\Column(name="blood_cult_done",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @LocalAssert\CaseRelated(groups={"Completeness"}, caseField="blood_collected", caseFieldValue="1", message="Blood was collected, so this field is expected")
      */
     private $blood_cult_done;
 
@@ -286,6 +313,7 @@ class SiteLab implements BaseSiteLabInterface
      * @var TripleChoice|null
      * @ORM\Column(name="blood_gram_done",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @LocalAssert\CaseRelated(groups={"Completeness"}, caseField="blood_collected", caseFieldValue="1", message="Blood was collected, so this field is expected")
      */
     private $blood_gram_done;
 
@@ -293,6 +321,7 @@ class SiteLab implements BaseSiteLabInterface
      * @var TripleChoice|null
      * @ORM\Column(name="blood_pcr_done",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @LocalAssert\CaseRelated(groups={"Completeness"}, caseField="blood_collected", caseFieldValue="1", message="Blood was collected, so this field is expected")
      */
     private $blood_pcr_done;
 
@@ -350,6 +379,7 @@ class SiteLab implements BaseSiteLabInterface
      * @var string|null
      * @ORM\Column(name="blood_second_id",type="string",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @LocalAssert\CaseRelated(groups={"AMR+Completeness"}, caseField="blood_number_of_samples", caseFieldValue="2", message="Two blood samples were collected, so this field is expected")
      */
     private $blood_second_id;
 
@@ -360,6 +390,7 @@ class SiteLab implements BaseSiteLabInterface
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
+     * @LocalAssert\CaseRelated(groups={"AMR+Completeness"}, caseField="blood_number_of_samples", caseFieldValue="2", message="Two blood samples were collected, so this field is expected")
      */
     private $blood_second_lab_date;
 
@@ -369,6 +400,7 @@ class SiteLab implements BaseSiteLabInterface
      * @Assert\DateTime
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'H:i:s'>")
+     * @LocalAssert\CaseRelated(groups={"AMR+Completeness"}, caseField="blood_number_of_samples", caseFieldValue="2", message="Two blood samples were collected, so this field is expected")
      */
     private $blood_second_lab_time;
 
@@ -376,6 +408,7 @@ class SiteLab implements BaseSiteLabInterface
      * @var TripleChoice|null
      * @ORM\Column(name="blood_second_cult_done",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @LocalAssert\CaseRelated(groups={"AMR+Completeness"}, caseField="blood_number_of_samples", caseFieldValue="2", message="Two blood samples were collected, so this field is expected")
      */
     private $blood_second_cult_done;
 
@@ -383,6 +416,7 @@ class SiteLab implements BaseSiteLabInterface
      * @var TripleChoice|null
      * @ORM\Column(name="blood_second_gram_done",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @LocalAssert\CaseRelated(groups={"AMR+Completeness"}, caseField="blood_number_of_samples", caseFieldValue="2", message="Two blood samples were collected, so this field is expected")
      */
     private $blood_second_gram_done;
 
@@ -390,6 +424,7 @@ class SiteLab implements BaseSiteLabInterface
      * @var TripleChoice|null
      * @ORM\Column(name="blood_second_pcr_done",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @LocalAssert\CaseRelated(groups={"AMR+Completeness"}, caseField="blood_number_of_samples", caseFieldValue="2", message="Two blood samples were collected, so this field is expected")
      */
     private $blood_second_pcr_done;
 
@@ -447,6 +482,7 @@ class SiteLab implements BaseSiteLabInterface
      * @var string|null
      * @ORM\Column(name="other_id",type="string",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @LocalAssert\CaseRelated(groups={"ARF+Completeness","EMR+Completeness","EUR+Completeness","SEAR+Completeness","WPR+Completeness"}, caseField="other_specimen_collected", caseFieldValue={1,2,3}, message="Other samples were collected, so this field is expected")
      */
     private $other_id;
 
@@ -455,6 +491,7 @@ class SiteLab implements BaseSiteLabInterface
      * @var string|null
      * @ORM\Column(name="other_type",type="string",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @LocalAssert\CaseRelated(groups={"ARF+Completeness","EMR+Completeness","EUR+Completeness","SEAR+Completeness","WPR+Completeness"}, caseField="other_specimen_collected", caseFieldValue={1,2,3}, message="Other samples were collected, so this field is expected")
      */
     private $other_type;
 
@@ -465,6 +502,7 @@ class SiteLab implements BaseSiteLabInterface
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
+     * @LocalAssert\CaseRelated(groups={"ARF+Completeness","EMR+Completeness","EUR+Completeness","SEAR+Completeness","WPR+Completeness"}, caseField="other_specimen_collected", caseFieldValue={1,2,3}, message="Other samples were collected, so this field is expected")
      */
     private $other_lab_date;
 
@@ -474,6 +512,7 @@ class SiteLab implements BaseSiteLabInterface
      * @Assert\DateTime
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'H:i:s'>")
+     * @LocalAssert\CaseRelated(groups={"ARF+Completeness","EMR+Completeness","EUR+Completeness","SEAR+Completeness","WPR+Completeness"}, caseField="other_specimen_collected", caseFieldValue={1,2,3}, message="Other samples were collected, so this field is expected")
      */
     private $other_lab_time;
 
@@ -481,6 +520,7 @@ class SiteLab implements BaseSiteLabInterface
      * @var TripleChoice|null
      * @ORM\Column(name="other_cult_done",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @LocalAssert\CaseRelated(groups={"ARF+Completeness","EMR+Completeness","EUR+Completeness","SEAR+Completeness","WPR+Completeness"}, caseField="other_specimen_collected", caseFieldValue={1,2,3}, message="Other samples were collected, so this field is expected")
      */
     private $other_cult_done;
 
@@ -502,6 +542,7 @@ class SiteLab implements BaseSiteLabInterface
      * @var TripleChoice|null
      * @ORM\Column(name="other_test_done",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @LocalAssert\CaseRelated(groups={"ARF+Completeness","EMR+Completeness","EUR+Completeness","SEAR+Completeness","WPR+Completeness"}, caseField="other_specimen_collected", caseFieldValue={1,2,3}, message="Other samples were collected, so this field is expected")
      */
     private $other_test_done;
 
@@ -518,91 +559,6 @@ class SiteLab implements BaseSiteLabInterface
      * @Serializer\Groups({"api","export"})
      */
     private $other_test_other;
-//==================================
-    /**
-     * @var boolean|null
-     * @ORM\Column(name="rl_csf_sent",type="boolean",nullable=true)
-     * @LocalAssert\NoFutureDate()
-     * @Serializer\Groups({"api","export"})
-     */
-    private $rl_csf_sent;
-
-    /**
-     * @var DateTime|null
-     * @ORM\Column(name="rl_csf_date",type="date",nullable=true)
-     * @LocalAssert\NoFutureDate()
-     * @Serializer\Groups({"api","export"})
-     * @Serializer\Type(name="DateTime<'Y-m-d'>")
-     */
-    private $rl_csf_date;
-
-    /**
-     * @var boolean|null
-     * @ORM\Column(name="rl_isol_csf_sent",type="boolean",nullable=true)
-     * @LocalAssert\NoFutureDate()
-     * @Serializer\Groups({"api","export"})
-     */
-    private $rl_isol_csf_sent;
-
-    /**
-     * @var DateTime|null
-     * @ORM\Column(name="rl_isol_csf_date",type="date",nullable=true)
-     * @LocalAssert\NoFutureDate()
-     * @Serializer\Groups({"api","export"})
-     * @Serializer\Type(name="DateTime<'Y-m-d'>")
-     */
-    private $rl_isol_csf_date;
-
-    /**
-     * @var boolean|null
-     * @ORM\Column(name="rl_isol_blood_sent",type="boolean",nullable=true)
-     * @LocalAssert\NoFutureDate()
-     * @Serializer\Groups({"api","export"})
-     */
-    private $rl_isol_blood_sent;
-
-    /**
-     * @var DateTime|null
-     * @ORM\Column(name="rl_isol_blood_date",type="date",nullable=true)
-     * @LocalAssert\NoFutureDate()
-     * @Serializer\Groups({"api","export"})
-     * @Serializer\Type(name="DateTime<'Y-m-d'>")
-     */
-    private $rl_isol_blood_date;
-
-    /**
-     * @var boolean|null
-     * @ORM\Column(name="rl_broth_sent",type="boolean",nullable=true)
-     * @LocalAssert\NoFutureDate()
-     * @Serializer\Groups({"api","export"})
-     */
-    private $rl_broth_sent;
-
-    /**
-     * @var DateTime|null
-     * @ORM\Column(name="rl_broth_date",type="date",nullable=true)
-     * @LocalAssert\NoFutureDate()
-     * @Serializer\Groups({"api","export"})
-     * @Serializer\Type(name="DateTime<'Y-m-d'>")
-     */
-    private $rl_broth_date;
-
-    /**
-     * @var boolean|null
-     * @ORM\Column(name="rl_other_sent",type="boolean",nullable=true)
-     * @LocalAssert\NoFutureDate()
-     * @Serializer\Groups({"api","export"})
-     */
-    private $rl_other_sent;
-
-    /**
-     * @var DateTime|null
-     * @ORM\Column(name="rl_other_date",type="date",nullable=true)
-     * @LocalAssert\NoFutureDate()
-     * @Serializer\Groups({"api","export"})
-     * @Serializer\Type(name="DateTime<'Y-m-d'>")
-     */
-    private $rl_other_date;
 
 //=================================
 // NL
@@ -612,6 +568,7 @@ class SiteLab implements BaseSiteLabInterface
      * @ORM\Column(name="nl_csf_sent",type="boolean",nullable=true)
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotNull(groups={"Completeness"})
      */
     private $nl_csf_sent;
 
@@ -629,6 +586,7 @@ class SiteLab implements BaseSiteLabInterface
      * @ORM\Column(name="nl_isol_csf_sent",type="boolean",nullable=true)
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotNull(groups={"Completeness"})
      */
     private $nl_isol_csf_sent;
 
@@ -646,6 +604,7 @@ class SiteLab implements BaseSiteLabInterface
      * @ORM\Column(name="nl_isol_blood_sent",type="boolean",nullable=true)
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotNull(groups={"Completeness"})
      */
     private $nl_isol_blood_sent;
 
@@ -659,10 +618,12 @@ class SiteLab implements BaseSiteLabInterface
     private $nl_isol_blood_date;
 
     /**
+     * @TODO these aren't exposed... should they be??
      * @var boolean|null
      * @ORM\Column(name="nl_broth_sent",type="boolean",nullable=true)
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotNull(groups={"Completeness"})
      */
     private $nl_broth_sent;
 
@@ -680,6 +641,7 @@ class SiteLab implements BaseSiteLabInterface
      * @ORM\Column(name="nl_other_sent",type="boolean",nullable=true)
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotNull(groups={"Completeness"})
      */
     private $nl_other_sent;
 
@@ -1172,66 +1134,6 @@ class SiteLab implements BaseSiteLabInterface
         $this->other_cult_other = $otherCultOther;
     }
 
-    public function getRlCsfSent(): ?bool
-    {
-        return $this->rl_csf_sent;
-    }
-
-    public function setRlCsfSent(?bool $rl_csf_sent = null): void
-    {
-        $this->rl_csf_sent = $rl_csf_sent;
-    }
-
-    public function getRlIsolCsfSent(): ?bool
-    {
-        return $this->rl_isol_csf_sent;
-    }
-
-    public function setRlIsolCsfSent(?bool $rl_isol_csf_sent = null): void
-    {
-        $this->rl_isol_csf_sent = $rl_isol_csf_sent;
-    }
-
-    public function getRlIsolBloodSent(): ?bool
-    {
-        return $this->rl_isol_blood_sent;
-    }
-
-    public function setRlIsolBloodSent(?bool $rl_isol_blood_sent = null): void
-    {
-        $this->rl_isol_blood_sent = $rl_isol_blood_sent;
-    }
-
-    public function getRlBrothSent(): ?bool
-    {
-        return $this->rl_broth_sent;
-    }
-
-    public function setRlBrothSent(?bool $rl_broth_sent = null): void
-    {
-        $this->rl_broth_sent = $rl_broth_sent;
-    }
-
-    public function getRlOtherSent(): ?bool
-    {
-        return $this->rl_other_sent;
-    }
-
-    public function setRlOtherSent(?bool $rl_other_sent = null): void
-    {
-        $this->rl_other_sent = $rl_other_sent;
-    }
-
-    public function getRlOtherDate(): ?DateTime
-    {
-        return $this->rl_other_date;
-    }
-
-    public function setRlOtherDate(DateTime $rl_other_date = null): void
-    {
-        $this->rl_other_date = $rl_other_date;
-    }
-
     public function getNlCsfSent(): ?bool
     {
         return $this->nl_csf_sent;
@@ -1332,118 +1234,9 @@ class SiteLab implements BaseSiteLabInterface
         $this->nl_other_date = $nl_other_date;
     }
 
-    public function getRlCsfDate(): ?DateTime
-    {
-        return $this->rl_csf_date;
-    }
-
-    public function setRlCsfDate(?DateTime $rl_csf_date = null): void
-    {
-        $this->rl_csf_date = $rl_csf_date;
-    }
-
-    public function getRlIsolCsfDate(): ?DateTime
-    {
-        return $this->rl_isol_csf_date;
-    }
-
-    public function setRlIsolCsfDate(?DateTime $rl_isol_csf_date = null): void
-    {
-        $this->rl_isol_csf_date = $rl_isol_csf_date;
-    }
-
-    public function getRlIsolBloodDate(): ?DateTime
-    {
-        return $this->rl_isol_blood_date;
-    }
-
-    public function setRlIsolBloodDate(?DateTime $rl_isol_blood_date = null): void
-    {
-        $this->rl_isol_blood_date = $rl_isol_blood_date;
-    }
-
-    public function getRlBrothDate(): ?DateTime
-    {
-        return $this->rl_broth_date;
-    }
-
-    public function setRlBrothDate(?DateTime $rl_broth_date = null): void
-    {
-        $this->rl_broth_date = $rl_broth_date;
-    }
-
     public function isComplete(): bool
     {
         return $this->status->equal(CaseStatus::COMPLETE);
-    }
-
-    /**
-     * @ORM\PrePersist
-     */
-    public function prePersist(): void
-    {
-        $this->_calculateStatus();
-
-        $this->updatedAt = new DateTime();
-    }
-
-    /**
-     * @ORM\PreUpdate
-     */
-    public function preUpdate(): void
-    {
-        $this->_calculateStatus();
-
-        $this->updatedAt = new DateTime();
-    }
-
-    private function _calculateStatus(): void
-    {
-        // Don't adjust cancelled or deleted records
-        if ($this->status->getValue() >= CaseStatus::CANCELLED) {
-            return;
-        }
-
-        if ($this->getIncompleteField()) {
-            $this->status->setValue(CaseStatus::OPEN);
-        } else {
-            $this->status->setValue(CaseStatus::COMPLETE);
-        }
-    }
-
-    public function getIncompleteField(): ?string
-    {
-        foreach ($this->getMinimumRequiredFields() as $field) {
-            if ($this->$field === null || empty($this->$field) || ($this->$field instanceof ArrayChoice && $this->$field->equal(-1))) {
-                return $field;
-            }
-        }
-
-        //Additional Tests as needed (result=other && other fields etc)
-
-        return null;
-    }
-
-    public function getMinimumRequiredFields(): array
-    {
-        return [
-            'csfLabDate',
-            'csfLabTime',
-            'csfWcc',
-            'csfGlucose',
-            'csfProtein',
-            'csfCultDone',
-            'csfGramDone',
-            'csfBinaxDone',
-            'csfLatDone',
-            'csfPcrDone',
-            'csfStore',
-            'isolStore',
-            'bloodCultDone',
-            'bloodGramDone',
-            'bloodPcrDone',
-            'otherCultDone',
-        ];
     }
 
     public function getBloodLabDate(): ?DateTime
@@ -1506,9 +1299,9 @@ class SiteLab implements BaseSiteLabInterface
         $this->other_lab_time = $other_lab_time;
     }
 
-    public function getSentToReferenceLab(): bool
+    public function getSentToReferenceLab(): ?bool
     {
-        return ($this->rl_csf_sent || $this->rl_isol_csf_sent || $this->rl_isol_blood_sent || $this->rl_broth_sent || $this->rl_other_sent);
+        return null;
     }
 
     public function getSentToNationalLab(): bool

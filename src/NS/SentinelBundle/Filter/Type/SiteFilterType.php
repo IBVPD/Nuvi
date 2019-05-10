@@ -27,7 +27,7 @@ class SiteFilterType extends AbstractType implements EmbeddedFilterTypeInterface
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $label = (isset($options['label'])) ? $options['label'] : null;
+        $label = isset($options['label']) ? $options['label'] : null;
 
         $builder->add('name', TextFilterType::class, ['required' => false, 'label' => $label, 'apply_filter' => [$this,'applyFilter']]);
 

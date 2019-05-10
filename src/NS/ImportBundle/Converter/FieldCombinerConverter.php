@@ -77,7 +77,7 @@ class FieldCombinerConverter implements ReporterInterface
      */
     public function hasMessage()
     {
-        return (!empty($this->message));
+        return !empty($this->message);
     }
 
     /**

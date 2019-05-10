@@ -3,22 +3,14 @@
 namespace NS\SentinelBundle\Entity\IBD\Types;
 
 use NS\UtilBundle\Entity\Types\ArrayChoice;
+use NS\SentinelBundle\Form\IBD\Types\SerotypeIdentifier as FormType;
 
-/**
- * Class SerotypeIdentifier
- * @package NS\SentinelBundle\Entity\IBD\Types
- */
 class SerotypeIdentifier extends ArrayChoice
 {
-    /**
-     * @var string
-     */
-    protected $convert_class = 'NS\SentinelBundle\Form\IBD\Types\SerotypeIdentifier';
+    /** @var string */
+    protected $convert_class = FormType::class;
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'SerotypeIdentifier';
     }

@@ -139,7 +139,7 @@ class DateRangeConverter implements ReporterInterface
      */
     public function getKey($key, $parent = null)
     {
-        return ($parent) ? "$parent.$key" : $key;
+        return $parent ? "$parent.$key" : $key;
     }
 
     /**

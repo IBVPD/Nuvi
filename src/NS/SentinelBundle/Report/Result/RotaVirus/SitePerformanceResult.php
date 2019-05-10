@@ -36,7 +36,7 @@ class SitePerformanceResult extends AbstractSitePerformanceResult
         return $this->getState($total, 100, 80);
     }
 
-    const MIN_CASES_STR = '≥ 100 cases';
+    public const MIN_CASES_STR = '≥ 100 cases';
     public function getMinimumNumberOfCasesString()
     {
         return self::MIN_CASES_STR;
@@ -48,7 +48,7 @@ class SitePerformanceResult extends AbstractSitePerformanceResult
         return $this->getState($percent);
     }
 
-    const MIN_SPECIMEN_STR = '≥ 90% with specimen';
+    public const MIN_SPECIMEN_STR = '≥ 90% with specimen';
     public function getMinimumSpecimenCollectedString()
     {
         return self::MIN_SPECIMEN_STR;
@@ -60,7 +60,7 @@ class SitePerformanceResult extends AbstractSitePerformanceResult
         return $this->getState($percent);
     }
 
-    const MIN_SPECIMEN__TESTED_STR = '≥ 90% with specimen';
+    public const MIN_SPECIMEN__TESTED_STR = '≥ 90% with specimen';
 
     public function getMinimumLabConfirmedString()
     {

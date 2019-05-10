@@ -46,15 +46,13 @@ class MeningitisListener extends BaseCaseListener
             // Probable
             if ($case->getCsfAppearance() && $case->getCsfAppearance()->equal(CSFAppearance::TURBID)) {
                 $case->getResult()->setValue(CaseResult::PROBABLE);
-            } else {
-                if ($case->getSiteLab()) {
-                    /** @var Meningitis\SiteLab $lab */
-                    $lab = $case->getSiteLab();
-                    if (($lab->getCsfWcc() > 10 && $lab->getCsfWcc() <= 100) && (($lab->getCsfGlucose() >= 0 && $lab->getCsfGlucose() < 40) || ($lab->getCsfProtein() > 100))) {
-                        $case->getResult()->setValue(CaseResult::PROBABLE);
-                    } else {
-                        $case->getResult()->setValue(CaseResult::CONFIRMED);
-                    }
+            } elseif ($case->getSiteLab()) {
+                /** @var Meningitis\SiteLab $lab */
+                $lab = $case->getSiteLab();
+                if (($lab->getCsfWcc() > 10 && $lab->getCsfWcc() <= 100) && (($lab->getCsfGlucose() >= 0 && $lab->getCsfGlucose() < 40) || ($lab->getCsfProtein() > 100))) {
+                    $case->getResult()->setValue(CaseResult::PROBABLE);
+                } else {
+                    $case->getResult()->setValue(CaseResult::CONFIRMED);
                 }
             } // Confirmed
         }
@@ -76,123 +74,5 @@ class MeningitisListener extends BaseCaseListener
         }
 
         return false;
-    }
-
-    /**
-     * @param BaseCase|Meningitis\Meningitis $case
-     * @return null|string
-     */
-    public function getIncompleteField(BaseCase $case): ?string
-    {
-        $regionCode = $case->getRegion()->getCode();
-        foreach ($this->getMinimumRequiredFields($case, $regionCode) as $field) {
-            $method = sprintf('get%s', $field);
-            $value = $case->$method();
-
-            if ($value === null || empty($value) || ($value instanceof ArrayChoice && $value->equal(-1))) {
-                return $field;
-            }
-        }
-
-        // this isn't covered by the above loop because its valid for age == 0 but 0 == empty
-        if ($case->getAge() === null) {
-            return 'age';
-        }
-
-        if ($case->getAdmDx() && $case->getAdmDx()->equal(Diagnosis::OTHER) && !$case->getAdmDxOther()) {
-            return 'admDx';
-        }
-
-        if ($case->getDischDx() && $case->getDischDx()->equal(DischargeDiagnosis::OTHER) && !$case->getDischDxOther()) {
-            return 'dischDx';
-        }
-
-        if ($case->getHibReceived() && ($case->getHibReceived()->equal(VaccinationReceived::YES_HISTORY) || $case->getHibReceived()->equal(VaccinationReceived::YES_CARD)) && ($case->getHibDoses() === null || $case->getHibDoses()->equal(ArrayChoice::NO_SELECTION))) {
-            return 'hibReceived';
-        }
-
-        if ($case->getPcvReceived() && ($case->getPcvReceived()->equal(VaccinationReceived::YES_HISTORY) || $case->getPcvReceived()->equal(VaccinationReceived::YES_CARD)) && ($case->getPcvDoses() === null || $case->getPcvDoses()->equal(ArrayChoice::NO_SELECTION))) {
-            return 'pcvReceived';
-        }
-
-        if ($case->getMeningReceived() && ($case->getMeningReceived()->equal(VaccinationReceived::YES_CARD) || $case->getMeningReceived()->equal(VaccinationReceived::YES_HISTORY))) {
-            if ($case->getMeningType() === null) {
-                return 'meningType1';
-            }
-
-            if ($case->getMeningType()->equal(ArrayChoice::NO_SELECTION)) {
-                return 'meningType2';
-            }
-
-            if ($case->getMeningDate() === null) {
-                return 'meningDate';
-            }
-        }
-
-        if ($case->getCsfCollected() && $case->getCsfCollected()->equal(TripleChoice::YES)) {
-
-            if ($case->getCsfCollectDate() === null) {
-                return 'csfCollectDate';
-            }
-
-            if ($case->getCsfCollectTime() === null) {
-                return 'csfCollectTime';
-            }
-
-            if ($case->getCsfAppearance() === null) {
-                return 'csfAppearance1';
-            }
-
-            if ($case->getCsfAppearance()->equal(ArrayChoice::NO_SELECTION)) {
-                return 'csfAppearance2';
-            }
-        }
-
-        if ($case->getOtherSpecimenCollected() && $case->getOtherSpecimenCollected()->equal(OtherSpecimen::OTHER) && !$case->getOtherSpecimenOther()) {
-            return 'otherSpecimenOther';
-        }
-
-        if (($regionCode === 'AMR') && $case->getBloodNumberOfSamples() > 1 && (!$case->getBloodSecondCollectDate() || !$case->getBloodSecondCollectTime())) {
-            return 'bloodSecondCollect';
-        }
-
-        return null;
-    }
-
-    public function getMinimumRequiredFields(BaseCase $case, ?string $regionCode = null): array
-    {
-        $fields = [
-            'caseId',
-            'birthdate',
-            'gender',
-            'district',
-            'admDate',
-            'onsetDate',
-            'admDx',
-            'antibiotics',
-            'menSeizures',
-            'menFever',
-            'menAltConscious',
-            'menInabilityFeed',
-            'menNeckStiff',
-            'menRash',
-            'menFontanelleBulge',
-            'menLethargy',
-            'hibReceived',
-            'pcvReceived',
-            'meningReceived',
-            'csfCollected',
-            'bloodCollected',
-            'otherSpecimenCollected',
-            'dischOutcome',
-            'dischDx',
-            'dischClass',
-        ];
-
-        if ($regionCode === 'AMR') {
-            $fields = array_merge($fields,['menIrritability', 'menVomit', 'menMalnutrition', 'bloodNumberOfSamples']);
-        }
-
-        return $fields;
     }
 }

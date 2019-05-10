@@ -26,12 +26,15 @@ class IBDListener extends BaseCaseListener
      * Probable: Suspected + CSF examination as one of the following
      *              - Turbid appearance
      *              - Leukocytosis ( > 100 cells/mm3)
-     *              - Leukocytosis ( 10-100 cells/mm3) AND either elevated protein (> 100mg/dl) or decreased glucose (< 40 mg/dl)
+     *              - Leukocytosis ( 10-100 cells/mm3) AND either elevated protein (> 100mg/dl) or decreased glucose (<
+     *              40 mg/dl)
      *
      * Confirmed: Suspected + culture or (Gram stain, antigen detection, immunochromotagraphy, PCR or other methods)
-     *            a bacterial pathogen (Hib, pneumococcus or meningococcus) in the CSF or from the blood in a child with a clinical
-     *            syndrome consistent with bacterial meningitis
+     *            a bacterial pathogen (Hib, pneumococcus or meningococcus) in the CSF or from the blood in a child
+     *            with a clinical syndrome consistent with bacterial meningitis
+     *
      * @param IBD|BaseCase $case
+     *
      * @return void
      */
     public function calculateResult(BaseCase $case): void
@@ -40,7 +43,7 @@ class IBDListener extends BaseCaseListener
             return;
         }
 
-        if($case instanceof Pneumonia) {
+        if ($case instanceof Pneumonia) {
             return;
         }
 
@@ -48,15 +51,13 @@ class IBDListener extends BaseCaseListener
             // Probable
             if ($case->getCsfAppearance() && $case->getCsfAppearance()->equal(CSFAppearance::TURBID)) {
                 $case->getResult()->setValue(CaseResult::PROBABLE);
-            } else {
-                if ($case->getSiteLab()) {
-                    /** @var IBD\SiteLab $lab */
-                    $lab = $case->getSiteLab();
-                    if (($lab->getCsfWcc() > 10 && $lab->getCsfWcc() <= 100) && (($lab->getCsfGlucose() >= 0 && $lab->getCsfGlucose() < 40) || ($lab->getCsfProtein() > 100))) {
-                        $case->getResult()->setValue(CaseResult::PROBABLE);
-                    } else {
-                        $case->getResult()->setValue(CaseResult::CONFIRMED);
-                    }
+            } elseif ($case->getSiteLab()) {
+                /** @var IBD\SiteLab $lab */
+                $lab = $case->getSiteLab();
+                if (($lab->getCsfWcc() > 10 && $lab->getCsfWcc() <= 100) && (($lab->getCsfGlucose() >= 0 && $lab->getCsfGlucose() < 40) || ($lab->getCsfProtein() > 100))) {
+                    $case->getResult()->setValue(CaseResult::PROBABLE);
+                } else {
+                    $case->getResult()->setValue(CaseResult::CONFIRMED);
                 }
             } // Confirmed
         }
@@ -78,6 +79,16 @@ class IBDListener extends BaseCaseListener
         }
 
         return false;
+    }
+
+    public function calculateStatus(BaseCase $case): void
+    {
+        if ($case->getStatus()->getValue() >= CaseStatus::CANCELLED) {
+            return;
+        }
+
+        $status = $this->getIncompleteField($case) ? new CaseStatus(CaseStatus::OPEN) : new CaseStatus(CaseStatus::COMPLETE);
+        $case->setStatus($status);
     }
 
     /**

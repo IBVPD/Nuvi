@@ -32,27 +32,26 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      @Security\SecuredCondition(roles={"ROLE_COUNTRY","ROLE_RRL_LAB","ROLE_NL_LAB"},through={"caseFile"},relation="country",class="NSSentinelBundle:Country"),
  *      @Security\SecuredCondition(roles={"ROLE_SITE","ROLE_LAB"},through={"caseFile"},relation="site",class="NSSentinelBundle:Site"),
  *      })
- * @LocalAssert\AllOther( {
- *                      @LocalAssert\Other(field="csfCultDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="csfCultResult",message="form.validation.ibd-sitelab-csfCult-was-done-without-result"),
- *                      @LocalAssert\Other(field="csfCultResult",value="\NS\SentinelBundle\Form\IBD\Types\CultureResult::OTHER",otherField="csfCultOther",message="form.validation.ibd-sitelab-csfCult-was-done-without-result-other"),
  *
- *                      @LocalAssert\Other(field="csfLatDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="csfLatResult",message="form.validation.ibd-sitelab-csfLat-was-done-without-result"),
- *                      @LocalAssert\Other(field="csfLatResult",value="\NS\SentinelBundle\Form\IBD\Types\LatResult::OTHER",otherField="csfLatOther",message="form.validation.ibd-sitelab-csfLat-was-done-without-result-other"),
- * 
- *                      @LocalAssert\Other(field="csfPcrDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="csfPcrResult",message="form.validation.ibd-sitelab-csfPcr-was-done-without-result"),
- *                      @LocalAssert\Other(field="csfPcrResult",value="\NS\SentinelBundle\Form\IBD\Types\PCRResult::OTHER",otherField="csfPcrOther",message="form.validation.ibd-sitelab-csfPcr-was-done-without-result-other"),
+ * @LocalAssert\Other(field="csfCultDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="csfCultResult",groups={"Default","Completeness"})
+ * @LocalAssert\Other(field="csfCultResult",value="\NS\SentinelBundle\Form\IBD\Types\CultureResult::OTHER",otherField="csfCultOther",groups={"Default","Completeness"})
  *
- *                      @LocalAssert\Other(field="bloodCultDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="bloodCultResult",message="form.validation.ibd-sitelab-bloodCult-was-done-without-result"),
- *                      @LocalAssert\Other(field="bloodCultResult",value="\NS\SentinelBundle\Form\IBD\Types\CultureResult::OTHER",otherField="bloodCultOther",message="form.validation.ibd-sitelab-bloodCult-was-done-without-result-other"),
+ * @LocalAssert\Other(field="csfLatDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="csfLatResult",groups={"Default","Completeness"})
+ * @LocalAssert\Other(field="csfLatResult",value="\NS\SentinelBundle\Form\IBD\Types\LatResult::OTHER",otherField="csfLatOther",groups={"Default","Completeness"})
  *
- *                      @LocalAssert\Other(field="otherCultDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="otherCultResult",message="form.validation.ibd-sitelab-otherCult-was-done-without-result"),
- *                      @LocalAssert\Other(field="otherCultResult",value="\NS\SentinelBundle\Form\IBD\Types\CultureResult::OTHER",otherField="otherCultOther",message="form.validation.ibd-sitelab-otherCult-was-done-without-result-other"),
+ * @LocalAssert\Other(field="csfPcrDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="csfPcrResult",groups={"Default","Completeness"})
+ * @LocalAssert\Other(field="csfPcrResult",value="\NS\SentinelBundle\Form\IBD\Types\PCRResult::OTHER",otherField="csfPcrOther",groups={"Default","Completeness"})
  *
- *                      @LocalAssert\Other(field="otherTestDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="otherTestResult",message="form.validation.ibd-sitelab-otherTest-was-done-without-result"),
- *                      @LocalAssert\Other(field="otherTestResult",value="\NS\SentinelBundle\Form\IBD\Types\CultureResult::OTHER",otherField="otherTestOther",message="form.validation.ibd-sitelab-otherTest-was-done-without-result-other"),
+ * @LocalAssert\Other(field="bloodCultDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="bloodCultResult",groups={"Default","Completeness"})
+ * @LocalAssert\Other(field="bloodCultResult",value="\NS\SentinelBundle\Form\IBD\Types\CultureResult::OTHER",otherField="bloodCultOther",groups={"Default","Completeness"})
  *
- *                      @LocalAssert\Other(field="csfBinaxDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="csfBinaxResult",message="form.validation.ibd-sitelab-csfBinax-was-done-without-result"),
- *                      } )
+ * @LocalAssert\Other(field="otherCultDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="otherCultResult",groups={"Default","Completeness"})
+ * @LocalAssert\Other(field="otherCultResult",value="\NS\SentinelBundle\Form\IBD\Types\CultureResult::OTHER",otherField="otherCultOther",groups={"Default","Completeness"})
+ *
+ * @LocalAssert\Other(field="otherTestDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="otherTestResult", groups={"Default","Completeness"})
+ * @LocalAssert\Other(field="otherTestResult",value="\NS\SentinelBundle\Form\IBD\Types\CultureResult::OTHER",otherField="otherTestOther", groups={"Default","Completeness"})
+ *
+ * @LocalAssert\Other(field="csfBinaxDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="csfBinaxResult", groups={"Default","Completeness"})
  */
 class SiteLab implements BaseSiteLabInterface
 {
@@ -803,41 +802,24 @@ class SiteLab implements BaseSiteLabInterface
         $this->caseFile = $caseFile;
     }
 
-    /**
-     * @return DateTime
-     */
     public function getUpdatedAt(): DateTime
     {
         return $this->updatedAt;
     }
 
-    /**
-     * @param DateTime $updatedAt
-     * @return $this
-     */
-    public function setUpdatedAt(DateTime $updatedAt)
+    public function setUpdatedAt(DateTime $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
-
-        return $this;
     }
 
-    /**
-     * @return CaseStatus
-     */
-    public function getStatus()
+    public function getStatus(): CaseStatus
     {
         return $this->status;
     }
 
-    /**
-     * @param CaseStatus $status
-     * @return $this
-     */
-    public function setStatus(CaseStatus $status)
+    public function setStatus(CaseStatus $status): void
     {
         $this->status = $status;
-        return $this;
     }
 
     public function hasCase(): bool
@@ -845,34 +827,22 @@ class SiteLab implements BaseSiteLabInterface
         return ($this->caseFile instanceof IBD);
     }
 
-    /**
-     * @return DateTime
-     */
-    public function getCsfLabDate()
+    public function getCsfLabDate(): ?DateTime
     {
         return $this->csf_lab_date;
     }
 
-    /**
-     * @return DateTime
-     */
-    public function getCsfLabTime()
+    public function getCsfLabTime(): ?DateTime
     {
         return $this->csf_lab_time;
     }
 
-    /**
-     * @return integer
-     */
-    public function getCsfWcc()
+    public function getCsfWcc(): ?int
     {
         return $this->csf_wcc;
     }
 
-    /**
-     * @return integer
-     */
-    public function getCsfGlucose()
+    public function getCsfGlucose(): ?int
     {
         return $this->csf_glucose;
     }
@@ -2171,26 +2141,17 @@ class SiteLab implements BaseSiteLabInterface
         return $this->other_id;
     }
 
-    /**
-     * @param string $other_id
-     */
-    public function setOtherId($other_id)
+    public function setOtherId(?string $other_id): void
     {
         $this->other_id = $other_id;
     }
 
-    /**
-     * @return string
-     */
-    public function getOtherType()
+    public function getOtherType(): ?string
     {
         return $this->other_type;
     }
 
-    /**
-     * @param string $other_type
-     */
-    public function setOtherType($other_type)
+    public function setOtherType(?string $other_type): void
     {
         $this->other_type = $other_type;
     }
@@ -2219,235 +2180,148 @@ class SiteLab implements BaseSiteLabInterface
         return $this->other_lab_time;
     }
 
-    /**
-     * @param DateTime $other_lab_time
-     */
-    public function setOtherLabTime(DateTime $other_lab_time = null)
+    public function setOtherLabTime(?DateTime $other_lab_time = null): void
     {
         $this->other_lab_time = $other_lab_time;
     }
 
-    /**
-     * @return bool
-     */
-    public function getSentToReferenceLab(): bool
+    public function getSentToReferenceLab(): ?bool
     {
         return ($this->rl_csf_sent || $this->rl_isol_csf_sent || $this->rl_isol_blood_sent || $this->rl_broth_sent || $this->rl_other_sent);
     }
 
-    /**
-     * @return bool
-     */
     public function getSentToNationalLab(): bool
     {
         return ($this->nl_csf_sent || $this->nl_isol_csf_sent || $this->nl_isol_blood_sent || $this->nl_broth_sent || $this->nl_other_sent);
     }
 
     // Second blood sample results
-    /**
-     * @return string
-     */
-    public function getBloodSecondId()
+    public function getBloodSecondId(): ?string
     {
         return $this->blood_second_id;
     }
 
-    /**
-     * @param string $blood_second_id
-     */
-    public function setBloodSecondId($blood_second_id)
+    public function setBloodSecondId(?string $blood_second_id): void
     {
         $this->blood_second_id = $blood_second_id;
     }
 
-    /**
-     * @return DateTime
-     */
-    public function getBloodSecondLabDate()
+    public function getBloodSecondLabDate(): ?DateTime
     {
         return $this->blood_second_lab_date;
     }
 
-    /**
-     * @param DateTime $blood_second_lab_date
-     */
-    public function setBloodSecondLabDate(DateTime $blood_second_lab_date = null)
+    public function setBloodSecondLabDate(?DateTime $blood_second_lab_date = null): void
     {
         $this->blood_second_lab_date = $blood_second_lab_date;
     }
 
-    /**
-     * @return DateTime
-     */
-    public function getBloodSecondLabTime()
+    public function getBloodSecondLabTime(): ?DateTime
     {
         return $this->blood_second_lab_time;
     }
 
-    /**
-     * @param DateTime $blood_second_lab_time
-     */
-    public function setBloodSecondLabTime(DateTime $blood_second_lab_time = null)
+    public function setBloodSecondLabTime(?DateTime $blood_second_lab_time = null): void
     {
         $this->blood_second_lab_time = $blood_second_lab_time;
     }
 
-    /**
-     * @return TripleChoice
-     */
-    public function getBloodSecondCultDone()
+    public function getBloodSecondCultDone(): ?TripleChoice
     {
         return $this->blood_second_cult_done;
     }
 
-    /**
-     * @param TripleChoice $blood_second_cult_done
-     */
-    public function setBloodSecondCultDone(TripleChoice $blood_second_cult_done)
+    public function setBloodSecondCultDone(?TripleChoice $blood_second_cult_done): void
     {
         $this->blood_second_cult_done = $blood_second_cult_done;
     }
 
-    /**
-     * @return TripleChoice
-     */
-    public function getBloodSecondGramDone()
+    public function getBloodSecondGramDone(): ?TripleChoice
     {
         return $this->blood_second_gram_done;
     }
 
-    /**
-     * @param TripleChoice $blood_second_gram_done
-     */
-    public function setBloodSecondGramDone(TripleChoice $blood_second_gram_done)
+    public function setBloodSecondGramDone(?TripleChoice $blood_second_gram_done): void
     {
         $this->blood_second_gram_done = $blood_second_gram_done;
     }
 
-    /**
-     * @return TripleChoice
-     */
-    public function getBloodSecondPcrDone()
+    public function getBloodSecondPcrDone():? TripleChoice
     {
         return $this->blood_second_pcr_done;
     }
 
-    /**
-     * @param TripleChoice $blood_second_pcr_done
-     */
-    public function setBloodSecondPcrDone(TripleChoice $blood_second_pcr_done)
+    public function setBloodSecondPcrDone(?TripleChoice $blood_second_pcr_done): void
     {
         $this->blood_second_pcr_done = $blood_second_pcr_done;
     }
 
-    /**
-     * @return CultureResult
-     */
-    public function getBloodSecondCultResult()
+    public function getBloodSecondCultResult(): ?CultureResult
     {
         return $this->blood_second_cult_result;
     }
 
-    /**
-     * @param CultureResult $blood_second_cult_result
-     */
-    public function setBloodSecondCultResult(CultureResult $blood_second_cult_result)
+    public function setBloodSecondCultResult(?CultureResult $blood_second_cult_result): void
     {
         $this->blood_second_cult_result = $blood_second_cult_result;
     }
 
-    /**
-     * @return string
-     */
-    public function getBloodSecondCultOther()
+    public function getBloodSecondCultOther(): ?string
     {
         return $this->blood_second_cult_other;
     }
 
-    /**
-     * @param string $blood_second_cult_other
-     */
-    public function setBloodSecondCultOther($blood_second_cult_other)
+    public function setBloodSecondCultOther(?string $blood_second_cult_other): void
     {
         $this->blood_second_cult_other = $blood_second_cult_other;
     }
 
-    /**
-     * @return GramStain
-     */
-    public function getBloodSecondGramStain()
+    public function getBloodSecondGramStain(): ?GramStain
     {
         return $this->blood_second_gram_stain;
     }
 
-    /**
-     * @param GramStain $blood_second_gram_stain
-     */
-    public function setBloodSecondGramStain(GramStain $blood_second_gram_stain)
+    public function setBloodSecondGramStain(?GramStain $blood_second_gram_stain): void
     {
         $this->blood_second_gram_stain = $blood_second_gram_stain;
     }
 
-    /**
-     * @return GramStainResult
-     */
-    public function getBloodSecondGramResult()
+    public function getBloodSecondGramResult(): ?GramStainResult
     {
         return $this->blood_second_gram_result;
     }
 
-    /**
-     * @param GramStainResult $blood_second_gram_result
-     */
-    public function setBloodSecondGramResult(GramStainResult $blood_second_gram_result)
+    public function setBloodSecondGramResult(?GramStainResult $blood_second_gram_result): void
     {
         $this->blood_second_gram_result = $blood_second_gram_result;
     }
 
-    /**
-     * @return string
-     */
-    public function getBloodSecondGramOther()
+    public function getBloodSecondGramOther(): ?string
     {
         return $this->blood_second_gram_other;
     }
 
-    /**
-     * @param string $blood_second_gram_other
-     */
-    public function setBloodSecondGramOther($blood_second_gram_other)
+    public function setBloodSecondGramOther(?string $blood_second_gram_other): void
     {
         $this->blood_second_gram_other = $blood_second_gram_other;
     }
 
-    /**
-     * @return PCRResult
-     */
-    public function getBloodSecondPcrResult()
+    public function getBloodSecondPcrResult(): ?PCRResult
     {
         return $this->blood_second_pcr_result;
     }
 
-    /**
-     * @param PCRResult $blood_second_pcr_result
-     */
-    public function setBloodSecondPcrResult(PCRResult $blood_second_pcr_result)
+    public function setBloodSecondPcrResult(?PCRResult $blood_second_pcr_result): void
     {
         $this->blood_second_pcr_result = $blood_second_pcr_result;
     }
 
-    /**
-     * @return string
-     */
-    public function getBloodSecondPcrOther()
+    public function getBloodSecondPcrOther(): ?string
     {
         return $this->blood_second_pcr_other;
     }
 
-    /**
-     * @param string $blood_second_pcr_other
-     */
-    public function setBloodSecondPcrOther($blood_second_pcr_other)
+    public function setBloodSecondPcrOther(?string $blood_second_pcr_other): void
     {
         $this->blood_second_pcr_other = $blood_second_pcr_other;
     }

@@ -20,9 +20,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class LogEvent
 {
-    const CREATED = 'created';
-    const UPDATED = 'updated';
-    const DELETED = 'deleted';
+    public const CREATED = 'created';
+    public const UPDATED = 'updated';
+    public const DELETED = 'deleted';
 
 
     /**

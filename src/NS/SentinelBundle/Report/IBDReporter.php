@@ -64,7 +64,7 @@ class IBDReporter extends AbstractReporter
 
             $this->filter->addFilterConditions($form, $queryBuilder, $alias);
 
-            $export = ($form->get('export')->isClicked());
+            $export = $form->get('export')->isClicked();
         }
 
         $result = new NumberEnrolledResult();

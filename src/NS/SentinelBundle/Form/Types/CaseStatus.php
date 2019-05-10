@@ -11,10 +11,10 @@ use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
  */
 class CaseStatus extends TranslatableArrayChoice implements TranslationContainerInterface
 {
-    const OPEN      = 0;
-    const COMPLETE  = 1;
-    const CANCELLED = 2;
-    const DELETED   = 3;
+    public const OPEN      = 0;
+    public const COMPLETE  = 1;
+    public const CANCELLED = 2;
+    public const DELETED   = 3;
 
     protected $values = [
         self::OPEN => 'Open',

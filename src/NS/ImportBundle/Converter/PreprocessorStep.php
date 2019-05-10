@@ -46,7 +46,7 @@ class PreprocessorStep implements Step
      */
     public function add($property, $conditions)
     {
-        $this->conditions[$property] = (is_array($conditions)) ? $conditions : [$conditions];
+        $this->conditions[$property] = is_array($conditions) ? $conditions : [$conditions];
     }
 
     /**

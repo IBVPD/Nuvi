@@ -11,10 +11,10 @@ use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
  */
 class ElisaResult extends TranslatableArrayChoice implements TranslationContainerInterface
 {
-    const NEGATIVE = 0;
-    const POSITIVE = 1;
-    const INDETERMINATE = 2;
-    const UNKNOWN = 99;
+    public const NEGATIVE = 0;
+    public const POSITIVE = 1;
+    public const INDETERMINATE = 2;
+    public const UNKNOWN = 99;
 
     protected $values = [
         self::NEGATIVE => 'Negative',

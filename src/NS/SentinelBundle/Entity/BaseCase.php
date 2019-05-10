@@ -11,6 +11,7 @@ use NS\SentinelBundle\Form\Types\CaseStatus;
 use NS\SentinelBundle\Form\Types\Gender;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Validators as LocalAssert;
+use NS\UtilBundle\Validator\Constraints\ArrayChoiceConstraint;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -71,7 +72,7 @@ abstract class BaseCase
      * case_ID
      * @var string
      * @ORM\Column(name="case_id",type="string",nullable=false)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"Default","AMR","Completeness"})
      * @Serializer\Groups({"api","export"})
      */
     protected $case_id;
@@ -80,6 +81,7 @@ abstract class BaseCase
      * @var string|null
      * @ORM\Column(name="district",type="string",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"})
      */
     protected $district;
 
@@ -93,6 +95,7 @@ abstract class BaseCase
      * @var DateTime|null
      * @ORM\Column(name="birthdate",type="date",nullable=true)
      * @Assert\Date
+     * @Assert\NotBlank(groups={"Completeness"})
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
@@ -104,6 +107,7 @@ abstract class BaseCase
      * @ORM\Column(name="dobKnown",type="TripleChoice",nullable=true)
      * @Serializer\Groups("export")
      * @Serializer\SerializedName("dobKnown")
+     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     protected $dobKnown;
 
@@ -114,6 +118,7 @@ abstract class BaseCase
      * @var int|null
      * @ORM\Column(name="age_months",type="integer",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"})
      */
     protected $age_months;
 
@@ -127,7 +132,7 @@ abstract class BaseCase
      * @var Gender|null
      * @ORM\Column(name="gender",type="Gender",nullable=true)
      * @Serializer\Groups({"api","export"})
-     * @Assert\NotBlank(groups={"AMR"})
+     * @ArrayChoiceConstraint(groups={"AMR","Completeness"})
      */
     protected $gender;
 
@@ -136,7 +141,7 @@ abstract class BaseCase
      * @ORM\Column(name="adm_date",type="date",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
-     * @Assert\NotBlank(groups={"AMR"})
+     * @Assert\NotBlank(groups={"AMR","Completeness"})
      * @Assert\Date()
      * @LocalAssert\NoFutureDate()
      */
@@ -361,7 +366,11 @@ abstract class BaseCase
 
     public function getSentToReferenceLab(): bool
     {
-        return (($this->siteLab && method_exists($this->siteLab, 'getSentToReferenceLab') && $this->siteLab->getSentToReferenceLab()) || ($this->nationalLab && $this->nationalLab->getSentToReferenceLab()));
+        if ($this->siteLab && method_exists($this->siteLab,'getSentToReferenceLab') && $this->siteLab->getSentToReferenceLab()) {
+            return true;
+        }
+
+        return $this->nationalLab && $this->nationalLab->getSentToReferenceLab();
     }
 
     public function getSentToNationalLab(): bool
@@ -387,7 +396,7 @@ abstract class BaseCase
 
     public function isComplete(): bool
     {
-        return $this->status->getValue() === CaseStatus::COMPLETE;
+        return (int)$this->status->getValue() === CaseStatus::COMPLETE;
     }
 
     public function getUpdatedAt(): ?DateTime
@@ -501,7 +510,7 @@ abstract class BaseCase
     /**
      * @param YearMonth $dobMonthYears
      */
-    public function setDobYearMonths(YearMonth $dobMonthYears=null)
+    public function setDobYearMonths(YearMonth $dobMonthYears=null): void
     {
         $this->dobYearMonths = $dobMonthYears;
         if ($dobMonthYears) {
@@ -509,20 +518,12 @@ abstract class BaseCase
         }
     }
 
-    /**
-     * @param DateTime $birthdate
-     * @return BaseCase
-     */
-    public function setBirthdate($birthdate)
+    public function setBirthdate(?DateTime $birthdate): void
     {
         $this->birthdate = $birthdate;
-        return $this;
     }
 
-    /**
-     * @param DateTime $dob
-     */
-    public function setDob(DateTime $dob = null)
+    public function setDob(DateTime $dob = null): void
     {
         $this->birthdate = $dob;
     }
@@ -567,17 +568,17 @@ abstract class BaseCase
         return $this->parentalName;
     }
 
-    public function setParentalName(?string $parentalName)
+    public function setParentalName(?string $parentalName): void
     {
         $this->parentalName = $parentalName;
     }
 
-    public function setLastName(?string $lastName)
+    public function setLastName(?string $lastName): void
     {
         $this->lastName = $lastName;
     }
 
-    public function setFirstName(?string $firstName)
+    public function setFirstName(?string $firstName): void
     {
         $this->firstName = $firstName;
     }
@@ -592,60 +593,37 @@ abstract class BaseCase
         $this->ageDistribution = $ageDistribution;
     }
 
-    /**
-     * @return string
-     */
-    public function getDistrict()
+    public function getDistrict(): ?string
     {
         return $this->district;
     }
 
-    /**
-     * @return string
-     */
-    public function getState()
+    public function getState(): ?string
     {
         return $this->state;
     }
 
-    /**
-     * @param string $district
-     */
-    public function setDistrict($district)
+    public function setDistrict(?string $district): void
     {
         $this->district = $district;
     }
 
-    /**
-     * @param string $state
-     */
-    public function setState($state)
+    public function setState(?string $state): void
     {
         $this->state = $state;
     }
 
-    /**
-     * @return boolean
-     */
-    public function hasWarning()
+    public function hasWarning(): bool
     {
-        return $this->warning;
+        return $this->warning ?? false;
     }
 
-    /**
-     * @param boolean $warning
-     * @return BaseCase
-     */
-    public function setWarning($warning)
+    public function setWarning(bool $warning): void
     {
         $this->warning = $warning;
-        return $this;
     }
 
-    /**
-     * @return bool
-     */
-    public function isUnlinked()
+    public function isUnlinked(): bool
     {
         return (strpos($this->id, '-XXX-') !== false);
     }

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gnat
- * Date: 19/05/16
- * Time: 11:50 AM
- */
 
 namespace NS\SentinelBundle\Tests\Form\ValidatorGroup;
 
@@ -24,28 +18,22 @@ use Symfony\Component\Form\FormInterface;
 
 class ValidatorGroupResolverTest extends TestCase
 {
-    /**
-     * @var TokenStorageInterface|MockObject
-     */
+    /** @var TokenStorageInterface|MockObject */
     private $tokenStorage;
 
-    /**
-     * @var EntityManagerInterface|MockObject
-     */
+    /** @var EntityManagerInterface|MockObject */
     private $entityMgr;
 
-    /**
-     * @var ObjectRepository|MockObject
-     */
+    /** @var ObjectRepository|MockObject */
     private $repository;
 
-    public function testIsCallable()
+    public function testIsCallable(): void
     {
         $resolver = new ValidatorGroupResolver($this->entityMgr, $this->tokenStorage);
         $this->assertTrue(is_callable($resolver));
     }
 
-    public function testObjectIdsFromAcls()
+    public function testObjectIdsFromAcls(): void
     {
         $acl = new ACL();
         $acl->setObjectId('AMRO');
@@ -58,7 +46,7 @@ class ValidatorGroupResolverTest extends TestCase
         $this->assertEquals(['AMRO'],$results );
     }
 
-    public function testObjectNames()
+    public function testObjectNames(): void
     {
         $region = new Region();
         $region->setCode('AMRO');
@@ -73,7 +61,7 @@ class ValidatorGroupResolverTest extends TestCase
      * @depends testObjectNames
      * @depends testObjectIdsFromAcls
      */
-    public function testRegionUser()
+    public function testRegionUser(): void
     {
         $region = new Region();
         $region->setCode('AMRO');
@@ -110,7 +98,7 @@ class ValidatorGroupResolverTest extends TestCase
      * @depends testObjectNames
      * @depends testObjectIdsFromAcls
      */
-    public function testCountryUser()
+    public function testCountryUser(): void
     {
         $region = new Region();
         $region->setCode('AMRO');
@@ -149,7 +137,7 @@ class ValidatorGroupResolverTest extends TestCase
      * @depends testObjectNames
      * @depends testObjectIdsFromAcls
      */
-    public function testSiteUser()
+    public function testSiteUser(): void
     {
         $region = new Region();
         $region->setCode('AMRO');
@@ -186,7 +174,7 @@ class ValidatorGroupResolverTest extends TestCase
      * @param $acls
      * @return array
      */
-    public function getObjectsFromAcls($acls)
+    public function getObjectsFromAcls($acls): array
     {
         $ids = [];
         /** @var ACL $acl */
@@ -201,7 +189,7 @@ class ValidatorGroupResolverTest extends TestCase
      * @param array $objects
      * @return array
      */
-    public function getObjectNames($objects)
+    public function getObjectNames($objects): array
     {
         $names = [];
         foreach((array)$objects as $object) {

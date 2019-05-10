@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gnat
- * Date: 19/05/17
- * Time: 10:01 AM
- */
 
 namespace NS\SentinelBundle\Validators;
 
@@ -20,10 +14,6 @@ class PCVValidator extends ConstraintValidator
     /** @var AuthorizationCheckerInterface */
     private $authChecker;
 
-    /**
-     * PCVValidator constructor.
-     * @param AuthorizationCheckerInterface $authChecker
-     */
     public function __construct(AuthorizationCheckerInterface $authChecker)
     {
         $this->authChecker = $authChecker;
@@ -33,21 +23,19 @@ class PCVValidator extends ConstraintValidator
      * @param IBD $value
      * @param Constraint|PCV $constraint
      */
-    public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint): void
     {
-        if ($this->authChecker->isGranted('ROLE_AMR')) {
-            if ($value->getPcvReceived() && ($value->getPcvReceived()->equal(VaccinationReceived::YES_CARD) || $value->getPcvReceived()->equal(VaccinationReceived::YES_HISTORY))) {
-                if (!$value->getPcvDoses() || $value->getPcvDoses()->equal(ArrayChoice::NO_SELECTION)) {
-                    $this->context->buildViolation($constraint->message)->atPath('pcvDoses')->addViolation();
-                }
+        if ($this->authChecker->isGranted('ROLE_AMR') && $value->getPcvReceived() && ($value->getPcvReceived()->equal(VaccinationReceived::YES_CARD) || $value->getPcvReceived()->equal(VaccinationReceived::YES_HISTORY))) {
+            if (!$value->getPcvDoses() || $value->getPcvDoses()->equal(ArrayChoice::NO_SELECTION)) {
+                $this->context->buildViolation($constraint->message)->atPath('pcvDoses')->addViolation();
+            }
 
-                if (!$value->getPcvType() || $value->getPcvType()->equal(ArrayChoice::NO_SELECTION)) {
-                    $this->context->buildViolation($constraint->message)->atPath('pcvType')->addViolation();
-                }
+            if (!$value->getPcvType() || $value->getPcvType()->equal(ArrayChoice::NO_SELECTION)) {
+                $this->context->buildViolation($constraint->message)->atPath('pcvType')->addViolation();
+            }
 
-                if (!$value->getPcvMostRecentDose()) {
-                    $this->context->buildViolation($constraint->message)->atPath('pcvMostRecentDose')->addViolation();
-                }
+            if (!$value->getPcvMostRecentDose()) {
+                $this->context->buildViolation($constraint->message)->atPath('pcvMostRecentDose')->addViolation();
             }
         }
     }

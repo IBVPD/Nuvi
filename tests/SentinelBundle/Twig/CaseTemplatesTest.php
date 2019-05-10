@@ -5,7 +5,7 @@ namespace NS\SentinelBundle\Tests\Twig;
 use NS\SentinelBundle\Twig\CaseTemplates;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Twig_Environment;
+use Twig\Environment;
 
 class CaseTemplatesTest extends TestCase
 {
@@ -16,7 +16,7 @@ class CaseTemplatesTest extends TestCase
             ->method('isGranted')
             ->willReturn(false);
 
-        $twigMock = $this->createMock(Twig_Environment::class);
+        $twigMock = $this->createMock(Environment::class);
         $twigMock->expects($this->never())
             ->method('render');
 
@@ -37,7 +37,7 @@ class CaseTemplatesTest extends TestCase
             ->with('ROLE_SITE_LEVEL')
             ->willReturn(true);
 
-        $twigMock = $this->createMock(Twig_Environment::class);
+        $twigMock = $this->createMock(Environment::class);
         $twigMock->expects($this->once())
             ->method('render')
             ->with('NSSentinelBundle:Case:site.html.twig', ['results'=> [], 'tableId'=>'myTable'])
@@ -60,7 +60,7 @@ class CaseTemplatesTest extends TestCase
             ->with('ROLE_COUNTRY_LEVEL')
             ->willReturn(true);
 
-        $twigMock = $this->createMock(Twig_Environment::class);
+        $twigMock = $this->createMock(Environment::class);
         $twigMock->expects($this->once())
             ->method('render')
             ->with('NSSentinelBundle:Case:country.html.twig', ['results'=> [], 'tableId'=>'myTable'])
@@ -87,7 +87,7 @@ class CaseTemplatesTest extends TestCase
             ->with('ROLE_REGION_LEVEL')
             ->willReturn(true);
 
-        $twigMock = $this->createMock(Twig_Environment::class);
+        $twigMock = $this->createMock(Environment::class);
         $twigMock->expects($this->once())
             ->method('render')
             ->with('NSSentinelBundle:Case:region.html.twig', ['results'=> [], 'tableId'=>'myTable'])

@@ -93,7 +93,7 @@ class CaseController extends FOSRestController
         $obj = $entityMgr->getRepository($className)->find($objId);
         $form = $this->createForm($formName, $obj, ['method' => $method]);
 
-        return ($this->updateObject($request, $entityMgr, $form)) ?
+        return $this->updateObject($request, $entityMgr, $form) ?
             $this->view(null, Response::HTTP_NO_CONTENT) :
             $this->view($form, Response::HTTP_BAD_REQUEST);
     }
@@ -112,7 +112,7 @@ class CaseController extends FOSRestController
         $obj = $entityMgr->getRepository($className)->findOrCreateNew($objId);
         $form = $this->createForm($formName, $obj, ['method' => $method]);
 
-        return ($this->updateObject($request, $entityMgr, $form)) ?
+        return $this->updateObject($request, $entityMgr, $form) ?
             $this->view(null, Response::HTTP_NO_CONTENT) :
             $this->view($form, Response::HTTP_BAD_REQUEST);
     }
@@ -142,7 +142,7 @@ class CaseController extends FOSRestController
             $case = $entityMgr->getRepository($className)->findOrCreate($caseId, $site, null);
 
             if (!$case->getId()) {
-                $site = ($form->has('site')) ? $form->get('site')->getData() : $this->get('ns.sentinel.sites')->getSite();
+                $site = $form->has('site') ? $form->get('site')->getData() : $this->get('ns.sentinel.sites')->getSite();
                 $case->setSite($site);
             }
 

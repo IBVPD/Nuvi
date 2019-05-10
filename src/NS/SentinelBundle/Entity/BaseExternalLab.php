@@ -9,9 +9,7 @@ use NS\SentinelBundle\Form\Types\CaseStatus;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Description of BaseLab
  * @ORM\MappedSuperclass
- * @author gnat
  */
 abstract class BaseExternalLab
 {
@@ -21,8 +19,8 @@ abstract class BaseExternalLab
     /**
      * @var string $lab_id
      * @ORM\Column(name="lab_id",type="string",nullable=true)
-     * @Assert\NotBlank
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"})
      */
     protected $lab_id;
 
@@ -31,6 +29,7 @@ abstract class BaseExternalLab
      * @ORM\Column(name="dt_sample_recd", type="date",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
+     * @Assert\NotBlank(groups={"Completeness"})
      */
     protected $dt_sample_recd;
 
@@ -69,34 +68,22 @@ abstract class BaseExternalLab
         $this->createdAt = $this->updatedAt = new DateTime();
     }
 
-    /**
-     * @return DateTime
-     */
-    public function getDateReceived()
+    public function getDateReceived(): ?DateTime
     {
         return $this->dt_sample_recd;
     }
 
-    /**
-     * @param DateTime|null $dateReceived
-     */
-    public function setDateReceived(DateTime $dateReceived = null)
+    public function setDateReceived(?DateTime $dateReceived = null): void
     {
         $this->dt_sample_recd = $dateReceived;
     }
 
-    /**
-     * @return DateTime|null
-     */
-    public function getDtSampleRecd()
+    public function getDtSampleRecd(): ?DateTime
     {
         return $this->dt_sample_recd;
     }
 
-    /**
-     * @param DateTime $dt_sample_recd
-     */
-    public function setDtSampleRecd($dt_sample_recd)
+    public function setDtSampleRecd(?DateTime $dt_sample_recd): void
     {
         $this->dt_sample_recd = $dt_sample_recd;
     }
@@ -106,12 +93,7 @@ abstract class BaseExternalLab
         $this->caseFile = $case;
     }
 
-    /**
-     * Get case
-     *
-     * @return BaseCase
-     */
-    public function getCaseFile()
+    public function getCaseFile(): ?BaseCase
     {
         return $this->caseFile;
     }
@@ -126,122 +108,48 @@ abstract class BaseExternalLab
         return $this->status->getValue() === CaseStatus::COMPLETE;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getLabId()
+    public function getLabId(): ?string
     {
         return $this->lab_id;
     }
 
-    /**
-     * @param $labId
-     */
-    public function setLabId($labId)
+    public function setLabId(?string $labId): void
     {
         $this->lab_id = $labId;
     }
 
-    /**
-     * @return CaseStatus
-     */
-    public function getStatus()
+    public function getStatus(): CaseStatus
     {
         return $this->status;
     }
 
-    /**
-     * @param CaseStatus $status
-     */
-    public function setStatus(CaseStatus $status)
+    public function setStatus(CaseStatus $status): void
     {
         $this->status = $status;
     }
 
-    /**
-     * @return DateTime|null
-     */
-    public function getUpdatedAt()
+    public function getUpdatedAt(): ?DateTime
     {
         return $this->updatedAt;
     }
 
-    /**
-     * @param $updatedAt
-     */
-    public function setUpdatedAt($updatedAt)
+    public function setUpdatedAt(\DateTime $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
     }
 
-    public function calculateStatus()
-    {
-        if ($this->status->getValue() >= CaseStatus::CANCELLED) {
-            return;
-        }
-
-        if ($this->getIncompleteField()) {
-            $this->status = new CaseStatus(CaseStatus::OPEN);
-        } else {
-            $this->status = new CaseStatus(CaseStatus::COMPLETE);
-        }
-    }
-
-    public function getIncompleteField()
-    {
-        foreach ($this->getMandatoryFields() as $fieldName) {
-            if (!$this->$fieldName) {
-                return $fieldName;
-            }
-        }
-    }
-
-    /**
-     * @return mixed
-     */
-    abstract public function getMandatoryFields();
-
-    /**
-     * @ORM\PreUpdate
-     * @ORM\PrePersist
-     */
-    public function preUpdateAndPersist()
-    {
-        $this->calculateStatus();
-        $this->setUpdatedAt(new DateTime());
-    }
-
-    /**
-     *
-     * @return string|null
-     */
-    public function getComment()
+    public function getComment(): ?string
     {
         return $this->comment;
     }
 
-    /**
-     *
-     * @param string $comment
-     */
-    public function setComment($comment)
+    public function setComment(?string $comment): void
     {
         $this->comment = $comment;
     }
 
-    /**
-     * @return DateTime|null
-     */
-    public function getCreatedAt()
+    public function getCreatedAt(): ?DateTime
     {
         return $this->createdAt;
-    }
-
-    /**
-     * @param DateTime $createdAt
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
     }
 }

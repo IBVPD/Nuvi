@@ -10,9 +10,9 @@ use NS\UtilBundle\Form\Types\ArrayChoice;
  */
 class IntenseSupport extends ArrayChoice
 {
-    const NO           = 0;
-    const YES          = 1;
-    const NO_MONITORED = 2;
+    public const NO           = 0;
+    public const YES          = 1;
+    public const NO_MONITORED = 2;
 
     protected $values = [
         self::NO => 'No',

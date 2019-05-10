@@ -129,7 +129,7 @@ class ACL extends BaseACL
 
     public function getCredentials()
     {
-        $baseRoles = ($this->type) ? $this->type->getAsCredential() : [];
+        $baseRoles = $this->type ? $this->type->getAsCredential() : [];
 
         foreach((array)$this->options as $option) {
             switch ($option) {

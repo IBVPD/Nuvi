@@ -13,9 +13,9 @@ namespace NS\SentinelBundle\Report\Result;
  */
 class CulturePositive
 {
-    const CULTURE_POSITIVE = 'cultPositive';
-    const CULTURE_NEGATIVE = 'cultNegative';
-    const PCR_POSITIVE = 'pcrPositive';
+    public const CULTURE_POSITIVE = 'cultPositive';
+    public const CULTURE_NEGATIVE = 'cultNegative';
+    public const PCR_POSITIVE = 'pcrPositive';
 
     /**
      * @var array
@@ -76,7 +76,7 @@ class CulturePositive
     public function get($param, $year = null)
     {
         if ($year !== null) {
-            return (isset($this->results[$year][$param])) ? $this->results[$year][$param] : 0;
+            return isset($this->results[$year][$param]) ? $this->results[$year][$param] : 0;
         } else {
             $total = 0;
             foreach ($this->results as $r) {

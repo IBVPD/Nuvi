@@ -18,11 +18,10 @@ use NS\SentinelBundle\Form\IBD\Types\SerotypeIdentifier;
 use NS\SentinelBundle\Form\IBD\Types\SpnSerotype;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use NS\UtilBundle\Validator\Constraints\ArrayChoiceConstraint;
+use NS\SentinelBundle\Validators as LocalAssert;
 
 /**
- * Description of ExternalLab
- * @author gnat
- *
  * @Secured(conditions={
  *      @SecuredCondition(roles={"ROLE_REGION"},through={"caseFile"},relation="region",class="NSSentinelBundle:Region"),
  *      @SecuredCondition(roles={"ROLE_COUNTRY","ROLE_RRL_LAB","ROLE_NL_LAB"},through={"caseFile"},relation="country",class="NSSentinelBundle:Country"),
@@ -30,6 +29,55 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  *      })
  * @SuppressWarnings(PHPMD.LongVariable)
  * @ORM\MappedSuperclass
+ *
+ * @LocalAssert\Other(groups={"Completeness"},field="methodUsedPathogenIdentify",value="\NS\SentinelBundle\Form\IBD\Types\PathogenIdentifier::OTHER",otherField="methodUsedPathogenIdentifyOther")
+ * @LocalAssert\Other(groups={"Completeness"},field="methodUsedStSg",value="\NS\SentinelBundle\Form\IBD\Types\SerotypeIdentifier::OTHER",otherField="methodUsedStSgOther")
+ *
+ * @LocalAssert\Other(
+ *     groups={"Completeness"},
+ *     field="finalResult",
+ *     otherField="spnSerotype",
+ *     value={"NS\SentinelBundle\Form\IBD\Types\FinalResult::SPN","NS\SentinelBundle\Form\IBD\Types\FinalResult::SPN_HI","NS\SentinelBundle\Form\IBD\Types\FinalResult::SPN_NM","NS\SentinelBundle\Form\IBD\Types\FinalResult::SPN_HI_NM"}
+ *     )
+ * @LocalAssert\Other(
+ *     groups={"Completeness"},
+ *     field="finalResult",
+ *     otherField="nmSerogroup",
+ *     value={"NS\SentinelBundle\Form\IBD\Types\FinalResult::NM","NS\SentinelBundle\Form\IBD\Types\FinalResult::HI_NM","NS\SentinelBundle\Form\IBD\Types\FinalResult::SPN_NM","NS\SentinelBundle\Form\IBD\Types\FinalResult::SPN_HI_NM"}
+ *     )
+ * @LocalAssert\Other(
+ *     groups={"Completeness"},
+ *     field="finalResult",
+ *     otherField="hiSerotype",
+ *     value={"NS\SentinelBundle\Form\IBD\Types\FinalResult::HI","NS\SentinelBundle\Form\IBD\Types\FinalResult::HI_NM","NS\SentinelBundle\Form\IBD\Types\FinalResult::SPN_HI","NS\SentinelBundle\Form\IBD\Types\FinalResult::SPN_HI_NM"}
+ *     )
+ * @LocalAssert\Other(
+ *     groups={"Completeness"},
+ *     field="methodUsedPathogenIdentify",
+ *     otherField="methodUsedPathogenIdentifyOther",
+ *     value={"NS\SentinelBundle\Form\IBD\Types\PathogenIdentifier::OTHER"}
+ *     )
+ *
+ * @LocalAssert\Other(
+ *     groups={"Completeness"},
+ *     field="methodUsedStSg",
+ *     otherField="methodUsedStSgOther",
+ *     value={"NS\SentinelBundle\Form\IBD\Types\SerotypeIdentifier::OTHER"}
+ *     )
+ *
+ * @LocalAssert\Other(
+ *     groups={"Completeness"},
+ *     field="typeSampleRecd",
+ *     otherField="isolateViable",
+ *     value={"NS\SentinelBundle\Form\IBD\Types\SampleType::ISOLATE"}
+ *     )
+ *
+ * @LocalAssert\Other(
+ *     groups={"Completeness"},
+ *     field="typeSampleRecd",
+ *     otherField="isolateType",
+ *     value={"NS\SentinelBundle\Form\IBD\Types\SampleType::ISOLATE"}
+ *     )
  */
 abstract class ExternalLab extends BaseExternalLab
 {
@@ -37,6 +85,7 @@ abstract class ExternalLab extends BaseExternalLab
      * @var SampleType|null
      * @ORM\Column(name="type_sample_recd",type="SampleType",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     protected $type_sample_recd;
 
@@ -58,6 +107,7 @@ abstract class ExternalLab extends BaseExternalLab
      * @var PathogenIdentifier|null
      * @ORM\Column(name="method_used_pathogen_identify",type="PathogenIdentifier",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     protected $method_used_pathogen_identify;
 
@@ -72,6 +122,7 @@ abstract class ExternalLab extends BaseExternalLab
      * @var SerotypeIdentifier|null
      * @ORM\Column(name="method_used_st_sg",type="SerotypeIdentifier",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     protected $method_used_st_sg;
 
@@ -87,6 +138,7 @@ abstract class ExternalLab extends BaseExternalLab
      * @ORM\Column(name="Spn_lytA",type="decimal",precision=3, scale=1,nullable=true)
      * @Assert\Range(min=-10,max=50)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"})
      */
     protected $spn_lytA;
 
@@ -95,6 +147,7 @@ abstract class ExternalLab extends BaseExternalLab
      * @ORM\Column(name="Nm_ctrA",type="decimal",precision=3, scale=1,nullable=true)
      * @Assert\Range(min=-10,max=50)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"})
      */
     protected $nm_ctrA;
 
@@ -103,6 +156,7 @@ abstract class ExternalLab extends BaseExternalLab
      * @ORM\Column(name="nm_sodC",type="decimal",precision=3, scale=1,nullable=true)
      * @Assert\Range(min=-10,max=50)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"})
      */
     protected $nm_sodC;
 
@@ -111,6 +165,7 @@ abstract class ExternalLab extends BaseExternalLab
      * @ORM\Column(name="hi_hpd1",type="decimal",precision=3, scale=1,nullable=true)
      * @Assert\Range(min=-10,max=50)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"})
      */
     protected $hi_hpd1;
 
@@ -119,6 +174,7 @@ abstract class ExternalLab extends BaseExternalLab
      * @ORM\Column(name="hi_hpd3",type="decimal",precision=3, scale=1,nullable=true)
      * @Assert\Range(min=-10,max=50)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"})
      */
     protected $hi_hpd3;
 
@@ -127,6 +183,7 @@ abstract class ExternalLab extends BaseExternalLab
      * @ORM\Column(name="hi_bexA",type="decimal",precision=3, scale=1,nullable=true)
      * @Assert\Range(min=-10,max=50)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"})
      */
     protected $hi_bexA;
 
@@ -135,12 +192,14 @@ abstract class ExternalLab extends BaseExternalLab
      * @ORM\Column(name="humanDNA_RNAseP",type="decimal",precision=3, scale=1,nullable=true)
      * @Assert\Range(min=-10,max=50)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"})
      */
     protected $humanDNA_RNAseP;
 
     /**
      * @var FinalResult|null
      * @ORM\Column(name="final_RL_result_detection",type="FinalResult",nullable=true)
+     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     protected $final_RL_result_detection;
 
@@ -466,21 +525,6 @@ abstract class ExternalLab extends BaseExternalLab
     public function setFinalRLResultDetection(?FinalResult $final_RL_result_detection): void
     {
         $this->final_RL_result_detection = $final_RL_result_detection;
-    }
-
-    public function getMandatoryFields(): array
-    {
-        return [
-            'type_sample_recd',
-            'dt_sample_recd',
-            'isolate_viable',
-            'isolate_type',
-            'method_used_pathogen_identify',
-            'method_used_st_sg',
-            'spn_serotype',
-            'hi_serotype',
-            'nm_serogroup',
-        ];
     }
 
     /**

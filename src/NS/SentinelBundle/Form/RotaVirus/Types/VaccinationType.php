@@ -11,9 +11,9 @@ use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
  */
 class VaccinationType extends TranslatableArrayChoice implements TranslationContainerInterface
 {
-    const GSK = 1;
-    const MERK = 2;
-    const UNKNOWN = 99;
+    public const GSK = 1;
+    public const MERK = 2;
+    public const UNKNOWN = 99;
 
     protected $values = [
         self::GSK => 'Rotarix, GSK',

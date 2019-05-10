@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gnat
- * Date: 27/02/17
- * Time: 1:54 PM
- */
 
 namespace NS\SentinelBundle\Validators;
 
@@ -19,9 +13,6 @@ class RelatedFieldValidator extends ConstraintValidator
     /** @var PropertyAccessor */
     private $propertyAccessor;
 
-    /**
-     * RelatedFieldValidator constructor.
-     */
     public function __construct()
     {
         $this->propertyAccessor = PropertyAccess::createPropertyAccessor();
@@ -31,7 +22,7 @@ class RelatedFieldValidator extends ConstraintValidator
      * @param object $obj
      * @param Constraint|RelatedField $constraint
      */
-    public function validate($obj, Constraint $constraint)
+    public function validate($obj, Constraint $constraint): void
     {
         $value = $this->propertyAccessor->getValue($obj, $constraint->sourceField);
         foreach ($constraint->sourceValue as $varValue) {
@@ -45,7 +36,7 @@ class RelatedFieldValidator extends ConstraintValidator
      * @param object $obj
      * @param RelatedField $constraint
      */
-    private function validateFields($obj, RelatedField $constraint)
+    private function validateFields($obj, RelatedField $constraint): void
     {
         foreach ($constraint->fields as $field) {
             $value = $this->propertyAccessor->getValue($obj, $field);

@@ -390,14 +390,9 @@ class User implements AdvancedUserInterface
         return $this;
     }
 
-    /**
-     * Remove acls
-     *
-     * @param ACL $acls
-     */
-    public function removeAcl(ACL $acls)
+    public function removeAcl(ACL $acl): void
     {
-        $this->acls->removeElement($acls);
+        $this->acls->removeElement($acl);
     }
 
     /**

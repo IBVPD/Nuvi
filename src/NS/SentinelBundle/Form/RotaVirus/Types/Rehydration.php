@@ -11,12 +11,12 @@ use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
  */
 class Rehydration extends TranslatableArrayChoice implements TranslationContainerInterface
 {
-    const ORAL     = 1;
-    const IV       = 2;
-    const OTHER    = 3;
-    const BOTH     = 4;
-    const MULTIPLE = 5;
-    const UNKNOWN  = 99;
+    public const ORAL     = 1;
+    public const IV       = 2;
+    public const OTHER    = 3;
+    public const BOTH     = 4;
+    public const MULTIPLE = 5;
+    public const UNKNOWN  = 99;
 
     protected $values = [
         self::ORAL     => 'Oral - ORS/ORT',

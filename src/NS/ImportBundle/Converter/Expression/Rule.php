@@ -8,8 +8,8 @@ namespace NS\ImportBundle\Converter\Expression;
  */
 class Rule
 {
-    const AND_CONDITION = '&&';
-    const OR_CONDITION  = '||';
+    public const AND_CONDITION = '&&';
+    public const OR_CONDITION  = '||';
 
     /**
      * @var array
@@ -53,7 +53,7 @@ class Rule
                 $this->rules[] = new Rule($jsonRule);
             }
         } else {
-            $rule = (isset($json['rules'])) ? $json['rules'][0]: $json;
+            $rule = isset($json['rules']) ? $json['rules'][0]: $json;
 
             $this->field = $rule['field'];
             $this->operator = $rule['operator'];

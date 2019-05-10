@@ -3,67 +3,56 @@
 namespace NS\SentinelBundle\Twig;
 
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Twig_Environment;
-use Twig_Extension;
-use Twig_SimpleFunction;
+use Twig\Environment;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-/**
- * Description of Templates
- *
- * @author gnat
- */
-class CaseTemplates extends Twig_Extension
+class CaseTemplates extends AbstractExtension
 {
-    /**
-     * @var AuthorizationCheckerInterface
-     */
+    /** @var AuthorizationCheckerInterface */
     private $authChecker;
-    /**
-     * @var Twig_Environment
-     */
+
+    /** @var Environment */
     private $twig;
 
-    /**
-     *
-     * @param AuthorizationCheckerInterface $checkerInterface
-     * @param Twig_Environment $twig
-     */
-    public function __construct(AuthorizationCheckerInterface $checkerInterface, Twig_Environment $twig)
+    public function __construct(AuthorizationCheckerInterface $checkerInterface, Environment $twig)
     {
         $this->authChecker = $checkerInterface;
         $this->twig        = $twig;
     }
 
-    /**
-     *
-     * @return array
-     */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         $isSafe = ['is_safe' => ['html']];
 
         return [
-            new Twig_SimpleFunction('case_index_template', [$this, 'renderTable'], $isSafe),
+            new TwigFunction('case_index_template', [$this, 'renderTable'], $isSafe),
         ];
     }
 
     /**
      *
-     * @param array $results
+     * @param object|array|mixed $results
      * @param string $tableId
      * @return string
      */
-    public function renderTable($results, $tableId)
+    public function renderTable($results, $tableId): ?string
     {
         $params = ['results' => $results, 'tableId' => $tableId];
 
         if ($this->authChecker->isGranted('ROLE_SITE_LEVEL')) {
             return $this->twig->render('NSSentinelBundle:Case:site.html.twig', $params);
-        } elseif ($this->authChecker->isGranted('ROLE_COUNTRY_LEVEL')) {
+        }
+
+        if ($this->authChecker->isGranted('ROLE_COUNTRY_LEVEL')) {
             return $this->twig->render('NSSentinelBundle:Case:country.html.twig', $params);
-        } elseif ($this->authChecker->isGranted('ROLE_REGION_LEVEL')) {
+        }
+
+        if ($this->authChecker->isGranted('ROLE_REGION_LEVEL')) {
             return $this->twig->render('NSSentinelBundle:Case:region.html.twig', $params);
         }
+
+        return null;
     }
 
     /**

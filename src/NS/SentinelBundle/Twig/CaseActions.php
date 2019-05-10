@@ -13,10 +13,10 @@ use RuntimeException;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
-use Twig_Extension;
-use Twig_SimpleFunction;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class CaseActions extends Twig_Extension implements TranslationContainerInterface
+class CaseActions extends AbstractExtension implements TranslationContainerInterface
 {
     private const
         VIEW = 'View',
@@ -51,8 +51,8 @@ class CaseActions extends Twig_Extension implements TranslationContainerInterfac
     {
         $isSafe = ['is_safe' => ['html']];
         return [
-            new Twig_SimpleFunction('case_big_actions', [$this, 'getBigActions'], $isSafe),
-            new Twig_SimpleFunction('case_sm_actions', [$this, 'getSmallActions'], $isSafe),
+            new TwigFunction('case_big_actions', [$this, 'getBigActions'], $isSafe),
+            new TwigFunction('case_sm_actions', [$this, 'getSmallActions'], $isSafe),
         ];
     }
 
@@ -83,7 +83,7 @@ class CaseActions extends Twig_Extension implements TranslationContainerInterfac
      *
      * @return string
      */
-    public function getBigActions(BaseCase $row, $includeIndex = true)
+    public function getBigActions(BaseCase $row, $includeIndex = true): string
     {
         $baseRoute = $this->getBaseRoute($row);
 
@@ -154,7 +154,7 @@ class CaseActions extends Twig_Extension implements TranslationContainerInterfac
      *
      * @return string
      */
-    public function getSmallActions($row)
+    public function getSmallActions($row): string
     {
         $baseRoute = $this->getBaseRoute($row);
 
@@ -217,7 +217,7 @@ class CaseActions extends Twig_Extension implements TranslationContainerInterfac
      *
      * @return string
      */
-    private function generate($route, $row)
+    private function generate($route, $row): ?string
     {
         return $this->router->generate($route, ['id' => $row->getId()]);
     }
@@ -226,7 +226,7 @@ class CaseActions extends Twig_Extension implements TranslationContainerInterfac
      * @inheritDoc
      * @codeCoverageIgnore
      */
-    public static function getTranslationMessages()
+    public static function getTranslationMessages(): array
     {
         return [
             new Message(self::VIEW),
@@ -241,13 +241,5 @@ class CaseActions extends Twig_Extension implements TranslationContainerInterfac
             new Message(self::EDIT_RRL),
             new Message(self::EDIT_OUT),
         ];
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'twig_case_actions';
     }
 }

@@ -11,21 +11,21 @@ use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
  */
 class NmSerogroup extends TranslatableArrayChoice implements TranslationContainerInterface
 {
-    const A           = 1;
-    const B           = 2;
-    const B_E         = 3;
-    const C           = 4;
-    const W           = 5;
-    const X           = 6;
-    const Y           = 7;
-    const Y_W         = 8;
-    const Z           = 9;
-    const NON_BY_PCR  = 10;
-    const NON_BY_SASG = 11;
-    const NOT_DONE    = 12;
-    const _29E        = 13;
+    public const A           = 1;
+    public const B           = 2;
+    public const B_E         = 3;
+    public const C           = 4;
+    public const W           = 5;
+    public const X           = 6;
+    public const Y           = 7;
+    public const Y_W         = 8;
+    public const Z           = 9;
+    public const NON_BY_PCR  = 10;
+    public const NON_BY_SASG = 11;
+    public const NOT_DONE    = 12;
+    public const _29E        = 13;
 
-    const OTHER       = 99;
+    public const OTHER       = 99;
 
     protected $values = [
         self::A           => 'A',

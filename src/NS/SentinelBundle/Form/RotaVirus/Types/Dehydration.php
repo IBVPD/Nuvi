@@ -11,11 +11,11 @@ use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
  */
 class Dehydration extends TranslatableArrayChoice implements TranslationContainerInterface
 {
-    const NONE    = 0;
-    const SEVERE  = 1;
-    const SOME    = 2;
-    const MODERATE = 3;
-    const UNKNOWN = 99;
+    public const NONE    = 0;
+    public const SEVERE  = 1;
+    public const SOME    = 2;
+    public const MODERATE = 3;
+    public const UNKNOWN = 99;
 
     protected $values = [
         self::NONE => 'None',

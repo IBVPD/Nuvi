@@ -27,11 +27,11 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  */
 class Import
 {
-    const STATUS_NEW = 'new';
-    const STATUS_RUNNING = 'running';
-    const STATUS_PAUSED = 'paused';
-    const STATUS_COMPLETE = 'complete';
-    const STATUS_BURIED = 'buried';
+    public const STATUS_NEW = 'new';
+    public const STATUS_RUNNING = 'running';
+    public const STATUS_PAUSED = 'paused';
+    public const STATUS_COMPLETE = 'complete';
+    public const STATUS_BURIED = 'buried';
 
     /**
      * @var integer $id

@@ -27,6 +27,7 @@ framework:
 # Twig Configuration
 twig:
     debug:            "%kernel.debug%"
+    auto_reload:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     form_themes:
       - NSAceBundle:Form:fields.html.twig

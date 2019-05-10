@@ -51,7 +51,7 @@ class ZeroReportTwig extends Twig_Extension
 
         $opts = '';
         foreach ($options as $value => $option) {
-            $opts .= sprintf('<option value="%s"%s>%s</option>', $value, (isset($option['selected'])) ? ' selected' : '', $option['label']);
+            $opts .= sprintf('<option value="%s"%s>%s</option>', $value, isset($option['selected']) ? ' selected' : '', $option['label']);
         }
 
         return sprintf('<select name="zeroReport[%s][%s]">%s</select>', $report->getSite()->getCode(), $selectIndex, $opts);

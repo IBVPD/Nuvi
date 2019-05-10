@@ -19,24 +19,17 @@ class NationalLabType extends AbstractType
     /** @var SerializedSites */
     private $siteSerializer;
 
-    /**
-     * NationalLabType constructor.
-     * @param SerializedSites $siteSerializer
-     */
     public function __construct(SerializedSites $siteSerializer)
     {
         $this->siteSerializer = $siteSerializer;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->addEventListener(FormEvents::POST_SET_DATA,[$this,'postSetData']);
     }
 
-    public function postSetData(FormEvent $event)
+    public function postSetData(FormEvent $event): void
     {
         $data = $event->getData();
         $form = $event->getForm();
@@ -49,32 +42,23 @@ class NationalLabType extends AbstractType
             $country = ($site instanceof Site) ? $site->getCountry() : null;
         }
 
-        if ($country instanceof Country) {
-            if ($country->hasReferenceLab()) {
-                $form
-                    ->add('rlIsolBloodSent', SwitchType::class, ['label' => 'ibd-form.blood-sent-to-rrl', 'required' => false, 'switch_type' => 2])
-                    ->add('rlIsolBloodDate', DatePickerType::class, ['label' => 'ibd-form.blood-sent-to-rrl-date', 'required' => false, 'hidden' => ['parent' => 'rlIsolBloodSent', 'value' => 1]])
-                    ->add('rlOtherSent', SwitchType::class, ['label' => 'ibd-form.other-sent-to-rrl', 'required' => false, 'switch_type' => 2])
-                    ->add('rlOtherDate', DatePickerType::class, ['label' => 'ibd-form.other-sent-to-rrl-date', 'required' => false, 'hidden' => ['parent' => 'rlOtherSent', 'value' => 1]]);
-            }
-
+        if (($country instanceof Country) && $country->hasReferenceLab()) {
+            $form
+                ->add('rlIsolBloodSent', SwitchType::class, ['label' => 'ibd-form.blood-sent-to-rrl', 'required' => false, 'switch_type' => 2])
+                ->add('rlIsolBloodDate', DatePickerType::class, ['label' => 'ibd-form.blood-sent-to-rrl-date', 'required' => false, 'hidden' => ['parent' => 'rlIsolBloodSent', 'value' => 1]])
+                ->add('rlOtherSent', SwitchType::class, ['label' => 'ibd-form.other-sent-to-rrl', 'required' => false, 'switch_type' => 2])
+                ->add('rlOtherDate', DatePickerType::class, ['label' => 'ibd-form.other-sent-to-rrl-date', 'required' => false, 'hidden' => ['parent' => 'rlOtherSent', 'value' => 1]]);
         }
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => NationalLab::class
         ]);
     }
 
-    /**
-     * @return string
-     */
-    public function getParent()
+    public function getParent(): string
     {
         return BaseLabType::class;
     }

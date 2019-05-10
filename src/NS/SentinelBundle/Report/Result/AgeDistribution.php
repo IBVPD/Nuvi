@@ -13,7 +13,7 @@ use NS\SentinelBundle\Entity\BaseCase;
  */
 class AgeDistribution implements TranslationContainerInterface
 {
-    const NO_ADM_DATE = 'No Adm Date';
+    public const NO_ADM_DATE = 'No Adm Date';
 
     /**
      * @var array
@@ -68,7 +68,7 @@ class AgeDistribution implements TranslationContainerInterface
      */
     public function getResult($year, $ageDistribution)
     {
-        return (isset($this->results[$year][$ageDistribution])) ? $this->results[$year][$ageDistribution]:0;
+        return isset($this->results[$year][$ageDistribution]) ? $this->results[$year][$ageDistribution]:0;
     }
 
     /**

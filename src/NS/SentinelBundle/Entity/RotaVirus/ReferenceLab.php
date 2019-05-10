@@ -5,12 +5,12 @@ namespace NS\SentinelBundle\Entity\RotaVirus;
 use Doctrine\ORM\Mapping as ORM;
 use NS\SentinelBundle\Entity\ReferenceLab as RegionalReferenceLab;
 use NS\SentinelBundle\Entity\ReferenceLabResultInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Description of ReferenceLab
- * @author gnat
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\RotaVirus\ReferenceLabRepository")
  * @ORM\Table(name="rota_reference_labs")
+ * @ORM\EntityListeners(value={"NS\SentinelBundle\Entity\Listener\BaseExternalLabListener"})
  */
 class ReferenceLab extends ExternalLab implements ReferenceLabResultInterface
 {
@@ -25,6 +25,7 @@ class ReferenceLab extends ExternalLab implements ReferenceLabResultInterface
      * @var RegionalReferenceLab|null
      * @ORM\ManyToOne(targetEntity="NS\SentinelBundle\Entity\ReferenceLab",inversedBy="rotaCases")
      * @ORM\JoinColumn(name="rrl_id")
+     * @Assert\NotBlank(groups={"Completeness"})
      */
     private $lab;
 

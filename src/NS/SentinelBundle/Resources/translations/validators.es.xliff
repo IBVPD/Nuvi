@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2018-07-30T11:42:57Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
+  <file date="2019-05-10T08:50:41Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
     </header>
     <body>
+      <trans-unit id="2a13f5f20ffb209d245b2273be5ef0a1c3ab7fbf" resname="Blood was collected, so this field is expected">
+        <source>Blood was collected, so this field is expected</source>
+        <target state="new">Blood was collected, so this field is expected</target>
+      </trans-unit>
+      <trans-unit id="0ef3b006338425ff72132a6591438aaf987e0cac" resname="CSF was collected, so this field is expected">
+        <source>CSF was collected, so this field is expected</source>
+        <target state="new">CSF was collected, so this field is expected</target>
+      </trans-unit>
       <trans-unit id="7e5ba8172e8e0f040beb647ab1be74ae0618bb56" resname="Invalid value">
         <source>Invalid value</source>
         <target>Valor invalido</target>
@@ -17,6 +25,10 @@
       <trans-unit id="a63e1dad17b27e8ede5c11b3e3b9368c04b3104f" resname="Invalid value. Must be a number">
         <source>Invalid value. Must be a number</source>
         <target>Número Invalidao. Debe ser un número.</target>
+      </trans-unit>
+      <trans-unit id="8dd1dbe9edf34d88a7a0cf2c68d8b1e5bc93d627" resname="Other samples were collected, so this field is expected">
+        <source>Other samples were collected, so this field is expected</source>
+        <target state="new">Other samples were collected, so this field is expected</target>
       </trans-unit>
       <trans-unit id="600a7e5324636bfbfa540517fc506feccf4bd337" resname="Please provide a valid oxygen saturation level">
         <source>Please provide a valid oxygen saturation level</source>
@@ -45,6 +57,10 @@
       <trans-unit id="0aecaa75fde5ffe7bfdc1897d101ea48b7660160" resname="This field cannot be blank">
         <source>This field cannot be blank</source>
         <target>Esta variable no puede estar en blanco</target>
+      </trans-unit>
+      <trans-unit id="87bff4458ceba5c5bd52f78be2e273efedeaa45d" resname="Two blood samples were collected, so this field is expected">
+        <source>Two blood samples were collected, so this field is expected</source>
+        <target state="new">Two blood samples were collected, so this field is expected</target>
       </trans-unit>
       <trans-unit id="f4893b9d345e922a467b853b255dc32a0ade9e71" resname="You cannot have a negative white blood cell count">
         <source>You cannot have a negative white blood cell count</source>

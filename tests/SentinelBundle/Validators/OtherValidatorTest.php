@@ -2,7 +2,6 @@
 
 namespace NS\SentinelBundle\Tests\Validators;
 
-use InvalidArgumentException;
 use NS\SentinelBundle\Entity\IBD\SiteLab;
 use NS\SentinelBundle\Form\IBD\Types\CultureResult;
 use NS\SentinelBundle\Form\Types\TripleChoice;
@@ -10,14 +9,10 @@ use NS\SentinelBundle\Validators\Other;
 use NS\SentinelBundle\Validators\OtherValidator;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\PropertyAccess\Exception\NoSuchPropertyException;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 
-/**
- * Description of OtherValidatorTest
- *
- * @author gnat
- */
 class OtherValidatorTest extends TestCase
 {
     /** @var ExecutionContextInterface|MockObject */
@@ -26,9 +21,6 @@ class OtherValidatorTest extends TestCase
     /** @var OtherValidator|MockObject */
     private $validator;
 
-    /**
-     * @inheritDoc
-     */
     protected function setUp()
     {
         $this->context = $this->createMock(ExecutionContextInterface::class);
@@ -36,11 +28,9 @@ class OtherValidatorTest extends TestCase
         $this->validator->initialize($this->context);
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testValidateInvalidArgument(): void
     {
+        $this->expectException(NoSuchPropertyException::class);
         $constraint = new Other([
             'value'      => '\NS\SentinelBundle\Form\Types\TripleChoice::YES',
             'field'      => 'unknownField',
@@ -61,7 +51,6 @@ class OtherValidatorTest extends TestCase
             'value'      => '\NS\SentinelBundle\Form\Types\TripleChoice::YES',
             'field'      => 'csfCultDone',
             'otherField' => 'csfCultResult']);
-
 
         $this->context
             ->expects($this->never())
@@ -105,6 +94,14 @@ class OtherValidatorTest extends TestCase
         $builder = $this->createMock(ConstraintViolationBuilderInterface::class);
         $builder
             ->expects($this->once())
+            ->method('setParameters')
+            ->willReturnSelf();
+        $builder
+            ->expects($this->once())
+            ->method('atPath')
+            ->with()
+            ->willReturnSelf();
+        $builder->expects($this->once())
             ->method('addViolation');
 
         $this->context

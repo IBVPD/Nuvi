@@ -35,7 +35,7 @@ class BirthdayOrAgeValidator extends ConstraintValidator
         if ($value->getAdmDate()) {
             if ($value->getBirthdate()) {
                 $diff = $value->getAdmDate()->diff($value->getBirthdate());
-                if ((($diff->y * 12) + ($diff->m)) > 59) {
+                if ((($diff->y * 12) + $diff->m) > 59) {
                     $this->context->buildViolation('Case is over 59 months')->atPath('birthdate')->addViolation();
                 }
             }

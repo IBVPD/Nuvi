@@ -24,24 +24,14 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
-/**
- * Class SiteLabType
- * @package NS\SentinelBundle\Form\Meningitis
- */
 class SiteLabType extends AbstractType
 {
-    /**
-     * @var SerializedSites
-     */
+    /** @var SerializedSites */
     private $siteSerializer;
 
     /** @var AuthorizationCheckerInterface */
     private $authChecker;
 
-    /**
-     * @param SerializedSites $siteSerializer
-     * @param AuthorizationCheckerInterface $authorizationChecker
-     */
     public function __construct(SerializedSites $siteSerializer, AuthorizationCheckerInterface $authorizationChecker)
     {
         $this->siteSerializer = $siteSerializer;
@@ -90,7 +80,7 @@ class SiteLabType extends AbstractType
                 'hidden' => ['parent' => 'csfBinaxDone', 'value' => TripleChoice::YES],
                 'exclude_choices' => $isPaho ? [BinaxResult::UNKNOWN, BinaxResult::INCONCLUSIVE] : [],
             ])
-            ->add('csfLatDone',         TripleChoice::class, ['required' => false, 'label' => 'ibd-form.csf-lat-done', 'exclude_choices'=> ($isPaho ? [TripleChoice::UNKNOWN]:null)])
+            ->add('csfLatDone',         TripleChoice::class, ['required' => false, 'label' => 'ibd-form.csf-lat-done', 'exclude_choices'=> $isPaho ? [TripleChoice::UNKNOWN]:null])
             ->add('csfLatResult',       LatResult::class, [
                 'required' => false,
                 'label' => 'ibd-form.csf-lat-result',
@@ -106,8 +96,8 @@ class SiteLabType extends AbstractType
             ->add('bloodId',            null, ['required' => false, 'label' => 'ibd-form.blood-id'])
             ->add('bloodLabDate',       DatePickerType::class, ['required' => false, 'label' => 'ibd-form.blood-lab-datetime'])
             ->add('bloodLabTime',       TimeType::class, ['required' => false, 'label' => 'ibd-form.blood-lab-time','minutes'=>[0,5,10,15,20,25,30,35,40,45,50,55]])
-            ->add('bloodCultDone',      TripleChoice::class, ['required' => false, 'label' => 'ibd-form.blood-cult-done', 'exclude_choices'=> ($isPaho ? [TripleChoice::UNKNOWN]:null)])
-            ->add('bloodCultResult',    CultureResult::class, ['required' => false, 'label' => 'ibd-form.blood-cult-result', 'hidden' => ['parent' => 'bloodCultDone','child'=>'bloodCultResult', 'value' => TripleChoice::YES],'exclude_choices'=>($isPaho?[CultureResult::UNKNOWN]:null)])
+            ->add('bloodCultDone',      TripleChoice::class, ['required' => false, 'label' => 'ibd-form.blood-cult-done', 'exclude_choices'=> $isPaho ? [TripleChoice::UNKNOWN]:null])
+            ->add('bloodCultResult',    CultureResult::class, ['required' => false, 'label' => 'ibd-form.blood-cult-result', 'hidden' => ['parent' => 'bloodCultDone','child'=>'bloodCultResult', 'value' => TripleChoice::YES],'exclude_choices'=> $isPaho?[CultureResult::UNKNOWN]:null])
             ->add('bloodCultOther',     null, ['required' => false, 'label' => 'ibd-form.blood-cult-other', 'hidden' => ['parent' => 'bloodCultResult', 'value' => CultureResult::OTHER]])
             ->add('bloodGramDone',      TripleChoice::class, ['required' => false, 'label' => 'ibd-form.blood-gram-done', 'exclude_choices'=> $isPaho ? [TripleChoice::UNKNOWN]:[]])
             ->add('bloodGramStain',     GramStain::class, ['required' => false, 'label' => 'ibd-form.blood-gram-result', 'hidden' => ['parent' => 'bloodGramDone', 'value' => TripleChoice::YES], 'exclude_choices' => $isPaho ? [GramStain::UNKNOWN]:[]])
@@ -152,11 +142,11 @@ class SiteLabType extends AbstractType
             $form
                 ->add('nlCsfSent', SwitchType::class, ['label' => 'ibd-form.csf-sent-to-nl', 'required' => false, 'switch_type' => 2])
                 ->add('nlCsfDate', DatePickerType::class, ['label' => 'ibd-form.csf-sent-to-nl-date', 'required' => false, 'hidden' => ['parent' => 'nlCsfSent', 'value' => 1]])
-                ->add('nlIsolCsfSent', SwitchType::class, ['label' => 'ibd-form.csf-isol-sent-to-nl', 'required' => false])
+                ->add('nlIsolCsfSent', SwitchType::class, ['label' => 'ibd-form.csf-isol-sent-to-nl', 'required' => false, 'switch_type' => 2])
                 ->add('nlIsolCsfDate', DatePickerType::class, ['label' => 'ibd-form.csf-isol-sent-to-nl-date', 'required' => false, 'hidden' => ['parent' => 'nlIsolCsfSent', 'value' => 1]])
-                ->add('nlIsolBloodSent', SwitchType::class, ['label' => 'ibd-form.blood-sent-to-nl', 'required' => false])
+                ->add('nlIsolBloodSent', SwitchType::class, ['label' => 'ibd-form.blood-sent-to-nl', 'required' => false, 'switch_type' => 2])
                 ->add('nlIsolBloodDate', DatePickerType::class, ['label' => 'ibd-form.blood-sent-to-nl-date', 'required' => false, 'hidden' => ['parent' => 'nlIsolBloodSent', 'value' => 1]])
-                ->add('nlOtherSent', SwitchType::class, ['label' => 'ibd-form.other-sent-to-nl', 'required' => false])
+                ->add('nlOtherSent', SwitchType::class, ['label' => 'ibd-form.other-sent-to-nl', 'required' => false, 'switch_type' => 2])
                 ->add('nlOtherDate', DatePickerType::class, ['label' => 'ibd-form.other-sent-to-nl-date', 'required' => false, 'hidden' => ['parent' => 'nlOtherSent', 'value' => 1]]);
         }
 
@@ -165,8 +155,8 @@ class SiteLabType extends AbstractType
                 ->add('bloodSecondId', null, ['required' => false, 'label' => 'ibd-form.blood-id'])
                 ->add('bloodSecondLabDate', DatePickerType::class, ['required' => false, 'label' => 'ibd-form.blood-lab-datetime'])
                 ->add('bloodSecondLabTime', TimeType::class, ['required' => false, 'label' => 'ibd-form.blood-lab-time', 'minutes' => [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55]])
-                ->add('bloodSecondCultDone', TripleChoice::class, ['required' => false, 'label' => 'ibd-form.blood-cult-done', 'exclude_choices' => ($isPaho ? [TripleChoice::UNKNOWN] : null)])
-                ->add('bloodSecondCultResult', CultureResult::class, ['required' => false, 'label' => 'ibd-form.blood-cult-result', 'hidden' => ['parent' => 'bloodSecondCultDone', 'child' => 'bloodSecondCultResult', 'value' => TripleChoice::YES], 'exclude_choices' => ($isPaho ? [CultureResult::UNKNOWN] : null)])
+                ->add('bloodSecondCultDone', TripleChoice::class, ['required' => false, 'label' => 'ibd-form.blood-cult-done', 'exclude_choices' => $isPaho ? [TripleChoice::UNKNOWN] : null])
+                ->add('bloodSecondCultResult', CultureResult::class, ['required' => false, 'label' => 'ibd-form.blood-cult-result', 'hidden' => ['parent' => 'bloodSecondCultDone', 'child' => 'bloodSecondCultResult', 'value' => TripleChoice::YES], 'exclude_choices' => $isPaho ? [CultureResult::UNKNOWN] : null])
                 ->add('bloodSecondCultOther', null, ['required' => false, 'label' => 'ibd-form.blood-cult-other', 'hidden' => ['parent' => 'bloodSecondCultResult', 'value' => CultureResult::OTHER]])
                 ->add('bloodSecondGramDone', TripleChoice::class, ['required' => false, 'label' => 'ibd-form.blood-gram-done', 'exclude_choices'=> $isPaho ? [TripleChoice::UNKNOWN]:[]])
                 ->add('bloodSecondGramStain', GramStain::class, ['required' => false, 'label' => 'ibd-form.blood-gram-result', 'hidden' => ['parent' => 'bloodSecondGramDone', 'value' => TripleChoice::YES], 'exclude_choices' => $isPaho ? [GramStain::UNKNOWN]:[]])

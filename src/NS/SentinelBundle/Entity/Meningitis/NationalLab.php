@@ -6,14 +6,17 @@ use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use NS\SentinelBundle\Validators as LocalAssert;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Description of ReferenceLab
- * @author gnat
- *
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\Meningitis\NationalLabRepository")
  * @ORM\Table(name="mening_national_labs")
- * @ORM\HasLifecycleCallbacks
+ * @ORM\EntityListeners(value={"NS\SentinelBundle\Entity\Listener\BaseExternalLabListener"})
+ *
+ * @LocalAssert\RelatedField(sourceField="rlIsolCsfSent",sourceValue={true},fields={"rlIsolCsfDate"}, groups={"Completeness"})
+ * @LocalAssert\RelatedField(sourceField="rlIsolCsfSent",sourceValue={true},fields={"rlIsolCsfDate"}, groups={"Completeness"})
+ * @LocalAssert\RelatedField(sourceField="rlIsolBloodSent",sourceValue={true},fields={"rlIsolBloodDate"}, groups={"Completeness"})
+ * @LocalAssert\RelatedField(sourceField="rlOtherSent",sourceValue={true},fields={"rlOtherDate"}, groups={"Completeness"})
  */
 class NationalLab extends ExternalLab
 {
@@ -30,6 +33,7 @@ class NationalLab extends ExternalLab
      *
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotNull(groups={"Completeness"})
      */
     private $rl_isol_csf_sent;
 
@@ -49,6 +53,7 @@ class NationalLab extends ExternalLab
      *
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotNull(groups={"Completeness"})
      */
     private $rl_isol_blood_sent;
 
@@ -68,6 +73,7 @@ class NationalLab extends ExternalLab
      *
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotNull(groups={"Completeness"})
      */
     private $rl_other_sent;
 
@@ -94,7 +100,7 @@ class NationalLab extends ExternalLab
         return $this->rl_isol_csf_sent;
     }
 
-    public function setRlIsolCsfSent(?bool $rl_isol_csf_sent)
+    public function setRlIsolCsfSent(?bool $rl_isol_csf_sent): void
     {
         $this->rl_isol_csf_sent = $rl_isol_csf_sent;
     }
@@ -104,7 +110,7 @@ class NationalLab extends ExternalLab
         return $this->rl_isol_csf_date;
     }
 
-    public function setRlIsolCsfDate(?DateTime $rl_isol_csf_date = null)
+    public function setRlIsolCsfDate(?DateTime $rl_isol_csf_date = null): void
     {
         $this->rl_isol_csf_date = $rl_isol_csf_date;
     }
@@ -114,7 +120,7 @@ class NationalLab extends ExternalLab
         return $this->rl_isol_blood_sent;
     }
 
-    public function setRlIsolBloodSent(?bool $rl_isol_blood_sent)
+    public function setRlIsolBloodSent(?bool $rl_isol_blood_sent): void
     {
         $this->rl_isol_blood_sent = $rl_isol_blood_sent;
     }
@@ -124,7 +130,7 @@ class NationalLab extends ExternalLab
         return $this->rl_isol_blood_date;
     }
 
-    public function setRlIsolBloodDate(?DateTime $rl_isol_blood_date = null)
+    public function setRlIsolBloodDate(?DateTime $rl_isol_blood_date = null): void
     {
         $this->rl_isol_blood_date = $rl_isol_blood_date;
     }
@@ -134,7 +140,7 @@ class NationalLab extends ExternalLab
         return $this->rl_other_sent;
     }
 
-    public function setRlOtherSent(?bool $rl_other_sent)
+    public function setRlOtherSent(?bool $rl_other_sent): void
     {
         $this->rl_other_sent = $rl_other_sent;
     }
@@ -144,7 +150,7 @@ class NationalLab extends ExternalLab
         return $this->rl_other_date;
     }
 
-    public function setRlOtherDate(?DateTime $rl_other_date = null)
+    public function setRlOtherDate(?DateTime $rl_other_date = null): void
     {
         $this->rl_other_date = $rl_other_date;
     }

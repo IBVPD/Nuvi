@@ -11,13 +11,13 @@ use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
  */
 class CultureResult extends TranslatableArrayChoice implements TranslationContainerInterface
 {
-    const NEGATIVE      = 0;
-    const SPN           = 1;
-    const HI            = 2;
-    const NM            = 3;
-    const OTHER         = 4;
-    const CONTAMINANT   = 5;
-    const UNKNOWN       = 99;
+    public const NEGATIVE      = 0;
+    public const SPN           = 1;
+    public const HI            = 2;
+    public const NM            = 3;
+    public const OTHER         = 4;
+    public const CONTAMINANT   = 5;
+    public const UNKNOWN       = 99;
 
     protected $values = [
         self::NEGATIVE => 'Negative',

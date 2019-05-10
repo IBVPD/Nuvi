@@ -1,0 +1,75 @@
+{% macro case_row(case,field,label,dateFormat = 'Y-m-d') %}
+    <tr>
+        <th>
+            {{ label|trans }}
+            {{ case_field_error(case, field) }}
+        </th>
+        <td>
+            {% set value = attribute(case,field) %}
+            {% if value is not empty %}
+                {% if value.timestamp is defined %}
+                    {{ value|date(dateFormat) }}
+                {% elseif value is same as(true) %}
+                    {{ 'Yes'| trans }}
+                {% elseif value is same as(false) %}
+                    {{ 'No'| trans }}
+                {% elseif dateFormat %}
+                    {{ value|trans }}
+                {% else %}
+                    {{ value }}
+                {% endif %}
+            {% endif %}
+        </td>
+    </tr>
+{% endmacro %}
+
+{% macro lab_row(lab,field,label,dateFormat = 'Y-m-d') %}
+    <tr>
+        <td style="background-color: #fff;"></td>
+        <th>
+            {{ label|trans }}
+            {{ case_lab_field_error(lab, field) }}
+        </th>
+        <td>
+            {% set value = attribute(lab,field) %}
+            {% if value is not empty %}
+                {% if value.timestamp is defined %}
+                    {{ value|date(dateFormat) }}
+                {% elseif value is same as(true) %}
+                    {{ 'Yes'| trans }}
+                {% elseif value is same as(false) %}
+                    {{ 'No'| trans }}
+                {% elseif dateFormat %}
+                    {{ value|trans }}
+                {% else %}
+                    {{ value }}
+                {% endif %}
+            {% endif %}
+        </td>
+    </tr>
+{% endmacro %}
+
+{% macro external_lab_row(lab,field,label,dateFormat = 'Y-m-d') %}
+    <tr>
+        <th>
+            {{ label|trans }}
+            {{ case_external_field_error(lab, field) }}
+        </th>
+        <td>
+            {% set value = attribute(lab,field) %}
+            {% if value is not empty %}
+                {% if value.timestamp is defined %}
+                    {{ value|date(dateFormat) }}
+                {% elseif value is same as(true) %}
+                    {{ 'Yes'| trans }}
+                {% elseif value is same as(false) %}
+                    {{ 'No'| trans }}
+                {% elseif dateFormat %}
+                    {{ value|trans }}
+                {% else %}
+                    {{ value }}
+                {% endif %}
+            {% endif %}
+        </td>
+    </tr>
+{% endmacro %}

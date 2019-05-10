@@ -7,11 +7,25 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use NS\SentinelBundle\Entity\BaseCase;
 use NS\SentinelBundle\Validators as LocalAssert;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\Pneumonia\NationalLabRepository")
  * @ORM\Table(name="pneu_national_labs")
- * @ORM\HasLifecycleCallbacks
+ * @ORM\EntityListeners(value={"NS\SentinelBundle\Entity\Listener\BaseExternalLabListener"})
+ *
+ * @LocalAssert\RelatedField(
+ *     groups={"Completeness"},
+ *     sourceField="rlIsolBloodSent",
+ *     sourceValue={true},
+ *     fields={"rlIsolBloodDate"}
+ *     )
+ * @LocalAssert\RelatedField(
+ *     groups={"Completeness"},
+ *     sourceField="rlOtherSent",
+ *     sourceValue={true},
+ *     fields={"rlOtherDate"}
+ *     )
  */
 class NationalLab extends ExternalLab
 {
@@ -28,6 +42,7 @@ class NationalLab extends ExternalLab
      *
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotNull(groups={"Completeness"})
      */
     private $rl_isol_blood_sent;
 
@@ -47,6 +62,7 @@ class NationalLab extends ExternalLab
      *
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotNull(groups={"Completeness"})
      */
     private $rl_other_sent;
 

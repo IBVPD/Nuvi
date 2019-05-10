@@ -3,22 +3,14 @@
 namespace NS\SentinelBundle\Entity\IBD\Types;
 
 use NS\UtilBundle\Entity\Types\ArrayChoice;
+use NS\SentinelBundle\Form\IBD\Types\DischargeClassification as FormType;
 
-/**
- * Class DischargeClassification
- * @package NS\SentinelBundle\Entity\IBD\Types
- */
 class DischargeClassification extends ArrayChoice
 {
-    /**
-     * @var string
-     */
-    protected $convert_class = 'NS\SentinelBundle\Form\IBD\Types\DischargeClassification';
+    /** @var string */
+    protected $convert_class = FormType::class;
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'IBDDischargeClassification';
     }

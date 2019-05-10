@@ -89,7 +89,7 @@ class CaseType extends AbstractType
         $builder->addEventListener(FormEvents::POST_SET_DATA, [$this,'postSetData']);
     }
 
-    public function postSetData(FormEvent $event)
+    public function postSetData(FormEvent $event): void
     {
         $data     = $event->getData();
         $form     = $event->getForm();
@@ -122,7 +122,7 @@ class CaseType extends AbstractType
             ->add('csfCollected', TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.csf-collected', 'exclude_choices' => $isPaho ? [TripleChoice::UNKNOWN] : null])
             ->add('dischDx',    DischargeDiagnosis::class, ['required' => false, 'label' => 'ibd-form.discharge-diagnosis', 'exclude_choices' => $isPaho ? [DischargeDiagnosis::UNKNOWN, DischargeDiagnosis::SEPSIS]:null,])
             ->add('dischClass', DischargeClassification::class, ['required' => false, 'label' => 'ibd-form.discharge-class', 'exclude_choices' => $isPaho ? [DischargeClassification::UNKNOWN, DischargeClassification::SUSPECT] : null])
-            ->add('hibReceived', VaccinationReceived::class, ['required' => $required || $isPaho, 'label' => 'ibd-form.hib-received','property_path'=>'hib_received'])
+            ->add('dischClassOther', TextType::class, ['required' => false, 'label' => 'ibd-form.discharge-class-other', 'hidden' => ['parent'=> 'dischClass', 'value' => DischargeClassification::CONFIRMED_OTHER]])            ->add('hibReceived', VaccinationReceived::class, ['required' => $required || $isPaho, 'label' => 'ibd-form.hib-received','property_path'=>'hib_received'])
             ->add('pcvReceived', VaccinationReceived::class, ['required' => $required || $isPaho, 'label' => 'ibd-form.pcv-received','property_path'=>'pcv_received'])
             ->add('meningReceived', VaccinationReceived::class, ['required' => $required || $isPaho, 'label' => 'ibd-form.men-received','property_path' => 'mening_received'])
             ->add('meningType', VaccinationType::class, [
@@ -141,17 +141,17 @@ class CaseType extends AbstractType
                 ->add('bloodNumberOfSamples', ChoiceType::class, ['required' => $required, 'label' => 'ibd-form.blood-number-of-samples', 'choices' => ['One' => 1, 'Two' => 2], 'placeholder' => 'Please Select...', 'hidden' => ['parent' => 'bloodCollected', 'value' => TripleChoice::YES]])
                 ->add('bloodSecondCollectDate',   DatePickerType::class, ['required' => $required, 'label' => 'ibd-form.blood-collect-date-second-sample', 'hidden' => ['parent' => 'bloodNumberOfSamples', 'value' => 2]])
                 ->add('bloodSecondCollectTime',   TimeType::class, ['required' => $required, 'label' => 'ibd-form.blood-collect-time-second-sample', 'hidden' => ['parent' => 'bloodNumberOfSamples', 'value' => 2]]);
-        } else {
-            $form
-                ->add('otherSpecimenCollected', OtherSpecimen::class, ['required' => $required, 'label' => 'ibd-form.otherSpecimenCollected'])
-                ->add('otherSpecimenOther', null, ['required' => $required, 'label' => 'ibd-form.otherSpecimenOther', 'hidden' => ['parent' => 'otherSpecimenCollected', 'value' => OtherSpecimen::OTHER]]);
+
+            return;
         }
+
+        $form
+            ->add('otherSpecimenCollected', OtherSpecimen::class, ['required' => $required, 'label' => 'ibd-form.otherSpecimenCollected'])
+            ->add('otherSpecimenOther', null, ['required' => $required, 'label' => 'ibd-form.otherSpecimenOther', 'hidden' => ['parent' => 'otherSpecimenCollected', 'value' => OtherSpecimen::OTHER]]);
+
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Meningitis::class,
