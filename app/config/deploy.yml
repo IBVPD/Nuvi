@@ -29,4 +29,7 @@
     symfony_project_managed_folders: # folders to be created/checked in release dir
       - {name: cache, path: var/cache}
       - {name: sessions, path: var/sessions}
-
+  tasks:
+    - name: Reload php-fpm
+      service: name=php72-php-fpm state=reloaded
+      become: false
