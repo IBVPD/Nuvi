@@ -144,8 +144,8 @@
                                 {{ macros.lab_row(lab,'nlCsfDate','ibd-form.blood-sent-to-nl-date') }}
 
                                 {{ macros.lab_row(lab,'isolStore','ibd-form.isol-store') }}
-                                {{ macros.lab_row(lab,'nlIsolBloodSent','ibd-form.csf-isol-sent-to-nl') }}
-                                {{ macros.lab_row(lab,'nlIsolBloodDate','ibd-form.csf-isol-sent-to-nl-date') }}
+                                {{ macros.lab_row(lab,'nlIsolCsfSent','ibd-form.csf-isol-sent-to-nl') }}
+                                {{ macros.lab_row(lab,'nlIsolCsfDate','ibd-form.csf-isol-sent-to-nl-date') }}
 
                                 <tr><th colspan="3">{{ 'Blood'|trans }}</th></tr>
                                 {{ macros.lab_row(lab,'bloodId','ibd-form.blood-id') }}
@@ -163,6 +163,8 @@
                                 {{ macros.lab_row(lab,'bloodPcrOther','ibd-form.blood-pcr-other') }}
                                 {{ macros.lab_row(lab,'nlIsolBloodSent','ibd-form.blood-sent-to-nl') }}
                                 {{ macros.lab_row(lab,'nlIsolBloodDate','ibd-form.blood-sent-to-nl-date') }}
+                                {{ macros.lab_row(lab,'nlBrothSent','ibd-form.broth-sent-to-nl') }}
+                                {{ macros.lab_row(lab,'nlBrothDate','ibd-form.broth-sent-to-nl-date') }}
 
                                 {% if is_granted('ROLE_AMR') %}
                                     <tr><th colspan="3">{{ '2nd Blood'|trans }}</th></tr>
