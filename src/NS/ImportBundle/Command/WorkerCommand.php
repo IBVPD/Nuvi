@@ -23,7 +23,7 @@ class WorkerCommand extends ContainerAwareCommand
         $this->setName('nsimport:run-batch')
             ->setDescription('Check and run beanstalk batches')
             ->setDefinition([
-                    new InputOption('batch-size', 'b', InputOption::VALUE_REQUIRED, 'Set the number of rows to process at a time', 250)
+                    new InputOption('batch-size', 'b', InputOption::VALUE_REQUIRED, 'Set the number of rows to process at a time', 250),
                 ]
 
             );
@@ -35,12 +35,15 @@ class WorkerCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $batchSize = $input->getOption('batch-size');
-        $output->writeln('Checking for jobs');
+        if ($input->getOption('verbose')) {
+            $output->writeln('Checking for jobs');
+        }
+
         $errOutput = $output instanceof ConsoleOutputInterface ? $output->getErrorOutput() : $output;
 
-        $container  = $this->getContainer();
-        $worker     = $container->get('ns_import.batch_worker');
-        $entityMgr  = $container->get('doctrine.orm.entity_manager');
+        $container = $this->getContainer();
+        $worker    = $container->get('ns_import.batch_worker');
+        $entityMgr = $container->get('doctrine.orm.entity_manager');
 
         $import = $entityMgr->getRepository(Import::class)->getNewOrRunning();
 
@@ -56,18 +59,17 @@ class WorkerCommand extends ContainerAwareCommand
                     $output->writeln('Import complete - Job removed');
                 }
             } // PHP7 only!
-            catch(TypeError $exception) {
+            catch (TypeError $exception) {
+                $this->handleError($errOutput, $entityMgr, $import, $exception);
+            } catch (Exception $exception) {
                 $this->handleError($errOutput, $entityMgr, $import, $exception);
             }
-            catch (Exception $exception) {
-                $this->handleError($errOutput, $entityMgr, $import, $exception);
-            }
-        } else {
+        } elseif ($input->getOption('verbose')) {
             $output->writeln('No job?');
         }
     }
 
-    private function handleError(OutputInterface $errOutput, EntityManagerInterface $entityMgr, Import $import, $exception)
+    private function handleError(OutputInterface $errOutput, EntityManagerInterface $entityMgr, Import $import, $exception): void
     {
         $errOutput->writeln('Error processing job');
         if ($entityMgr->isOpen()) {
@@ -76,13 +78,13 @@ class WorkerCommand extends ContainerAwareCommand
             $errOutput->writeln('Entity Manager Closed - Unable to save error message');
         }
 
-        $errOutput->writeln('Exception: '.$exception->getMessage());
+        $errOutput->writeln('Exception: ' . $exception->getMessage());
         foreach ($exception->getTrace() as $index => $trace) {
-            $errOutput->writeln(sprintf(sprintf("%d: %s::%s on line %d\n", $index, isset($trace['class'])?$trace['class']:'Unknown', isset($trace['function'])?$trace['function']:'Unknown', isset($trace['line'])?$trace['line']:-1)));
+            $errOutput->writeln(sprintf(sprintf("%d: %s::%s on line %d\n", $index, $trace['class'] ?? 'Unknown', $trace['function'] ?? 'Unknown', $trace['line'] ?? -1)));
         }
     }
 
-    protected function setupUser(Import $import)
+    protected function setupUser(Import $import): void
     {
         $user = $import->getUser();
         $user->getAcls();
