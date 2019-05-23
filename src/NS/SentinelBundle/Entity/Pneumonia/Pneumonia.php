@@ -71,7 +71,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     "mening_received","mening_type","mening_date",
  *     "blood_collected","blood_collect_date","blood_collect_time",
  *     "blood_number_of_samples","blood_second_collect_date","blood_second_collect_time",
- *     "pleural_collected","pleural_collect_date","pleural_collect_time",
+ *     "pleural_fluid_collected","pleural_fluid_collect_date","pleural_fluid_collect_time",
  *     "other_specimen_collected","other_specimen_other",
  *     "disch_outcome","disch_dx","disch_dx_other","disch_class","disch_class_other","comment","result",
  *     "siteLab.blood_id","siteLab.blood_lab_date","siteLab.blood_lab_time",
