@@ -6,7 +6,7 @@
   roles:
     - servergrove.symfony2
   vars:
-    symfony_project_root: /var/www/vhosts/paho.vinuvacasos.org
+    symfony_project_root: /var/www/vhosts/vinuvacasos.org/paho
     symfony_project_name: nuvi
     symfony_project_composer_path: "{{symfony_project_root}}/shared/composer.phar"
     symfony_project_repo: https://github.com/IBVPD/Nuvi.git
