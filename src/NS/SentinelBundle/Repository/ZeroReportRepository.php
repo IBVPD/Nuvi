@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gnat
- * Date: 23/05/16
- * Time: 1:27 PM
- */
 
 namespace NS\SentinelBundle\Repository;
 

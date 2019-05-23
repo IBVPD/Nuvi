@@ -13,11 +13,6 @@ use NS\SentinelBundle\Form\RotaVirus\Types\ElisaResult;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\UtilBundle\Form\Types\ArrayChoice;
 
-/**
- * Description of Common
- *
- * @author gnat
- */
 class RotaVirusRepository extends Common
 {
     /**

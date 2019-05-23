@@ -19,11 +19,6 @@ use NS\SentinelBundle\Form\IBD\Types\SpnSerotype;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\UtilBundle\Form\Types\ArrayChoice;
 
-/**
- * Description of Common
- *
- * @author gnat
- */
 class IBDRepository extends Common
 {
     /**

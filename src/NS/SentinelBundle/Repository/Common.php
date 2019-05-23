@@ -15,11 +15,6 @@ use NS\SentinelBundle\Entity\BaseCase;
 use NS\SentinelBundle\Entity\Site;
 use NS\UtilBundle\Service\AjaxAutocompleteRepositoryInterface;
 
-/**
- * Description of Common
- *
- * @author gnat
- */
 class Common extends SecuredEntityRepository implements AjaxAutocompleteRepositoryInterface
 {
     /**
