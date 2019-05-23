@@ -83,7 +83,7 @@ class CaseType extends AbstractType
             ->add('csfCollectTime',     TimeType::class, ['required' => $required, 'label' => 'ibd-form.csf-collect-time', 'hidden' => ['parent' => 'csfCollected', 'value' => TripleChoice::YES]])
             ->add('csfAppearance',      CSFAppearance::class, ['required' => $required, 'label' => 'ibd-form.csf-appearance', 'hidden' => ['parent' => 'csfCollected', 'value' => TripleChoice::YES]])
             ->add('dischOutcome',       DischargeOutcome::class, ['required' => false, 'label' => 'ibd-form.discharge-outcome'])
-            ->add('dischDxOther',       null, ['required' => false, 'label' => 'ibd-form.discharge-diagnosis-other', 'hidden' => ['parent' => 'dischDx', 'value' => DischargeDiagnosis::OTHER]])
+            ->add('dischDxOther',       null, ['required' => false, 'label' => 'ibd-form.discharge-diagnosis-other', 'hidden' => ['parent' => 'dischDx', 'value' => [DischargeDiagnosis::OTHER, DischargeDiagnosis::OTHER_PNEUMONIA, DischargeDiagnosis::OTHER_MENINGITIS]]])
             ->add('comment',            null, ['required' => false, 'label' => 'ibd-form.comment']);
 
         $builder->addEventListener(FormEvents::POST_SET_DATA, [$this,'postSetData']);

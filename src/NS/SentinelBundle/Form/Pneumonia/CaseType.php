@@ -75,7 +75,8 @@ class CaseType extends AbstractType
             ->add('bloodCollectDate',   DatePickerType::class, ['required' => $required, 'label' => 'ibd-form.blood-collect-date', 'hidden' => ['parent' => 'bloodCollected', 'value' => TripleChoice::YES]])
             ->add('bloodCollectTime',   TimeType::class, ['required' => $required, 'label' => 'ibd-form.blood-collect-time', 'hidden' => ['parent' => 'bloodCollected', 'value' => TripleChoice::YES]])
             ->add('dischOutcome',       DischargeOutcome::class, ['required' => false, 'label' => 'ibd-form.discharge-outcome'])
-            ->add('dischDxOther',       null, ['required' => false, 'label' => 'ibd-form.discharge-diagnosis-other', 'hidden' => ['parent' => 'dischDx', 'value' => DischargeDiagnosis::OTHER]])
+            ->add('dischDxOther',       null, ['required' => false, 'label' => 'ibd-form.discharge-diagnosis-other', 'hidden' => ['parent' => 'dischDx', 'value' => [DischargeDiagnosis::OTHER, DischargeDiagnosis::OTHER_PNEUMONIA, DischargeDiagnosis::OTHER_MENINGITIS]]])
+
             ->add('comment',            null, ['required' => false, 'label' => 'ibd-form.comment']);
 
         $builder->addEventListener(FormEvents::POST_SET_DATA, [$this,'postSetData']);

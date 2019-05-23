@@ -22,14 +22,14 @@ class OutcomeType extends AbstractType
         $this->authChecker = $authChecker;
     }
 
-   public function buildForm(FormBuilderInterface $builder, array $options): void
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $isPaho = $this->authChecker->isGranted('ROLE_AMR');
 
         $builder
             ->add('dischOutcome', DischargeOutcome::class, ['required' => false, 'label' => 'ibd-form.discharge-outcome', 'exclude_choices' => $isPaho ? [DischargeOutcome::UNKNOWN]:[]])
             ->add('dischDx', DischargeDiagnosis::class, ['required' => false, 'label' => 'ibd-form.discharge-diagnosis', 'exclude_choices' => $isPaho ? [DischargeDiagnosis::UNKNOWN, DischargeDiagnosis::SEPSIS]:null])
-            ->add('dischDxOther', null, ['required' => false, 'label' => 'ibd-form.discharge-diagnosis-other', 'hidden' => ['parent' => 'dischDx', 'value' => DischargeDiagnosis::OTHER]])
+            ->add('dischDxOther', null, ['required' => false, 'label' => 'ibd-form.discharge-diagnosis-other', 'hidden' => ['parent' => 'dischDx', 'value' => [DischargeDiagnosis::OTHER, DischargeDiagnosis::OTHER_PNEUMONIA, DischargeDiagnosis::OTHER_MENINGITIS]]])
             ->add('dischClass', DischargeClassification::class, [
                 'required' => false,
                 'label' => 'ibd-form.discharge-class',
