@@ -12,7 +12,6 @@ use NS\SentinelBundle\Entity\Meningitis\Meningitis;
 use NS\SentinelBundle\Entity\ZeroReport;
 use NS\SentinelBundle\Exceptions\NonExistentCaseException;
 use NS\SentinelBundle\Form\IBD\Types\BinaxResult;
-use NS\SentinelBundle\Form\IBD\Types\CaseResult;
 use NS\SentinelBundle\Form\IBD\Types\CultureResult;
 use NS\SentinelBundle\Form\IBD\Types\HiSerotype;
 use NS\SentinelBundle\Form\IBD\Types\PCRResult;
@@ -21,11 +20,6 @@ use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Repository\Common;
 use NS\UtilBundle\Form\Types\ArrayChoice;
 
-/**
- * Description of Common
- *
- * @author gnat
- */
 class MeningitisRepository extends Common
 {
     /**
@@ -247,10 +241,6 @@ class MeningitisRepository extends Common
     }
 
     /**
-     *
-     * This depends heavily on NSSentinelBundle:IBD->calculateResult() to calculate the case
-     * status properly.
-     *
      * @param string $alias
      * @return QueryBuilder
      */
@@ -260,8 +250,6 @@ class MeningitisRepository extends Common
 
         $queryBuilder = $this->createQueryBuilder($alias)
             ->select(sprintf('YEAR(%s.adm_date) as theYear, COUNT(%s.id) as theCount, %s.ageDistribution', $alias, $alias, $alias))
-            ->where(sprintf('(%s.result = :suspectedResult)', $alias))
-            ->setParameter('suspectedResult', CaseResult::PROBABLE)
             ->groupBy(sprintf('theYear,%s.ageDistribution', $alias))
             ->orderBy('theYear', 'ASC');
 

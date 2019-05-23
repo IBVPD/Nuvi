@@ -12,16 +12,10 @@ use DoctrineExtensions\Query\Mysql\Year;
 use NS\SentinelBundle\Entity\Pneumonia\Pneumonia;
 use NS\SentinelBundle\Entity\ZeroReport;
 use NS\SentinelBundle\Exceptions\NonExistentCaseException;
-use NS\SentinelBundle\Form\IBD\Types\CaseResult;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Repository\Common;
 use NS\UtilBundle\Form\Types\ArrayChoice;
 
-/**
- * Description of Common
- *
- * @author gnat
- */
 class PneumoniaRepository extends Common
 {
     /**
@@ -240,12 +234,7 @@ class PneumoniaRepository extends Common
     }
 
     /**
-     *
-     * This depends heavily on NSSentinelBundle:IBD->calculateResult() to calculate the case
-     * status properly.
-     *
      * @param string $alias
-     *
      * @return QueryBuilder
      */
     public function getAnnualAgeDistribution($alias = 'm'): QueryBuilder
@@ -254,8 +243,6 @@ class PneumoniaRepository extends Common
 
         $queryBuilder = $this->createQueryBuilder($alias)
             ->select(sprintf('YEAR(%s.adm_date) as theYear, COUNT(%s.id) as theCount,%s.ageDistribution', $alias, $alias, $alias))
-            ->where(sprintf('(%s.result = :suspectedMening)', $alias))
-            ->setParameter('suspectedMening', CaseResult::PROBABLE)
             ->groupBy(sprintf('theYear,%s.ageDistribution', $alias))
             ->orderBy('theYear', 'ASC');
 
@@ -271,7 +258,7 @@ class PneumoniaRepository extends Common
     private function getCountQueryBuilder($alias, array $siteCodes): QueryBuilder
     {
         $queryBuilder = $this->createQueryBuilder($alias)
-            ->leftJoin(sprintf("%s.siteLab", $alias), 'sl')
+            ->leftJoin(sprintf('%s.siteLab', $alias), 'sl')
             ->innerJoin($alias . '.site', 's')
             ->groupBy($alias . '.site');
 
@@ -401,7 +388,7 @@ class PneumoniaRepository extends Common
     {
         $qb = $this->createQueryBuilder('i')->select('i.id');
         foreach ($params as $field => $value) {
-            $qb->andWhere(sprintf("%s.%s = :%s", 'i', $field, $field))
+            $qb->andWhere(sprintf('%s.%s = :%s', 'i', $field, $field))
                 ->setParameter($field, $value);
         }
 
