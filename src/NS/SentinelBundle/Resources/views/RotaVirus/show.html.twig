@@ -35,8 +35,8 @@
             <div class="tab-content">
                 <div id="demographics" class="tab-pane active">
                     <table class="table table-striped table-bordered table-hover">
-                        {{ macros.case_row(record,'id', 'rotavirus-form.id', false) }}
-
+                        {{ macros.case_row(record, 'site', 'Site') }}
+                        {{ macros.case_row(record, 'id', 'rotavirus-form.id', false) }}
                         {{ macros.case_row(record, 'caseId', 'rotavirus-form.case-id')}}
                         {{ macros.case_row(record, 'birthdate', 'rotavirus-form.dob')}}
                         {{ macros.case_row(record, 'age', 'ibd-form.age')}}
@@ -46,8 +46,8 @@
                         {{ macros.case_row(record, 'parentalName', 'ibd-form.parental-name')}}
                         {{ macros.case_row(record, 'district', 'rotavirus-form.district')}}
                         {{ macros.case_row(record, 'state', 'rotavirus-form.state')}}
-                        {{ macros.case_row(record, 'updatedAt', 'last-updated')}}
-                        {{ macros.case_row(record, 'createdAt', 'creation-date')}}
+                        {{ macros.case_row(record, 'updatedAt', 'last-updated', 'Y-m-d H:i T') }}
+                        {{ macros.case_row(record, 'createdAt', 'creation-date', 'Y-m-d H:i T') }}
                     </table>
                 </div>
 
