@@ -64,11 +64,12 @@ class SiteLabTest extends TestCase
         'blood_second_cult_done',
         'blood_second_gram_done',
         'blood_second_pcr_done',
-    ];
-    static private $amrRequiredFields = [
         'pleural_fluid_culture_done',
         'pleural_fluid_gram_done',
         'pleural_fluid_pcr_done',
+    ];
+
+    static private $amrRequiredFields = [
     ];
 
     private static $amrExcludedRequired = [
@@ -94,7 +95,7 @@ class SiteLabTest extends TestCase
         $violations = $this->validator->validate($this->lab, null, ['Completeness']);
         self::assertCount(0, $violations);
         $violations = $this->validator->validate($this->lab, null, ['AMR+Completeness', 'Completeness']);
-        self::assertCount(3, $violations);
+        self::assertCount(0, $violations);
         $this->lab->setPleuralFluidCultureDone(new TripleChoice(TripleChoice::NO));
         $this->lab->setPleuralFluidGramDone(new TripleChoice(TripleChoice::NO));
         $this->lab->setPleuralFluidPcrDone(new TripleChoice(TripleChoice::NO));
@@ -130,6 +131,7 @@ class SiteLabTest extends TestCase
     public function testEmptySiteLabWithRelatedCaseVariables(): void
     {
         $tripleYes = new TripleChoice(TripleChoice::YES);
+        $this->case->setPleuralFluidCollected($tripleYes);
         $this->case->setBloodCollected($tripleYes);
         $this->case->setBloodNumberOfSamples(2);
         $this->case->setOtherSpecimenCollected(new OtherSpecimen(OtherSpecimen::JOINT));
@@ -170,6 +172,7 @@ class SiteLabTest extends TestCase
             self::assertContains($propertyPath, $properties);
         }
     }
+
     /**
      * @param array       $values
      * @param string      $expected

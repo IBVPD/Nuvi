@@ -487,7 +487,7 @@ class SiteLab implements BaseSiteLabInterface
      * @var TripleChoice|null
      * @ORM\Column(name="pleural_fluid_culture_done",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
-     * @LocalAssert\CaseRelated(groups={"Completeness"}, caseField="pleural_fluid_collected", caseFieldValue="1", message="Pleural fluid was collected, so this field is expected")
+     * @LocalAssert\CaseRelated(groups={"AMR+Completeness"}, caseField="pleural_fluid_collected", caseFieldValue="1", message="Pleural fluid was collected, so this field is expected")
      */
     private $pleural_fluid_culture_done;
 
@@ -509,7 +509,7 @@ class SiteLab implements BaseSiteLabInterface
      * @var TripleChoice|null
      * @ORM\Column(name="pleural_fluid_gram_done",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
-     * @LocalAssert\CaseRelated(groups={"Completeness"}, caseField="pleural_fluid_collected", caseFieldValue="1", message="Pleural fluid was collected, so this field is expected")
+     * @LocalAssert\CaseRelated(groups={"AMR+Completeness"}, caseField="pleural_fluid_collected", caseFieldValue="1", message="Pleural fluid was collected, so this field is expected")
      */
     private $pleural_fluid_gram_done;
 
@@ -531,7 +531,7 @@ class SiteLab implements BaseSiteLabInterface
      * @var TripleChoice|null
      * @ORM\Column(name="pleural_fluid_pcr_done",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
-     * @LocalAssert\CaseRelated(groups={"Completeness"}, caseField="pleural_fluid_collected", caseFieldValue="1", message="Pleural fluid was collected, so this field is expected")
+     * @LocalAssert\CaseRelated(groups={"AMR+Completeness"}, caseField="pleural_fluid_collected", caseFieldValue="1", message="Pleural fluid was collected, so this field is expected")
      */
     private $pleural_fluid_pcr_done;
 
