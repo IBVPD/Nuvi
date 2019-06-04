@@ -52,19 +52,19 @@ services:
 
   ns.sentinel.form.filter.country:
     class: NS\SentinelBundle\Filter\Type\CountryType
-    arguments: [ "@doctrine.orm.entity_manager", "NSSentinelBundle:Country" ]
+    arguments: [ "@doctrine.orm.entity_manager", 'NS\SentinelBundle\Entity\Country' ]
     tags:
       - { name: form.type }
 
   ns.sentinel.form.filter.region:
     class: NS\SentinelBundle\Filter\Type\RegionType
-    arguments: [ "@doctrine.orm.entity_manager", "NSSentinelBundle:Region" ]
+    arguments: [ "@doctrine.orm.entity_manager", 'NS\SentinelBundle\Entity\Region' ]
     tags:
       - { name: form.type }
 
   ns.sentinel.form.filter.site:
     class: NS\SentinelBundle\Filter\Type\SiteType
-    arguments: [ "@doctrine.orm.entity_manager", "NSSentinelBundle:Site" ]
+    arguments: [ "@doctrine.orm.entity_manager", 'NS\SentinelBundle\Entity\Site' ]
     tags:
       - { name: form.type }
 
