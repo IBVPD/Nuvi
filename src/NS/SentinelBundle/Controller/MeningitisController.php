@@ -31,7 +31,7 @@ class MeningitisController extends BaseCaseController
      * @param Request $request
      * @return Response
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request): Response
     {
         return $this->render('NSSentinelBundle:Meningitis:index.html.twig', $this->index($request, Meningitis::class, FilterType::class, 'meningitis.index'));
     }
@@ -43,7 +43,7 @@ class MeningitisController extends BaseCaseController
      *
      * @return Response|RedirectResponse
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request): Response
     {
         $returnValue = $this->create($request, Meningitis::class, 'meningitisIndex', 'meningitis', FilterType::class, 'meningitis.index');
 
@@ -62,7 +62,7 @@ class MeningitisController extends BaseCaseController
      *
      * @return array|RedirectResponse|Response
      */
-    public function editAction(Request $request, $id = null)
+    public function editAction(Request $request, $id = null): Response
     {
         $response = $this->edit($request, CaseType::class, 'meningitisIndex', 'meningitisEdit', $id);
 
@@ -75,7 +75,7 @@ class MeningitisController extends BaseCaseController
      *
      * @return RedirectResponse
      */
-    public function deleteAction($id)
+    public function deleteAction($id): RedirectResponse
     {
         return $this->delete( CaseType::class, $id, 'meningitisIndex');
     }
@@ -86,9 +86,9 @@ class MeningitisController extends BaseCaseController
      * @param Request $request
      * @param null $id
      *
-     * @return array|RedirectResponse|Response
+     * @return RedirectResponse|Response
      */
-    public function editRRLAction(Request $request, $id = null)
+    public function editRRLAction(Request $request, $id = null): Response
     {
         $response = $this->edit($request, ReferenceLabType::class, 'meningitisIndex', 'meningitisRRLEdit', $id);
         return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:Meningitis:editBaseLab.html.twig', $response);
@@ -100,9 +100,9 @@ class MeningitisController extends BaseCaseController
      * @param Request $request
      * @param null    $id
      *
-     * @return array|RedirectResponse|Response
+     * @return RedirectResponse|Response
      */
-    public function editNLAction(Request $request, $id = null)
+    public function editNLAction(Request $request, $id = null): Response
     {
         $response = $this->edit($request, NationalLabType::class, 'meningitisIndex', 'meningitisNLEdit', $id);
 
@@ -115,9 +115,9 @@ class MeningitisController extends BaseCaseController
      * @param Request $request
      * @param null    $id
      *
-     * @return array|RedirectResponse|Response
+     * @return RedirectResponse|Response
      */
-    public function editLabAction(Request $request, $id = null)
+    public function editLabAction(Request $request, $id = null): Response
     {
         $response = $this->edit($request, SiteLabType::class, 'meningitisIndex', 'meningitisLabEdit', $id);
         return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:Meningitis:editLab.html.twig', $response);
@@ -129,9 +129,9 @@ class MeningitisController extends BaseCaseController
      * @param Request $request
      * @param null    $id
      *
-     * @return array|RedirectResponse|Response
+     * @return RedirectResponse|Response
      */
-    public function editOutcomeAction(Request $request, $id = null)
+    public function editOutcomeAction(Request $request, $id = null): Response
     {
         $response = $this->edit($request, OutcomeType::class, 'meningitisIndex', 'meningitisOutcomeEdit', $id);
         return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:Meningitis:editOutcome.html.twig', $response);
@@ -161,7 +161,7 @@ class MeningitisController extends BaseCaseController
             case NationalLabType::class:
                 return $this->get('doctrine.orm.entity_manager')->getRepository(NationalLab::class)->findOrCreateNew($objId);
             default:
-                throw new RuntimeException("Unknown type");
+                throw new RuntimeException('Unknown type');
         }
     }
 
@@ -176,7 +176,7 @@ class MeningitisController extends BaseCaseController
      * @param $id
      * @return Response
      */
-    public function showAction($id)
+    public function showAction($id): Response
     {
         $ret = $this->show(Meningitis::class, $id);
         if ($ret instanceof Response) {

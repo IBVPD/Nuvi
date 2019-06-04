@@ -14,10 +14,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class CaseResultListener implements EventSubscriberInterface
 {
-    /**
-     * @inheritDoc
-     */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             // if a Doctrine\ORM\QueryBuilder is passed to the lexik_form_filter.query_builder_updater service
@@ -25,10 +22,7 @@ class CaseResultListener implements EventSubscriberInterface
         ];
     }
 
-    /**
-     * @param GetFilterConditionEvent $event
-     */
-    public function applyFilter(GetFilterConditionEvent $event)
+    public function applyFilter(GetFilterConditionEvent $event): void
     {
         $values = $event->getValues();
 

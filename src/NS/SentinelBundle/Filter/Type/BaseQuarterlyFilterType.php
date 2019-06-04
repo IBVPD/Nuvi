@@ -31,12 +31,6 @@ class BaseQuarterlyFilterType extends AbstractType
     /** @var string */
     protected $fieldName = 'adm_date';
 
-    /**
-     * BaseQuarterlyFilterType constructor.
-     * @param TokenStorageInterface $tokenStorage
-     * @param AuthorizationCheckerInterface $authChecker
-     * @param ACLConverter $converter
-     */
     public function __construct(TokenStorageInterface $tokenStorage, AuthorizationCheckerInterface $authChecker, ACLConverter $converter)
     {
         $this->tokenStorage = $tokenStorage;
@@ -44,23 +38,14 @@ class BaseQuarterlyFilterType extends AbstractType
         $this->converter    = $converter;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('year', NumberFilterType::class, ['label' => 'report-filter-form.year', 'apply_filter'=> [$this, 'filterYear']]);
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, [$this, 'preSetData']);
     }
 
-    /**
-     * @param QueryInterface $filterQuery
-     * @param $field
-     * @param $values
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
-    public function filterYear(QueryInterface $filterQuery, $field, $values)
+    public function filterYear(QueryInterface $filterQuery, $field, $values): void
     {
         if ($values['value'] > 0) {
             /** @var QueryBuilder $queryBuilder */
@@ -84,11 +69,11 @@ class BaseQuarterlyFilterType extends AbstractType
         }
     }
 
-    public function preSetData(FormEvent $event)
+    public function preSetData(FormEvent $event): void
     {
         $form     = $event->getForm();
         $options  = $form->getConfig()->getOptions();
-        $siteType = (isset($options['site_type']) && $options['site_type'] == 'advanced') ? SiteFilterType::class : SiteType::class;
+        $siteType = (isset($options['site_type']) && $options['site_type'] === 'advanced') ? SiteFilterType::class : SiteType::class;
         $siteOpt  = SiteFilterType::class === $siteType ? ['include_intense' => $options['include_intense'], 'label' => 'Site'] : [];
 
         $token    = $this->tokenStorage->getToken();
@@ -131,7 +116,7 @@ class BaseQuarterlyFilterType extends AbstractType
         }
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
                 'include_filter' => true,

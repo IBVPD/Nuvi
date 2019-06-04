@@ -6,17 +6,9 @@ use Lexik\Bundle\FormFilterBundle\Event\GetFilterConditionEvent;
 use NS\SentinelBundle\Form\Types\CaseStatus;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-/**
- * Description of CaseStatusListener
- *
- * @author gnat
- */
 class CaseStatusListener implements EventSubscriberInterface
 {
-    /**
-     * {@inheritDoc}
-     */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             // if a Doctrine\ORM\QueryBuilder is passed to the lexik_form_filter.query_builder_updater service
@@ -24,13 +16,7 @@ class CaseStatusListener implements EventSubscriberInterface
         ];
     }
 
-    /**
-     * Apply a filter for a filter_locale type.
-     *
-     * This method should work with both ORM and DBAL query builder.
-     * @param GetFilterConditionEvent $event
-     */
-    public function filterCaseStatus(GetFilterConditionEvent $event)
+    public function filterCaseStatus(GetFilterConditionEvent $event): void
     {
         $values = $event->getValues();
 

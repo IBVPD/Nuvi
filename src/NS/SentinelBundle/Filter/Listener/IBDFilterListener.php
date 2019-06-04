@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gnat
- * Date: 30/04/18
- * Time: 11:22 AM
- */
 
 namespace NS\SentinelBundle\Filter\Listener;
 
@@ -14,10 +8,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class IBDFilterListener implements EventSubscriberInterface
 {
-    /**
-     * @inheritDoc
-     */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             'lexik_form_filter.apply.orm.filter.adm_dx'                  => ['applyFilter'],
@@ -29,10 +20,7 @@ class IBDFilterListener implements EventSubscriberInterface
         ];
     }
 
-    /**
-    * @param GetFilterConditionEvent $event
-    */
-    public function applyFilter(GetFilterConditionEvent $event)
+    public function applyFilter(GetFilterConditionEvent $event): void
     {
         $values = $event->getValues();
 

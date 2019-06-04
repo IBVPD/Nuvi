@@ -2,37 +2,25 @@
 
 namespace NS\SentinelBundle\Filter\Type\Pneumonia;
 
-use NS\SentinelBundle\Filter\Entity\Pneumonia;
 use NS\SentinelBundle\Filter\Type\BaseReportFilterType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- * Description of ReportFilterType
- *
- * @author gnat
- */
 class ReportFilterType extends AbstractType
 {
-    /**
-     * @param OptionsResolver $resolver
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'csrf_protection' => false,
         ]);
     }
 
-    /**
-     * @return string
-     */
-    public function getParent()
+    public function getParent(): string
     {
         return BaseReportFilterType::class;
     }
 
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'pneu_report_filter';
     }

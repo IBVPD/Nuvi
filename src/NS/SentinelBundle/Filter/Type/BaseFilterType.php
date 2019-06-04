@@ -15,33 +15,17 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
-/**
- * Class BaseFilterType
- * @package NS\SentinelBundle\Filter\Type
- */
 class BaseFilterType extends AbstractType
 {
-    /**
-     * @var TokenStorageInterface
-     */
+    /** @var TokenStorageInterface */
     private $tokenStorage;
 
-    /**
-     * @var AuthorizationCheckerInterface
-     */
+    /** @var AuthorizationCheckerInterface */
     private $authChecker;
 
-    /**
-     * @var ACLConverter
-     */
+    /** @var ACLConverter */
     private $aclConverter;
 
-    /**
-     * BaseFilterType constructor.
-     * @param TokenStorageInterface $tokenStorage
-     * @param AuthorizationCheckerInterface $authChecker
-     * @param ACLConverter $aclConverter
-     */
     public function __construct(TokenStorageInterface $tokenStorage, AuthorizationCheckerInterface $authChecker, ACLConverter $aclConverter)
     {
         $this->tokenStorage = $tokenStorage;
@@ -49,12 +33,7 @@ class BaseFilterType extends AbstractType
         $this->aclConverter = $aclConverter;
     }
 
-    /**
-     * @param FormBuilderInterface $builder
-     * @param array $options
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('case_id', TextFilterType::class, [
@@ -72,10 +51,7 @@ class BaseFilterType extends AbstractType
         $builder->addEventListener(FormEvents::PRE_SET_DATA, [$this, 'preSetData']);
     }
 
-    /**
-     * @param FormEvent $event
-     */
-    public function preSetData(FormEvent $event)
+    public function preSetData(FormEvent $event): void
     {
         $form  = $event->getForm();
         $token = $this->tokenStorage->getToken();
@@ -133,10 +109,7 @@ class BaseFilterType extends AbstractType
             'attr' => ['class' => 'btn btn-xs btn-danger', 'type'=>'submit']]);
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'method' => 'GET',

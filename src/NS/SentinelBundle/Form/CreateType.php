@@ -11,39 +11,21 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-/**
- * Description of CreateIBDType
- *
- * @author gnat
- */
 class CreateType extends AbstractType
 {
-    /**
-     * @var SerializedSitesInterface
-     */
+    /** @var SerializedSitesInterface */
     private $siteSerializer;
 
-    /**
-     * @var ObjectManager
-     */
+    /** @var ObjectManager */
     private $entityMgr;
 
-    /**
-     * @param SerializedSitesInterface $siteSerializer
-     * @param ObjectManager $entityMgr
-     */
     public function __construct(SerializedSitesInterface $siteSerializer, ObjectManager $entityMgr)
     {
         $this->siteSerializer = $siteSerializer;
         $this->entityMgr      = $entityMgr;
     }
 
-    /**
-     * @param FormBuilderInterface $builder
-     * @param array $options
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('caseId', null, ['label' => 'site-assigned-case-id', 'constraints' => [new NotBlank()]])

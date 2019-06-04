@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gnat
- * Date: 27/01/17
- * Time: 2:45 PM
- */
 
 namespace NS\SentinelBundle\Form;
 
@@ -14,10 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class ForgotPasswordType extends AbstractType
 {
-    /**
-     * @inheritDoc
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('email',EmailType::class, ['attr' => ['class' => 'form-control', 'placeholder' => 'Email']]);
     }

@@ -13,17 +13,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- * Class FilterType
- * @package NS\SentinelBundle\Filter\Type\Meningitis
- */
 class FilterType extends AbstractType implements EmbeddedFilterTypeInterface
 {
-    /**
-     * @param FormBuilderInterface $builder
-     * @param array $options
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('adm_dx', Diagnosis::class, [
@@ -40,20 +32,14 @@ class FilterType extends AbstractType implements EmbeddedFilterTypeInterface
         ;
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'csrf_protection' => false,
         ]);
     }
 
-    /**
-     * @return string
-     */
-    public function getParent()
+    public function getParent(): string
     {
         return BaseFilterType::class;
     }

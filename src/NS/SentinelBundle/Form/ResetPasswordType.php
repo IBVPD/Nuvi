@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gnat
- * Date: 10/02/17
- * Time: 1:50 PM
- */
 
 namespace NS\SentinelBundle\Form;
 
@@ -15,10 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class ResetPasswordType extends AbstractType
 {
-    /**
-     * @inheritDoc
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('password',RepeatedType::class,[
             'type' => PasswordType::class,

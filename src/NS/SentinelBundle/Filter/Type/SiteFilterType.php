@@ -12,22 +12,11 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- * Description of SiteFilterType
- *
- * @author gnat
- */
 class SiteFilterType extends AbstractType implements EmbeddedFilterTypeInterface
 {
-
-    /**
-     * @param FormBuilderInterface $builder
-     * @param array $options
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $label = isset($options['label']) ? $options['label'] : null;
+        $label = $options['label'] ?? null;
 
         $builder->add('name', TextFilterType::class, ['required' => false, 'label' => $label, 'apply_filter' => [$this,'applyFilter']]);
 
@@ -36,14 +25,7 @@ class SiteFilterType extends AbstractType implements EmbeddedFilterTypeInterface
         }
     }
 
-    /**
-     * @param QueryInterface $filterBuilder
-     * @param string $field
-     * @param array $values
-     * @throws Exception
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
-    public function applyFilter(QueryInterface $filterBuilder, $field, $values)
+    public function applyFilter(QueryInterface $filterBuilder, $field, $values): void
     {
         if ($values['value'] instanceof IntenseSupport && $values['value']->getValue() >= 0) {
             /** @var QueryBuilder $queryBuilder */
@@ -87,10 +69,7 @@ class SiteFilterType extends AbstractType implements EmbeddedFilterTypeInterface
         }
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefault('include_intense', true);
     }

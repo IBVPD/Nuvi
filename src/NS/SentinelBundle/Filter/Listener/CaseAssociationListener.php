@@ -8,17 +8,9 @@ use Exception;
 use Lexik\Bundle\FormFilterBundle\Event\GetFilterConditionEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-/**
- * Description of Listener
- *
- * @author gnat
- */
 class CaseAssociationListener implements EventSubscriberInterface
 {
-    /**
-     * {@inheritDoc}
-     */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             'lexik_form_filter.apply.orm.ibd_filter_form.country'       => ['filterObject'],
@@ -30,11 +22,7 @@ class CaseAssociationListener implements EventSubscriberInterface
         ];
     }
 
-    /**
-     * @param GetFilterConditionEvent $event
-     * @throws Exception
-     */
-    public function filterObject(GetFilterConditionEvent $event)
+    public function filterObject(GetFilterConditionEvent $event): void
     {
         $queryBuilder = $event->getQueryBuilder();
         if (!$queryBuilder instanceof QueryBuilder) {

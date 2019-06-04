@@ -8,11 +8,6 @@ use Lexik\Bundle\FormFilterBundle\Filter\Form\Type\EntityFilterType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- * Description of BaseObject
- *
- * @author gnat
- */
 class BaseObject extends AbstractType //implements EmbeddedFilterTypeInterface
 {
     /** @var ObjectManager */
@@ -21,20 +16,13 @@ class BaseObject extends AbstractType //implements EmbeddedFilterTypeInterface
     /** @var string|null */
     protected $class;
 
-    /**
-     * @param ObjectManager $entityMgr
-     * @param string $class
-     */
     public function __construct(ObjectManager $entityMgr, $class = null)
     {
         $this->entityMgr = $entityMgr;
         $this->class = $class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'class' => $this->class,
@@ -44,7 +32,7 @@ class BaseObject extends AbstractType //implements EmbeddedFilterTypeInterface
         ]);
     }
 
-    public function applyFilter(ORMQuery $filterBuilder, $field, $values)
+    public function applyFilter(ORMQuery $filterBuilder, $field, $values): void
     {
         if (!empty($values['value'])) {
             $fieldName = str_replace(['\\', ':'], '_', $this->class);
@@ -67,10 +55,7 @@ class BaseObject extends AbstractType //implements EmbeddedFilterTypeInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getParent()
+    public function getParent(): string
     {
         return EntityFilterType::class;
     }

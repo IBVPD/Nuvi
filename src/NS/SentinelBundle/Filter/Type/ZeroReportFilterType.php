@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gnat
- * Date: 19/05/16
- * Time: 4:13 PM
- */
 
 namespace NS\SentinelBundle\Filter\Type;
 
@@ -19,10 +13,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class ZeroReportFilterType extends AbstractType
 {
-    /**
-     * @inheritDoc
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $choices = ['Meningitis' => Meningitis::class, 'Pneumonia' => Pneumonia::class, 'RotaVirus' => RotaVirus::class, 'IBD' => IBD::class];
         $builder

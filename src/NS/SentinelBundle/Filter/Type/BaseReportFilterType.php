@@ -14,34 +14,17 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
-/**
- * Description of BaseReportFilterType
- *
- * @author gnat
- */
 class BaseReportFilterType extends AbstractType
 {
-    /**
-     * @var TokenStorageInterface
-     */
+    /** @var TokenStorageInterface */
     private $tokenStorage;
 
-    /**
-     * @var AuthorizationCheckerInterface
-     */
+    /** @var AuthorizationCheckerInterface */
     private $authChecker;
 
-    /**
-     * @var ACLConverter
-     */
+    /** @var ACLConverter */
     private $converter;
 
-    /**
-     * BaseReportFilterType constructor.
-     * @param TokenStorageInterface $tokenStorage
-     * @param AuthorizationCheckerInterface $authChecker
-     * @param ACLConverter $converter
-     */
     public function __construct(TokenStorageInterface $tokenStorage, AuthorizationCheckerInterface $authChecker, ACLConverter $converter)
     {
         $this->tokenStorage = $tokenStorage;
@@ -49,11 +32,7 @@ class BaseReportFilterType extends AbstractType
         $this->converter    = $converter;
     }
 
-    /**
-     * {@inheritdoc}
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('adm_date', DateRangeFilterType::class, [
@@ -81,14 +60,11 @@ class BaseReportFilterType extends AbstractType
         $builder->addEventListener(FormEvents::PRE_SET_DATA, [$this, 'preSetData']);
     }
 
-    /**
-     * @param FormEvent $event
-     */
-    public function preSetData(FormEvent $event)
+    public function preSetData(FormEvent $event): void
     {
         $form     = $event->getForm();
         $options  = $form->getConfig()->getOptions();
-        $siteType = (isset($options['site_type']) && $options['site_type'] == 'advanced') ? SiteFilterType::class : SiteType::class;
+        $siteType = (isset($options['site_type']) && $options['site_type'] === 'advanced') ? SiteFilterType::class : SiteType::class;
 
         if ($this->authChecker->isGranted('ROLE_REGION')) {
             $objectIds = $this->converter->getObjectIdsForRole($this->tokenStorage->getToken(), 'ROLE_REGION');
@@ -130,10 +106,7 @@ class BaseReportFilterType extends AbstractType
         }
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'include_filter' => true,

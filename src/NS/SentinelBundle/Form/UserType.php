@@ -8,15 +8,11 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use NS\SentinelBundle\Entity\User;
 
 class UserType extends AbstractType
 {
-    /**
-     * @param FormBuilderInterface $builder
-     * @param array $options
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('name')
@@ -34,14 +30,11 @@ class UserType extends AbstractType
             ->add('language', LocaleType::class, ['label'=>'Preferred Language'])
         ;
     }
-    
-    /**
-     * @param OptionsResolver $resolver
-     */
-    public function configureOptions(OptionsResolver $resolver)
+
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => 'NS\SentinelBundle\Entity\User'
+            'data_class' => User::class
         ]);
     }
 }
