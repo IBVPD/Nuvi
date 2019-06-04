@@ -13,9 +13,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Description of ReportController
- *
- * @author gnat
  * @Route("/{_locale}/pneumonia/reports")
  */
 class PneumoniaReportController extends Controller

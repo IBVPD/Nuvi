@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gnat
- * Date: 19/05/16
- * Time: 4:03 PM
- */
 
 namespace NS\SentinelBundle\Controller;
 
@@ -16,9 +10,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class ZeroReportingController
- * @package NS\SentinelBundle\Controller
- *
  * @Route("/{_locale}")
  */
 class ZeroReportingController extends Controller

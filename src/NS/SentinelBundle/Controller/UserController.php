@@ -1,4 +1,5 @@
 <?php
+
 namespace NS\SentinelBundle\Controller;
 
 use NS\SentinelBundle\Form\UserType;
@@ -10,9 +11,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Description of UserController
- *
- * @author gnat
  * @Route("/{_locale}")
  */
 class UserController extends Controller

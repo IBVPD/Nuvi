@@ -141,7 +141,7 @@ class MeningitisController extends BaseCaseController
      * @param string $type
      * @param string $objId
      * @param bool $forDelete
-     * @return mixed|\NS\SentinelBundle\Entity\Meningitis|null
+     * @return mixed|Meningitis|SiteLab|ReferenceLab|NationalLab|null
      * @throws UnexpectedResultException
      *
      */

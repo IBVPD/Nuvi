@@ -17,12 +17,12 @@ class UserAdminController extends Controller
      * @return Response
      * @throws Exception
      */
-    public function ajaxAccountContactAction(Request $request)
+    public function ajaxAccountContactAction(Request $request): Response
     {
         $vars = $request->request->all();
         $secondaryTypeValue = $vars['secondary-field'];
         if (empty($secondaryTypeValue)) {
-            return new Response("Please select the type first", 400, ['Autocomplete-Error' => 'The Access Level is required']);
+            return new Response('Please select the type first', 400, ['Autocomplete-Error' => 'The Access Level is required']);
         }
 
         $role = new Role($secondaryTypeValue);

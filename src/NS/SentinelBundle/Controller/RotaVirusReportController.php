@@ -12,8 +12,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class RotaVirusReportController
- * @package NS\SentinelBundle\Controller
  * @Route("/{_locale}/rota/reports")
  */
 class RotaVirusReportController extends Controller
@@ -22,9 +20,9 @@ class RotaVirusReportController extends Controller
      * @Route("/data-quality",name="rotaReportDataQuality")
      * @param Request $request
      *
-     * @return array|RedirectResponse|Response
+     * @return RedirectResponse|Response
      */
-    public function dataQualityAction(Request $request)
+    public function dataQualityAction(Request $request): Response
     {
         $form = $this->createForm(ReportFilterType::class, null, ['site_type' => 'advanced', 'validation_groups' => ['FieldPopulation']]);
         $service = $this->get('ns_sentinel.rotavirus_report');
@@ -96,7 +94,7 @@ class RotaVirusReportController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function yearAndMonthAction(Request $request)
+    public function yearAndMonthAction(Request $request): Response
     {
         $form    = $this->createForm(BaseQuarterlyFilterType::class, null, ['site_type'=>'advanced']);
         $service = $this->get('ns_sentinel.rotavirus_report');

@@ -12,9 +12,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Description of ReportController
- *
- * @author gnat
  * @Route("/{_locale}/ibd/reports")
  */
 class IBDReportController extends Controller
@@ -22,7 +19,7 @@ class IBDReportController extends Controller
     /**
      * @Route("/percent-enrolled",name="ibdReportPercentEnrolled")
      * @param Request $request
-     * @return array|RedirectResponse|Response
+     * @return RedirectResponse|Response
      */
     public function percentEnrolledAction(Request $request)
     {

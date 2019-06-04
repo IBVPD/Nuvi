@@ -26,7 +26,7 @@ class RotaVirusController extends BaseCaseController
      * @param Request $request
      * @return Response
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request): Response
     {
         return $this->render('NSSentinelBundle:RotaVirus:index.html.twig', $this->index($request, 'NSSentinelBundle:RotaVirus', FilterType::class, 'rota.index'));
     }
@@ -37,7 +37,7 @@ class RotaVirusController extends BaseCaseController
      * @Method({"POST","GET"})
      * @return Response|RedirectResponse
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request): Response
     {
         $returnValue = $this->create($request, 'NSSentinelBundle:RotaVirus', 'rotavirusIndex', 'rotavirus', FilterType::class, 'rota.index');
         if ($returnValue instanceof RedirectResponse) {
@@ -52,9 +52,9 @@ class RotaVirusController extends BaseCaseController
      * @Method(methods={"GET","POST"})
      * @param Request $request
      * @param null $id
-     * @return array|RedirectResponse|Response
+     * @return RedirectResponse|Response
      */
-    public function editAction(Request $request, $id = null)
+    public function editAction(Request $request, $id = null): Response
     {
         $response = $this->edit($request, CaseType::class, 'rotavirusIndex', 'rotavirusEdit', $id);
         return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:RotaVirus:edit.html.twig', $response);
@@ -65,7 +65,7 @@ class RotaVirusController extends BaseCaseController
      * @param $id
      * @return RedirectResponse
      */
-    public function deleteAction($id)
+    public function deleteAction($id): RedirectResponse
     {
         return $this->delete(CaseType::class, $id, 'rotavirusIndex');
     }
@@ -75,9 +75,9 @@ class RotaVirusController extends BaseCaseController
      * @Method(methods={"GET","POST"})
      * @param Request $request
      * @param null $id
-     * @return array|RedirectResponse|Response
+     * @return RedirectResponse|Response
      */
-    public function editLabAction(Request $request, $id = null)
+    public function editLabAction(Request $request, $id = null): Response
     {
         $response = $this->edit($request, SiteLabType::class, 'rotavirusIndex', 'rotavirusLabEdit', $id);
 
@@ -89,9 +89,9 @@ class RotaVirusController extends BaseCaseController
      * @Method(methods={"GET","POST"})
      * @param Request $request
      * @param null $id
-     * @return array|RedirectResponse|Response
+     * @return RedirectResponse|Response
      */
-    public function editRRLAction(Request $request, $id = null)
+    public function editRRLAction(Request $request, $id = null): Response
     {
         $response = $this->edit($request, ReferenceLabType::class, 'rotavirusIndex', 'rotavirusRRLEdit', $id);
         return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:RotaVirus:editBaseLab.html.twig', $response);
@@ -102,9 +102,9 @@ class RotaVirusController extends BaseCaseController
      * @Method(methods={"GET","POST"})
      * @param Request $request
      * @param null $id
-     * @return array|RedirectResponse|Response
+     * @return RedirectResponse|Response
      */
-    public function editNLAction(Request $request, $id = null)
+    public function editNLAction(Request $request, $id = null): Response
     {
         $response = $this->edit($request, NationalLabType::class, 'rotavirusIndex', 'rotavirusNLEdit', $id);
         return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:RotaVirus:editBaseLab.html.twig', $response);
@@ -115,9 +115,9 @@ class RotaVirusController extends BaseCaseController
      * @Method(methods={"GET","POST"})
      * @param Request $request
      * @param null $id
-     * @return array|RedirectResponse|Response
+     * @return RedirectResponse|Response
      */
-    public function editOutcomeAction(Request $request, $id = null)
+    public function editOutcomeAction(Request $request, $id = null): Response
     {
         $response = $this->edit($request, OutcomeType::class, 'rotavirusIndex', 'rotavirusOutcomeEdit', $id);
         return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:RotaVirus:editOutcome.html.twig', $response);
@@ -149,7 +149,7 @@ class RotaVirusController extends BaseCaseController
                 return $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:RotaVirus\NationalLab')->findOrCreateNew($objId);
 
             default:
-                throw new Exception("Unknown type");
+                throw new Exception('Unknown type');
         }
     }
 
@@ -159,7 +159,7 @@ class RotaVirusController extends BaseCaseController
      * @param $id
      * @return Response
      */
-    public function showAction($id)
+    public function showAction($id): Response
     {
         $ret = $this->show('NSSentinelBundle:RotaVirus', $id);
         if ($ret instanceof Response) {
