@@ -174,3 +174,7 @@ services:
     arguments: [ '@ns_sentinel.cached_validator']
     tags:
       - { name: doctrine.orm.entity_listener }
+
+  ns_sentinel.detect_changes:
+    class: NS\SentinelBundle\Services\DetectGitChanges
+    arguments: [ '%kernel.root_dir%/../']
