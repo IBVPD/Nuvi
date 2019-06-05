@@ -24,10 +24,6 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
-/**
- * Class CaseType
- * @package NS\SentinelBundle\Form\Rota
- */
 class CaseType extends AbstractType
 {
     /** @var ValidatorGroupResolver */
@@ -39,12 +35,6 @@ class CaseType extends AbstractType
     /** @var SerializedSitesInterface */
     private $siteSerializer;
 
-    /**
-     * CaseType constructor.
-     * @param ValidatorGroupResolver $validatorResolver
-     * @param AuthorizationCheckerInterface $authorizationChecker
-     * @param SerializedSitesInterface $siteSerializer
-     */
     public function __construct(ValidatorGroupResolver $validatorResolver, AuthorizationCheckerInterface $authorizationChecker, SerializedSitesInterface $siteSerializer)
     {
         $this->validatorResolver = $validatorResolver;
@@ -52,14 +42,9 @@ class CaseType extends AbstractType
         $this->siteSerializer = $siteSerializer;
     }
 
-    /**
-     * @param FormBuilderInterface $builder
-     * @param array $options
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $required = (isset($options['method']) && $options['method'] == 'PUT');
+        $required = (isset($options['method']) && $options['method'] === 'PUT');
         $isPaho = $this->authChecker->isGranted('ROLE_AMR');
 
         $builder
@@ -105,7 +90,7 @@ class CaseType extends AbstractType
         $builder->addEventListener(FormEvents::POST_SET_DATA,[$this,'postSetData']);
     }
 
-    public function postSetData(FormEvent $event)
+    public function postSetData(FormEvent $event): void
     {
         /** @var RotaVirus $data */
         $data = $event->getData();
@@ -123,10 +108,7 @@ class CaseType extends AbstractType
         }
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => RotaVirus::class,

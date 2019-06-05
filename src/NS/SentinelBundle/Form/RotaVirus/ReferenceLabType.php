@@ -8,20 +8,14 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ReferenceLabType extends AbstractType
 {
-    /**
-     * @param OptionsResolver $resolver
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => ReferenceLab::class,
         ]);
     }
 
-    /**
-     * @return string
-     */
-    public function getParent()
+    public function getParent(): string
     {
         return BaseLabType::class;
     }

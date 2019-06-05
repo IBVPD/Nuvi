@@ -10,18 +10,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- * Class OutcomeType
- * @package NS\SentinelBundle\Form\Rota
- */
 class OutcomeType extends AbstractType
 {
-    /**
-     * @param FormBuilderInterface $builder
-     * @param array $options
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('dischargeOutcome',           DischargeOutcome::class,        ['required'=>false, 'label'=>'rotavirus-form.dischargeOutcome'])
@@ -32,10 +23,7 @@ class OutcomeType extends AbstractType
         ;
     }
     
-    /**
-     * @param OptionsResolver $resolver
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => RotaVirus::class

@@ -16,7 +16,9 @@
                 <div class="tabbable">
                     <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
                         <li class="active"><a data-toggle="tab" href="#stool">{{'Sample & Elisa'|trans}}</a></li>
+                    {% if form.genotypingDate is defined %}
                         <li><a data-toggle="tab" href="#genotype">{{'Genotyping'|trans}}</a></li>
+                    {% endif %}
                     </ul>
 
                     <div class="tab-content">
@@ -71,7 +73,7 @@
                                 {% endif %}
                             </div>
                         </div>
-
+                    {% if form.genotypingDate is defined %}
                         <div id="genotype" class="tab-pane">
                             <div class="row">
                                 <div class="col-sm-4">
@@ -87,6 +89,7 @@
                                 </div>
                             </div>
                         </div>
+                    {% endif %}
                     </div>
                 </div>
 
