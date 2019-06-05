@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2019-05-10T08:50:41Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
+  <file date="2019-06-04T14:29:51Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -572,7 +572,7 @@
       </trans-unit>
       <trans-unit id="c6277a071f0ac9da4ca064348e5be01c652e8fa0" resname="Can Create Site Lab">
         <source>Can Create Site Lab</source>
-        <target>Puede ingresar datos de laboratorio local (Site Lab)</target>
+        <target>Puede ingresar datos de laboratorio del Hospital (Site Lab)</target>
       </trans-unit>
       <trans-unit id="77dfd2135f4db726c47299bb55be26f7f4525a46" resname="Cancel">
         <source>Cancel</source>
@@ -852,7 +852,7 @@
       </trans-unit>
       <trans-unit id="022810a02fd4b3d8a609546d5656eee294176c35" resname="Edit Site Lab Data">
         <source>Edit Site Lab Data</source>
-        <target>Editar datos de laboratorio local</target>
+        <target>Editar datos de laboratorio del Hospital</target>
       </trans-unit>
       <trans-unit id="21170a835b86f21e7c43e7cc4088998b44738461" resname="Elisa">
         <source>Elisa</source>
@@ -1004,7 +1004,7 @@
       </trans-unit>
       <trans-unit id="9bdc9f363de2dd9856b5acf7ea28344e5341c5ad" resname="Gram-variable">
         <source>Gram-variable</source>
-        <target state="new">Gram-variable</target>
+        <target>Gram-variable</target>
       </trans-unit>
       <trans-unit id="94dd9e08c129c785f7f256e82fbe0a30e6d1ae40" resname="Hi">
         <source>Hi</source>
@@ -1168,7 +1168,7 @@
       </trans-unit>
       <trans-unit id="ca67ae9d77b56f1ab590b86a232e67c836bf48b0" resname="Local Lab">
         <source>Local Lab</source>
-        <target>Lab Local</target>
+        <target>Lab Hospital</target>
       </trans-unit>
       <trans-unit id="ad138176490530a834efeda9444029999b77b0ac" resname="Local Site">
         <source>Local Site</source>
@@ -1176,7 +1176,7 @@
       </trans-unit>
       <trans-unit id="fd19169a85fc7fa4467b1ab3524e9ea01f66f940" resname="Location Distribution">
         <source>Location Distribution</source>
-        <target state="new">Location Distribution</target>
+        <target>Distribucion Local</target>
       </trans-unit>
       <trans-unit id="4e5a2893bdcc7d239c1db72e4c4ffbe4bea73174" resname="Login">
         <source>Login</source>
@@ -1573,15 +1573,15 @@
       </trans-unit>
       <trans-unit id="e53938a82e4c619e6efb6f1f7b65ff2d99368bd2" resname="Reference Lab">
         <source>Reference Lab</source>
-        <target>Laboratorio de referencia</target>
+        <target>Laboratorio de referencia Regional</target>
       </trans-unit>
       <trans-unit id="3164f0d9ee7e8fd17c649bd27d837d195032d351" resname="Reference Lab Isolate Type">
         <source>Reference Lab Isolate Type</source>
-        <target>Tipo de aislamiento Lab. de Referencia</target>
+        <target>Tipo de aislamiento Lab. de Referencia Regional</target>
       </trans-unit>
       <trans-unit id="2eef541cd19165b5cea3a39b09bca0d078e05a62" resname="Reference Lab Sample Collection Date">
         <source>Reference Lab Sample Collection Date</source>
-        <target>Fecha de obtencion de muestra en el Lab. de Referencia</target>
+        <target>Fecha de obtencion de muestra en el Lab. de Referencia </target>
       </trans-unit>
       <trans-unit id="6bd3701652fe35671e301d0ff174de30aa6f0229" resname="Reference Lab Sample ID">
         <source>Reference Lab Sample ID</source>
@@ -1689,7 +1689,7 @@
       </trans-unit>
       <trans-unit id="f70c03081c5209cc4aa55b21d6f3911aa88a33e0" resname="Site Lab">
         <source>Site Lab</source>
-        <target>Laboratorio Local</target>
+        <target>Laboratorio Hospital</target>
       </trans-unit>
       <trans-unit id="d296f5c4a4939bac92f29f7748bac1806e767d90" resname="Site Performance">
         <source>Site Performance</source>
@@ -2401,7 +2401,7 @@
       </trans-unit>
       <trans-unit id="f62f6d3674a6dee34e1f6ede6eac43df35ffcb2a" resname="ibd-form.discharge-class-other">
         <source>ibd-form.discharge-class-other</source>
-        <target state="new">ibd-form.discharge-class-other</target>
+        <target>Otro tipo de egreso</target>
       </trans-unit>
       <trans-unit id="43b742aff24ad27b9663f69a87c048a32a7677a8" resname="ibd-form.discharge-diagnosis">
         <source>ibd-form.discharge-diagnosis</source>
@@ -3122,7 +3122,7 @@
       </trans-unit>
       <trans-unit id="e9e7a5e4bb399367df45b6de3be393610f750d01" resname="rotavirus-form.elisaTestDate">
         <source>rotavirus-form.elisaTestDate</source>
-        <target>Fecha que realizó  Elisa para rotavirus en el laboratorio local</target>
+        <target>Fecha que realizó  Elisa para rotavirus en el laboratorio del hospital</target>
       </trans-unit>
       <trans-unit id="43691e7306e332f728c2b769b7868644e9734355" resname="rotavirus-form.first-name">
         <source>rotavirus-form.first-name</source>
@@ -3190,7 +3190,7 @@
       </trans-unit>
       <trans-unit id="5c041d669b2b43a86da9af88ac66e6a6232d633e" resname="rotavirus-form.site-lab-elisa-done">
         <source>rotavirus-form.site-lab-elisa-done</source>
-        <target>Se realizó prueba ELISA para rotavirus en el laboratorio local? </target>
+        <target>Se realizó prueba ELISA para rotavirus en el laboratorio Hospital? </target>
       </trans-unit>
       <trans-unit id="8fb220527cb1e957cb950685dd467ab65459f2ea" resname="rotavirus-form.site-lab-elisa-kit">
         <source>rotavirus-form.site-lab-elisa-kit</source>
@@ -3230,7 +3230,7 @@
       </trans-unit>
       <trans-unit id="e04172823192c3c22610ee09af4766aff4edf9f0" resname="rotavirus-form.site-lab-result">
         <source>rotavirus-form.site-lab-result</source>
-        <target>Resultado de ELISA para rotavirus en el laboratorio local</target>
+        <target>Resultado de ELISA para rotavirus en el laboratorio del hospital</target>
       </trans-unit>
       <trans-unit id="c48082a0a9a1c60952f662af4712ed7cb57aaa08" resname="rotavirus-form.site-lab-sample-received">
         <source>rotavirus-form.site-lab-sample-received</source>
@@ -3238,7 +3238,7 @@
       </trans-unit>
       <trans-unit id="470e124f89cc020a0541d58b369d213d2a67dd38" resname="rotavirus-form.site-lab-stored">
         <source>rotavirus-form.site-lab-stored</source>
-        <target>Se almacenó  muestra de heces en le laboratorio local?</target>
+        <target>Se almacenó  muestra de heces en le laboratorio del hospitall?</target>
       </trans-unit>
       <trans-unit id="17c7468cc27e6e52c2fdad2d610a47a02522982b" resname="rotavirus-form.site-lab-test-date">
         <source>rotavirus-form.site-lab-test-date</source>
@@ -3262,7 +3262,7 @@
       </trans-unit>
       <trans-unit id="c0557c3d85944f3e1297bd53869950fb9f3df1e4" resname="rotavirus-form.stoolId">
         <source>rotavirus-form.stoolId</source>
-        <target>ID de la muestra de heces - laboratorio Local</target>
+        <target>ID de la muestra de heces - laboratorio del hospital</target>
       </trans-unit>
       <trans-unit id="71d799cbde3024700bf4b47e764f1932feb6f4bf" resname="rotavirus-form.stoolSentToNL">
         <source>rotavirus-form.stoolSentToNL</source>
@@ -3274,7 +3274,7 @@
       </trans-unit>
       <trans-unit id="4ddb9d195469fc136118b46e50944864b3e7f92e" resname="rotavirus-form.stoolSentToRRL">
         <source>rotavirus-form.stoolSentToRRL</source>
-        <target>Enviado al Laboratorio de referencia</target>
+        <target>Enviado al Laboratorio de referencia regional</target>
       </trans-unit>
       <trans-unit id="49c8d27176dc1cb18e4f2a69698032428f18a894" resname="rotavirus-form.stoolSentToRRLDate">
         <source>rotavirus-form.stoolSentToRRLDate</source>
