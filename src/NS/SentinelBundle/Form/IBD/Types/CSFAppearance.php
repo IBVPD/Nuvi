@@ -5,20 +5,16 @@ namespace NS\SentinelBundle\Form\IBD\Types;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 
-/**
- * Description of TripleChoice
- *
- * @author gnat
- */
 class CSFAppearance extends TranslatableArrayChoice implements TranslationContainerInterface
 {
-    public const CLEAR          = 1;
-    public const TURBID         = 2;
-    public const BLOODY         = 3;
-    public const XANTHROCHROMIC = 4;
-    public const OTHER          = 5;
-    public const NOT_ASSESSED   = 6;
-    public const UNKNOWN        = 99;
+    public const
+        CLEAR          = 1,
+        TURBID         = 2,
+        BLOODY         = 3,
+        XANTHROCHROMIC = 4,
+        OTHER          = 5,
+        NOT_ASSESSED   = 6,
+        UNKNOWN        = 99;
 
     protected $values = [
         self::CLEAR => 'Clear',

@@ -7,13 +7,14 @@ use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 
 class CXRResult extends TranslatableArrayChoice implements TranslationContainerInterface
 {
-    public const NORMAL       = 0;
-    public const CONSISTENT   = 1;
-    public const VIRAL_PNEUMONIA = 10;
-    public const VIRAL_BACTERIAL = 11;
-    public const INCONCLUSIVE = 2;
-    public const OTHER        = 3;
-    public const UNKNOWN      = 99;
+    public const 
+        NORMAL       = 0,
+        CONSISTENT   = 1,
+        VIRAL_PNEUMONIA = 10,
+        VIRAL_BACTERIAL = 11,
+        INCONCLUSIVE = 2,
+        OTHER        = 3,
+        UNKNOWN      = 99;
  
     protected $values = [
         self::NORMAL => 'Normal',

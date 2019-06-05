@@ -6,16 +6,17 @@ use NS\UtilBundle\Form\Types\ArrayChoice;
 
 class FinalResult extends ArrayChoice
 {
-    public const SPN          = 1;
-    public const HI           = 2;
-    public const NM           = 3;
-    public const NEG          = 4;
-    public const INCONCLUSIVE = 5;
-    public const NOT_DONE     = 6;
-    public const SPN_HI       = 7;
-    public const SPN_NM       = 8;
-    public const HI_NM        = 9;
-    public const SPN_HI_NM    = 10;
+    public const 
+        SPN          = 1,
+        HI           = 2,
+        NM           = 3,
+        NEG          = 4,
+        INCONCLUSIVE = 5,
+        NOT_DONE     = 6,
+        SPN_HI       = 7,
+        SPN_NM       = 8,
+        HI_NM        = 9,
+        SPN_HI_NM    = 10;
 
     protected $values = [
         self::SPN          => 'Spn',

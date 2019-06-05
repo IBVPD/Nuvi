@@ -5,19 +5,16 @@ namespace NS\SentinelBundle\Form\IBD\Types;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 
-/**
- * Description of LatResult
- *
- */
 class LatResult extends TranslatableArrayChoice implements TranslationContainerInterface
 {
-    public const NEGATIVE  = 0;
-    public const SPN       = 1;
-    public const HI        = 2;
-    public const NM        = 3;
-    public const OTHER     = 4;
-    public const INCONCLUSIVE = 5;
-    public const UNKNOWN   = 99;
+    public const
+        NEGATIVE  = 0,
+        SPN       = 1,
+        HI        = 2,
+        NM        = 3,
+        OTHER     = 4,
+        INCONCLUSIVE = 5,
+        UNKNOWN   = 99;
 
     protected $values = [
         self::NEGATIVE => 'Negative',

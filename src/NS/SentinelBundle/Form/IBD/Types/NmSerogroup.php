@@ -5,25 +5,22 @@ namespace NS\SentinelBundle\Form\IBD\Types;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 
-/**
- * Description of NmSerogroup
- *
- */
 class NmSerogroup extends TranslatableArrayChoice implements TranslationContainerInterface
 {
-    public const A           = 1;
-    public const B           = 2;
-    public const B_E         = 3;
-    public const C           = 4;
-    public const W           = 5;
-    public const X           = 6;
-    public const Y           = 7;
-    public const Y_W         = 8;
-    public const Z           = 9;
-    public const NON_BY_PCR  = 10;
-    public const NON_BY_SASG = 11;
-    public const NOT_DONE    = 12;
-    public const _29E        = 13;
+    public const 
+        A           = 1,
+        B           = 2,
+        B_E         = 3,
+        C           = 4,
+        W           = 5,
+        X           = 6,
+        Y           = 7,
+        Y_W         = 8,
+        Z           = 9,
+        NON_BY_PCR  = 10,
+        NON_BY_SASG = 11,
+        NOT_DONE    = 12,
+        _29E        = 13;
 
     public const OTHER       = 99;
 

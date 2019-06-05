@@ -5,20 +5,17 @@ namespace NS\SentinelBundle\Form\IBD\Types;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use NS\UtilBundle\Form\Types\TranslatableSetChoice;
 
-/**
- * Description of CXRAdditionalResult
- *
- */
 class CXRAdditionalResult extends TranslatableSetChoice implements TranslationContainerInterface
 {
-    public const CONSOLIDATION     = 1;
-    public const PLEURAL_EFFUSION  = 2;
-    public const AIR_BRONCHOGRAM   = 3;
-    public const INFILTRATE        = 4;
-    public const ATELECTASIS       = 5;
-    public const INCONCLUSIVE      = 6;
-    public const OTHER             = 7;
-    public const UNKNOWN           = 99;
+    public const 
+        CONSOLIDATION     = 1,
+        PLEURAL_EFFUSION  = 2,
+        AIR_BRONCHOGRAM   = 3,
+        INFILTRATE        = 4,
+        ATELECTASIS       = 5,
+        INCONCLUSIVE      = 6,
+        OTHER             = 7,
+        UNKNOWN           = 99;
 
     protected $set = [
         self::CONSOLIDATION => 'Consolidation',

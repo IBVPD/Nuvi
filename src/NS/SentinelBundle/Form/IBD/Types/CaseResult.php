@@ -5,16 +5,13 @@ namespace NS\SentinelBundle\Form\IBD\Types;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 
-/**
- * Description of IBDCaseResult
- *
- */
 class CaseResult extends TranslatableArrayChoice implements TranslationContainerInterface
 {
-    public const UNKNOWN   = 0;
-    public const SUSPECTED = 1;
-    public const PROBABLE  = 2;
-    public const CONFIRMED = 3;
+    public const 
+        UNKNOWN   = 0,
+        SUSPECTED = 1,
+        PROBABLE  = 2,
+        CONFIRMED = 3;
 
     protected $values = [
         self::UNKNOWN => 'Unknown',

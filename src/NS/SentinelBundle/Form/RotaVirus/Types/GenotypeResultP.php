@@ -5,31 +5,28 @@ namespace NS\SentinelBundle\Form\RotaVirus\Types;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 
-/**
- * Description of GenotypeResultP
- *
- */
 class GenotypeResultP extends TranslatableArrayChoice implements TranslationContainerInterface
 {
-    public const P1 = 1;
-    public const P2 = 2;
-    public const P3 = 3;
-    public const P4 = 4;
-    public const P5 = 5;
-    public const P6 = 6;
-    public const P7 = 7;
-    public const P8 = 8;
-    public const P9 = 9;
-    public const P10 = 10;
-    public const P11 = 11;
-    public const P12 = 12;
-    public const P14 = 14;
-    public const P19 = 19;
-    public const P25 = 25;
-    public const P28 = 28;
-    public const NON_TYPEABLE = 30;
-    public const MIXED = 40;
-    public const OTHER = 50;
+    public const 
+        P1 = 1,
+        P2 = 2,
+        P3 = 3,
+        P4 = 4,
+        P5 = 5,
+        P6 = 6,
+        P7 = 7,
+        P8 = 8,
+        P9 = 9,
+        P10 = 10,
+        P11 = 11,
+        P12 = 12,
+        P14 = 14,
+        P19 = 19,
+        P25 = 25,
+        P28 = 28,
+        NON_TYPEABLE = 30,
+        MIXED = 40,
+        OTHER = 50;
 
     protected $values = [
         self::P1 => 'P[1]',

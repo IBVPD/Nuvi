@@ -5,16 +5,13 @@ namespace NS\SentinelBundle\Form\IBD\Types;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 
-/**
- * Description of IsolateType
- *
- */
 class IsolateType extends TranslatableArrayChoice implements TranslationContainerInterface
 {
-    public const SPN   = 1;
-    public const HI    = 2;
-    public const NM    = 3;
-    public const OTHER = 4;
+    public const
+        SPN   = 1,
+        HI    = 2,
+        NM    = 3,
+        OTHER = 4;
 
     protected $values = [
         self::SPN => 'Spn',

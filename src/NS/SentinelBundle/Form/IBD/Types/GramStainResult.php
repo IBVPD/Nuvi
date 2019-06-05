@@ -10,13 +10,14 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class GramStainResult extends TranslatableArrayChoice implements TranslationContainerInterface
 {
-    public const GM_NEG_DIPLOCOCCI    = 1;
-    public const GM_NEG_COCCOBACILLI  = 2;
-    public const GM_NEG_RODS          = 3;
-    public const GM_POS_COCCI_PAIRS   = 4;
-    public const GM_POS_COCCI_CLUSTER = 5;
-    public const OTHER                = 6;
-    public const UNKNOWN              = 99;
+    public const 
+        GM_NEG_DIPLOCOCCI    = 1,
+        GM_NEG_COCCOBACILLI  = 2,
+        GM_NEG_RODS          = 3,
+        GM_POS_COCCI_PAIRS   = 4,
+        GM_POS_COCCI_CLUSTER = 5,
+        OTHER                = 6,
+        UNKNOWN              = 99;
 
     protected $values = [
         self::GM_NEG_DIPLOCOCCI    => 'Gm neg diplococci',

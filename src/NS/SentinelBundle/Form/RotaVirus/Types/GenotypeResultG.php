@@ -7,22 +7,23 @@ use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 
 class GenotypeResultG extends TranslatableArrayChoice implements TranslationContainerInterface
 {
-    public const G1 = 1;
-    public const G2 = 2;
-    public const G3 = 3;
-    public const G4 = 4;
-    public const G5 = 5;
-    public const G6 = 6;
-    public const G7 = 7;
-    public const G8 = 8;
-    public const G9 = 9;
-    public const G10 = 10;
-    public const G11 = 11;
-    public const G12 = 12;
-    public const G20 = 20;
-    public const NON_TYPEABLE = 30;
-    public const MIXED = 40;
-    public const OTHER = 50;
+    public const 
+        G1 = 1,
+        G2 = 2,
+        G3 = 3,
+        G4 = 4,
+        G5 = 5,
+        G6 = 6,
+        G7 = 7,
+        G8 = 8,
+        G9 = 9,
+        G10 = 10,
+        G11 = 11,
+        G12 = 12,
+        G20 = 20,
+        NON_TYPEABLE = 30,
+        MIXED = 40,
+        OTHER = 50;
 
     protected $values = [
         self::G1 => 'G1',
