@@ -68,7 +68,7 @@ use NS\UtilBundle\Validator\Constraints\ArrayChoiceConstraint;
  * @LocalAssert\Other(groups={"Completeness"},field="symp_vomit",otherField="symp_vomit_duration",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
  * @LocalAssert\Other(groups={"Completeness"},field="symp_dehydration",otherField="rehydration",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
  * @LocalAssert\Other(groups={"Completeness"},field="rehydration",otherField="rehydration_type",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
- * @LocalAssert\Other(groups={"Completeness"},field="rehydration",otherField="rehydration_other",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
+ * @LocalAssert\Other(groups={"Completeness"},field="rehydration_type",otherField="rehydration_other",value="NS\SentinelBundle\Form\RotaVirus\Types\Rehydration::OTHER")
  * @LocalAssert\Other(groups={"Completeness"},field="rv_received",otherField="rv_type",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
  * @LocalAssert\Other(groups={"Completeness"},field="rv_received",otherField="rv_doses",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
  * @LocalAssert\Other(groups={"Completeness"},field="rv_doses",otherField="rv_dose1_date",value={"NS\SentinelBundle\Form\Types\ThreeDoses::ONE","NS\SentinelBundle\Form\Types\ThreeDoses::TWO","NS\SentinelBundle\Form\Types\ThreeDoses::THREE"})

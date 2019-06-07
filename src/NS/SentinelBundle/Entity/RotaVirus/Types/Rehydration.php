@@ -3,22 +3,14 @@
 namespace NS\SentinelBundle\Entity\RotaVirus\Types;
 
 use NS\UtilBundle\Entity\Types\ArrayChoice;
+use NS\SentinelBundle\Form\RotaVirus\Types\Rehydration as BaseType;
 
-/**
- * Class Rehydration
- * @package NS\SentinelBundle\Entity\RotaVirus\Types
- */
 class Rehydration extends ArrayChoice
 {
-    /**
-     * @var string
-     */
-    protected $convert_class = 'NS\SentinelBundle\Form\RotaVirus\Types\Rehydration';
+    /** @var string */
+    protected $convert_class = BaseType::class;
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'Rehydration';
     }
