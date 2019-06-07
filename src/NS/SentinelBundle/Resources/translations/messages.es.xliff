@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2019-06-05T12:01:44Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
+  <file date="2019-06-07T11:21:25Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -433,6 +433,10 @@
       <trans-unit id="c3cd636a585b20c40ac2df5ffb403e83cb2eef51" resname="Actions">
         <source>Actions</source>
         <target>Acciones</target>
+      </trans-unit>
+      <trans-unit id="5fb2c64f6220819aeec6e32589936d80f132d347" resname="Admission Data">
+        <source>Admission Data</source>
+        <target state="new">Admission Data</target>
       </trans-unit>
       <trans-unit id="d84c3dede3448b582d09cf5d9738e31e70f3bf3b" resname="Admission Date">
         <source>Admission Date</source>
