@@ -35,6 +35,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @LocalAssert\RelatedField(sourceField="elisaDone",sourceValue={"1"},fields={"elisaTestDate","elisaResult"})
  *
  * @LocalAssert\Other(groups={"Completeness"},field="elisaKit",otherField="elisaKitOther",value="NS\SentinelBundle\Form\RotaVirus\Types\ElisaKit::OTHER")
+ * @LocalAssert\Other(groups={"Completeness"},field="elisaDone",otherField="elisaKit",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
+ * @LocalAssert\Other(groups={"Completeness"},field="elisaDone",otherField="elisaLoadNumber",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
+ * @LocalAssert\Other(groups={"Completeness"},field="elisaDone",otherField="elisaExpiryDate",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
+ * @LocalAssert\Other(groups={"Completeness"},field="elisaDone",otherField="elisaTestDate",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
+ * @LocalAssert\Other(groups={"Completeness"},field="elisaDone",otherField="elisaResult",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
  * @LocalAssert\Other(groups={"ARF+Completeness","EMR+Completeness","EUR+Completeness","SEAR+Completeness","WPR+Completeness"},field="genotypingResultG",otherField="genotypingResultGSpecify",value={"NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultG::OTHER", "NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultG::MIXED"})
  * @LocalAssert\Other(groups={"ARF+Completeness","EMR+Completeness","EUR+Completeness","SEAR+Completeness","WPR+Completeness"},field="genotypeResultP",otherField="genotypeResultPSpecify",value={"NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultP::OTHER", "NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultP::MIXED"})
  * @LocalAssert\Other(groups={"Completeness"},field="stoolSentToNL",otherField="stoolSentToNLDate",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
@@ -94,7 +99,6 @@ class SiteLab implements BaseSiteLabInterface
      * @var ElisaKit|null
      * @ORM\Column(name="elisaKit",type="ElisaKit",nullable=true)
      * @Serializer\Groups({"api","export"})
-     * @Assert\NotBlank(groups={"Completeness"})
      */
     private $elisaKit;
 
@@ -109,7 +113,6 @@ class SiteLab implements BaseSiteLabInterface
      * @var string|null
      * @ORM\Column(name="elisaLoadNumber",type="string",nullable=true)
      * @Serializer\Groups({"api","export"})
-     * @Assert\NotBlank(groups={"Completeness"})
      */
     private $elisaLoadNumber;
 
@@ -126,7 +129,6 @@ class SiteLab implements BaseSiteLabInterface
      * @ORM\Column(name="elisaTestDate",type="date",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
-     * @Assert\NotBlank(groups={"Completeness"})
      * @LocalAssert\NoFutureDate
      */
     private $elisaTestDate;
@@ -135,7 +137,6 @@ class SiteLab implements BaseSiteLabInterface
      * @var ElisaResult|null
      * @ORM\Column(name="elisaResult",type="ElisaResult",nullable=true)
      * @Serializer\Groups({"api","export"})
-     * @Assert\NotBlank(groups={"Completeness"})
      */
     private $elisaResult;
 
