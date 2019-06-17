@@ -110,7 +110,6 @@ class NationalLab extends ExternalLab
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
      * @LocalAssert\NoFutureDate
-     * @Assert\NotBlank(groups={"Completeness"})
      */
     private $stoolSentToRRLDate;
 
