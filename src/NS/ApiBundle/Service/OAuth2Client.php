@@ -3,71 +3,45 @@
 namespace NS\ApiBundle\Service;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use FOS\RestBundle\Util\Codes;
 use NS\ApiBundle\Entity\Remote;
 use OAuth2\Client;
 use OAuth2\Exception;
 use RuntimeException;
-use Twig_Extension;
+use Symfony\Component\HttpFoundation\Response;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 use Twig_SimpleFunction;
 use UnexpectedValueException;
 
-/**
- * Description of OAuth2Client
- *
- * @author gnat
- */
-class OAuth2Client extends Twig_Extension
+class OAuth2Client extends AbstractExtension
 {
+    /** @var ObjectManager */
     private $entityMgr;
 
-    /**
-     * @var Remote $remote
-     */
+    /** @var Remote|null */
     protected $remote;
+
+    /** @var Client|null */
     protected $client;
 
-    /**
-     *
-     * @param ObjectManager $em
-     */
     public function __construct(ObjectManager $em)
     {
         $this->entityMgr = $em;
     }
 
-    /**
-     *
-     * @return Remote
-     */
-    public function getRemote()
+    public function getRemote(): ?Remote
     {
         return $this->remote;
     }
 
-    /**
-     *
-     * @param Remote $remote
-     *
-     * @return OAuth2Client
-     */
-    public function setRemote(Remote $remote)
+    public function setRemote(Remote $remote): void
     {
         $this->remote = $remote;
         $this->client = new Client($remote->getClientId(), $remote->getClientSecret());
         $this->client->setAccessTokenType(Client::ACCESS_TOKEN_BEARER);
-
-        return $this;
     }
 
-    /**
-     *
-     * @param Client $client
-     * @param Remote $remote
-     * @return string
-     * @throws UnexpectedValueException
-     */
-    public function getAuthenticationUrl(Client $client = null, Remote $remote = null)
+    public function getAuthenticationUrl(Client $client = null, Remote $remote = null): string
     {
         if (($client !== null && $remote === null) || ($client === null && $remote !== null)) {
             throw new UnexpectedValueException("You can't provide only one parameter. Either pass two or none");
@@ -76,12 +50,7 @@ class OAuth2Client extends Twig_Extension
         return $client ? $client->getAuthenticationUrl($remote->getAuthEndpoint(), $remote->getRedirectUrl()) : $this->client->getAuthenticationUrl($this->remote->getAuthEndpoint(), $this->remote->getRedirectUrl());
     }
 
-    /**
-     *
-     * @param string $code
-     * @return boolean
-     */
-    public function getAccessTokenByAuthorizationCode($code)
+    public function getAccessTokenByAuthorizationCode($code): bool
     {
         $this->getAccessToken(Client::GRANT_TYPE_AUTH_CODE, ['code' => $code,
             'redirect_uri' => $this->remote->getRedirectUrl()]);
@@ -89,15 +58,10 @@ class OAuth2Client extends Twig_Extension
         return true;
     }
 
-    /**
-     *
-     * @return boolean
-     * @throws RuntimeException
-     */
-    public function getAccessTokenByRefreshToken()
+    public function getAccessTokenByRefreshToken(): bool
     {
         if (!$this->remote->hasRefreshToken()) {
-            throw new RuntimeException("No refresh token");
+            throw new RuntimeException('No refresh token');
         }
 
         $this->getAccessToken(Client::GRANT_TYPE_REFRESH_TOKEN, ['refresh_token' => $this->remote->getRefreshToken()]);
@@ -105,11 +69,7 @@ class OAuth2Client extends Twig_Extension
         return true;
     }
 
-    /**
-     *
-     * @return boolean
-     */
-    public function getAccessTokenByClientCredentials()
+    public function getAccessTokenByClientCredentials(): bool
     {
         $this->getAccessToken(Client::GRANT_TYPE_CLIENT_CREDENTIALS, []);
 
@@ -120,14 +80,13 @@ class OAuth2Client extends Twig_Extension
      *
      * @param integer $grant
      * @param array $params
-     * @return array
      * @throws Exception
      */
-    private function getAccessToken($grant, array $params)
+    private function getAccessToken($grant, array $params): void
     {
         $response = $this->client->getAccessToken($this->remote->getTokenEndpoint(), $grant, $params);
 
-        if (isset($response['result']) && isset($response['result']['access_token'])) {
+        if (isset($response['result']['access_token'])) {
             $this->remote->updateFromArray($response['result']);
             $this->entityMgr->persist($this->remote);
             $this->entityMgr->flush();
@@ -141,7 +100,7 @@ class OAuth2Client extends Twig_Extension
     /**
      *
      * @param string $url
-     * @return string
+     * @return array
      */
     public function fetch($url)
     {
@@ -152,7 +111,7 @@ class OAuth2Client extends Twig_Extension
         $this->client->setAccessToken($this->remote->getAccessToken());
         $results = [$this->client->fetch($url)];
 
-        if ($results[0]['code'] == Codes::HTTP_UNAUTHORIZED) {
+        if ($results[0]['code'] === Response::HTTP_UNAUTHORIZED) {
             $this->getAccessTokenByRefreshToken();
             $this->client->setAccessToken($this->remote->getAccessToken());
 
@@ -178,31 +137,19 @@ class OAuth2Client extends Twig_Extension
         return $this->getAuthenticationUrl($client, $remote);
     }
 
-    /**
-     *
-     * @return array
-     */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
-            new Twig_SimpleFunction('oauth_authenticate_path', [$this, 'getAuthenticationPath'], ['is_safe' => ['html']]),
+            new TwigFunction('oauth_authenticate_path', [$this, 'getAuthenticationPath'], ['is_safe' => ['html']]),
         ];
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'oauth_client';
     }
 
-    /**
-     *
-     * @return Client
-     */
-    public function getClient()
+    public function getClient(): ?Client
     {
         return $this->client;
     }

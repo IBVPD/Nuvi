@@ -53,13 +53,7 @@ class AbstractReporter
         }
     }
 
-    /**
-     *
-     * @param ArrayCollection $results
-     * @param array $counts
-     * @param callback $function
-     */
-    public function processColumn(ArrayCollection $results, $counts, $function): void
+    public function processColumn(ArrayCollection $results, array $counts, string $function): void
     {
         foreach ($counts as $c) {
             $fpr = $results->get($c['code']);
@@ -118,13 +112,7 @@ class AbstractReporter
         }
     }
 
-    /**
-     *
-     * @param ArrayCollection $results
-     * @param array $counts
-     * @param callback $function
-     */
-    public function processSitePerformanceColumn(ArrayCollection $results, $counts, $function): void
+    public function processSitePerformanceColumn(ArrayCollection $results, array $counts, string $function): void
     {
         foreach ($counts as $c) {
             $fpr = $results->get($c['code']);

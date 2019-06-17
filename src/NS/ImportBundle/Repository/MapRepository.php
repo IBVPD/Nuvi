@@ -5,17 +5,9 @@ namespace NS\ImportBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 
-/**
- * Description of MapRepository
- *
- * @author gnat
- */
 class MapRepository extends EntityRepository
 {
-    /**
-     * @return QueryBuilder
-     */
-    public function getWithColumnsQuery()
+    public function getWithColumnsQuery(): QueryBuilder
     {
         return $this->createQueryBuilder('m')
             ->addSelect('c')
@@ -25,10 +17,7 @@ class MapRepository extends EntityRepository
             ->addOrderBy('m.version', 'ASC');
     }
 
-    /**
-     * @return type
-     */
-    public function getWithColumns()
+    public function getWithColumns(): array
     {
         return $this->getWithColumnsQuery()->getQuery()->getResult();
     }

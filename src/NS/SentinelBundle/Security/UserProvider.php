@@ -11,31 +11,22 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
-/**
- * Description of UserProvider
- *
- * @author gnat
- */
 class UserProvider implements UserProviderInterface
 {
+    /** @var ObjectManager */
     private $entityMgr;
 
-    /**
-     *
-     * @param ObjectManager $entityMgr
-     */
     public function __construct(ObjectManager $entityMgr)
     {
         $this->entityMgr = $entityMgr;
     }
 
     /**
-     *
      * @param string $username
      * @return UserInterface
      * @throws UsernameNotFoundException
      */
-    public function loadUserByUsername($username)
+    public function loadUserByUsername($username): ?UserInterface
     {
         try {
             $user = $this->entityMgr->createQuery("SELECT u,a,l,r FROM NS\SentinelBundle\Entity\User u LEFT JOIN u.acls a LEFT JOIN u.referenceLab l LEFT JOIN u.region r WHERE u.email = :username")
@@ -49,19 +40,18 @@ class UserProvider implements UserProviderInterface
             $user->setTTL(time() + 3600);
             return $user;
         } catch (NonUniqueResultException $e) {
-            throw new UsernameNotFoundException(sprintf("Username %s is not unique", $username), 0, $e);
+            throw new UsernameNotFoundException(sprintf('Username %s is not unique', $username), 0, $e);
         } catch (NoResultException $e) {
-            throw new UsernameNotFoundException("User not found", 0, $e);
+            throw new UsernameNotFoundException('User not found', 0, $e);
         }
     }
 
     /**
-     *
      * @param UserInterface $user
      * @return UserInterface
      * @throws UnsupportedUserException
      */
-    public function refreshUser(UserInterface $user)
+    public function refreshUser(UserInterface $user): UserInterface
     {
         if (!$user instanceof User) {
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_class($user)));
@@ -75,8 +65,8 @@ class UserProvider implements UserProviderInterface
      * @param string $class
      * @return boolean
      */
-    public function supportsClass($class)
+    public function supportsClass($class): bool
     {
-        return $class == 'NS\SentinelBundle\Entity\User';
+        return $class === 'NS\SentinelBundle\Entity\User';
     }
 }

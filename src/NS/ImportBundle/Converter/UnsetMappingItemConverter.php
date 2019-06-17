@@ -6,46 +6,21 @@ use Ddeboer\DataImport\Report;
 use Ddeboer\DataImport\Step;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
 
-/**
- * Description of UnsetMappingItemConverter
- *
- * @author gnat
- */
 class UnsetMappingItemConverter implements Step
 {
-    /**
-     * @var array
-     */
-    private $mappings = [];
+    /** @var array */
+    private $mappings;
 
-    /**
-     * @param array            $mappings
-     * @param PropertyAccessor $accessor
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
-    public function __construct(array $mappings = [], PropertyAccessor $accessor = null)
+    public function __construct(array $mappings = [])
     {
         $this->mappings = $mappings;
     }
 
-    /**
-     * @param string $from
-     * @param string $to
-     *
-     * @return $this
-     *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
-    public function map($from, $to)
+    public function map(string $from, string $to): void
     {
         $this->mappings[] = $from;
-
-        return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function process(&$item, Report $result = null)
     {
         foreach ($this->mappings as $from) {

@@ -686,9 +686,10 @@ abstract class ExternalLab extends BaseExternalLab
      */
     public function getIncompleteField()
     {
-        $ret = parent::getIncompleteField();
-        if ($ret) {
-            return $ret;
+        foreach ($this->getMandatoryFields() as $fieldName) {
+            if (!$this->$fieldName) {
+                return $fieldName;
+            }
         }
 
         if ($this->method_used_pathogen_identify && $this->method_used_pathogen_identify->equal(PathogenIdentifier::OTHER) && empty($this->method_used_pathogen_identify_other)) {

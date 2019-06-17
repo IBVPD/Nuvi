@@ -10,18 +10,9 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-/**
- * Description of MapAdminController
- *
- * @author gnat
- */
 class MapAdminController extends CRUDController
 {
-    /**
-     * @param Request $request
-     * @return RedirectResponse
-     */
-    public function cloneAction(Request $request)
+    public function cloneAction(Request $request): RedirectResponse
     {
         $id = $request->get($this->admin->getIdParameter());
 
@@ -32,21 +23,14 @@ class MapAdminController extends CRUDController
         }
 
         $clonedObject = clone $object;  // Careful, you may need to overload the __clone method of your object to set its id to null
-        $clonedObject->setName($object->getName()." (Clone)");
+        $clonedObject->setName($object->getName(). ' (Clone)');
 
         $this->admin->create($clonedObject);
-
-        $this->addFlash('sonata_flash_success', 'Cloned successfully');
+        $request->getSession()->getFlashBag()->add('sonata_flash_success', 'Cloned successfully');
 
         return new RedirectResponse($this->admin->generateUrl('list'));
     }
 
-    /**
-     * @param Request $request
-     * @param Map     $object
-     *
-     * @return RedirectResponse|null
-     */
     protected function preDelete(Request $request, $object): ?RedirectResponse
     {
         /** @var ImportRepository $repo */
@@ -56,10 +40,7 @@ class MapAdminController extends CRUDController
             $object->setActive(false);
             $this->admin->getModelManager()->update($object);
 
-            $this->addFlash(
-                'sonata_flash_info',
-                $this->trans('Map has import results so cannot be deleted. It has been marked inactive instead.')
-            );
+            $request->getSession()->getFlashBag()->add('sonata_flash_info', 'Map has import results so cannot be deleted. It has been marked inactive instead.');
 
             return $this->redirectTo($object);
         }

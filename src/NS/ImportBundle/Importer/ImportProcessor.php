@@ -34,53 +34,29 @@ use NS\ImportBundle\Reader\ReaderFactory;
 use NS\ImportBundle\Writer\DoctrineWriter;
 use NS\SentinelBundle\Entity\ReferenceLab;
 
-/**
- * Description of ImportProcessor
- *
- * @author gnat
- */
 class ImportProcessor
 {
-    /**
-     * @var Registry
-     */
+    /** @var Registry */
     private $registry;
 
-    /**
-     * @var ObjectManager
-     */
+    /** @var ObjectManager */
     private $entityMgr;
 
-    /**
-     * @var Duplicate
-     */
+    /** @var Duplicate */
     private $duplicateFilter;
 
-    /**
-     * @var NotBlank
-     */
+    /** @var NotBlank */
     private $notBlankFilter;
 
-    /**
-     * @var DoctrineWriter
-     */
+    /** @var DoctrineWriter */
     private $doctrineWriter;
 
-    /**
-     * @var CaseLinkerRegistry
-     */
+    /** @var CaseLinkerRegistry */
     private $linkerRegistry;
 
-    /**
-     * @var integer
-     */
-    private $limit  = null;
+    /** @var integer */
+    private $limit;
 
-    /**
-     * @param Registry $registry
-     * @param ObjectManager $entityMgr
-     * @param CaseLinkerRegistry $linkerRegistry
-     */
     public function __construct(Registry $registry, ObjectManager $entityMgr, CaseLinkerRegistry $linkerRegistry)
     {
         $this->registry = $registry;
@@ -122,19 +98,6 @@ class ImportProcessor
     }
 
     /**
-     * @param $linkerName
-     * @return mixed
-     */
-    public function getLinker($linkerName)
-    {
-        if (isset($this->caseLinkers[$linkerName])) {
-            return $this->caseLinkers[$linkerName];
-        }
-
-        throw new CaseLinkerNotFoundException('Unable to locate case linker with id %s');
-    }
-
-    /**
      *
      * @param string $class
      * @param array $lookupFields
@@ -144,9 +107,9 @@ class ImportProcessor
      */
     public function getWriter($class, $lookupFields = null, $entityRepositoryMethod = null): DoctrineWriter
     {
-        if ($this->doctrineWriter === null || $this->doctrineWriter->getEntityName() != $class) {
+        if ($this->doctrineWriter === null || $this->doctrineWriter->getEntityName() !== $class) {
             if ($lookupFields ===null || $entityRepositoryMethod === null) {
-                throw new InvalidArgumentException("When creating a new writer, the lookupFields and entityRepositoryMethod arguments are required");
+                throw new InvalidArgumentException('When creating a new writer, the lookupFields and entityRepositoryMethod arguments are required');
             }
             $this->doctrineWriter = new DoctrineWriter($this->entityMgr, $class, $lookupFields);
             $this->doctrineWriter->setTruncate(false);

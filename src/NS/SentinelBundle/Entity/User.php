@@ -11,8 +11,6 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * User
- *
  * @ORM\Table(name="users",uniqueConstraints={@ORM\UniqueConstraint(name="email_idx",columns={"email"})})
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\UserRepository")
  * @LocalAssert\UserAcl()
@@ -105,9 +103,7 @@ class User implements AdvancedUserInterface
      */
     private $referenceLab;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     private $ttl = 0;
 
     /**
@@ -118,9 +114,6 @@ class User implements AdvancedUserInterface
      */
     private $region;
 
-    /**
-     * Constructor
-     */
     public function __construct()
     {
         $this->acls = new ArrayCollection();
@@ -135,81 +128,32 @@ class User implements AdvancedUserInterface
         return $this->name;
     }
 
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * Set name
-     *
-     * @param string $name
-     * @return User
-     */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = $name;
-
-        return $this;
     }
 
-    /**
-     * Get name
-     *
-     * @return string 
-     */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * Set email
-     *
-     * @param string $email
-     * @return User
-     */
-    public function setEmail($email)
+    public function setEmail(string $email): void
     {
         $this->email = $email;
-
-        return $this;
     }
 
-    /**
-     * Get email
-     *
-     * @return string 
-     */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
-    /**
-     * Set salt
-     *
-     * @param string $salt
-     * @return User
-     */
-    public function setSalt($salt)
-    {
-        $this->salt = $salt;
-
-        return $this;
-    }
-
-    /**
-     * Get salt
-     *
-     * @return string 
-     */
-    public function getSalt()
+    public function getSalt(): string
     {
         if ($this->salt === null || empty($this->salt)) {
             $this->resetSalt();
@@ -218,48 +162,22 @@ class User implements AdvancedUserInterface
         return $this->salt;
     }
 
-    /**
-     * Set password
-     *
-     * @param string $password
-     * @return User
-     */
-    public function setPassword($password)
+    public function setPassword($password): void
     {
         $this->password = $password;
-
-        return $this;
     }
 
-    /**
-     * Get password
-     *
-     * @return string 
-     */
-    public function getPassword()
+    public function getPassword(): string
     {
         return $this->password;
     }
 
-    /**
-     * Set password
-     *
-     * @param string $password
-     * @return User
-     */
-    public function setPlainPassword($password)
+    public function setPlainPassword(string $password): void
     {
         $this->plainPassword = $password;
-
-        return $this;
     }
 
-    /**
-     * Get password
-     *
-     * @return string 
-     */
-    public function getPlainPassword()
+    public function getPlainPassword(): ?string
     {
         return $this->plainPassword;
     }
@@ -267,9 +185,9 @@ class User implements AdvancedUserInterface
     /**
      * Resets the salt
      */
-    public function resetSalt()
+    public function resetSalt(): void
     {
-        $this->salt = User::_resetSalt([$this->name, $this->email]);
+        $this->salt = self::_resetSalt([$this->name, $this->email]);
     }
 
     /**
@@ -289,18 +207,12 @@ class User implements AdvancedUserInterface
     {
     }
 
-    /**
-     *
-     * @return boolean
-     */
-    public function isOnlyAdmin()
+    public function isOnlyAdmin(): bool
     {
         return ($this->getRoles() == ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN']);
     }
 
-    /**
-     * @var array
-     */
+    /** @var array */
     private $roles;
 
     /**
@@ -336,58 +248,34 @@ class User implements AdvancedUserInterface
         return $this->roles;
     }
 
-    /**
-     * @return string
-     */
-    public function getUsername()
+    public function getUsername(): string
     {
         return $this->email;
     }
 
-    /**
-     * @return boolean
-     */
-    public function isAccountNonExpired()
+    public function isAccountNonExpired(): bool
     {
         return true;
     }
 
-    /**
-     * @return bool
-     */
-    public function isAccountNonLocked()
+    public function isAccountNonLocked(): bool
     {
         return $this->active;
     }
 
-    /**
-     * @return boolean
-     */
-    public function isCredentialsNonExpired()
+    public function isCredentialsNonExpired(): bool
     {
         return true;
     }
 
-    /**
-     * @return boolean
-     */
-    public function isEnabled()
+    public function isEnabled(): bool
     {
-        return $this->active;
+        return $this->active ?? false;
     }
 
-    /**
-     * Add acls
-     *
-     * @param ACL $acls
-     *
-     * @return User
-     */
-    public function addAcl(ACL $acls)
+    public function addAcl(ACL $acl): void
     {
-        $this->acls[] = $acls;
-
-        return $this;
+        $this->acls[] = $acl;
     }
 
     public function removeAcl(ACL $acl): void
@@ -395,94 +283,47 @@ class User implements AdvancedUserInterface
         $this->acls->removeElement($acl);
     }
 
-    /**
-     * Get acls
-     *
-     * @return Collection
-     */
-    public function getAcls()
+    public function getAcls(): Collection
     {
         return $this->acls;
     }
 
-    /**
-     * Set admin
-     *
-     * @param boolean $admin
-     * @return User
-     */
-    public function setAdmin($admin)
+    public function setAdmin(bool $admin): void
     {
         $this->admin = $admin;
-
-        return $this;
     }
 
-    /**
-     * Get admin
-     *
-     * @return boolean 
-     */
-    public function isAdmin()
+    public function isAdmin(): bool
     {
-        return $this->admin;
+        return $this->admin ?? false;
     }
 
-    /**
-     *
-     * @return cache time to live
-     */
-    public function getTTL()
+    public function getTTL(): int
     {
         return $this->ttl;
     }
 
-    /**
-     *
-     * @param integer $ttl
-     *
-     * @return User
-     */
-    public function setTTL($ttl)
+    public function setTTL(int $ttl): void
     {
         $this->ttl = $ttl;
-        return $this;
     }
 
-    /**
-     *
-     * @return boolean
-     */
-    public function isActive()
+    public function isActive(): bool
     {
-        return $this->active;
+        return $this->active ?? false;
     }
 
-    /**
-     *
-     * @param boolean $active
-     *
-     * @return User
-     */
-    public function setActive($active)
+    public function setActive(bool $active): void
     {
         $this->active = $active;
-
-        return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getLanguage()
+    public function getLanguage(): ?string
     {
         return $this->language;
     }
 
-    /**
-     * @param string $language
-     */
-    public function setLanguage($language)
+    public function setLanguage(?string $language): void
     {
         $this->language = $language;
     }
@@ -495,37 +336,22 @@ class User implements AdvancedUserInterface
         return $this->referenceLab;
     }
 
-    /**
-     * @param ReferenceLab $referenceLab
-     *
-     * @return User
-     */
-    public function setReferenceLab(ReferenceLab $referenceLab)
+    public function setReferenceLab(ReferenceLab $referenceLab): void
     {
         $this->referenceLab = $referenceLab;
-        return $this;
     }
 
-    /**
-     * @return boolean
-     */
-    public function hasReferenceLab()
+    public function hasReferenceLab(): bool
     {
         return ($this->referenceLab instanceof ReferenceLab);
     }
 
-    /**
-     * @return Region
-     */
-    public function getRegion()
+    public function getRegion(): ?Region
     {
         return $this->region;
     }
 
-    /**
-     * @param Region $region
-     */
-    public function setRegion($region)
+    public function setRegion(Region $region): void
     {
         $this->region = $region;
     }

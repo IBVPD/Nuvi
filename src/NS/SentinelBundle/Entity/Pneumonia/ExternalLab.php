@@ -534,32 +534,14 @@ abstract class ExternalLab extends BaseExternalLab
     public function validate(ExecutionContextInterface $context): void
     {
         // if pathogenIdentifierMethod is other, enforce value in 'pathogenIdentifierMethod other' field
-        if ($this->method_used_pathogen_identify && $this->method_used_pathogen_identify->equal(PathogenIdentifier::OTHER) && empty($this->method_used_pathogen_identify_other)) {
+        if (empty($this->method_used_pathogen_identify_other) && $this->method_used_pathogen_identify && $this->method_used_pathogen_identify->equal(PathogenIdentifier::OTHER)) {
             $context->buildViolation('form.validation.pathogenIdentifierMethod-other-without-other-text')->atPath('pathogenIdentifierMethod')->addViolation();
         }
 
         // if serotypeIdentifier is other, enforce value in 'serotypeIdentifier other' field
-        if ($this->method_used_st_sg && $this->method_used_st_sg->equal(SerotypeIdentifier::OTHER) && empty($this->method_used_st_sg_other)) {
+        if (empty($this->method_used_st_sg_other) && $this->method_used_st_sg && $this->method_used_st_sg->equal(SerotypeIdentifier::OTHER)) {
             $context->buildViolation('form.validation.serotypeIdentifier-other-without-other-text')->atPath('serotypeIdentifier')->addViolation();
         }
-    }
-
-    public function getIncompleteField(): ?string
-    {
-        $ret = parent::getIncompleteField();
-        if ($ret) {
-            return $ret;
-        }
-
-        if ($this->method_used_pathogen_identify && $this->method_used_pathogen_identify->equal(PathogenIdentifier::OTHER) && empty($this->method_used_pathogen_identify_other)) {
-            return 'pathogenIdentifier';
-        }
-
-        if ($this->method_used_st_sg && $this->method_used_st_sg->equal(SerotypeIdentifier::OTHER) && empty($this->method_used_st_sg_other)) {
-            return 'serotypeIdentifier';
-        }
-
-        return null;
     }
 
     public function getFinalResult(): ?FinalResult

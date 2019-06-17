@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gnat
- * Date: 19/04/16
- * Time: 3:56 PM
- */
 
 namespace NS\SentinelBundle\Report\Result;
 
@@ -12,123 +6,72 @@ use NS\SentinelBundle\Form\Types\Gender;
 
 abstract class AbstractGeneralStatisticResult
 {
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $genderDistribution = [];
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $ageInMonthDistribution = [];
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $locationDistribution = [];
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $dischargeOutcomeDistribution = [];
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $monthlyDistribution = [-1=>0];
 
-    /**
-     * @return array
-     */
-    public function getGenderDistribution()
+    public function getGenderDistribution(): array
     {
         return $this->genderDistribution;
     }
 
-    /**
-     * @param array $genderDistribution
-     * @return GeneralStatisticResult
-     */
-    public function setGenderDistribution($genderDistribution)
+    public function setGenderDistribution(array $genderDistribution): void
     {
         $gender = new Gender();
         foreach ($genderDistribution as $result) {
             $gender->setValue($result['gender']);
             $this->genderDistribution[$gender->__toString()] = $result['caseCount'];
         }
-
-        return $this;
     }
 
-    /**
-     * @return array
-     */
-    public function getAgeInMonthDistribution()
+    public function getAgeInMonthDistribution(): array
     {
         return $this->ageInMonthDistribution;
     }
 
-    /**
-     * @param array $ageInMonthDistribution
-     * @return GeneralStatisticResult
-     */
-    public function setAgeInMonthDistribution($ageInMonthDistribution)
+    public function setAgeInMonthDistribution(array $ageInMonthDistribution): void
     {
         foreach($ageInMonthDistribution as $result) {
             $this->ageInMonthDistribution[$result['age_months']] = $result['caseCount'];
         }
-
-        return $this;
     }
 
-    /**
-     * @return array
-     */
-    public function getLocationDistribution()
+    public function getLocationDistribution(): array
     {
         return $this->locationDistribution;
     }
 
-    /**
-     * @param array $locationDistribution
-     * @return GeneralStatisticResult
-     */
-    public function setLocationDistribution($locationDistribution)
+    public function setLocationDistribution(array $locationDistribution): void
     {
         foreach($locationDistribution as $result) {
             $this->locationDistribution[$result['state']][$result['district']] = $result['caseCount'];
         }
-
-        return $this;
     }
 
-    /**
-     * @return array
-     */
-    public function getDischargeOutcomeDistribution()
+    public function getDischargeOutcomeDistribution(): array
     {
         return $this->dischargeOutcomeDistribution;
     }
 
-    /**
-     * @param array $dischargeOutcomeDistribution
-     * @return GeneralStatisticResult
-     */
-    abstract public function setDischargeOutcomeDistribution($dischargeOutcomeDistribution);
+    abstract public function setDischargeOutcomeDistribution(array $dischargeOutcomeDistribution): void;
 
-    /**
-     * @return array
-     */
-    public function getMonthlyDistribution()
+    public function getMonthlyDistribution(): array
     {
         return $this->monthlyDistribution;
     }
 
-    /**
-     * @param array $monthlyDistribution
-     * @return GeneralStatisticResult
-     */
-    public function setMonthlyDistribution($monthlyDistribution)
+    public function setMonthlyDistribution(array $monthlyDistribution): void
     {
         foreach($monthlyDistribution as $result) {
 
@@ -138,7 +81,5 @@ abstract class AbstractGeneralStatisticResult
                 $this->monthlyDistribution[$result['theMonth']] = $result['caseCount'];
             }
         }
-
-        return $this;
     }
 }

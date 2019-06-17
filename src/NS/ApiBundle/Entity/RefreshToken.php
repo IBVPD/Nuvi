@@ -4,20 +4,17 @@ namespace NS\ApiBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\OAuthServerBundle\Entity\RefreshToken as BaseRefreshToken;
-use FOS\OAuthServerBundle\Model\ClientInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
+use NS\SentinelBundle\Entity\User;
 
 /**
- * Description of RefreshToken
  * @ORM\Entity
  * @ORM\Table(name="refresh_tokens")
- * @author gnat
  * @SuppressWarnings(PHPMD.ShortVariable)
  */
 class RefreshToken extends BaseRefreshToken
 {
     /**
-     * @var integer $id
+     * @var integer|null
      * @ORM\Column(name="id",type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -25,66 +22,15 @@ class RefreshToken extends BaseRefreshToken
     protected $id;
 
     /**
-     * @var Client $client
+     * @var Client
      * @ORM\ManyToOne(targetEntity="Client")
      * @ORM\JoinColumn(nullable=false)
      */
     protected $client;
 
     /**
+     * @var User
      * @ORM\ManyToOne(targetEntity="NS\SentinelBundle\Entity\User")
      */
     protected $user;
-
-    /**
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     *
-     * @return Client
-     */
-    public function getClient()
-    {
-        return $this->client;
-    }
-
-    /**
-     *
-     * @return NS\SentinelBundle\Entity\User
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
-     *
-     * @param UserInterface $user
-     *
-     * @return RefreshToken
-     */
-    public function setUser(UserInterface $user)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     *
-     * @param ClientInterface $client
-     *
-     * @return RefreshToken
-     */
-    public function setClient(ClientInterface $client)
-    {
-        $this->client = $client;
-        return $this;
-    }
 }

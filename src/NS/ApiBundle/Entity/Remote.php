@@ -7,9 +7,6 @@ use NS\SentinelBundle\Entity\User;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Description of Remote
- *
- * @author gnat
  * @ORM\Entity
  * @ORM\Table(name="remote_oauth_providers")
  * @SuppressWarnings(PHPMD.ShortVariable)
@@ -17,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Remote
 {
     /**
-     * @var integer $id
+     * @var int|null
      * @ORM\Column(name="id",type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -25,325 +22,193 @@ class Remote
     private $id;
 
     /**
-     * @var string $name
+     * @var string
      * @ORM\Column(name="name",type="string",nullable=false)
      */
     private $name;
 
     /**
-     * @var string $clientId
+     * @var string
      * @ORM\Column(name="clientId",type="string")
      */
     private $clientId;
 
     /**
-     * @var string $clientSecret
+     * @var string
      * @ORM\Column(name="clientSecret",type="string")
      */
     private $clientSecret;
 
     /**
-     * @var string $tokenEndpoint
+     * @var string
      * @ORM\Column(name="tokenEndpoint",type="string")
      * @Assert\Url()
      */
     private $tokenEndpoint;
 
     /**
-     * @var string $authEndpoint
+     * @var string
      * @ORM\Column(name="authEndpoint",type="string")
      * @Assert\Url()
      */
     private $authEndpoint;
 
     /**
-     * @var string $redirectUrl
+     * @var string
      * @ORM\Column(name="redirectUrl",type="string")
      * @Assert\Url()
      */
     private $redirectUrl;
 
     /**
-     * @var string $accessToken
+     * @var string
      * @ORM\Column(name="accessToken",type="string",nullable=true)
      */
     private $accessToken;
 
     /**
-     * @var string $refreshToken
+     * @var string
      * @ORM\Column(name="refreshToken",type="string",nullable=true)
      */
     private $refreshToken;
 
     /**
-     * @var integer $expiry
+     * @var integer
      * @ORM\Column(name="expiry",type="integer",nullable=true)
      */
     private $expiry;
 
     /**
-     * @var User $user
+     * @var User
      * @ORM\ManyToOne(targetEntity="\NS\SentinelBundle\Entity\User")
      * @ORM\JoinColumn(nullable=false,onDelete="CASCADE")
      */
     protected $user;
 
-    /**
-     *
-     * @return integer
-     */
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getTokenEndpoint()
+    public function getTokenEndpoint(): ?string
     {
         return $this->tokenEndpoint;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getAuthEndpoint()
+    public function getAuthEndpoint(): ?string
     {
         return $this->authEndpoint;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getRedirectUrl()
+    public function getRedirectUrl(): ?string
     {
         return $this->redirectUrl;
     }
 
-    /**
-     *
-     * @return NS\SentinelBundle\Entity\User
-     */
-    public function getUser()
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getClientId()
+    public function getClientId(): ?string
     {
         return $this->clientId;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getClientSecret()
+    public function getClientSecret(): ?string
     {
         return $this->clientSecret;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getAccessToken()
+    public function getAccessToken(): ?string
     {
         return $this->accessToken;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getRefreshToken()
+    public function getRefreshToken(): ?string
     {
         return $this->refreshToken;
     }
 
-    /**
-     *
-     * @return integer
-     */
-    public function getExpiry()
+    public function getExpiry(): int
     {
         return $this->expiry;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     *
-     * @param string $name
-     *
-     * @return Remote
-     */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = $name;
-        return $this;
     }
 
-    /**
-     *
-     * @param string $accessToken
-     *
-     * @return Remote
-     */
-    public function setAccessToken($accessToken)
+    public function setAccessToken(string $accessToken): void
     {
         $this->accessToken = $accessToken;
-        return $this;
     }
 
-    /**
-     *
-     * @param string $refreshToken
-     *
-     * @return Remote
-     */
-    public function setRefreshToken($refreshToken)
+    public function setRefreshToken(string $refreshToken): void
     {
         $this->refreshToken = $refreshToken;
-        return $this;
     }
 
-    /**
-     *
-     * @param integer $expiry
-     *
-     * @return Remote
-     */
-    public function setExpiry($expiry)
+    public function setExpiry(int $expiry): void
     {
-        $this->expiry = ($expiry <= 5000) ? time()+$expiry-5:$expiry-5;
-        return $this;
+        $this->expiry = ($expiry <= 5000) ? time() + $expiry - 5 : $expiry - 5;
     }
 
-    /**
-     *
-     * @param string $clientSecret
-     *
-     * @return Remote
-     */
-    public function setClientSecret($clientSecret)
+    public function setClientSecret(string $clientSecret): void
     {
         $this->clientSecret = $clientSecret;
-        return $this;
     }
 
-    /**
-     *
-     * @param string $clientId
-     *
-     * @return Remote
-     */
-    public function setClientId($clientId)
+    public function setClientId(string $clientId): void
     {
         $this->clientId = $clientId;
-        return $this;
     }
 
-    /**
-     *
-     * @param string $tokenEndpoint
-     *
-     * @return Remote
-     */
-    public function setTokenEndpoint($tokenEndpoint)
+    public function setTokenEndpoint(string $tokenEndpoint): void
     {
         $this->tokenEndpoint = $tokenEndpoint;
-        return $this;
     }
 
-    /**
-     *
-     * @param string $authEndpoint
-     *
-     * @return Remote
-     */
-    public function setAuthEndpoint($authEndpoint)
+    public function setAuthEndpoint(string $authEndpoint): void
     {
         $this->authEndpoint = $authEndpoint;
-        return $this;
     }
 
-    /**
-     *
-     * @param string $redirectUrl
-     *
-     * @return Remote
-     */
-    public function setRedirectUrl($redirectUrl)
+    public function setRedirectUrl(string $redirectUrl): void
     {
         $this->redirectUrl = $redirectUrl;
-        return $this;
     }
 
-    /**
-     *
-     * @param User $user
-     * @return Remote
-     */
-    public function setUser(User $user)
+    public function setUser(User $user): void
     {
         $this->user = $user;
-        return $this;
     }
 
-    /**
-     *
-     * @return boolean
-     */
-    public function isExpired()
+    public function isExpired(): bool
     {
         return (time() > $this->expiry);
     }
 
-    /**
-     *
-     * @return boolean
-     */
-    public function hasAccessToken()
+    public function hasAccessToken(): bool
     {
         return ($this->accessToken !== null);
     }
 
-    /**
-     *
-     * @return boolean
-     */
-    public function hasRefreshToken()
+    public function hasRefreshToken(): bool
     {
         return ($this->refreshToken !== null);
     }
 
-    /**
-     *
-     * @param array $result
-     * @return Remote
-     */
-    public function updateFromArray(array $result)
+    public function updateFromArray(array $result): void
     {
         $this->setAccessToken($result['access_token']);
         $this->setRefreshToken($result['refresh_token']);
         $this->setExpiry($result['expires_in']);
-
-        return $this;
     }
 }
