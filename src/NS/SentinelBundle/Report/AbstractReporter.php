@@ -16,38 +16,20 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 
-/**
- * Class AbstractReporter
- * @package NS\SentinelBundle\Services
- */
 class AbstractReporter
 {
-    /**
-     * @var FilterBuilderUpdaterInterface
-     */
+    /** @var FilterBuilderUpdaterInterface */
     protected $filter;
 
-    /**
-     * @var ObjectManager
-     */
+    /** @var ObjectManager */
     protected $entityMgr;
 
-    /**
-     * @var RouterInterface
-     */
+    /** @var RouterInterface */
     protected $router;
 
-    /**
-     * @var Exporter $exporter
-     */
+    /** @var Exporter $exporter */
     protected $exporter;
 
-    /**
-     * @param FilterBuilderUpdaterInterface $filter
-     * @param ObjectManager $entityMgr
-     * @param RouterInterface $router
-     * @param Exporter $exporter
-     */
     public function __construct(FilterBuilderUpdaterInterface $filter, ObjectManager $entityMgr, RouterInterface $router, Exporter $exporter)
     {
         $this->filter = $filter;
@@ -61,7 +43,7 @@ class AbstractReporter
      * @param ArrayCollection $results
      * @param $resultClass
      */
-    public function populateSites($sites, ArrayCollection &$results, $resultClass)
+    public function populateSites($sites, ArrayCollection $results, $resultClass): void
     {
         foreach ($sites as $values) {
             $resultObj = new $resultClass($values[0]->getSite());
@@ -77,7 +59,7 @@ class AbstractReporter
      * @param array $counts
      * @param callback $function
      */
-    public function processColumn(ArrayCollection &$results, $counts, $function)
+    public function processColumn(ArrayCollection $results, $counts, $function): void
     {
         foreach ($counts as $c) {
             $fpr = $results->get($c['code']);
@@ -97,7 +79,7 @@ class AbstractReporter
      * @param $results
      * @param $form
      */
-    public function processResult($columns, $repo, $alias, &$results, $form)
+    public function processResult($columns, $repo, $alias, &$results, $form): void
     {
         foreach ($columns as $func => $pf) {
             if (method_exists($repo, $func)) {
@@ -142,7 +124,7 @@ class AbstractReporter
      * @param array $counts
      * @param callback $function
      */
-    public function processSitePerformanceColumn(ArrayCollection &$results, $counts, $function)
+    public function processSitePerformanceColumn(ArrayCollection $results, $counts, $function): void
     {
         foreach ($counts as $c) {
             $fpr = $results->get($c['code']);
@@ -158,7 +140,7 @@ class AbstractReporter
      * @param ArrayCollection $results
      * @param $resultClass
      */
-    public function populateCountries($countries, ArrayCollection &$results, $resultClass)
+    public function populateCountries($countries, ArrayCollection $results, $resultClass): void
     {
         foreach ($countries as $values) {
             $resultObj = new $resultClass;
@@ -176,7 +158,7 @@ class AbstractReporter
      * @param $results
      * @param $form
      */
-    public function processLinkingResult($columns, $repo, $alias, &$results, $form)
+    public function processLinkingResult($columns, $repo, $alias, &$results, $form): void
     {
         foreach ($columns as $func => $pf) {
             if (method_exists($repo, $func)) {
@@ -236,7 +218,7 @@ class AbstractReporter
         return ['form' => $form->createView(), 'result' => $result];
     }
 
-    protected function populateYearMonth($sites, ArrayCollection &$results, $resultClass)
+    protected function populateYearMonth($sites, ArrayCollection $results, $resultClass): void
     {
         $siteCodes = [];
         foreach ($sites as $values) {

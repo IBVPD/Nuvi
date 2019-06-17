@@ -94,10 +94,7 @@ class SiteRepository extends CommonRepository
             ->addOrderBy('s.name', 'ASC'));
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getAllSecuredQueryBuilder($alias = 'o')
+    public function getAllSecuredQueryBuilder($alias = 'o'): QueryBuilder
     {
         $countryAlias = $alias === 'c' ? 'cntry':'c';
         return parent::getAllSecuredQueryBuilder($alias)
@@ -112,7 +109,7 @@ class SiteRepository extends CommonRepository
      * @param $limit
      * @return Query
      */
-    public function getForAutoComplete($fields, array $value, $limit)
+    public function getForAutoComplete($fields, array $value, $limit): Query
     {
         $alias = 's';
         $queryBuilder = $this->createQueryBuilder($alias)

@@ -34,11 +34,7 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
         return $this->getAllSecuredQueryBuilder()->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult();
     }
 
-    /**
-     * @param string $alias
-     * @return QueryBuilder
-     */
-    public function getAllSecuredQueryBuilder($alias = 'o')
+    public function getAllSecuredQueryBuilder(string $alias = 'o'): QueryBuilder
     {
         return $this->secure($this->_em
             ->createQueryBuilder()
@@ -53,7 +49,7 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
      * @param $limit
      * @return Query
      */
-    public function getForAutoComplete($fields, array $value, $limit)
+    public function getForAutoComplete($fields, array $value, $limit): Query
     {
         $alias = 'd';
         $queryBuilder = $this->createQueryBuilder($alias)->setMaxResults($limit);
@@ -89,7 +85,7 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
     public function findOrCreate($caseId, Site $site, $objId = null)
     {
         if ($objId === null && $caseId === null) {
-            throw new InvalidArgumentException("Id or Case must be provided");
+            throw new InvalidArgumentException('Id or Case must be provided');
         }
 
         $queryBuilder = $this->createQueryBuilder('m')
@@ -133,12 +129,7 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
         }
     }
 
-    /**
-     * @param array $params
-     * @return mixed|null
-     * @throws NonUniqueResultException
-     */
-    public function findWithRelations(array $params)
+    public function findWithRelations(array $params): ?array
     {
         $qb = $this->createQueryBuilder('c')
             ->addSelect('sl,rl,nl,s')

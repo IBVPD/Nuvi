@@ -79,7 +79,7 @@ class PneumoniaRepository extends Common
      * @param int $limit
      * @return array
      */
-    public function getLatest($limit = 10)
+    public function getLatest($limit = 10): array
     {
         return $this->getLatestQuery()
             ->setMaxResults($limit)
@@ -90,7 +90,7 @@ class PneumoniaRepository extends Common
     /**
      * @return array
      */
-    public function getByCountry()
+    public function getByCountry(): array
     {
         $queryBuilder = $this->createQueryBuilder('m')
             ->select('COUNT(m) as numberOfCases, partial m.{id,adm_date}, c')
@@ -103,7 +103,7 @@ class PneumoniaRepository extends Common
     /**
      * @return array
      */
-    public function getByDiagnosis()
+    public function getByDiagnosis(): array
     {
         $queryBuilder = $this->createQueryBuilder('m')
             ->select('COUNT(m) as numberOfCases, partial m.{id,disch_dx}')
@@ -115,7 +115,7 @@ class PneumoniaRepository extends Common
     /**
      * @return array
      */
-    public function getBySite()
+    public function getBySite(): array
     {
         $queryBuilder = $this->createQueryBuilder('m')
             ->select('COUNT(m) as numberOfCases, partial m.{id,adm_date}, s ')
@@ -149,7 +149,7 @@ class PneumoniaRepository extends Common
      * @param $objId
      * @return array
      */
-    public function search($objId)
+    public function search($objId): array
     {
         $queryBuilder = $this->createQueryBuilder('m')
             ->where('m.id LIKE :id')
@@ -222,7 +222,7 @@ class PneumoniaRepository extends Common
      * @param null $modifiedSince
      * @return array
      */
-    public function findModified($modifiedSince = null)
+    public function findModified($modifiedSince = null): array
     {
         $queryBuilder = $this->getLatestQuery('m');
 
@@ -371,7 +371,7 @@ class PneumoniaRepository extends Common
             ->setParameter('sites', $siteCodes);
     }
 
-    public function getNumberOfSpecimenCollectedCount($alias, array $siteCodes)
+    public function getNumberOfSpecimenCollectedCount($alias, array $siteCodes): QueryBuilder
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
@@ -384,7 +384,7 @@ class PneumoniaRepository extends Common
      * @return bool
      * @throws NonUniqueResultException
      */
-    public function exists(array $params)
+    public function exists(array $params): ?bool
     {
         $qb = $this->createQueryBuilder('i')->select('i.id');
         foreach ($params as $field => $value) {
@@ -401,7 +401,7 @@ class PneumoniaRepository extends Common
         }
     }
 
-    private function getByCountryCountQueryBuilder($alias, array $countryCodes)
+    private function getByCountryCountQueryBuilder($alias, array $countryCodes): QueryBuilder
     {
         $queryBuilder = $this->createQueryBuilder($alias)
             ->innerJoin($alias.'.country', 'c')
@@ -414,7 +414,7 @@ class PneumoniaRepository extends Common
         return $queryBuilder->where("($alias.country IN (:countries) )")->setParameter('countries',array_unique($countryCodes));
     }
 
-    public function getLinkedCount($alias, array $countryCodes)
+    public function getLinkedCount(string $alias, array $countryCodes): QueryBuilder
     {
         return $this->getByCountryCountQueryBuilder('cf', $countryCodes)
             ->select(sprintf('COUNT(IDENTITY(%s)) as caseCount,c.code', $alias))
@@ -422,7 +422,7 @@ class PneumoniaRepository extends Common
             ->innerJoin('cf.site', 's');
     }
 
-    public function getFailedLinkedCount($alias, array $countryCodes)
+    public function getFailedLinkedCount(string $alias, array $countryCodes): QueryBuilder
     {
         return $this->getByCountryCountQueryBuilder('cf', $countryCodes)
             ->select(sprintf('COUNT(IDENTITY(%s)) as caseCount,c.code', $alias))
@@ -431,7 +431,7 @@ class PneumoniaRepository extends Common
             ->andWhere('s.code IS NULL');
     }
 
-    public function getNoLabCount($alias, array $countryCodes)
+    public function getNoLabCount(string $alias, array $countryCodes): QueryBuilder
     {
         return $this->getByCountryCountQueryBuilder('cf', $countryCodes)
             ->select(sprintf('COUNT(IDENTITY(%s)) as caseCount,c.code', $alias))

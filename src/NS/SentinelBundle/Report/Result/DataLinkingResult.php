@@ -6,68 +6,42 @@ use NS\SentinelBundle\Entity\Country;
 
 class DataLinkingResult
 {
-    /**
-     * @var Country
-     */
+    /** @var Country|null */
     private $country;
-    /**
-     * @var int
-     */
+
+    /** @var int */
     private $totalCases = 0;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     private $linked = 0;
-    /**
-     * @var int
-     */
+
+    /** @var int */
     private $notLinked = 0;
-    /**
-     * @var int
-     */
+
+    /** @var int */
     private $noLab = 0;
 
-    /**
-     * @return Country
-     */
-    public function getCountry()
+    public function getCountry(): ?Country
     {
         return $this->country;
     }
 
-    /**
-     * @param Country $country
-     * @return DataLinkingResult
-     */
-    public function setCountry(Country $country)
+    public function setCountry(Country $country): void
     {
         $this->country = $country;
-        return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getTotalCases()
+    public function getTotalCases(): int
     {
         return $this->totalCases;
     }
 
-    /**
-     * @param int $totalCases
-     * @return DataLinkingResult
-     */
-    public function setTotalCases($totalCases)
+    public function setTotalCases(int $totalCases): void
     {
         $this->totalCases = $totalCases;
-        return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getLinked()
+    public function getLinked(): int
     {
         return $this->linked;
     }
@@ -77,18 +51,12 @@ class DataLinkingResult
         return ($this->totalCases>0) ? $this->linked / $this->totalCases * 100: 0;
     }
 
-    /**
-     * @param int $linked
-     */
-    public function setLinked($linked)
+    public function setLinked(int $linked): void
     {
         $this->linked = $linked;
     }
 
-    /**
-     * @return int
-     */
-    public function getNotLinked()
+    public function getNotLinked(): int
     {
         return $this->notLinked;
     }
@@ -98,26 +66,17 @@ class DataLinkingResult
         return ($this->totalCases>0) ? $this->notLinked / $this->totalCases * 100: 0;
     }
 
-    /**
-     * @param int $notLinked
-     */
-    public function setNotLinked($notLinked)
+    public function setNotLinked(int $notLinked): void
     {
         $this->notLinked = $notLinked;
     }
 
-    /**
-     * @return int
-     */
-    public function getNoLab()
+    public function getNoLab(): int
     {
         return $this->noLab;
     }
 
-    /**
-     * @param int $noLab
-     */
-    public function setNoLab($noLab)
+    public function setNoLab(int $noLab): void
     {
         $this->noLab = $noLab;
     }
