@@ -201,27 +201,9 @@ jms_translation:
   configs:
     app:
       output_dir: "%kernel.root_dir%/Resources/translations"
-      dirs: [ "%kernel.root_dir%" ]
-      excluded_names: [ "*TestCase.php", "*Test.php", "bootstrap.php.cache" ]
-      excluded_dirs: [ cache, data, logs ]
-      output_format: xliff
-    sentinel:
-      output_dir: "%kernel.root_dir%/../src/NS/SentinelBundle/Resources/translations"
-      dirs: [ "@NSSentinelBundle" ]
-      excluded_names: [ "*TestCase.php", "*Test.php" ]
-      excluded_dirs: [ Tests ]
-      output_format: xliff
-    import:
-      output_dir: "%kernel.root_dir%/../src/NS/ImportBundle/Resources/translations"
-      dirs: [ "@NSImportBundle" ]
-      excluded_names: [ "*TestCase.php", "*Test.php" ]
-      excluded_dirs: [ Tests ]
-      output_format: xliff
-    api:
-      output_dir: "%kernel.root_dir%/../src/NS/ApiBundle/Resources/translations"
-      dirs: [ "@NSApiBundle" ]
-      excluded_names: [ "Test","*TestCase.php", "*Test.php" ]
-      excluded_dirs: [ Tests ]
+      dirs: [ "%kernel.root_dir%", "@NSSentinelBundle", "@NSImportBundle", "@NSApiBundle" ]
+      excluded_names: [ "*TestCase.php", "*Test.php", "bootstrap.php.cache", "*TestCase.php", ]
+      excluded_dirs: [ cache, data, logs, Tests ]
       output_format: xliff
 
 lunetics_locale:

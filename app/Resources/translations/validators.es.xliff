@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2019-05-23T11:06:03Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
+  <file date="2019-05-23T11:06:12Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
     </header>
     <body>
+      <trans-unit id="a44367e9b9c6512c2862f9ef9147b9196436c1db" resname="This must be greater than zero">
+        <source>This must be greater than zero</source>
+        <target state="new">This must be greater than zero</target>
+      </trans-unit>
       <trans-unit id="2a13f5f20ffb209d245b2273be5ef0a1c3ab7fbf" resname="Blood was collected, so this field is expected">
         <source>Blood was collected, so this field is expected</source>
         <target state="new">Blood was collected, so this field is expected</target>
@@ -16,15 +20,15 @@
       </trans-unit>
       <trans-unit id="7e5ba8172e8e0f040beb647ab1be74ae0618bb56" resname="Invalid value">
         <source>Invalid value</source>
-        <target>Invalid value</target>
+        <target>Valor invalido</target>
       </trans-unit>
       <trans-unit id="fe5b77135a52f12dc49ad323095141f1b72a1111" resname="Invalid value - value must be greater than 0">
         <source>Invalid value - value must be greater than 0</source>
-        <target>Invalid value - value must be greater than 0</target>
+        <target>Valor inválido - valor debe ser mayor que 0</target>
       </trans-unit>
       <trans-unit id="a63e1dad17b27e8ede5c11b3e3b9368c04b3104f" resname="Invalid value. Must be a number">
         <source>Invalid value. Must be a number</source>
-        <target>Invalid value. Must be a number</target>
+        <target>Número Invalidao. Debe ser un número.</target>
       </trans-unit>
       <trans-unit id="8dd1dbe9edf34d88a7a0cf2c68d8b1e5bc93d627" resname="Other samples were collected, so this field is expected">
         <source>Other samples were collected, so this field is expected</source>
@@ -32,15 +36,15 @@
       </trans-unit>
       <trans-unit id="600a7e5324636bfbfa540517fc506feccf4bd337" resname="Please provide a valid oxygen saturation level">
         <source>Please provide a valid oxygen saturation level</source>
-        <target>Please provide a valid oxygen saturation level</target>
+        <target>Por Favor ingresar un valor valido de nivel de saturacion</target>
       </trans-unit>
       <trans-unit id="28c1803981b5995e68f9e9fca3ac9f2b3329fa02" resname="Please provide a valid respiratory rate">
         <source>Please provide a valid respiratory rate</source>
-        <target>Please provide a valid respiratory rate</target>
+        <target>Por favor ingresar un valor válido de la frecuencia respiratoria</target>
       </trans-unit>
       <trans-unit id="bc00364ca8f6d715fd7839e88a552c3ee641247f" resname="Please select a target to restrict this role to">
         <source>Please select a target to restrict this role to</source>
-        <target>Please select a target to restrict this role to</target>
+        <target>Por favor selecionar el target para restringir el role a</target>
       </trans-unit>
       <trans-unit id="104d2008e37b88b5ba1f786348e5caae52af19be" resname="Pleural fluid was collected, so this field is expected">
         <source>Pleural fluid was collected, so this field is expected</source>
@@ -48,19 +52,19 @@
       </trans-unit>
       <trans-unit id="1f64f90c8120aa7a88c1bd1449492c4889868606" resname="The case id already exists for this site!">
         <source>The case id already exists for this site!</source>
-        <target>The case id already exists for this site!</target>
+        <target>Este numero de caso ya existe para este sitio</target>
       </trans-unit>
       <trans-unit id="c8ffa100572b977cf323d768105e1ed26827e6b6" resname="The date of birth is past the date of admission">
         <source>The date of birth is past the date of admission</source>
-        <target>The date of birth is past the date of admission</target>
+        <target>La fecha de nacimiento esta despues de la fecha de admision</target>
       </trans-unit>
       <trans-unit id="a29d6d5aa5131805e60ceac186b93963b5647b68" resname="The password fields must match.">
         <source>The password fields must match.</source>
-        <target>The password fields must match.</target>
+        <target>los contraseñas deben coincidir</target>
       </trans-unit>
       <trans-unit id="0aecaa75fde5ffe7bfdc1897d101ea48b7660160" resname="This field cannot be blank">
         <source>This field cannot be blank</source>
-        <target>This field cannot be blank</target>
+        <target>Esta variable no puede estar en blanco</target>
       </trans-unit>
       <trans-unit id="87bff4458ceba5c5bd52f78be2e273efedeaa45d" resname="Two blood samples were collected, so this field is expected">
         <source>Two blood samples were collected, so this field is expected</source>
@@ -68,43 +72,43 @@
       </trans-unit>
       <trans-unit id="f4893b9d345e922a467b853b255dc32a0ade9e71" resname="You cannot have a negative white blood cell count">
         <source>You cannot have a negative white blood cell count</source>
-        <target>You cannot have a negative white blood cell count</target>
+        <target>No puede tener un valor negativo - white blood cell count</target>
       </trans-unit>
       <trans-unit id="d7c86c070e8074cbf1a7710db0f2e543765d48c5" resname="Your password must be at least 6 characters">
         <source>Your password must be at least 6 characters</source>
-        <target>Your password must be at least 6 characters</target>
+        <target>La contraseña debe tener al menos 6 caracteres</target>
       </trans-unit>
       <trans-unit id="d705ef6477a31cceb4244c687a3a38f8031db0d4" resname="field-is-required-due-to-adm-diagnosis">
         <source>field-is-required-due-to-adm-diagnosis</source>
-        <target>Due to the admission diagnosis this field is required</target>
+        <target state="new">field-is-required-due-to-adm-diagnosis</target>
       </trans-unit>
       <trans-unit id="089dd998ead93df8d2e20005ffaa265af99dae6e" resname="form.validation.admission-after-blood-collection">
         <source>form.validation.admission-after-blood-collection</source>
-        <target>The admission date is after the blood collection date!</target>
+        <target state="new">form.validation.admission-after-blood-collection</target>
       </trans-unit>
       <trans-unit id="7da7e0290de34382b956758523630907abe0f5ce" resname="form.validation.admission-after-csf-collection">
         <source>form.validation.admission-after-csf-collection</source>
-        <target>The admission date is after the CSF collection date!</target>
+        <target state="new">form.validation.admission-after-csf-collection</target>
       </trans-unit>
       <trans-unit id="6ec5ef144b9f2e30eb9289b4f439ab0bd8a453c4" resname="form.validation.admission-after-onset">
         <source>form.validation.admission-after-onset</source>
-        <target>The admission date cannot be before the onset date</target>
+        <target>La fecha de inicio debe ser antes que la fecha de admisión</target>
       </trans-unit>
       <trans-unit id="b5f5c32855b5951fd5b9f43fc52a5071106b8740" resname="form.validation.admission-after-pleural-fluid-collection">
         <source>form.validation.admission-after-pleural-fluid-collection</source>
-        <target>The admission date is after the pleural fluid collection date!</target>
+        <target state="new">form.validation.admission-after-pleural-fluid-collection</target>
       </trans-unit>
       <trans-unit id="f201efd9691822f928878aa1e2ec99044699eaf0" resname="form.validation.onset-after-dob">
         <source>form.validation.onset-after-dob</source>
-        <target>The onset date cannot be before the date of birth</target>
+        <target>Fecha de nacimiento debe ser antes que la fecha de inicio</target>
       </trans-unit>
       <trans-unit id="e0f798c230ecadc8c49331cc9ce4342250cf4e6c" resname="form.validation.stool-collection-before-admission">
         <source>form.validation.stool-collection-before-admission</source>
-        <target>Stool collection date was before admission date!</target>
+        <target state="new">form.validation.stool-collection-before-admission</target>
       </trans-unit>
       <trans-unit id="dccaba43c77fc24bc13003c93becde3569de8268" resname="form.validation.vaccination-after-admission">
         <source>form.validation.vaccination-after-admission</source>
-        <target>Vaccination received date is after admission!</target>
+        <target state="new">form.validation.vaccination-after-admission</target>
       </trans-unit>
     </body>
   </file>
