@@ -24,7 +24,7 @@
       </trans-unit>
       <trans-unit id="accf40c89baa4fa88e6a7ff11e1f805beecafd3f" resname="Created">
         <source>Created</source>
-        <target>Created</target>
+        <target>Creación</target>
       </trans-unit>
       <trans-unit id="5c051b1bba7d22157050c9bf8d2bf196f0fab730" resname="DB Column">
         <source>DB Column</source>
@@ -118,13 +118,9 @@
         <source>Notes</source>
         <target state="new">Notes</target>
       </trans-unit>
-      <trans-unit id="1ddc4c9044f546bb068b7278a50bff494b12b425" resname="Please Select">
-        <source>Please Select</source>
-        <target state="new">Please Select</target>
-      </trans-unit>
       <trans-unit id="a7942f226ed1080246f2b2fde35b11e19a91e6a8" resname="Please Select...">
         <source>Please Select...</source>
-        <target state="new">Please Select...</target>
+        <target>Por favor selecione...</target>
       </trans-unit>
       <trans-unit id="77a6375224e36db93fce73f97c1a77ea403437cb" resname="RRL">
         <source>RRL</source>
