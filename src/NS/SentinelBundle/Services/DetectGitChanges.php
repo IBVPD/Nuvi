@@ -14,12 +14,6 @@ class DetectGitChanges
     /** @var string */
     private $projectRoot;
 
-    /**
-     * DetectGitChanges constructor.
-     *
-     * @param Swift_Mailer $mailer
-     * @param string       $projectRoot
-     */
     public function __construct(Swift_Mailer $mailer, string $projectRoot)
     {
         $this->mailer      = $mailer;

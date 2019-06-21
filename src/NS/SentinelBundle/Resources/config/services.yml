@@ -177,4 +177,4 @@ services:
 
   ns_sentinel.detect_changes:
     class: NS\SentinelBundle\Services\DetectGitChanges
-    arguments: [ '%kernel.root_dir%/../']
+    arguments: [ '@mailer', '%kernel.root_dir%/../']
