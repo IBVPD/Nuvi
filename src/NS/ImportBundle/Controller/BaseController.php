@@ -9,6 +9,8 @@ use Exporter\Source\DoctrineORMQuerySourceIterator;
 use Exporter\Writer\CsvWriter;
 use Exporter\Writer\XlsWriter;
 use JMS\Serializer\Annotation\AccessorOrder;
+use JMS\TranslationBundle\Model\Message;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use NS\SentinelBundle\Filter\Type as FilterType;
 use ReflectionClass;
 use ReflectionException;
@@ -16,7 +18,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Response;
 
-class BaseController extends Controller
+class BaseController extends Controller implements TranslationContainerInterface
 {
     protected $class;
     protected $baseField = ['region.code', 'country.code', 'site.code', 'id'];
@@ -37,7 +39,7 @@ class BaseController extends Controller
     protected function getRotaForm(): array
     {
         $rotaForm = $this->createForm(FilterType\RotaVirus\ReportFilterType::class, null, $this->formParams);
-        return ['exportRota' => ['form' => $rotaForm->createView(), 'title' => 'RotaVirus Export Filters']];
+        return ['exportRota' => ['form' => $rotaForm->createView(), 'title' => 'Rotavirus Export Filters']];
     }
 
     protected function getIbdForm(): array
@@ -123,5 +125,15 @@ class BaseController extends Controller
 
         $exporter = new Exporter([new CsvWriter('php://output', ',', '"', '\\', true, true), new XlsWriter('php://output')]);
         return $exporter->getResponse($format, $filename, $source);
+    }
+
+    public static function getTranslationMessages(): array
+    {
+        return [
+            new Message('Rotavirus Export Filters'),
+            new Message('Pneumonia Export Filters'),
+            new Message('Meningitis Export Filters'),
+            new Message('IBD Export Filters'),
+        ];
     }
 }

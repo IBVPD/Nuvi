@@ -36,8 +36,8 @@ class Builder
             }
 
             $reports      = $menu->addChild('Reports', ['label' => 'menu.data-reports', 'extras' => ['icon' => 'fa fa-dashboard']]);
-            $pneuReport   = $reports->addChild('Pneumonia', ['label' => 'menu.pneumonia']);
             $meningReport = $reports->addChild('Meningitis', ['label' => 'menu.meningitis']);
+            $pneuReport   = $reports->addChild('Pneumonia', ['label' => 'menu.pneumonia']);
             $rotaReport   = $reports->addChild('Rota', ['label' => 'Rotavirus']);
             $ibdReport    = $reports->addChild('IBD', ['label' => 'IBD']);
 

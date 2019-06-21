@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gnat
- * Date: 09/05/16
- * Time: 3:01 PM
- */
 
 namespace NS\SentinelBundle\Form\Types;
 
@@ -20,9 +14,7 @@ class CaseCreationType extends TranslatableArrayChoice implements TranslationCon
     public const RRL  = 3;
     public const NL   = 4;
 
-    /**
-     * @var AuthorizationCheckerInterface
-     */
+    /** @var AuthorizationCheckerInterface */
     private $authChecker;
 
     protected $values = [
@@ -32,10 +24,7 @@ class CaseCreationType extends TranslatableArrayChoice implements TranslationCon
         self::NL   => 'NL',
     ];
 
-    /**
-     * {@inheritdoc}
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         if ($this->authChecker->isGranted('ROLE_CAN_CREATE')) {
             $values = [];
@@ -63,26 +52,19 @@ class CaseCreationType extends TranslatableArrayChoice implements TranslationCon
         $resolver->setDefaults([
             'choices'     => array_flip($this->values),
             'placeholder' => 'Please Select...',
+//            'translation_domain' => 'messages',
         ]);
 
         $resolver->setDefined(['special_values']);
         $resolver->addAllowedTypes('special_values','array');
     }
 
-    /**
-     * @param AuthorizationCheckerInterface $authChecker
-     */
-    public function setAuthChecker(AuthorizationCheckerInterface $authChecker)
+    public function setAuthChecker(AuthorizationCheckerInterface $authChecker): void
     {
         $this->authChecker = $authChecker;
     }
 
-    /**
-     *
-     * @param string $routeBase
-     * @return string
-     */
-    public function getRoute($routeBase)
+    public function getRoute(string $routeBase): ?string
     {
         switch ($this->getValue()) {
             case self::BASE:
