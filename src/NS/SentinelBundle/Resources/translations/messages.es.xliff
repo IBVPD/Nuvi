@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2019-06-17T12:22:50Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
+  <file date="2019-06-21T13:09:30Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -436,7 +436,7 @@
       </trans-unit>
       <trans-unit id="5fb2c64f6220819aeec6e32589936d80f132d347" resname="Admission Data">
         <source>Admission Data</source>
-        <target state="new">Admission Data</target>
+        <target>Datos de admisión</target>
       </trans-unit>
       <trans-unit id="d84c3dede3448b582d09cf5d9738e31e70f3bf3b" resname="Admission Date">
         <source>Admission Date</source>
@@ -444,15 +444,15 @@
       </trans-unit>
       <trans-unit id="fd56cde4209a59bead8365ac7a76016cec1fb4e4" resname="Admission Date - From">
         <source>Admission Date - From</source>
-        <target>Fecha de Admisión- Desde</target>
+        <target>Fecha de Admisión - Desde</target>
       </trans-unit>
       <trans-unit id="8a3dfa2dc1358222c737bac805290c10db6b9dda" resname="Admission Date - To">
         <source>Admission Date - To</source>
-        <target>Admission Date - To</target>
+        <target>Fecha de Admisión - Hasta</target>
       </trans-unit>
       <trans-unit id="cc43fa744e43a87e4a4ac309fbcfe54c8898b83a" resname="Admission Diagnosis">
         <source>Admission Diagnosis</source>
-        <target>Admission Diagnosis</target>
+        <target>Diagnosis de admisión</target>
       </trans-unit>
       <trans-unit id="50c026300b52db9bf33a40131daac8a8c9fc341e" resname="Admitted">
         <source>Admitted</source>
@@ -1336,7 +1336,7 @@
       </trans-unit>
       <trans-unit id="7b3bc9fd91ac9dc76e02b653d9d4f89ca443842d" resname="Not processed">
         <source>Not processed</source>
-        <target state="new">Not processed</target>
+        <target>No procesado</target>
       </trans-unit>
       <trans-unit id="b7baa1d40c4ea29afc9098732bffee2a861a6c44" resname="Number">
         <source>Number</source>
@@ -1520,8 +1520,7 @@
       </trans-unit>
       <trans-unit id="6d8d3ee277015995a8faf994cfc772e581510f44" resname="Please review each tab for error messages">
         <source>Please review each tab for error messages</source>
-        <target xml:space="preserve">Por favor revise cada pestaña para los mensajes de error
-</target>
+        <target>Por favor revise cada pestaña para los mensajes de error</target>
       </trans-unit>
       <trans-unit id="47658dced1ec37586a51bf23d66051c62ff85998" resname="Pleural Fluid">
         <source>Pleural Fluid</source>
@@ -1573,11 +1572,11 @@
       </trans-unit>
       <trans-unit id="10e7cd5c43180ce85172bd09b81b2be6cc043101" resname="Record Creation Date - From">
         <source>Record Creation Date - From</source>
-        <target>Fecha de creación de registro - Desde</target>
+        <target>Record Creation Date - Desde</target>
       </trans-unit>
       <trans-unit id="61bfc42381e6d87c1e8610b9e130f59d4b110574" resname="Record Creation Date - To">
         <source>Record Creation Date - To</source>
-        <target>Record Creation Date - To</target>
+        <target>Record Creation Date - Hasta</target>
       </trans-unit>
       <trans-unit id="e53938a82e4c619e6efb6f1f7b65ff2d99368bd2" resname="Reference Lab">
         <source>Reference Lab</source>
@@ -1845,7 +1844,7 @@
       </trans-unit>
       <trans-unit id="5c9344d6aff660c66fb4a07d6663043dd56a8e83" resname="Use AMRO/PAHO format?">
         <source>Use AMRO/PAHO format?</source>
-        <target>Usa formato AMRO/PAHO?</target>
+        <target>Exportar con valores literales</target>
       </trans-unit>
       <trans-unit id="cfdb8ef53d3a4409936e1f8ba4992c8299f02e29" resname="Vaccination History">
         <source>Vaccination History</source>
@@ -1913,7 +1912,7 @@
       </trans-unit>
       <trans-unit id="5047bc36cf02e48eafd58044a4a1b12874db9892" resname="Yes-By-History">
         <source>Yes-By-History</source>
-        <target>No Aplica</target>
+        <target>Si, Verbal</target>
       </trans-unit>
       <trans-unit id="909f99a779adb66a76fc53ab56c7dd1caf35d0fd" resname="Z">
         <source>Z</source>
@@ -2445,9 +2444,7 @@
       </trans-unit>
       <trans-unit id="0da45bd56fa56862eebf9da5bebb9c33d58b4081" resname="ibd-form.hi-serotype-other">
         <source>ibd-form.hi-serotype-other</source>
-        <target xml:space="preserve">Influenza serotipo es o no es por PCR  
-
-</target>
+        <target>Influenza serotipo es o no es por PCR</target>
       </trans-unit>
       <trans-unit id="49d1ec463de133d2d2ecb102a8f7f16395fbb0a3" resname="ibd-form.hib-doses">
         <source>ibd-form.hib-doses</source>
@@ -2475,8 +2472,7 @@
       </trans-unit>
       <trans-unit id="675cb3a0cff157bf7af9c9cc124e5b1f4f7c16fa" resname="ibd-form.men-alt-conscious">
         <source>ibd-form.men-alt-conscious</source>
-        <target xml:space="preserve">¿ Alteración de la conciencia?
-</target>
+        <target>¿ Alteración de la conciencia?</target>
       </trans-unit>
       <trans-unit id="39e71aff4c9bb1d36d83afdd09a89f63c71bddda" resname="ibd-form.men-fever">
         <source>ibd-form.men-fever</source>
@@ -2596,13 +2592,11 @@
       </trans-unit>
       <trans-unit id="025152f2d8874ff156c638b8d12c06e8675d774f" resname="ibd-form.other-test-done1">
         <source>ibd-form.other-test-done1</source>
-        <target xml:space="preserve">Fueron otras pruebas realizado sobre la muestra en el laboratorio?
-</target>
+        <target>Fueron otras pruebas realizado sobre la muestra en el laboratorio?</target>
       </trans-unit>
       <trans-unit id="9fafeb6751ed03da89cf84d057e0afe72477b83e" resname="ibd-form.other-test-other">
         <source>ibd-form.other-test-other</source>
-        <target xml:space="preserve">Si otro organismo (s) se identificaron en la otra prueba realizada, por favor especifique.
-</target>
+        <target>Si otro organismo (s) se identificaron en la otra prueba realizada, por favor especifique.</target>
       </trans-unit>
       <trans-unit id="dac15dc0e75761c8518c20cfd8b4c291e4ae66b9" resname="ibd-form.other-test-result">
         <source>ibd-form.other-test-result</source>
@@ -3166,31 +3160,31 @@
       </trans-unit>
       <trans-unit id="8f5eb4b500ba6fc58e85ea1d67e98e0daa27c3d1" resname="rotavirus-form.national-lab-elisa-done">
         <source>rotavirus-form.national-lab-elisa-done</source>
-        <target state="new">Se realizó prueba ELISA para rotavirus?</target>
+        <target>Se realizó prueba ELISA para rotavirus?</target>
       </trans-unit>
       <trans-unit id="8600b5440e1d033ac8674106dd4c2eca609cc4a5" resname="rotavirus-form.national-lab-elisa-kit">
         <source>rotavirus-form.national-lab-elisa-kit</source>
-        <target state="new">Se uso el kit de ELISA</target>
+        <target>Se uso el kit de ELISA</target>
       </trans-unit>
       <trans-unit id="95a1639528ccb625446596a2c3dfb53cdbae56f1" resname="rotavirus-form.national-lab-elisa-kit-expiry-date">
         <source>rotavirus-form.national-lab-elisa-kit-expiry-date</source>
-        <target state="new">El kit de Elisa tiene fecha de expiración</target>
+        <target>El kit de Elisa tiene fecha de expiración</target>
       </trans-unit>
       <trans-unit id="45b8960e89589b13baf6a35ce4ea148d68150ff8" resname="rotavirus-form.national-lab-elisa-kit-other">
         <source>rotavirus-form.national-lab-elisa-kit-other</source>
-        <target state="new">Si el tipo del kit de ELISA es otro, especificar</target>
+        <target>Si el tipo del kit de ELISA es otro, especificar</target>
       </trans-unit>
       <trans-unit id="c53c1e69e1b6631e2f090bbdc5bf494b83f1f38f" resname="rotavirus-form.national-lab-elisa-load-number">
         <source>rotavirus-form.national-lab-elisa-load-number</source>
-        <target state="new">Numero de Kit de ELISA</target>
+        <target>Número de Kit de ELISA</target>
       </trans-unit>
       <trans-unit id="5271786a8b76811e0c3503f3f038bdd68c630a57" resname="rotavirus-form.national-lab-result">
         <source>rotavirus-form.national-lab-result</source>
-        <target state="new">Resultado de ELISA para rotavirus</target>
+        <target>Resultado de ELISA para rotavirus</target>
       </trans-unit>
       <trans-unit id="3fd025a01a5927287fe69c75c87ebea339d7a7e7" resname="rotavirus-form.national-lab-test-date">
         <source>rotavirus-form.national-lab-test-date</source>
-        <target state="new">Fecha de la prueba del ELISA en la muestra de heces</target>
+        <target>Fecha de la prueba del ELISA en la muestra de heces</target>
       </trans-unit>
       <trans-unit id="34e4ab14504bca439f0ef3dd52026bad2b420fba" resname="rotavirus-form.parental-name">
         <source>rotavirus-form.parental-name</source>
