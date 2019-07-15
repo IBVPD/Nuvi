@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gnat
- * Date: 14/03/17
- * Time: 11:24 AM
- */
 
 namespace NS\SentinelBundle\Services;
 
@@ -22,6 +16,7 @@ use NS\SentinelBundle\Entity\Meningitis;
 use NS\SentinelBundle\Entity\Pneumonia;
 use NS\SentinelBundle\Entity\RotaVirus;
 use ReflectionClass;
+use Symfony\Component\PropertyAccess\Exception\NoSuchPropertyException;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
 
@@ -42,19 +37,20 @@ class ObjectInitializer
     /** @var AbstractPlatform */
     private $dbPlatform;
 
-    /** @var PropertyAccessor  */
+    /** @var PropertyAccessor */
     private $propertyAccessor;
 
     /**
      * ObjectInitializer constructor.
+     *
      * @param EntityManagerInterface $entityManager
-     * @param SerializerInterface $serializer
-     * @param AnnotationReader $annotationReader
+     * @param SerializerInterface    $serializer
+     * @param AnnotationReader       $annotationReader
      */
     public function __construct(EntityManagerInterface $entityManager, SerializerInterface $serializer, AnnotationReader $annotationReader)
     {
-        $this->entityManager = $entityManager;
-        $this->serializer = $serializer;
+        $this->entityManager    = $entityManager;
+        $this->serializer       = $serializer;
         $this->annotationReader = $annotationReader;
         $this->propertyAccessor = PropertyAccess::createPropertyAccessor();
     }
@@ -103,12 +99,12 @@ class ObjectInitializer
         $this->processObject($obj->getNationalLab());
         $this->processObject($obj->getReferenceLab());
 
-        return $this->serializer->serialize([$type => $obj, 'siteLab' => $obj->getSiteLab(), 'nl' => $obj->getNationalLab(), 'rl' => $obj->getReferenceLab()], 'json', SerializationContext::create()->setGroups(['export','expanded']));
+        return $this->serializer->serialize([$type => $obj, 'siteLab' => $obj->getSiteLab(), 'nl' => $obj->getNationalLab(), 'rl' => $obj->getReferenceLab()], 'json', SerializationContext::create()->setGroups(['export', 'expanded']));
     }
 
     private function initialize(): void
     {
-        $this->dbPlatform = $this->entityManager->getConnection()->getDatabasePlatform();
+        $this->dbPlatform  = $this->entityManager->getConnection()->getDatabasePlatform();
         $this->initialized = true;
     }
 
@@ -118,11 +114,11 @@ class ObjectInitializer
     private function processObject($obj)
     {
         $reflectionClass = new ReflectionClass($obj);
-        $properties = $reflectionClass->getProperties();
+        $properties      = $reflectionClass->getProperties();
         foreach ($properties as $property) {
             $annotations = $this->annotationReader->getPropertyAnnotations($property);
-            $column = null;
-            $group = null;
+            $column      = null;
+            $group       = null;
             foreach ($annotations as $annotation) {
                 if ($annotation instanceof Column) {
                     $column = $annotation;
@@ -140,13 +136,18 @@ class ObjectInitializer
             if ($column) {
                 if ($group === null || ($group && in_array('export', $group->groups))) {
                     if ($this->isNonScalar($column->type)) {
-                        $type = Type::getType($this->dbPlatform->getDoctrineTypeMapping($column->type));
+                        $type  = Type::getType($this->dbPlatform->getDoctrineTypeMapping($column->type));
                         $value = $type->convertToPHPValue(null, $this->dbPlatform);
                     } else {
                         $value = $this->getDefaultScalar($column->type);
                     }
 
-                    $this->propertyAccessor->setValue($obj,$property->getName(),$value);
+                    try {
+                        $this->propertyAccessor->setValue($obj, $property->getName(), $value);
+                    } catch (NoSuchPropertyException $exception) {
+
+                    }
+
                 }
             }
         }
@@ -156,9 +157,9 @@ class ObjectInitializer
     {
         switch ($type) {
             case 'decimal':
-                return '1.0+';
+                return '1.0';
             case 'integer':
-                return '1+';
+                return '1';
             case 'string':
             case 'text':
                 return 'a-z';

@@ -24,10 +24,11 @@ use NS\SentinelBundle\Form\Types\VaccinationReceived;
 use NS\SentinelBundle\Validators as LocalAssert;
 use NS\UtilBundle\Validator\Constraints\ArrayChoiceConstraint;
 use Symfony\Component\Validator\Constraints as Assert;
+use NS\SentinelBundle\Entity\IBD\SiteLab;
+use NS\SentinelBundle\Entity\IBD\ReferenceLab;
+use NS\SentinelBundle\Entity\IBD\NationalLab;
 
 /**
- * Description of IBD
- * @author gnat
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\IBDRepository")
  * @ORM\Table(name="ibd_cases",uniqueConstraints={@ORM\UniqueConstraint(name="ibd_site_case_id_idx",columns={"site_id","case_id"})})
  * @ORM\HasLifecycleCallbacks
@@ -72,17 +73,17 @@ class IBD extends BaseCase
     /**
      * @Serializer\Exclude()
      */
-    protected $siteLabClass = '\NS\SentinelBundle\Entity\IBD\SiteLab';
+    protected $siteLabClass = SiteLab::class;
 
     /**
      * @Serializer\Exclude()
      */
-    protected $referenceClass = '\NS\SentinelBundle\Entity\IBD\ReferenceLab';
+    protected $referenceClass = ReferenceLab::class;
 
     /**
      * @Serializer\Exclude()
      */
-    protected $nationalClass  = '\NS\SentinelBundle\Entity\IBD\NationalLab';
+    protected $nationalClass  = NationalLab::class;
 
 //Case-based Clinical Data
     /**

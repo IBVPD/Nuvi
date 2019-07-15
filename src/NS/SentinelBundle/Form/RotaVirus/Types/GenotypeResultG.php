@@ -7,7 +7,7 @@ use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 
 class GenotypeResultG extends TranslatableArrayChoice implements TranslationContainerInterface
 {
-    public const 
+    public const
         G1 = 1,
         G2 = 2,
         G3 = 3,

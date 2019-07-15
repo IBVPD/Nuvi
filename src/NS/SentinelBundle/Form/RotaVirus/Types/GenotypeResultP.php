@@ -49,5 +49,4 @@ class GenotypeResultP extends TranslatableArrayChoice implements TranslationCont
         self::MIXED => 'Mixed (specify)',
         self::OTHER => 'Other (specify)',
     ];
-
 }
