@@ -27,7 +27,7 @@ class ClientAdmin extends AbstractAdmin
             ->add('redirectUris',       TagType::class, ['arrayOutput'=>true])
             ->add('allowedGrantTypes',  OAuthGrantTypes::class)
             ->add('user', null, [
-                'placeholder' => 'Please Select',
+                'placeholder' => 'Please Select...',
                 'query_builder' => function (EntityRepository $repo) {
                     return $repo->createQueryBuilder('u')
                         ->leftJoin('u.acls', 'a')

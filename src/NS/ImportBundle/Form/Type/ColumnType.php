@@ -34,7 +34,7 @@ abstract class ColumnType extends AbstractType
     {
         $resolver->setDefaults([
             'choices'     => array_flip($this->chooser->getChoices($this->type)),
-            'placeholder' => 'Please Select',
+            'placeholder' => 'Please Select...',
             'attr'        => ['data-search-contains' => true],
         ]);
     }

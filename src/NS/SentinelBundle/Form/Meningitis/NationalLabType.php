@@ -52,7 +52,6 @@ class NationalLabType extends AbstractType
                     ->add('rlOtherSent', SwitchType::class, ['label' => 'ibd-form.other-sent-to-rrl', 'required' => false, 'switch_type' => 2])
                     ->add('rlOtherDate', DatePickerType::class, ['label' => 'ibd-form.other-sent-to-rrl-date', 'required' => false, 'hidden' => ['parent' => 'rlOtherSent', 'value' => 1]]);
             }
-
         }
     }
 

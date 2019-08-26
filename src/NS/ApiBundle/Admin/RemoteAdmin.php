@@ -56,7 +56,7 @@ class RemoteAdmin extends AbstractAdmin
             ->add('authEndpoint')
             ->add('redirectUrl')
             ->add('user', null, [
-                'placeholder' => 'Please Select',
+                'placeholder' => 'Please Select...',
                 'query_builder' => function (EntityRepository $repo) {
                     return $repo->createQueryBuilder('u')
                         ->leftJoin('u.acls', 'a')
