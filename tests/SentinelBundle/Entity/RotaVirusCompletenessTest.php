@@ -34,7 +34,7 @@ class RotaVirusCompletenessTest extends BaseRVTest
         'gender',
         'disch_outcome',
         'disch_class',
-        'disch_date',
+        'dischargeDate',
         'case_id',
         'district',
         'birthdate',

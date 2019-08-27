@@ -76,6 +76,7 @@ use NS\UtilBundle\Validator\Constraints\ArrayChoiceConstraint;
  * @LocalAssert\Other(groups={"Completeness"},field="rv_doses",otherField="rv_dose3_date",value="NS\SentinelBundle\Form\Types\ThreeDoses::THREE")
  * @LocalAssert\Other(groups={"Completeness"},field="stool_collected",otherField="stool_id",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
  * @LocalAssert\Other(groups={"Completeness"},field="stool_collected",otherField="stool_collect_date",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
+ * @LocalAssert\RotaVirusCompleteConstraint(groups={"Completeness"})
  */
 class RotaVirus extends BaseCase
 {
@@ -334,7 +335,6 @@ class RotaVirus extends BaseCase
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
      * @Serializer\Groups({"api","export"})
      * @LocalAssert\NoFutureDate
-     * @Assert\NotBlank(groups={"Completeness"})
      */
     private $disch_date;
 
@@ -475,6 +475,10 @@ class RotaVirus extends BaseCase
         return $this->disch_outcome;
     }
 
+    /**
+     * @return DateTime|null
+     * @Assert\NotBlank(groups={"Completeness"})
+     */
     public function getDischargeDate(): ?DateTime
     {
         return $this->disch_date;

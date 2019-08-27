@@ -20,13 +20,13 @@ class RotaVirusSiteLabCompletenessTest extends BaseRVTest
         'adequate',
         'stored',
         'elisaDone',
-        'genotypingDate',
-        'genotypingResultG',
-        'genotypeResultP',
+//        'genotypingDate',
+//        'genotypingResultG',
+//        'genotypeResultP',
         'stoolSentToNL',
     ];
 
-    static $elisaDoneFields, $elisaKitFields, $genotypingResultGFields, $genotypeResultPFields, $stoolSentToNLFields, $stoolSentToRRLFields;
+    static $elisaDoneFields, $elisaKitFields, $stoolSentToNLFields, $stoolSentToRRLFields;
 
     public function setUp()
     {
@@ -69,24 +69,6 @@ class RotaVirusSiteLabCompletenessTest extends BaseRVTest
             'elisaKitOther' => [
                 'parents'    => [
                     'elisaKit' => [new ElisaKit(ElisaKit::OTHER)]
-                ],
-                'pass_value' => 'foo'
-            ],
-        ];
-
-        static::$genotypingResultGFields = [ //fields required by genotypingResultG
-            'genotypingResultGSpecify' => [
-                'parents'    => [
-                    'genotypingResultG' => [new GenotypeResultG(GenotypeResultG::OTHER), new GenotypeResultG(GenotypeResultG::MIXED)]
-                ],
-                'pass_value' => 'foo'
-            ],
-        ];
-
-        static::$genotypeResultPFields = [ //fields required by genotypeResultP
-            'genotypeResultPSpecify' => [
-                'parents'    => [
-                    'genotypeResultP' => [new GenotypeResultP(GenotypeResultP::OTHER), new GenotypeResultP(GenotypeResultP::MIXED)]
                 ],
                 'pass_value' => 'foo'
             ],
@@ -139,14 +121,13 @@ class RotaVirusSiteLabCompletenessTest extends BaseRVTest
         self::assertArrayHasKey(ArrayChoiceConstraint::class, $types);
         self::assertArrayHasKey(NotBlank::class, $types);
         self::assertEquals(7, $types[NotBlank::class]);
-        self::assertEquals(6, $types[ArrayChoiceConstraint::class]);
+        self::assertEquals(3, $types[ArrayChoiceConstraint::class]);
 
         $violations = $this->mapViolations($this->validator->validate($lab, null, ['Completeness']));
 
-        self::assertCount(8, $violations);
+        self::assertCount(10, $violations);
 
-        foreach (static::$minRequiredFields as $field)
-        {
+        foreach (static::$minRequiredFields as $field) {
             self::assertContains($field, $violations);
         }
     }
@@ -168,16 +149,6 @@ class RotaVirusSiteLabCompletenessTest extends BaseRVTest
     public function testElisaKitFields(): void
     {
         $this->_testOtherConstraints(static::$elisaKitFields);
-    }
-
-    public function testGenotypingResultGFields(): void
-    {
-        $this->_testOtherConstraints(static::$genotypingResultGFields);
-    }
-
-    public function testGenotypeResultPFields(): void
-    {
-        $this->_testOtherConstraints(static::$genotypeResultPFields);
     }
 
     public function testStoolSentToNLFields(): void
