@@ -11,7 +11,7 @@
     "psr-4": { "NS\\ApiBundle\\Tests\\": "tests/ApiBundle", "NS\\ImportBundle\\Tests\\": "tests/ImportBundle", "NS\\SentinelBundle\\Tests\\": "tests/SentinelBundle"}
   },
   "require": {
-    "php": ">=7.2",
+    "php": "7.2.*",
     "ext-json": "*",
     "ext-dom": "*",
     "symfony/symfony": "3.2.*",
