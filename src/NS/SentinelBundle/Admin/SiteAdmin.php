@@ -21,6 +21,7 @@ class SiteAdmin extends AbstractAdmin
             ->add('name')
             ->add('code')
             ->add('country')
+            ->add('country.region', null, ['label' => 'Region'])
             ->add('active')
             ->add('rvYearIntro')
             ->add('ibdYearIntro')
