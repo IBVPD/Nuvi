@@ -66,11 +66,11 @@ use NS\UtilBundle\Validator\Constraints\ArrayChoiceConstraint;
  * @LocalAssert\Other(groups={"Completeness"},field="symp_diarrhea",otherField="symp_dia_duration",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
  * @LocalAssert\Other(groups={"Completeness"},field="symp_vomit",otherField="symp_vomit_episodes",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
  * @LocalAssert\Other(groups={"Completeness"},field="symp_vomit",otherField="symp_vomit_duration",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
- * @LocalAssert\Other(groups={"Completeness"},field="symp_dehydration",otherField="rehydration",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
+ * @LocalAssert\Other(groups={"Completeness"},field="symp_dehydration",otherField="rehydration",value={"NS\SentinelBundle\Form\RotaVirus\Types\Dehydration::SOME", "NS\SentinelBundle\Form\RotaVirus\Types\Dehydration::SEVERE", "NS\SentinelBundle\Form\RotaVirus\Types\Dehydration::MODERATE"})
  * @LocalAssert\Other(groups={"Completeness"},field="rehydration",otherField="rehydration_type",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
  * @LocalAssert\Other(groups={"Completeness"},field="rehydration_type",otherField="rehydration_other",value="NS\SentinelBundle\Form\RotaVirus\Types\Rehydration::OTHER")
- * @LocalAssert\Other(groups={"Completeness"},field="rv_received",otherField="rv_type",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
- * @LocalAssert\Other(groups={"Completeness"},field="rv_received",otherField="rv_doses",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
+ * @LocalAssert\Other(groups={"Completeness"},field="rv_received",otherField="rv_type",value={"NS\SentinelBundle\Form\Types\VaccinationReceived::YES_CARD","NS\SentinelBundle\Form\Types\VaccinationReceived::YES_HISTORY"})
+ * @LocalAssert\Other(groups={"Completeness"},field="rv_received",otherField="rv_doses",value={"NS\SentinelBundle\Form\Types\VaccinationReceived::YES_CARD","NS\SentinelBundle\Form\Types\VaccinationReceived::YES_HISTORY"})
  * @LocalAssert\Other(groups={"Completeness"},field="rv_doses",otherField="rv_dose1_date",value={"NS\SentinelBundle\Form\Types\ThreeDoses::ONE","NS\SentinelBundle\Form\Types\ThreeDoses::TWO","NS\SentinelBundle\Form\Types\ThreeDoses::THREE"})
  * @LocalAssert\Other(groups={"Completeness"},field="rv_doses",otherField="rv_dose2_date",value={"NS\SentinelBundle\Form\Types\ThreeDoses::TWO","NS\SentinelBundle\Form\Types\ThreeDoses::THREE"})
  * @LocalAssert\Other(groups={"Completeness"},field="rv_doses",otherField="rv_dose3_date",value="NS\SentinelBundle\Form\Types\ThreeDoses::THREE")
@@ -213,7 +213,6 @@ class RotaVirus extends BaseCase
      * @var TripleChoice|null
      * @ORM\Column(name="rehydration",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
-     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $rehydration;
 
@@ -222,8 +221,6 @@ class RotaVirus extends BaseCase
      * @var Rehydration|null
      * @ORM\Column(name="rehydration_type",type="Rehydration",nullable=true)
      * @Serializer\Groups({"api","export"})
-     * @Assert\NotBlank(groups={"Completeness"})
-     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $rehydration_type;
 
@@ -337,12 +334,14 @@ class RotaVirus extends BaseCase
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
      * @Serializer\Groups({"api","export"})
      * @LocalAssert\NoFutureDate
+     * @Assert\NotBlank(groups={"Completeness"})
      */
     private $disch_date;
 
     /**
      * @var DischargeClassification|null
      * @ORM\Column(name="disch_class",type="RVDischargeClassification",nullable=true)
+     * @Assert\NotBlank(groups={"Completeness"})
      */
     private $disch_class;
 
