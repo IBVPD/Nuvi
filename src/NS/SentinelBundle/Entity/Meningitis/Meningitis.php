@@ -71,7 +71,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     otherField="otherSpecimenOther",
  *     value={"NS\SentinelBundle\Form\IBD\Types\OtherSpecimen::OTHER"})
  *
- * @Serializer\AccessorOrder("custom", custom = {"region.code", "country.code", "site.code", "case_id","firstName","lastName","parentalName","gender","dobKnown","birthdate","district","state","id","age_months","ageDistribution","adm_date",
+ * @Serializer\AccessorOrder("custom", custom = {"region.code", "country.code", "site.code", "site.name", "case_id","firstName","lastName","parentalName","gender","dobKnown","birthdate","district","state","id","age_months","ageDistribution","adm_date",
  *     "adm_dx","adm_dx_other","onset_date","antibiotics",
  *     "men_seizures","men_fever","men_alt_conscious","men_inability_feed","men_neck_stiff","men_rash","men_fontanelle_bulge","men_lethargy","men_irritability","men_vomit","men_malnutrition",
  *     "hib_received","hib_doses","hib_most_recent_dose",

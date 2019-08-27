@@ -41,7 +41,7 @@ use NS\UtilBundle\Validator\Constraints\ArrayChoiceConstraint;
  * @LocalAssert\Other(field="stoolCollected",value={"NS\SentinelBundle\Form\Types\TripleChoice::YES"},otherField="stoolCollectionDate")
  * @LocalAssert\TacPhaseTwo(groups={"Default","Completeness"})
  *
- * @Serializer\AccessorOrder("custom", custom = {"region.code", "country.code", "site.code",
+ * @Serializer\AccessorOrder("custom", custom = {"region.code", "country.code", "site.code", "site.name",
  *     "case_id","firstName","lastName","parentalName","gender","dobKnown","birthdate","district","state","id","age_months","ageDistribution","adm_date",
  *     "symp_dia_bloody","symp_diarrhea","symp_dia_onset_date","symp_dia_episodes","symp_dia_duration","intensiveCare",
  *     "symp_vomit","symp_vomit_episodes","symp_vomit_duration",

@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
 class BaseController extends Controller implements TranslationContainerInterface
 {
     protected $class;
-    protected $baseField = ['region.code', 'country.code', 'site.code', 'id'];
+    protected $baseField = ['region.code', 'country.code', 'site.code', 'site.name', 'id'];
     protected $formParams = ['validation_groups' => ['FieldPopulation'], 'include_filter' => false, 'include_paho_format_option' => true];
 
     protected function getMeningForm(): array

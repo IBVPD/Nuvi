@@ -62,7 +62,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @LocalAssert\Other(groups={"Completeness"},field="meningReceived",otherField="meningType",value={"NS\SentinelBundle\Form\Types\VaccinationReceived::YES_HISTORY","NS\SentinelBundle\Form\Types\VaccinationReceived::YES_CARD"})
  * @LocalAssert\Other(groups={"Completeness"},field="meningReceived",otherField="meningDate",value={"NS\SentinelBundle\Form\Types\VaccinationReceived::YES_HISTORY","NS\SentinelBundle\Form\Types\VaccinationReceived::YES_CARD"})
  *
- * @Serializer\AccessorOrder("custom", custom = {"region.code", "country.code", "site.code",
+ * @Serializer\AccessorOrder("custom", custom = {"region.code", "country.code", "site.code", "site.name",
  *     "case_id","firstName","lastName","parentalName","gender","dobKnown","birthdate","district","state","id","age_months","ageDistribution","adm_date",
  *     "adm_dx","adm_dx_other","onset_date","antibiotics",
  *     "pneu_diff_breathe","pneu_chest_indraw","pneu_cough","pneu_cyanosis","pneu_stridor","pneu_resp_rate","pneu_oxygen_saturation","pneu_vomit","pneu_hypothermia","pneu_malnutrition","pneu_fever","cxr_done","cxr_result","cxr_additional_result",
