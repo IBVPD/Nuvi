@@ -24,15 +24,23 @@
                             <div class="row">
                                 <div class="col col-sm-6">
                                     {{ form_row(values.form.exportFormat) }}
-                                    {{ form_row(values.form.pahoFormat) }}
+                                    {% if values.form.pahoFormat is defined %}
+                                        {{ form_row(values.form.pahoFormat) }}
+                                    {% endif %}
                                 </div>
                                 <div class="col col-sm-6">
-                                    {{ form_row(values.form.areas) }}
+                                    {% if values.form.areas is defined %}
+                                        {{ form_row(values.form.areas) }}
+                                    {% endif %}
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col col-sm-6">{{ form_row(values.form.country) }}</div>
-                                <div class="col col-sm-6">{{ form_row(values.form.site) }}</div>
+                                {% if values.form.country is defined %}
+                                    <div class="col col-sm-6">{{ form_row(values.form.country) }}</div>
+                                {% endif %}
+                                {% if values.form.site is defined %}
+                                    <div class="col col-sm-6">{{ form_row(values.form.site) }}</div>
+                                {% endif %}
                             </div>
                             {{ form_rest(values.form) }}
                         </form>
