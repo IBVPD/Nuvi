@@ -33,12 +33,26 @@ class PneumoniaController extends BaseController
         if ($form->isSubmitted() && $form->isValid()) {
             $modelManager = $this->get('doctrine.orm.entity_manager');
             $fields       = $this->baseField;
-            $meta         = [
-                '%s' => $modelManager->getClassMetadata(Pneumonia::class),
-                'siteLab.%s' => $modelManager->getClassMetadata(SiteLab::class),
-                'referenceLab.%s' => $modelManager->getClassMetadata(ReferenceLab::class),
-                'nationalLab.%s' => $modelManager->getClassMetadata(NationalLab::class),
-            ];
+            $areas        = $form['areas']->getData();
+            if (!empty($areas)) {
+                $meta    = [];
+                $classes = ['%s' => Pneumonia::class,
+                    'siteLab.%s' => SiteLab::class,
+                    'referenceLab.%s' => ReferenceLab::class,
+                    'nationalLab.%s' => NationalLab::class,
+                ];
+
+                foreach ($areas as $area) {
+                    $meta[$area] = $modelManager->getClassMetadata($classes[$area]);
+                }
+            } else {
+                $meta = [
+                    '%s' => $modelManager->getClassMetadata(Pneumonia::class),
+                    'siteLab.%s' => $modelManager->getClassMetadata(SiteLab::class),
+                    'referenceLab.%s' => $modelManager->getClassMetadata(ReferenceLab::class),
+                    'nationalLab.%s' => $modelManager->getClassMetadata(NationalLab::class),
+                ];
+            }
 
             $fields                = $this->adjustFields($meta, $fields);
             $query                 = $modelManager->getRepository(Pneumonia::class)->exportQuery('i');

@@ -29,12 +29,26 @@ class RotaVirusController extends BaseController
         if ($form->isSubmitted() && $form->isValid()) {
             $modelManager = $this->get('doctrine.orm.entity_manager');
             $fields       = $this->baseField;
-            $meta         = [
-                '%s' => $modelManager->getClassMetadata(RotaVirus::class),
-                'siteLab.%s' => $modelManager->getClassMetadata(RotaVirus\SiteLab::class),
-                'referenceLab.%s' => $modelManager->getClassMetadata(RotaVirus\ReferenceLab::class),
-                'nationalLab.%s' => $modelManager->getClassMetadata(RotaVirus\NationalLab::class),
-            ];
+            $areas        = $form['areas']->getData();
+            if (!empty($areas)) {
+                $meta    = [];
+                $classes = ['%s' => RotaVirus::class,
+                    'siteLab.%s' => RotaVirus\SiteLab::class,
+                    'referenceLab.%s' => RotaVirus\ReferenceLab::class,
+                    'nationalLab.%s' => RotaVirus\NationalLab::class,
+                ];
+
+                foreach ($areas as $area) {
+                    $meta[$area] = $modelManager->getClassMetadata($classes[$area]);
+                }
+            } else {
+                $meta         = [
+                    '%s' => $modelManager->getClassMetadata(RotaVirus::class),
+                    'siteLab.%s' => $modelManager->getClassMetadata(RotaVirus\SiteLab::class),
+                    'referenceLab.%s' => $modelManager->getClassMetadata(RotaVirus\ReferenceLab::class),
+                    'nationalLab.%s' => $modelManager->getClassMetadata(RotaVirus\NationalLab::class),
+                ];
+            }
 
             $fields               = $this->adjustFields($meta, $fields);
             $query                = $modelManager->getRepository(RotaVirus::class)->exportQuery('i');

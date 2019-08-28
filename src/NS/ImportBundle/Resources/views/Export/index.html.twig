@@ -21,6 +21,19 @@
                                     {{ form_row(values.form.createdAt) }}
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col col-sm-6">
+                                    {{ form_row(values.form.exportFormat) }}
+                                    {{ form_row(values.form.pahoFormat) }}
+                                </div>
+                                <div class="col col-sm-6">
+                                    {{ form_row(values.form.areas) }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col col-sm-6">{{ form_row(values.form.country) }}</div>
+                                <div class="col col-sm-6">{{ form_row(values.form.site) }}</div>
+                            </div>
                             {{ form_rest(values.form) }}
                         </form>
                     </div>

@@ -6,6 +6,7 @@ use NS\AceBundle\Filter\Type\DateRangeFilterType;
 use NS\SecurityBundle\Role\ACLConverter;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -49,12 +50,21 @@ class BaseReportFilterType extends AbstractType
                 'required' => false,
                 'mapped' => false,
                 'label'=> 'Export as Excel (may have row limit issues)',
-                'apply_filter' => function () {}, // empty because this never applies a filter
-            ])
-        ;
+                'apply_filter' => static function () {}, // empty because this never applies a filter
+            ]);
 
         if ($options['include_paho_format_option']) {
-            $builder->add('pahoFormat', CheckboxType::class, ['label' => 'Use AMRO/PAHO format?', 'required' => false, 'mapped' => false, 'apply_filter' => function () {}]);
+            $builder
+                ->add('pahoFormat', CheckboxType::class, ['label' => 'Use AMRO/PAHO format?', 'required' => false, 'mapped' => false, 'apply_filter' => function () {}])
+                ->add('areas', ChoiceType::class, [
+                    'required' => false,
+                    'choices' => ['Case' => '%s', 'Site Lab' => 'siteLab.%s', 'National Lab' => 'nationalLab.%s', 'Reference Lab' => 'referenceLab.%s'],
+                    'mapped' => false,
+                    'multiple' => true,
+                    'expanded' => true,
+                    'label' => 'Export Only',
+                    'apply_filter' => static function() {}, // empty because this never applies a filter
+                ]);
         }
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, [$this, 'preSetData']);
