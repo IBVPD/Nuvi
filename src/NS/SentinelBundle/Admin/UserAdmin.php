@@ -264,16 +264,15 @@ class UserAdmin extends AbstractAdmin
         $query->andWhere(' 
             (
                 ( a.type = :regionType AND a.object_id IN (:regionIds) ) OR 
-                ( a.type = :countryType AND a.object_id IN (SELECT c.code FROM NS\SentinelBundle\Entity\Country c WHERE c.region IN (:regions) ) ) OR
-                ( a.type >= :siteType AND a.type <= :nlLabType AND a.object_id IN (SELECT s.code FROM NS\SentinelBundle\Entity\Site s INNER JOIN s.country ct WHERE ct.region IN (:regions) ) )
+                ( a.type IN (:countryTypes) AND a.object_id IN (SELECT c.code FROM NS\SentinelBundle\Entity\Country c WHERE c.region IN (:regions) ) ) OR
+                ( a.type IN (:siteTypes) AND a.object_id IN (SELECT s.code FROM NS\SentinelBundle\Entity\Site s INNER JOIN s.country ct WHERE ct.region IN (:regions) ) )
             )
           ')
             ->setParameter('regionType', Role::REGION)
             ->setParameter('regionIds', $this->getRegions())
             ->setParameter('regions', $this->getRegions())
-            ->setParameter('countryType', Role::COUNTRY)
-            ->setParameter('siteType', Role::SITE)
-            ->setParameter('nlLabType', Role::NL_LAB);
+            ->setParameter('countryTypes', [Role::COUNTRY, Role::RRL_LAB, Role::NL_LAB])
+            ->setParameter('siteTypes', [Role::SITE, Role::LAB]);
 
         return $query;
     }
@@ -286,15 +285,14 @@ class UserAdmin extends AbstractAdmin
     {
         $query->andWhere('
             (
-                (a.type = :countryType AND a.object_id IN (SELECT c.code FROM NS\SentinelBundle\Entity\Country c WHERE c.code IN (:countryIds) ) ) OR
-                (a.type >= :siteType AND a.type <= :nlLabType AND a.object_id IN (SELECT s.code FROM NS\SentinelBundle\Entity\Site s WHERE s.country IN (:countries) ) )
+                (a.type IN (:countryTypes) AND a.object_id IN (SELECT c.code FROM NS\SentinelBundle\Entity\Country c WHERE c.code IN (:countryIds) ) ) OR
+                ( a.type IN (:siteTypes) AND a.object_id IN (SELECT s.code FROM NS\SentinelBundle\Entity\Site s INNER JOIN s.country ct WHERE ct.region IN (:regions) ) )
             )
           ')
-            ->setParameter('countryType', Role::COUNTRY)
+            ->setParameter('countryTypes', [Role::COUNTRY, Role::RRL_LAB, Role::NL_LAB])
             ->setParameter('countryIds', $this->getCountryIds())
             ->setParameter('countries', $this->getCountries())
-            ->setParameter('siteType', Role::SITE)
-            ->setParameter('nlLabType', Role::NL_LAB);
+            ->setParameter('siteTypes', [Role::SITE, Role::LAB]);
 
         return $query;
     }
