@@ -39,7 +39,7 @@ class UserAdminTest extends WebTestCase
         return [
             ['superadmin@noblet.ca', 17],
             ['na@noblet.ca', 15],
-            ['ca@noblet.ca', 11]
+            ['ca@noblet.ca', 7]
         ];
     }
 

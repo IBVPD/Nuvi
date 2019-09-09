@@ -281,7 +281,7 @@ class UserAdmin extends AbstractAdmin
      * @param ProxyQueryInterface $query
      * @return ProxyQueryInterface
      */
-    private function adjustCountryAccess(ProxyQueryInterface $query)
+    private function adjustCountryAccess(ProxyQueryInterface $query): ProxyQueryInterface
     {
         $query->andWhere('
             (
@@ -291,7 +291,7 @@ class UserAdmin extends AbstractAdmin
           ')
             ->setParameter('countryTypes', [Role::COUNTRY, Role::RRL_LAB, Role::NL_LAB])
             ->setParameter('countryIds', $this->getCountryIds())
-            ->setParameter('countries', $this->getCountries())
+            ->setParameter('regions', $this->getRegions())
             ->setParameter('siteTypes', [Role::SITE, Role::LAB]);
 
         return $query;
@@ -300,34 +300,27 @@ class UserAdmin extends AbstractAdmin
     public const REGIONS = 'admin.regions';
     public const COUNTRIES = 'admin.countries';
 
-    /**
-     * @return array
-     */
-    private function getRegions()
+    private function getRegions(): array
     {
         $regions = [];
-        $modelManager = $this->getModelManager()->getEntityManager('NS\SentinelBundle\Entity\Region');
+        $modelManager = $this->getModelManager()->getEntityManager(Region::class);
         foreach ($this->getRegionsIds() as $regionId) {
-            $regions[] = $modelManager->getReference('NS\SentinelBundle\Entity\Region', $regionId);
+            $regions[] = $modelManager->getReference(Region::class, $regionId);
         }
 
         return $regions;
     }
 
-    /**
-     * @return array
-     */
-    private function getCountries()
+    private function getCountries(): array
     {
         $countries = [];
-        $modelManager = $this->getModelManager()->getEntityManager('NS\SentinelBundle\Entity\Country');
+        $modelManager = $this->getModelManager()->getEntityManager(Country::class);
 
         foreach ($this->getCountryIds() as $countryId) {
-            $countries[] = $modelManager->getReference('NS\SentinelBundle\Entity\Country', $countryId);
+            $countries[] = $modelManager->getReference(Country::class, $countryId);
         }
 
         return $countries;
-
     }
 
     /**
