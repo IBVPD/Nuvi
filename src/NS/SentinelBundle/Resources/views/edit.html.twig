@@ -23,9 +23,8 @@
     <script type="text/javascript" src="{{ asset('bundles/nsace/js/ContextualForm.jquery.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-
             $('.tab-pane').each(function() {
-                $tab = $(this);
+                var $tab = $(this);
                 if($tab.find('.has-error').length) {
                     $('.nav-tabs a[href="#'+$tab.attr('id')+'"]').addClass('has-error').parent().addClass('has-error');
                 }

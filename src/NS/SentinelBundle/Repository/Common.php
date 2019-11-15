@@ -14,6 +14,7 @@ use NS\SecurityBundle\Doctrine\SecuredEntityRepository;
 use NS\SentinelBundle\Entity\BaseCase;
 use NS\SentinelBundle\Entity\Site;
 use NS\UtilBundle\Service\AjaxAutocompleteRepositoryInterface;
+use NS\SentinelBundle\Entity\Country;
 
 class Common extends SecuredEntityRepository implements AjaxAutocompleteRepositoryInterface
 {
@@ -54,7 +55,7 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
         $alias = 'd';
         $queryBuilder = $this->createQueryBuilder($alias)->setMaxResults($limit);
 
-        if (!empty($value) && $value['value'][0] == '*') {
+        if (!empty($value) && $value['value'][0] === '*') {
             return $queryBuilder->getQuery();
         }
 
@@ -139,7 +140,7 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
             ->leftJoin('c.nationalLab', 'nl');
 
         foreach ($params as $field => $value) {
-            $param = sprintf("%sField", $field);
+            $param = sprintf('%sField', $field);
             $qb->andWhere(sprintf('c.%s = :%s', $field, $param))->setParameter($param, $value);
         }
 
@@ -168,7 +169,7 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
      */
     public function findBySiteAndCaseId(array $params)
     {
-        $this->checkRequiredField('site', $params, 'NS\SentinelBundle\Entity\Site');
+        $this->checkRequiredField('site', $params, Site::class);
         $this->checkRequiredField('case_id', $params);
 
         return $this->findOrCreate($params['case_id'],$params['site']);
@@ -180,7 +181,7 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
      */
     public function findByCaseIdAndCheckCountry(array $params)
     {
-        $this->checkRequiredField('country', $params, 'NS\SentinelBundle\Entity\Country');
+        $this->checkRequiredField('country', $params, Country::class);
         $this->checkRequiredField('case_id', $params);
 
         $ret = $this->findWithRelations(['case_id' => $params['case_id']]);
@@ -196,7 +197,7 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
 
         /** @var BaseCase $case */
         foreach ($ret as $case) {
-            if ($case->getCountry()->getCode() == $params['country']->getCode()) {
+            if ($case->getCountry()->getCode() === $params['country']->getCode()) {
                 $found++;
                 $caseRet = $case;
 
@@ -220,7 +221,7 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
     {
         return $this->createQueryBuilder($alias)
             ->select(sprintf('%s.age_months, COUNT(%s.id) as caseCount',$alias,$alias))
-            ->groupBy(sprintf('%s.age_months',$alias));;
+            ->groupBy(sprintf('%s.age_months',$alias));
     }
 
     public function getLocationDistribution($alias)
@@ -276,6 +277,19 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
             )
             ->getQuery()
             ->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)
+            ->getResult();
+    }
+
+    public function getPotentialDuplicates(string $caseId, string $siteCode, DateTime $admDate): array
+    {
+        return $this->secure($this->createQueryBuilder('c')
+            ->where('c.id != :caseId AND c.site = :site AND c.adm_date = :admDate')
+            ->setParameters([
+                'caseId' => $caseId,
+                'site' => $this->getEntityManager()->getReference(Site::class, $siteCode),
+                'admDate' => $admDate,
+            ]))
+            ->getQuery()
             ->getResult();
     }
 }

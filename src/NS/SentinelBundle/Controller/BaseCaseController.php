@@ -2,16 +2,19 @@
 
 namespace NS\SentinelBundle\Controller;
 
+use DateTime;
 use Doctrine\ORM\UnexpectedResultException;
 use Exception;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use NS\FilteredPaginationBundle\Form\Type\LimitSelectType;
+use NS\SentinelBundle\Entity\BaseCase;
 use NS\SentinelBundle\Entity\ReferenceLabResultInterface;
 use NS\SentinelBundle\Exceptions\NonExistentCaseException;
 use NS\SentinelBundle\Form\CreateType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,7 +35,7 @@ abstract class BaseCaseController extends Controller implements TranslationConta
      *
      * @return array
      */
-    protected function index(Request $request, $class, $filterFormName, $sessionKey)
+    protected function index(Request $request, $class, $filterFormName, $sessionKey): array
     {
         $query = $this->get('doctrine.orm.entity_manager')
             ->getRepository($class)
@@ -88,11 +91,11 @@ abstract class BaseCaseController extends Controller implements TranslationConta
                 $entityMgr->flush();
 
                 return $this->redirect($this->generateUrl($type->getRoute($typeName), ['id' => $case->getId()]));
-            } else {
-                $params               = $this->index($request, $class, $filterFormName, $sessionKey);
-                $params['createForm'] = $form->createView();
-                return $params;
             }
+
+            $params               = $this->index($request, $class, $filterFormName, $sessionKey);
+            $params['createForm'] = $form->createView();
+            return $params;
         }
 
         return $this->redirect($this->generateUrl($indexRoute));
@@ -197,6 +200,32 @@ abstract class BaseCaseController extends Controller implements TranslationConta
         } catch (NonExistentCaseException $ex) {
             return $this->render('NSSentinelBundle:User:unknownCase.html.twig', ['message' => $ex->getMessage()]);
         }
+    }
+
+    protected function checkDuplicates(Request $request, string $class): JsonResponse
+    {
+        $caseId     = $request->request->get('caseId', false);
+        $siteId     = $request->request->get('siteId', false);
+        $admDateStr = $request->request->get('admDate', false);
+
+        if ($caseId === false || $siteId === false || $admDateStr === false) {
+            return new JsonResponse(['Missing parameters'], Response::HTTP_BAD_REQUEST);
+        }
+
+        /** @var BaseCase[] $cases */
+        $cases = $this->get('doctrine.orm.entity_manager')->getRepository($class)->getPotentialDuplicates($caseId, $siteId, new DateTime($admDateStr));
+        $output = [];
+        foreach ($cases as $case) {
+            $output[] = [
+                'caseId'    => $case->getCaseId(),
+                'lastName'  => $case->getLastName(),
+                'firstName' => $case->getFirstName(),
+                'district'  => $case->getDistrict(),
+                'dob'       => $case->getDob()->format('Y-m-d'),
+            ];
+        }
+
+        return new JsonResponse($output);
     }
 
     public static function getTranslationMessages(): array

@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Controller;
 
+use NS\SentinelBundle\Entity\BaseCase;
 use NS\SentinelBundle\Entity\Pneumonia\NationalLab;
 use NS\SentinelBundle\Entity\Pneumonia\Pneumonia;
 use NS\SentinelBundle\Entity\Pneumonia\ReferenceLab;
@@ -15,6 +16,7 @@ use NS\SentinelBundle\Form\Pneumonia\SiteLabType;
 use RuntimeException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -181,5 +183,16 @@ class PneumoniaController extends BaseCaseController
         }
 
         return $this->render('NSSentinelBundle:Pneumonia:show.html.twig', $ret);
+    }
+
+    /**
+     * @Route("/check-duplicates", name="pneumoniaDuplicateCheck")
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function checkDuplicatesAction(Request $request): JsonResponse
+    {
+        return $this->checkDuplicates($request, Pneumonia::class);
     }
 }

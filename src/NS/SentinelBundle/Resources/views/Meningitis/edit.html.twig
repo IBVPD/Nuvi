@@ -4,9 +4,70 @@
     {{'Edit Case %id%'|trans({'%id%': record.caseId })}}
 {% endblock %}
 
-{%block pageactions %}
+{% block pageactions %}
     <div class="pull-right">{{case_big_actions(record)}}</div>
-{%endblock %}
+{% endblock %}
+
+{% block inlinescripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        function getDuplicates(caseId, siteId, admDate) {
+            var dTable             = $('#duplicateTable');
+            var duplicateLabel     = $('#duplicateLabel');
+            var duplicateLabelText = '{{ 'Duplicates'|trans }}';
+
+            $.ajax('{{ path('meningitisDuplicateCheck') }}', {
+                method: 'POST',
+                data: {siteId: siteId, admDate: admDate, caseId: caseId},
+                success: function(data) {
+                    var rows   = '';
+                    if (data.length > 0) {
+                        rows += '<tr><th>{{ 'ibd-form.last-name'|trans }}</th>'+
+                            '<th>{{ 'ibd-form.first-name'|trans }}</th>'+
+                            '<th>{{ 'ibd-form.case-id'|trans }}</th>'+
+                            '<th>{{ 'ibd-form.dob'|trans }}</th>'+
+                            '<th>{{ 'ibd-form.district'|trans }}</th></tr>';
+
+                        data.forEach(function(item) {
+                            rows += '<tr>' +
+                                '<td>'+item.lastName+'</td>'+
+                                '<td>'+item.firstName+'</td>' +
+                                '<td>'+item.caseId+'</td>' +
+                                '<td>'+item.dob+'</td>' +
+                                '<td>'+item.district+'</td>' +
+                                '</tr>';
+                        });
+                    } else {
+                        dTable.closest('div').hide();
+                    }
+
+                    dTable.html(rows);
+                },
+                beforeSend: function() {
+                    dTable.closest('div').show();
+
+                    duplicateLabel.html(duplicateLabelText+' <i class="fa fa-spinner fa-spin"></i>');
+                },
+                complete: function() {
+                    duplicateLabel.html(duplicateLabelText);
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            var siteId = '{{ record.site.id }}';
+            var caseId = '{{ record.id }}';
+            {% if record.admDate %}
+            getDuplicates(caseId, siteId, '{{ record.admDate|date('Y-m-d') }}');
+            {% endif %}
+            $('#{{ form.admDate.vars.id }}').change(function() {
+                var admDate = new Date($(this).val());
+                var dateStr = admDate.getFullYear()+'-'+(admDate.getMonth()+1)+'-'+admDate.getDate();
+                getDuplicates(caseId, siteId, dateStr);
+            });
+        });
+    </script>
+{% endblock %}
 
 {% block body %}
     {{ form_errors(form) }}
@@ -140,6 +201,12 @@
                 <button type="submit" name="save" class="btn btn-sm btn-success">{{'Save'|trans}} <i class="fa fa-arrow-right fa fa-on-right bigger-110"></i></button>
                 <button type="submit" name="saveclose" class="btn btn-sm btn-success">{{'Save & Close'|trans}} <i class="fa fa-arrow-right fa fa-on-right bigger-110"></i></button>
                 <a href="{{ path('meningitisDelete',{'id': id}) }}" class="btn btn-sm btn-warning pull-right ns-confirm" data-confirm-message="Delete case {{ id }}? Operation is not reversible."><i class="fa fa-times"></i> {{ 'Delete'|trans }}</a>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <h4 id="duplicateLabel"></h4>
+                    <table class="table table-responsive" id="duplicateTable"></table>
+                </div>
             </div>
         </div>
     </div>

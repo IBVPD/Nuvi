@@ -2,7 +2,9 @@
 
 namespace NS\SentinelBundle\Controller;
 
+use DateTime;
 use Exception;
+use NS\SentinelBundle\Entity\RotaVirus;
 use NS\SentinelBundle\Filter\Type\RotaVirus\FilterType;
 use NS\SentinelBundle\Form\RotaVirus\CaseType;
 use NS\SentinelBundle\Form\RotaVirus\NationalLabType;
@@ -11,6 +13,7 @@ use NS\SentinelBundle\Form\RotaVirus\ReferenceLabType;
 use NS\SentinelBundle\Form\RotaVirus\SiteLabType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -167,5 +170,16 @@ class RotaVirusController extends BaseCaseController
         }
 
         return $this->render('NSSentinelBundle:RotaVirus:show.html.twig', $ret);
+    }
+
+    /**
+     * @Route("/check-duplicates", name="rotavirusDuplicateCheck")
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function checkDuplicatesAction(Request $request): JsonResponse
+    {
+        return $this->checkDuplicates($request, RotaVirus::class);
     }
 }
