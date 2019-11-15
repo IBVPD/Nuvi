@@ -48,6 +48,9 @@
 
                     duplicateLabel.html(duplicateLabelText+' <i class="fa fa-spinner fa-spin"></i>');
                 },
+                error: function() {
+                    dTable.closest('div').hide();
+                },
                 complete: function() {
                     duplicateLabel.html(duplicateLabelText);
                 }
@@ -61,9 +64,11 @@
             getDuplicates(caseId, siteId, '{{ record.admDate|date('Y-m-d') }}');
             {% endif %}
             $('#{{ form.admDate.vars.id }}').change(function() {
-                var admDate = new Date($(this).val());
-                var dateStr = admDate.getFullYear()+'-'+(admDate.getMonth()+1)+'-'+admDate.getDate();
-                getDuplicates(caseId, siteId, dateStr);
+                if ($(this).val()) {
+                    var admDate = new Date($(this).val());
+                    var dateStr = admDate.getFullYear() + '-' + (admDate.getMonth() + 1) + '-' + admDate.getDate();
+                    getDuplicates(caseId, siteId, dateStr);
+                }
             });
         });
     </script>

@@ -212,8 +212,14 @@ abstract class BaseCaseController extends Controller implements TranslationConta
             return new JsonResponse(['Missing parameters'], Response::HTTP_BAD_REQUEST);
         }
 
+        try {
+            $adminDate = new DateTime($admDateStr);
+        } catch (Exception $e) {
+            return new JsonResponse(['Missing parameters'], Response::HTTP_BAD_REQUEST);
+        }
+
         /** @var BaseCase[] $cases */
-        $cases = $this->get('doctrine.orm.entity_manager')->getRepository($class)->getPotentialDuplicates($caseId, $siteId, new DateTime($admDateStr));
+        $cases = $this->get('doctrine.orm.entity_manager')->getRepository($class)->getPotentialDuplicates($caseId, $siteId, $adminDate);
         $output = [];
         foreach ($cases as $case) {
             $output[] = [
