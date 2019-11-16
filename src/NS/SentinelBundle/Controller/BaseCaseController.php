@@ -20,11 +20,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-/**
- * Description of BaseCaseController
- *
- * @author gnat
- */
 abstract class BaseCaseController extends Controller implements TranslationContainerInterface
 {
     /**
@@ -207,19 +202,21 @@ abstract class BaseCaseController extends Controller implements TranslationConta
         $caseId     = $request->request->get('caseId', false);
         $siteId     = $request->request->get('siteId', false);
         $admDateStr = $request->request->get('admDate', false);
+        $dobDateStr = $request->request->get('dobDate', false);
 
-        if ($caseId === false || $siteId === false || $admDateStr === false) {
+        if ($caseId === false || $siteId === false || $admDateStr === false || $dobDateStr === false) {
             return new JsonResponse(['Missing parameters'], Response::HTTP_BAD_REQUEST);
         }
 
         try {
             $adminDate = new DateTime($admDateStr);
+            $dobDate   = new DateTime($dobDateStr);
         } catch (Exception $e) {
             return new JsonResponse(['Missing parameters'], Response::HTTP_BAD_REQUEST);
         }
 
         /** @var BaseCase[] $cases */
-        $cases = $this->get('doctrine.orm.entity_manager')->getRepository($class)->getPotentialDuplicates($caseId, $siteId, $adminDate);
+        $cases = $this->get('doctrine.orm.entity_manager')->getRepository($class)->getPotentialDuplicates($caseId, $siteId, $adminDate, $dobDate);
         $output = [];
         foreach ($cases as $case) {
             $output[] = [

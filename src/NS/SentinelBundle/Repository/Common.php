@@ -280,14 +280,15 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
             ->getResult();
     }
 
-    public function getPotentialDuplicates(string $caseId, string $siteCode, DateTime $admDate): array
+    public function getPotentialDuplicates(string $caseId, string $siteCode, DateTime $admDate, DateTime $dobDate): array
     {
         return $this->secure($this->createQueryBuilder('c')
-            ->where('c.id != :caseId AND c.site = :site AND c.adm_date = :admDate')
+            ->where('c.id != :caseId AND c.site = :site AND c.adm_date = :admDate AND c.birthdate = :dobDate')
             ->setParameters([
                 'caseId' => $caseId,
                 'site' => $this->getEntityManager()->getReference(Site::class, $siteCode),
                 'admDate' => $admDate,
+                'dobDate' => $dobDate
             ]))
             ->getQuery()
             ->getResult();

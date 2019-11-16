@@ -11,14 +11,14 @@
 {% block inlinescripts %}
     {{ parent() }}
     <script type="text/javascript">
-        function getDuplicates(caseId, siteId, admDate) {
+        function getDuplicates(caseId, siteId, admDate, dobDate) {
             var dTable             = $('#duplicateTable');
             var duplicateLabel     = $('#duplicateLabel');
-            var duplicateLabelText = '{{ 'Duplicates'|trans }}';
+            var duplicateLabelText = '{{ 'Potential Duplicates Check'|trans }}';
 
             $.ajax('{{ path('rotavirusDuplicateCheck') }}', {
                 method: 'POST',
-                data: {siteId: siteId, admDate: admDate, caseId: caseId},
+                data: {siteId: siteId, admDate: admDate, caseId: caseId, dobDate: dobDate},
                 success: function(data) {
                     var rows   = '';
                     if (data.length > 0) {
@@ -59,14 +59,29 @@
         $(document).ready(function() {
             var siteId = '{{ record.site.id }}';
             var caseId = '{{ record.id }}';
-            {% if record.admDate %}
-                getDuplicates(caseId, siteId, '{{ record.admDate|date('Y-m-d') }}');
+            {% if record.admDate and record.birthdate %}
+            getDuplicates(caseId, siteId, '{{ record.admDate|date('Y-m-d') }}', '{{ record.birthdate|date('Y-m-d') }}');
             {% endif %}
-            $('#{{ form.admDate.vars.id }}').change(function() {
-                if ($(this).val()) {
-                    var admDate = new Date($(this).val());
-                    var dateStr = admDate.getFullYear() + '-' + (admDate.getMonth() + 1) + '-' + admDate.getDate();
-                    getDuplicates(caseId, siteId, dateStr);
+            var admDate = $('#{{ form.admDate.vars.id }}');
+            var dobDate = $('#{{ form.birthdate.vars.id }}');
+            admDate.change(function() {
+                if ($(this).val() && dobDate.val()) {
+                    var admDay = new Date($(this).val());
+                    var admDateStr = admDay.getFullYear() + '-' + (admDay.getMonth() + 1) + '-' + admDay.getDate();
+
+                    var dobDay = new Date(dobDate.val());
+                    var dobDateStr = dobDay.getFullYear() + '-' + (dobDay.getMonth() + 1) + '-' + dobDay.getDate();
+                    getDuplicates(caseId, siteId, admDateStr, dobDateStr);
+                }
+            });
+            dobDate.change(function() {
+                if ($(this).val() && admDate.val()) {
+                    var admDay = new Date(admDate.val());
+                    var admDateStr = admDay.getFullYear() + '-' + (admDay.getMonth() + 1) + '-' + admDay.getDate();
+
+                    var dobDay = new Date($(this).val());
+                    var dobDateStr = dobDay.getFullYear() + '-' + (dobDay.getMonth() + 1) + '-' + dobDay.getDate();
+                    getDuplicates(caseId, siteId, admDateStr, dobDateStr);
                 }
             });
         });
