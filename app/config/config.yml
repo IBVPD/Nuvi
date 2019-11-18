@@ -201,7 +201,7 @@ jms_translation:
   configs:
     app:
       output_dir: "%kernel.root_dir%/Resources/translations"
-      dirs: [ "%kernel.root_dir%", "@NSSentinelBundle", "@NSImportBundle", "@NSApiBundle" ]
+      dirs: [ "%kernel.root_dir%/Resources/views", "@NSSentinelBundle", "@NSImportBundle", "@NSApiBundle" ]
       excluded_names: [ "*TestCase.php", "*Test.php", "bootstrap.php.cache", "*TestCase.php", ]
       excluded_dirs: [ cache, data, logs, Tests ]
       output_format: xliff

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2018-07-30T11:41:40Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
+  <file date="2019-11-17T21:22:32Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -444,9 +444,9 @@
         <source>Access Restrictions</source>
         <target>Access Restrictions</target>
       </trans-unit>
-      <trans-unit id="c3cd636a585b20c40ac2df5ffb403e83cb2eef51" resname="Actions">
-        <source>Actions</source>
-        <target>Actions</target>
+      <trans-unit id="420b919d6a1a3141b91accbc24edf2fb459abf80" resname="Acute">
+        <source>Acute</source>
+        <target state="new">Acute</target>
       </trans-unit>
       <trans-unit id="5fb2c64f6220819aeec6e32589936d80f132d347" resname="Admission Data">
         <source>Admission Data</source>
@@ -627,6 +627,10 @@
       <trans-unit id="5e752850cf4bcb6c355ac6525614c15eeaa89010" resname="Cases per Month Distribution">
         <source>Cases per Month Distribution</source>
         <target>Cases per Month Distribution</target>
+      </trans-unit>
+      <trans-unit id="579628c0a5a4f88b292e6de7985b5de35538d7c2" resname="Chronic">
+        <source>Chronic</source>
+        <target state="new">Chronic</target>
       </trans-unit>
       <trans-unit id="719ea396ad92e01b4757ec2b93bb1e5f270f771d" resname="Clear">
         <source>Clear</source>
@@ -888,6 +892,10 @@
         <source>Enter value or Select</source>
         <target>Enter value or Select</target>
       </trans-unit>
+      <trans-unit id="28297e2ace59d8adbfea41ba6eba2706e5a55307" resname="Export Only">
+        <source>Export Only</source>
+        <target>Export Only</target>
+      </trans-unit>
       <trans-unit id="203e7ef5f830441d0df7649683b35d0002b19b13" resname="Export as Excel (may have row limit issues)">
         <source>Export as Excel (may have row limit issues)</source>
         <target>Export as Excel (may have row limit issues)</target>
@@ -1035,10 +1043,6 @@
       <trans-unit id="44dd14f03d1c5a08fdcb240040c5d1ecea86ae23" resname="I forgot my password">
         <source>I forgot my password</source>
         <target>I forgot my password</target>
-      </trans-unit>
-      <trans-unit id="5cf2c55914c62a448334c6f264ec7223d032a277" resname="IBD">
-        <source>IBD</source>
-        <target>IBD</target>
       </trans-unit>
       <trans-unit id="2a71f5e790a5bd16a54986e1eb5e7a3a69846528" resname="IV fluids">
         <source>IV fluids</source>
@@ -1212,6 +1216,10 @@
         <source>Meningitis</source>
         <target>Meningitis</target>
       </trans-unit>
+      <trans-unit id="3fac819ab2ecc9bfeaafe781db8308cf6f04c810" resname="Meningitis Export Filters">
+        <source>Meningitis Export Filters</source>
+        <target>Meningitis Export Filters</target>
+      </trans-unit>
       <trans-unit id="7e4ac6803c9159c694f63d089cb06b2519c16aba" resname="Methods">
         <source>Methods</source>
         <target>Methods</target>
@@ -1255,6 +1263,10 @@
       <trans-unit id="4c9d813165b8a1f4f350c44565ac62a003f5b4c4" resname="Multiple (i.e. suspected meningitis and/or pneumonia and/or sepsis)">
         <source>Multiple (i.e. suspected meningitis and/or pneumonia and/or sepsis)</source>
         <target>Multiple (i.e. suspected meningitis and/or pneumonia and/or sepsis)</target>
+      </trans-unit>
+      <trans-unit id="08d2e98e6754af941484848930ccbaddfefe13d6" resname="N/A">
+        <source>N/A</source>
+        <target>N/A</target>
       </trans-unit>
       <trans-unit id="a59ba24d63e9c67fe81bbc277e1424777efe1eda" resname="NL">
         <source>NL</source>
@@ -1530,7 +1542,7 @@
       </trans-unit>
       <trans-unit id="a7942f226ed1080246f2b2fde35b11e19a91e6a8" resname="Please Select...">
         <source>Please Select...</source>
-        <target>Please Select...</target>
+        <target state="new">Please Select...</target>
       </trans-unit>
       <trans-unit id="6d8d3ee277015995a8faf994cfc772e581510f44" resname="Please review each tab for error messages">
         <source>Please review each tab for error messages</source>
@@ -1544,13 +1556,25 @@
         <source>Pleural effusion</source>
         <target>Pleural effusion</target>
       </trans-unit>
+      <trans-unit id="619e0e20aa9fcc629b91c73b82c6da3829ec93ed" resname="Pneumonia">
+        <source>Pneumonia</source>
+        <target state="new">Pneumonia</target>
+      </trans-unit>
       <trans-unit id="35ecdb41766f4358b6b9e62630d28252592f6460" resname="Pneumonia / Sepsis">
         <source>Pneumonia / Sepsis</source>
         <target>Pneumonia</target>
       </trans-unit>
+      <trans-unit id="b02cbe309e226c21a2893d2bc08f4fae0c5c95da" resname="Pneumonia Export Filters">
+        <source>Pneumonia Export Filters</source>
+        <target state="new">Pneumonia Export Filters</target>
+      </trans-unit>
       <trans-unit id="06fe9ace9667aa168708159444d8188edd059f54" resname="Positive">
         <source>Positive</source>
         <target>Positive</target>
+      </trans-unit>
+      <trans-unit id="16f95ae6458bcb16b1d1eb572d53dd83b95d098f" resname="Potential Duplicates Check">
+        <source>Potential Duplicates Check</source>
+        <target state="new">Potential Duplicates Check</target>
       </trans-unit>
       <trans-unit id="dd19a61687b74ab714b7046bdd45a3ab7f0b578c" resname="Preferred Language">
         <source>Preferred Language</source>
@@ -1559,6 +1583,10 @@
       <trans-unit id="3d996266451bcce73b84f638cfa45919b2999b46" resname="Probable">
         <source>Probable</source>
         <target>Probable</target>
+      </trans-unit>
+      <trans-unit id="ff4fc0276e960c348647b647235f68200887c9d2" resname="Profile">
+        <source>Profile</source>
+        <target state="new">Profile</target>
       </trans-unit>
       <trans-unit id="7d354af7d8f455a8c73f4e5b15530bd311d0861a" resname="Quellung">
         <source>Quellung</source>
@@ -1584,6 +1612,10 @@
         <source>Recent Cases</source>
         <target>Recent Cases</target>
       </trans-unit>
+      <trans-unit id="aac6b21dddf7e2e5c39ca299949d480fda8d7ca1" resname="Recent Uploads">
+        <source>Recent Uploads</source>
+        <target state="new">Recent Uploads</target>
+      </trans-unit>
       <trans-unit id="10e7cd5c43180ce85172bd09b81b2be6cc043101" resname="Record Creation Date - From">
         <source>Record Creation Date - From</source>
         <target>Record Creation Date - From</target>
@@ -1591,6 +1623,10 @@
       <trans-unit id="61bfc42381e6d87c1e8610b9e130f59d4b110574" resname="Record Creation Date - To">
         <source>Record Creation Date - To</source>
         <target>Record Creation Date - To</target>
+      </trans-unit>
+      <trans-unit id="eb781f028e2363134e21b09e22e75dfe2b64ac25" resname="Redirect Uris">
+        <source>Redirect Uris</source>
+        <target state="new">Redirect Uris</target>
       </trans-unit>
       <trans-unit id="e53938a82e4c619e6efb6f1f7b65ff2d99368bd2" resname="Reference Lab">
         <source>Reference Lab</source>
@@ -1624,6 +1660,14 @@
         <source>Region Import/Export</source>
         <target>Region Import/Export</target>
       </trans-unit>
+      <trans-unit id="c4e048a9e4ac3729dcefa4b2fd4ac0cc4482f81f" resname="Registered Clients">
+        <source>Registered Clients</source>
+        <target state="new">Registered Clients</target>
+      </trans-unit>
+      <trans-unit id="c837daf1098e96127c121b8402489f349b8acc9a" resname="Remote Systems">
+        <source>Remote Systems</source>
+        <target state="new">Remote Systems</target>
+      </trans-unit>
       <trans-unit id="bab9bc458f38d4d574e5baa63c72341db6ddaa30" resname="Repeat Password">
         <source>Repeat Password</source>
         <target>Repeat Password</target>
@@ -1654,7 +1698,11 @@
       </trans-unit>
       <trans-unit id="38c3c12e41c518ad692ecbfc7a05cbaad9c24fc6" resname="Rotavirus">
         <source>Rotavirus</source>
-        <target state="new">Rotavirus</target>
+        <target>Rotavirus</target>
+      </trans-unit>
+      <trans-unit id="82647939f2b94f81cdd6bdc6f0f78c08dd399233" resname="Rotavirus Export Filters">
+        <source>Rotavirus Export Filters</source>
+        <target>Rotavirus Export Filters</target>
       </trans-unit>
       <trans-unit id="19e30cbb1fe4142ac663856b78b6b9efcadb3936" resname="Sample &amp; Elisa">
         <source><![CDATA[Sample & Elisa]]></source>
@@ -3392,6 +3440,10 @@
         <source>site-assigned-case-id</source>
         <target>Case ID</target>
       </trans-unit>
+      <trans-unit id="ee977806d7286510da8b9a7492ba58e2484c0ecc" resname="token">
+        <source>token</source>
+        <target state="new">token</target>
+      </trans-unit>
       <trans-unit id="ca9cc8d69f176f7047b34801840f6d7d63886632" resname="≥ 100 cases">
         <source>≥ 100 cases</source>
         <target>≥ 100 cases</target>
@@ -3435,27 +3487,27 @@
       </trans-unit>
       <trans-unit id="accf40c89baa4fa88e6a7ff11e1f805beecafd3f" resname="Created">
         <source>Created</source>
-        <target state="new">Created</target>
+        <target>Created</target>
       </trans-unit>
       <trans-unit id="5c051b1bba7d22157050c9bf8d2bf196f0fab730" resname="DB Column">
         <source>DB Column</source>
-        <target state="new">DB Column</target>
+        <target>DB Column</target>
       </trans-unit>
       <trans-unit id="7b45bb0be2b16ffdf5df6cb9b883f9bf1f5cfa68" resname="Drop?">
         <source>Drop?</source>
-        <target state="new">Drop?</target>
+        <target>Drop?</target>
       </trans-unit>
       <trans-unit id="805e86a8cbf628e38e4c45612c005a504009e79a" resname="Errors">
         <source>Errors</source>
-        <target state="new">Errors</target>
+        <target>Errors</target>
       </trans-unit>
       <trans-unit id="f3e4fadb9e370a1e2c0c622c01fc8c77daf93a2c" resname="Export">
         <source>Export</source>
-        <target state="new">Export</target>
+        <target>Export</target>
       </trans-unit>
       <trans-unit id="2c3cafa4db3f3e1e51b3dff4303502dbe42b7a89" resname="File">
         <source>File</source>
-        <target state="new">File</target>
+        <target>File</target>
       </trans-unit>
       <trans-unit id="36311f89fed6588550efc9df752b8d9f3922e8a6" resname="File Record Count">
         <source>File Record Count</source>
@@ -3499,11 +3551,11 @@
       </trans-unit>
       <trans-unit id="74ae4e0c7523460b69432e84d1de2ccffafe5323" resname="NS\SentinelBundle\Entity\IBD">
         <source>NS\SentinelBundle\Entity\IBD</source>
-        <target state="new">NS\SentinelBundle\Entity\IBD</target>
+        <target>NS\SentinelBundle\Entity\IBD</target>
       </trans-unit>
       <trans-unit id="0e38c162ba4dc421d32216a0d4f7b0d6bf09dd1d" resname="NS\SentinelBundle\Entity\RotaVirus">
         <source>NS\SentinelBundle\Entity\RotaVirus</source>
-        <target state="new">NS\SentinelBundle\Entity\RotaVirus</target>
+        <target>NS\SentinelBundle\Entity\RotaVirus</target>
       </trans-unit>
       <trans-unit id="70440046a3dc2e079f23ee1c57dfa76669b732aa" resname="Notes">
         <source>Notes</source>
@@ -3512,10 +3564,6 @@
       <trans-unit id="1ddc4c9044f546bb068b7278a50bff494b12b425" resname="Please Select">
         <source>Please Select</source>
         <target state="new">Please Select</target>
-      </trans-unit>
-      <trans-unit id="a7942f226ed1080246f2b2fde35b11e19a91e6a8" resname="Please Select...">
-        <source>Please Select...</source>
-        <target state="new">Please Select...</target>
       </trans-unit>
       <trans-unit id="77a6375224e36db93fce73f97c1a77ea403437cb" resname="RRL">
         <source>RRL</source>
@@ -3531,35 +3579,35 @@
       </trans-unit>
       <trans-unit id="1979a27db423101d398f8adf0cafb84c156c0e34" resname="RotaVirus">
         <source>RotaVirus</source>
-        <target state="new">RotaVirus</target>
+        <target>RotaVirus</target>
       </trans-unit>
       <trans-unit id="12b4c26d078a8505efb10d9b6e16abe1699c3476" resname="RotaVirus Export Filters">
         <source>RotaVirus Export Filters</source>
-        <target state="new">RotaVirus Export Filters</target>
+        <target>RotaVirus Export Filters</target>
       </trans-unit>
       <trans-unit id="f918892a0be28ec22ae2148c6c8b20e089383319" resname="Successes">
         <source>Successes</source>
-        <target state="new">Successes</target>
+        <target>Successes</target>
       </trans-unit>
       <trans-unit id="d7932a2917dddbb80846320a21d156b7f66a71c7" resname="Successful">
         <source>Successful</source>
-        <target state="new">Successful</target>
+        <target>Successful</target>
       </trans-unit>
       <trans-unit id="f0ff99eb96b6db85f97fe3698886281eda22ed6c" resname="There were errors with the form">
         <source>There were errors with the form</source>
-        <target state="new">There were errors with the form</target>
+        <target>There were errors with the form</target>
       </trans-unit>
       <trans-unit id="6e5b7a60980482ab39ae77b25489457b817517cd" resname="Validator">
         <source>Validator</source>
-        <target state="new">Validator</target>
+        <target>Validator</target>
       </trans-unit>
       <trans-unit id="1430f976c596795274458abcfbc4f280cbfcebac" resname="Warnings">
         <source>Warnings</source>
-        <target state="new">Warnings</target>
+        <target>Warnings</target>
       </trans-unit>
       <trans-unit id="5e0072329d5085c5bc5c23c2fa873dd42900958b" resname="clone">
         <source>clone</source>
-        <target state="new">clone</target>
+        <target>clone</target>
       </trans-unit>
       <trans-unit id="3add7b9612102f2a7dbe4ed4fe886e07e847c24d" resname="notes">
         <source>notes</source>
@@ -3604,47 +3652,43 @@
             </trans-unit>
             <trans-unit id="6e157c5da4410b7e9de85f5c93026b9176e69064" resname="Create">
               <source>Create</source>
-              <target state="new">Create</target>
+              <target>Create</target>
             </trans-unit>
             <trans-unit id="c06e0f956b05030696eddd793973b65847f6ac98" resname="Create Client">
               <source>Create Client</source>
-              <target state="new">Create Client</target>
+              <target>Create Client</target>
             </trans-unit>
             <trans-unit id="f88307351d517b9f4d800dd2079ce88a29b79f7c" resname="Create Remote Server">
               <source>Create Remote Server</source>
-              <target state="new">Create Remote Server</target>
+              <target>Create Remote Server</target>
             </trans-unit>
             <trans-unit id="f6fdbe48dc54dd86f63097a03bd24094dedd713a" resname="Delete">
               <source>Delete</source>
-              <target state="new">Delete</target>
+              <target>Delete</target>
             </trans-unit>
             <trans-unit id="5301648dcf6b53cefc9ed52999aaa92d4603cae0" resname="Edit">
               <source>Edit</source>
-              <target state="new">Edit</target>
+              <target>Edit</target>
             </trans-unit>
             <trans-unit id="2ad494e599facd09bdac6a75bec9720534d16f7e" resname="Edit &quot;%name%&quot; Client">
               <source>Edit "%name%" Client</source>
-              <target state="new">Edit "%name%" Client</target>
+              <target>Edit "%name%" Client</target>
             </trans-unit>
             <trans-unit id="ea0bba52a79d886478f3dcbc88cf0bbd189fbc63" resname="Edit &quot;%name%&quot; Remote Server">
               <source>Edit "%name%" Remote Server</source>
-              <target state="new">Edit "%name%" Remote Server</target>
+              <target>Edit "%name%" Remote Server</target>
             </trans-unit>
             <trans-unit id="bd9ac8b6e439620d4796277c0406d95602b3ed3c" resname="Initiate authorization">
               <source>Initiate authorization</source>
-              <target state="new">Initiate authorization</target>
+              <target>Initiate authorization</target>
             </trans-unit>
             <trans-unit id="9d3e073951256de1876f511b9c2d4b5eec66839a" resname="Lists Clients and Remote Systems">
               <source>Lists Clients and Remote Systems</source>
-              <target state="new">Lists Clients and Remote Systems</target>
+              <target>Lists Clients and Remote Systems</target>
             </trans-unit>
             <trans-unit id="709a23220f2c3d64d1e1d6d18c4d5280f8d82fca" resname="Name">
               <source>Name</source>
               <target state="new">Name</target>
-            </trans-unit>
-            <trans-unit id="1ddc4c9044f546bb068b7278a50bff494b12b425" resname="Please Select">
-              <source>Please Select</source>
-              <target state="new">Please Select</target>
             </trans-unit>
             <trans-unit id="eb781f028e2363134e21b09e22e75dfe2b64ac25" resname="Redirect Uris">
               <source>Redirect Uris</source>
@@ -3656,67 +3700,67 @@
             </trans-unit>
             <trans-unit id="c837daf1098e96127c121b8402489f349b8acc9a" resname="Remote Systems">
               <source>Remote Systems</source>
-              <target state="new">Remote Systems</target>
+              <target>Remote Systems</target>
             </trans-unit>
             <trans-unit id="66fc8d74951154cf2e8f10d49c7c01da81a2ede6" resname="Token Endpoint">
               <source>Token Endpoint</source>
-              <target state="new">Token Endpoint</target>
+              <target>Token Endpoint</target>
             </trans-unit>
             <trans-unit id="54d6c856e434ad647bb77ea486fe647a4f6e524a" resname="authorization_code">
               <source>authorization_code</source>
-              <target state="new">authorization_code</target>
+              <target>authorization_code</target>
             </trans-unit>
             <trans-unit id="7e6a659833d088bb7e2c147bd8749f570dcbd78a" resname="client_credentials">
               <source>client_credentials</source>
-              <target state="new">client_credentials</target>
+              <target>client_credentials</target>
             </trans-unit>
             <trans-unit id="ff432b467f0803c332354c8259dbf1d890ab808c" resname="extensions">
               <source>extensions</source>
-              <target state="new">extensions</target>
+              <target>extensions</target>
             </trans-unit>
             <trans-unit id="a6e7649de9b734a152be46c3a918503024eef8bb" resname="form.client-name">
               <source>form.client-name</source>
-              <target state="new">form.client-name</target>
+              <target>Client Name</target>
             </trans-unit>
             <trans-unit id="66cb22654694f8409e8f14466d84df75f52fc022" resname="form.client.allowed-grant-types">
               <source>form.client.allowed-grant-types</source>
-              <target state="new">form.client.allowed-grant-types</target>
+              <target>Grant Types</target>
             </trans-unit>
             <trans-unit id="ef58d2f6abe76ab9167b4134cec42175bcceb3c1" resname="form.client.redirect-uris">
               <source>form.client.redirect-uris</source>
-              <target state="new">form.client.redirect-uris</target>
+              <target>Redirect URLs</target>
             </trans-unit>
             <trans-unit id="3fbe0bc45c20878067c7ebb93f21ccb47ec971fc" resname="form.client.submit-button">
               <source>form.client.submit-button</source>
-              <target state="new">form.client.submit-button</target>
+              <target>Submit</target>
             </trans-unit>
             <trans-unit id="fcf91e263b9f3e9044a92ba158db099a6ef3c970" resname="form.remote-auth-endpoint">
               <source>form.remote-auth-endpoint</source>
-              <target state="new">form.remote-auth-endpoint</target>
+              <target>Auth Endpoint</target>
             </trans-unit>
             <trans-unit id="68bbffa05e744396d1e3a7cd6d4c56b197a64b9d" resname="form.remote-client-id">
               <source>form.remote-client-id</source>
-              <target state="new">form.remote-client-id</target>
+              <target>Client id</target>
             </trans-unit>
             <trans-unit id="40aed36d1e72f9c3889ce29e247edf1739816896" resname="form.remote-client-secret">
               <source>form.remote-client-secret</source>
-              <target state="new">form.remote-client-secret</target>
+              <target>Client Secret</target>
             </trans-unit>
             <trans-unit id="681ade7c87a20f495cf3025436cdb99bdfed08bb" resname="form.remote-name">
               <source>form.remote-name</source>
-              <target state="new">form.remote-name</target>
+              <target>Remote Name</target>
             </trans-unit>
             <trans-unit id="3706986e9a43c7d4101db87a93e090b14d3efa30" resname="form.remote-redirect-url">
               <source>form.remote-redirect-url</source>
-              <target state="new">form.remote-redirect-url</target>
+              <target>Redirect URL</target>
             </trans-unit>
             <trans-unit id="47e4f5e9af47bf1c90fb0435eb8ada75ad5152ab" resname="form.remote-submit-button">
               <source>form.remote-submit-button</source>
-              <target state="new">form.remote-submit-button</target>
+              <target>Submit</target>
             </trans-unit>
             <trans-unit id="682c56d82c634c3170b165148d986b2ceb003188" resname="form.remote-token-endpoint">
               <source>form.remote-token-endpoint</source>
-              <target state="new">form.remote-token-endpoint</target>
+              <target>Token Endpoint</target>
             </trans-unit>
             <trans-unit id="5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8" resname="password">
               <source>password</source>
