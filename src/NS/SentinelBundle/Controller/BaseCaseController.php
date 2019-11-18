@@ -225,6 +225,7 @@ abstract class BaseCaseController extends Controller implements TranslationConta
                 'firstName' => $case->getFirstName(),
                 'district'  => $case->getDistrict(),
                 'dob'       => $case->getDob()->format('Y-m-d'),
+                'admDate'   => $case->getAdmDate()->format('Y-m-d'),
             ];
         }
 
