@@ -209,13 +209,16 @@
                 <button type="submit" name="saveclose" class="btn btn-sm btn-success">{{'Save & Close'|trans}} <i class="fa fa-arrow-right fa fa-on-right bigger-110"></i></button>
                 <a href="{{ path('rotavirusDelete',{'id': id}) }}" class="btn btn-sm btn-warning pull-right ns-confirm" data-confirm-message="Delete case {{ id }}? Operation is not reversible."><i class="fa fa-times"></i> {{ 'Delete'|trans }}</a>
             </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <h4 id="duplicateLabel"></h4>
-                    <table class="table table-responsive" id="duplicateTable"></table>
-                </div>
-            </div>
         </div>
     </div>
     {{ form_end(form) }}
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="alert alert-info">
+                <h4 id="duplicateLabel"></h4>
+                <table class="table table-responsive" id="duplicateTable"></table>
+            </div>
+        </div>
+    </div>
 {% endblock %}
