@@ -169,19 +169,14 @@ class UserAdmin extends AbstractAdmin
     private function handleAcl(User $user)
     {
         if ($user->getAcls()) {
-            foreach ($user->getAcls() as $a) {
-                $a->setUser($user);
-            }
+            $entityManager = $this->getModelManager()->getEntityManager(Site::class);
 
-            if (count($user->getAcls()) === 1) {
-                /** @var ACL $acl */
-                $acl = $user->getAcls()->first();
+            foreach ($user->getAcls() as $acl) {
+                $acl->setUser($user);
                 try {
                     switch ($acl->getType()->getValue()) {
                         case Role::SITE:
                         case Role::LAB:
-                            $entityManager = $this->getModelManager()->getEntityManager(Site::class);
-
                             /** @var Site $site */
                             $site = $entityManager
                                     ->getRepository(Site::class)
@@ -199,9 +194,6 @@ class UserAdmin extends AbstractAdmin
                         case Role::NL_LAB:
                         case Role::RRL_LAB:
                         case Role::COUNTRY:
-                            /** @var EntityManagerInterface $entityManager */
-                            $entityManager = $this->getModelManager()->getEntityManager(Country::class);
-
                             /** @var Country $country */
                             $country = $entityManager
                                 ->getRepository(Country::class)
@@ -216,9 +208,7 @@ class UserAdmin extends AbstractAdmin
                             $user->setRegion($country->getRegion());
                             break;
                         case Role::REGION:
-                            $region = $this->getModelManager()
-                                ->getEntityManager(Region::class)
-                                ->getReference(Region::class, $acl->getObjectId());
+                            $region = $entityManager->getReference(Region::class, $acl->getObjectId());
 
                             $user->setRegion($region);
                             break;
