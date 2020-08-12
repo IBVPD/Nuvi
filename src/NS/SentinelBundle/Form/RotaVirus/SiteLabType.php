@@ -35,8 +35,6 @@ class SiteLabType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $isPaho = $this->authChecker->isGranted('ROLE_AMR');
-
         $builder
             ->add('received', DatePickerType::class, ['required' => true, 'label' => 'rotavirus-form.site-lab-sample-received'])
             ->add('adequate', TripleChoice::class, ['required' => true, 'label' => 'rotavirus-form.site-lab-adequate'])
@@ -48,15 +46,6 @@ class SiteLabType extends AbstractType
             ->add('elisaExpiryDate', DatePickerType::class, ['required' => false, 'label' => 'rotavirus-form.site-lab-elisa-kit-expiry-date', 'hidden' => ['parent' => 'elisaDone', 'value' => TripleChoice::YES]])
             ->add('elisaTestDate', DatePickerType::class, ['required' => false, 'label' => 'rotavirus-form.site-lab-test-date', 'hidden' => ['parent' => 'elisaDone', 'value' => TripleChoice::YES]])
             ->add('elisaResult', ElisaResult::class, ['required' => false, 'label' => 'rotavirus-form.site-lab-result', 'hidden' => ['parent' => 'elisaDone', 'value' => TripleChoice::YES]]);
-
-        if (!$isPaho) {
-            $builder
-                ->add('genotypingDate', DatePickerType::class, ['required' => false, 'label' => 'rotavirus-form.site-lab-genotyping-date',])
-                ->add('genotypingResultG', GenotypeResultG::class, ['required' => false, 'label' => 'rotavirus-form.site-lab-genotyping-result-g'])
-                ->add('genotypingResultGSpecify', null, ['required' => false, 'label' => 'rotavirus-form.site-lab-genotyping-result-g-specify', 'hidden' => ['parent' => 'genotypingResultG', 'value' => GenotypeResultG::OTHER]])
-                ->add('genotypeResultP', GenotypeResultP::class, ['required' => false, 'label' => 'rotavirus-form.site-lab-genotype-result-p'])
-                ->add('genotypeResultPSpecify', null, ['required' => false, 'label' => 'rotavirus-form.site-lab-genotype-result-p-specify', 'hidden' => ['parent' => 'genotypeResultP', 'value' => GenotypeResultP::OTHER]]);
-        }
 
         $builder->addEventListener(FormEvents::POST_SET_DATA, [$this, 'postSetData']);
     }
@@ -79,6 +68,17 @@ class SiteLabType extends AbstractType
                 ->add('stoolSentToNL', TripleChoice::class, ['required' => false, 'label' => 'rotavirus-form.stoolSentToNL'])
                 ->add('stoolSentToNLDate', DatePickerType::class, ['required' => false, 'label' => 'rotavirus-form.stoolSentToNLDate', 'hidden' => ['parent' => 'stoolSentToNL', 'value' => TripleChoice::YES]]);
         }
+
+        $isPaho = $this->authChecker->isGranted('ROLE_AMR');
+        if (!$isPaho || ($country instanceof Country && $country->getRegion()->getCode() !== 'AMR')) {
+            $form
+                ->add('genotypingDate', DatePickerType::class, ['required' => false, 'label' => 'rotavirus-form.site-lab-genotyping-date',])
+                ->add('genotypingResultG', GenotypeResultG::class, ['required' => false, 'label' => 'rotavirus-form.site-lab-genotyping-result-g'])
+                ->add('genotypingResultGSpecify', null, ['required' => false, 'label' => 'rotavirus-form.site-lab-genotyping-result-g-specify', 'hidden' => ['parent' => 'genotypingResultG', 'value' => GenotypeResultG::OTHER]])
+                ->add('genotypeResultP', GenotypeResultP::class, ['required' => false, 'label' => 'rotavirus-form.site-lab-genotype-result-p'])
+                ->add('genotypeResultPSpecify', null, ['required' => false, 'label' => 'rotavirus-form.site-lab-genotype-result-p-specify', 'hidden' => ['parent' => 'genotypeResultP', 'value' => GenotypeResultP::OTHER]]);
+        }
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void
