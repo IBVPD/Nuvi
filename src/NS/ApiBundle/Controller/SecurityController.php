@@ -8,8 +8,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Description of SecurityController
- *
  * @author gnat
  * @Route("/oauth/v2/auth")
  */

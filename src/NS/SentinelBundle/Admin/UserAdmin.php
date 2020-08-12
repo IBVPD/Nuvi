@@ -171,51 +171,54 @@ class UserAdmin extends AbstractAdmin
         if ($user->getAcls()) {
             $entityManager = $this->getModelManager()->getEntityManager(Site::class);
 
-            foreach ($user->getAcls() as $acl) {
-                $acl->setUser($user);
-                try {
-                    switch ($acl->getType()->getValue()) {
-                        case Role::SITE:
-                        case Role::LAB:
-                            /** @var Site $site */
-                            $site = $entityManager
-                                    ->getRepository(Site::class)
-                                    ->createQueryBuilder('s')
-                                    ->addSelect('r,c')
-                                    ->innerJoin('s.country','c')
-                                    ->innerJoin('c.region','r')
-                                    ->where('s.code = :siteId')
-                                    ->setParameter('siteId',$acl->getObjectId())
-                                    ->getQuery()
-                                    ->getSingleResult();
+            $acl = null;
+            foreach ($user->getAcls() as $a) {
+                $a->setUser($user);
+                $acl = $a;
+            }
 
-                            $user->setRegion($site->getCountry()->getRegion());
-                            break;
-                        case Role::NL_LAB:
-                        case Role::RRL_LAB:
-                        case Role::COUNTRY:
-                            /** @var Country $country */
-                            $country = $entityManager
-                                ->getRepository(Country::class)
-                                ->createQueryBuilder('c')
-                                ->addSelect('r')
-                                ->innerJoin('c.region','r')
-                                ->where('c.code = :countryId')
-                                ->setParameter('countryId',$acl->getObjectId())
-                                ->getQuery()
-                                ->getSingleResult();
+            try {
+                switch ($acl->getType()->getValue()) {
+                    case Role::SITE:
+                    case Role::LAB:
+                        /** @var Site $site */
+                        $site = $entityManager
+                            ->getRepository(Site::class)
+                            ->createQueryBuilder('s')
+                            ->addSelect('r,c')
+                            ->innerJoin('s.country','c')
+                            ->innerJoin('c.region','r')
+                            ->where('s.code = :siteId')
+                            ->setParameter('siteId',$acl->getObjectId())
+                            ->getQuery()
+                            ->getSingleResult();
 
-                            $user->setRegion($country->getRegion());
-                            break;
-                        case Role::REGION:
-                            $region = $entityManager->getReference(Region::class, $acl->getObjectId());
+                        $user->setRegion($site->getCountry()->getRegion());
+                        break;
+                    case Role::NL_LAB:
+                    case Role::RRL_LAB:
+                    case Role::COUNTRY:
+                        /** @var Country $country */
+                        $country = $entityManager
+                            ->getRepository(Country::class)
+                            ->createQueryBuilder('c')
+                            ->addSelect('r')
+                            ->innerJoin('c.region','r')
+                            ->where('c.code = :countryId')
+                            ->setParameter('countryId',$acl->getObjectId())
+                            ->getQuery()
+                            ->getSingleResult();
 
-                            $user->setRegion($region);
-                            break;
-                    }
-                } catch(UnexpectedResultException $exception) {
+                        $user->setRegion($country->getRegion());
+                        break;
+                    case Role::REGION:
+                        $region = $entityManager->getReference(Region::class, $acl->getObjectId());
 
+                        $user->setRegion($region);
+                        break;
                 }
+            } catch(UnexpectedResultException $exception) {
+
             }
         }
     }
