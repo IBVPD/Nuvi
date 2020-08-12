@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2019-11-17T21:22:46Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
+  <file date="2020-08-11T12:48:18Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -440,7 +440,7 @@
       </trans-unit>
       <trans-unit id="420b919d6a1a3141b91accbc24edf2fb459abf80" resname="Acute">
         <source>Acute</source>
-        <target state="new">Acute</target>
+        <target>Agudo</target>
       </trans-unit>
       <trans-unit id="5fb2c64f6220819aeec6e32589936d80f132d347" resname="Admission Data">
         <source>Admission Data</source>
@@ -460,7 +460,7 @@
       </trans-unit>
       <trans-unit id="cc43fa744e43a87e4a4ac309fbcfe54c8898b83a" resname="Admission Diagnosis">
         <source>Admission Diagnosis</source>
-        <target>Diagnosis de admisión</target>
+        <target>Diagnóstico de admisión</target>
       </trans-unit>
       <trans-unit id="50c026300b52db9bf33a40131daac8a8c9fc341e" resname="Admitted">
         <source>Admitted</source>
@@ -484,7 +484,7 @@
       </trans-unit>
       <trans-unit id="f0dfc60d700d83fcff059408ed968bff38130036" resname="Allowed Grant Types">
         <source>Allowed Grant Types</source>
-        <target state="new">Allowed Grant Types</target>
+        <target>Allowed Grant types</target>
       </trans-unit>
       <trans-unit id="394b85cbff8ab62eff46924a4dfe3a49b835024e" resname="Api Access">
         <source>Api Access</source>
@@ -492,7 +492,7 @@
       </trans-unit>
       <trans-unit id="7aef4a2289a61c4145ec2aee283dc7bc7f2a47a9" resname="Api Dashboard">
         <source>Api Dashboard</source>
-        <target state="new">Api Dashboard</target>
+        <target>Tablero API</target>
       </trans-unit>
       <trans-unit id="e6a9bb4fd705c50b883a4ccfb7fdc2c4e47f13a5" resname="Api Resources">
         <source>Api Resources</source>
@@ -504,7 +504,7 @@
       </trans-unit>
       <trans-unit id="9401ebf7895f3f7e20665346c8b43e52aa99574d" resname="Auth Endpoint">
         <source>Auth Endpoint</source>
-        <target state="new">Auth Endpoint</target>
+        <target>Auth Endpoint</target>
       </trans-unit>
       <trans-unit id="74e32b411cb69aba5c01fd6e37800d412244040c" resname="Authorization Complete">
         <source>Authorization Complete</source>
@@ -652,7 +652,7 @@
       </trans-unit>
       <trans-unit id="579628c0a5a4f88b292e6de7985b5de35538d7c2" resname="Chronic">
         <source>Chronic</source>
-        <target state="new">Chronic</target>
+        <target>Cronico</target>
       </trans-unit>
       <trans-unit id="719ea396ad92e01b4757ec2b93bb1e5f270f771d" resname="Clear">
         <source>Clear</source>
@@ -992,7 +992,7 @@
       </trans-unit>
       <trans-unit id="28297e2ace59d8adbfea41ba6eba2706e5a55307" resname="Export Only">
         <source>Export Only</source>
-        <target state="new">Export Only</target>
+        <target>Solo exportar</target>
       </trans-unit>
       <trans-unit id="203e7ef5f830441d0df7649683b35d0002b19b13" resname="Export as Excel (may have row limit issues)">
         <source>Export as Excel (may have row limit issues)</source>
@@ -1156,7 +1156,7 @@
       </trans-unit>
       <trans-unit id="96b6cdd3f2aec7904b3656a9d6e5ceaacbb8682f" resname="IBD Export Filters">
         <source>IBD Export Filters</source>
-        <target>NMB filtros para exportacion </target>
+        <target>NMB - filtros para exportacion </target>
       </trans-unit>
       <trans-unit id="2a71f5e790a5bd16a54986e1eb5e7a3a69846528" resname="IV fluids">
         <source>IV fluids</source>
@@ -1180,7 +1180,8 @@
       </trans-unit>
       <trans-unit id="139c09f5655f8976e2db619041ec46e5c24feb9f" resname="Import file date start">
         <source>Import file date start</source>
-        <target state="new">Import file date start</target>
+        <target xml:space="preserve">Fecha de inicio de archivo de importacion
+</target>
       </trans-unit>
       <trans-unit id="20163528b46a6980e70e00ad65af7d2eb8276970" resname="Import/Export Access">
         <source>Import/Export Access</source>
@@ -1368,7 +1369,7 @@
       </trans-unit>
       <trans-unit id="3fac819ab2ecc9bfeaafe781db8308cf6f04c810" resname="Meningitis Export Filters">
         <source>Meningitis Export Filters</source>
-        <target state="new">Meningitis Export Filters</target>
+        <target>Meningitis -  Filtros para exportación  </target>
       </trans-unit>
       <trans-unit id="7e4ac6803c9159c694f63d089cb06b2519c16aba" resname="Methods">
         <source>Methods</source>
@@ -1544,7 +1545,7 @@
       </trans-unit>
       <trans-unit id="e8c8fb09a83d86403479132c086fdf365be367fb" resname="Number and Percent Enrolled: Admit Diagnosis">
         <source>Number and Percent Enrolled: Admit Diagnosis</source>
-        <target>Número y porcentaje de Registros: Por Diagnosis</target>
+        <target>Número y porcentaje de Registros: Por Diagnóstico</target>
       </trans-unit>
       <trans-unit id="4c100b84b4ee887ba44105eb25d52e008800b694" resname="ORS/ORT and/or IV fluids and/or Other/Multiple">
         <source>ORS/ORT and/or IV fluids and/or Other/Multiple</source>
@@ -1728,7 +1729,7 @@
       </trans-unit>
       <trans-unit id="619e0e20aa9fcc629b91c73b82c6da3829ec93ed" resname="Pneumonia">
         <source>Pneumonia</source>
-        <target state="new">Pneumonia</target>
+        <target>Neumonia</target>
       </trans-unit>
       <trans-unit id="35ecdb41766f4358b6b9e62630d28252592f6460" resname="Pneumonia / Sepsis">
         <source>Pneumonia / Sepsis</source>
@@ -1736,7 +1737,7 @@
       </trans-unit>
       <trans-unit id="b02cbe309e226c21a2893d2bc08f4fae0c5c95da" resname="Pneumonia Export Filters">
         <source>Pneumonia Export Filters</source>
-        <target state="new">Pneumonia Export Filters</target>
+        <target>Neumonía  - filtros para exportación</target>
       </trans-unit>
       <trans-unit id="06fe9ace9667aa168708159444d8188edd059f54" resname="Positive">
         <source>Positive</source>
@@ -1744,7 +1745,7 @@
       </trans-unit>
       <trans-unit id="16f95ae6458bcb16b1d1eb572d53dd83b95d098f" resname="Potential Duplicates Check">
         <source>Potential Duplicates Check</source>
-        <target state="new">Potential Duplicates Check</target>
+        <target>Chequeo de  posibles duplicados</target>
       </trans-unit>
       <trans-unit id="dd19a61687b74ab714b7046bdd45a3ab7f0b578c" resname="Preferred Language">
         <source>Preferred Language</source>
@@ -1756,7 +1757,7 @@
       </trans-unit>
       <trans-unit id="ff4fc0276e960c348647b647235f68200887c9d2" resname="Profile">
         <source>Profile</source>
-        <target state="new">Profile</target>
+        <target>Perfil</target>
       </trans-unit>
       <trans-unit id="7d354af7d8f455a8c73f4e5b15530bd311d0861a" resname="Quellung">
         <source>Quellung</source>
@@ -1764,7 +1765,7 @@
       </trans-unit>
       <trans-unit id="77a6375224e36db93fce73f97c1a77ea403437cb" resname="RRL">
         <source>RRL</source>
-        <target state="new">RRL</target>
+        <target>RRL</target>
       </trans-unit>
       <trans-unit id="a16c5bbe4bf996740f257aa1e81bd57e4c52c8dd" resname="Range">
         <source>Range</source>
@@ -1872,7 +1873,7 @@
       </trans-unit>
       <trans-unit id="12b4c26d078a8505efb10d9b6e16abe1699c3476" resname="RotaVirus Export Filters">
         <source>RotaVirus Export Filters</source>
-        <target>RotaVirus filtros para exportacion</target>
+        <target>RotaVirus -  filtros para exportacion</target>
       </trans-unit>
       <trans-unit id="b6a30e040e2c8bc16a3b2e95e725155b4b3fdce5" resname="Rotarix, GSK">
         <source>Rotarix, GSK</source>
@@ -1880,11 +1881,11 @@
       </trans-unit>
       <trans-unit id="38c3c12e41c518ad692ecbfc7a05cbaad9c24fc6" resname="Rotavirus">
         <source>Rotavirus</source>
-        <target state="new">Rotavirus</target>
+        <target>Rotavirus</target>
       </trans-unit>
       <trans-unit id="82647939f2b94f81cdd6bdc6f0f78c08dd399233" resname="Rotavirus Export Filters">
         <source>Rotavirus Export Filters</source>
-        <target state="new">Rotavirus Export Filters</target>
+        <target>RotaVirus -  filtros para exportacion</target>
       </trans-unit>
       <trans-unit id="19e30cbb1fe4142ac663856b78b6b9efcadb3936" resname="Sample &amp; Elisa">
         <source><![CDATA[Sample & Elisa]]></source>
@@ -2088,7 +2089,7 @@
       </trans-unit>
       <trans-unit id="d5593d165ab03cc17bbadfc9f9d9ed9a93198cb5" resname="Total Processed">
         <source>Total Processed</source>
-        <target state="new">Total Processed</target>
+        <target>Total Procesados</target>
       </trans-unit>
       <trans-unit id="f76d1e2a50543a098caaec8da67e10271c0a83af" resname="Transferred">
         <source>Transferred</source>
@@ -2240,7 +2241,7 @@
       </trans-unit>
       <trans-unit id="54d6c856e434ad647bb77ea486fe647a4f6e524a" resname="authorization_code">
         <source>authorization_code</source>
-        <target state="new">authorization_code</target>
+        <target>codigo_autorizacion</target>
       </trans-unit>
       <trans-unit id="e9d71f5ee7c92d6dc9e92ffdad17b8bd49418f98" resname="b">
         <source>b</source>
@@ -2264,7 +2265,7 @@
       </trans-unit>
       <trans-unit id="7e6a659833d088bb7e2c147bd8749f570dcbd78a" resname="client_credentials">
         <source>client_credentials</source>
-        <target state="new">client_credentials</target>
+        <target>credenciales_clientes</target>
       </trans-unit>
       <trans-unit id="5e0072329d5085c5bc5c23c2fa873dd42900958b" resname="clone">
         <source>clone</source>
@@ -2372,7 +2373,7 @@
       </trans-unit>
       <trans-unit id="ba43e43d54b6708af2f73dcc09dd18bd84cc5b7d" resname="for suspected meningitis cases">
         <source>for suspected meningitis cases</source>
-        <target>for suspected meningitis cases</target>
+        <target>para casos sospechosos de meningitis</target>
       </trans-unit>
       <trans-unit id="74f2078e16a4ab6ff46b127a03b215568a93690e" resname="for suspected pneumonia cases">
         <source>for suspected pneumonia cases</source>
@@ -2756,7 +2757,7 @@
       </trans-unit>
       <trans-unit id="43b742aff24ad27b9663f69a87c048a32a7677a8" resname="ibd-form.discharge-diagnosis">
         <source>ibd-form.discharge-diagnosis</source>
-        <target>Diagnostico de egreso</target>
+        <target>Diagnóstico de egreso</target>
       </trans-unit>
       <trans-unit id="881adb5956f9bab1e8299d53b87a47af43066c64" resname="ibd-form.discharge-diagnosis-other">
         <source>ibd-form.discharge-diagnosis-other</source>
@@ -3736,11 +3737,11 @@
       </trans-unit>
       <trans-unit id="cdc22e6692fc5dc99971633a8c13cf512657919e" resname="site-title-text">
         <source>WHO Sentinel Network</source>
-        <target>Sistema Hospitalario de Vigilancia Centinela para   EPV</target>
+        <target>VINUVA-casos: Sistema de Vigilancia de Nuevas Vacunas</target>
       </trans-unit>
       <trans-unit id="8aa4d8377d7045bec9b19efae66e98d6b8690acd" resname="sitebrand-text">
         <source>NUVI Sentinel Network</source>
-        <target>Sistema Hospitalario de Vigilancia Centinela para   EPV</target>
+        <target>VINUVA-casos: Sistema de Vigilancia de Nuevas Vacunas</target>
       </trans-unit>
       <trans-unit id="ee977806d7286510da8b9a7492ba58e2484c0ecc" resname="token">
         <source>token</source>
