@@ -11,7 +11,7 @@
     "psr-4": { "NS\\ApiBundle\\Tests\\": "tests/ApiBundle", "NS\\ImportBundle\\Tests\\": "tests/ImportBundle", "NS\\SentinelBundle\\Tests\\": "tests/SentinelBundle"}
   },
   "require": {
-    "php": "7.2.*",
+    "php": ">=7.2",
     "ext-json": "*",
     "ext-dom": "*",
     "symfony/symfony": "3.2.*",
@@ -21,6 +21,7 @@
     "sensio/distribution-bundle": "^5.0",
     "sensio/framework-extra-bundle": "^3.0.2",
     "doctrine/orm": "^2.5",
+    "doctrine/dbal": "2.10.*",
     "doctrine/doctrine-bundle": "^1.6",
     "doctrine/doctrine-cache-bundle": "^1.2",
     "incenteev/composer-parameter-handler": "^2.0",
@@ -61,8 +62,7 @@
     "liuggio/excelbundle": "^2.0",
     "doctrine/doctrine-migrations-bundle": "^1.1",
     "twig/twig": "^1.0|^2.0",
-    "ns/token-bundle": "^0.1",
-    "rubenrua/symfony-clean-tags-composer-plugin": "^1.0"
+    "ns/token-bundle": "^0.1"
   },
     "scripts": {
       "symfony-scripts": [
