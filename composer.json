@@ -44,7 +44,7 @@
     "ns/filtered-pagination-bundle": "^2.0",
 
     "jms/translation-bundle": "^1.2",
-    "oneup/uploader-bundle": "1.0.*@dev",
+    "oneup/uploader-bundle": "1.9.*@dev",
 
     "knplabs/knp-paginator-bundle": "^2.4",
     "lunetics/locale-bundle": "^2.5",
