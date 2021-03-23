@@ -35,6 +35,24 @@ class RotaVirusReportController extends Controller
     }
 
     /**
+     * @Route("/data-completion",name="rotaReportDataCompletion")
+     * @param Request $request
+     *
+     * @return RedirectResponse|Response
+     */
+    public function dataCompletionAction(Request $request): Response
+    {
+        $form = $this->createForm(ReportFilterType::class, null, ['site_type' => 'advanced', 'validation_groups' => ['FieldPopulation']]);
+        $service = $this->get('ns_sentinel.rotavirus_report');
+        $params = $service->getDataCompletion($request, $form, 'rotaReportDataQuality');
+        if ($params instanceof Response) {
+            return $params;
+        }
+
+        return $this->render('NSSentinelBundle:Report:RotaVirus/dataCompletion.html.twig', $params);
+    }
+
+    /**
      * @Route("/site-performance",name="rotaReportSitePerformance")
      * @param Request $request
      * @return Response

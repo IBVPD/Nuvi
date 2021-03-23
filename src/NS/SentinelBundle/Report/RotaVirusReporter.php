@@ -8,6 +8,7 @@ use NS\SentinelBundle\Entity\Country;
 use NS\SentinelBundle\Entity\RotaVirus;
 use NS\SentinelBundle\Entity\Site;
 use NS\SentinelBundle\Report\Result\DataLinkingResult;
+use NS\SentinelBundle\Report\Result\RotaVirus\DataCompletion;
 use NS\SentinelBundle\Report\Result\RotaVirus\DataQualityResult;
 use NS\SentinelBundle\Report\Result\RotaVirus\GeneralStatisticResult;
 use NS\SentinelBundle\Report\Result\RotaVirus\SitePerformanceResult;
@@ -59,7 +60,53 @@ class RotaVirusReporter extends AbstractReporter
             $this->processResult($columns, $repo, $alias, $results, $form);
 
             if ($form->get('export')->isClicked()) {
-                $this->exporter->export('NSSentinelBundle:Report:RotaVirus/Export/data-quality.html.twig', ['sites' => $results]);
+                return $this->exporter->export('NSSentinelBundle:Report:RotaVirus/Export/data-quality.html.twig', ['sites' => $results]);
+            }
+        }
+
+        return ['sites' => $results, 'form' => $form->createView()];
+    }
+
+    /**
+     * @param Request $request
+     * @param FormInterface $form
+     * @param $redirectRoute
+     * @return array|RedirectResponse
+     */
+    public function getDataCompletion(Request $request, FormInterface $form, $redirectRoute)
+    {
+        $results = new ArrayCollection();
+        $alias = 'i';
+        $queryBuilder = $this->entityMgr->getRepository(Site::class)->getWithCasesForDate($alias, RotaVirus::class);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get('reset')->isClicked()) {
+                return new RedirectResponse($this->router->generate($redirectRoute));
+            }
+
+            $this->filter->addFilterConditions($form, $queryBuilder, $alias);
+
+            $sites = $queryBuilder->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult();
+
+            if (empty($sites)) {
+                return ['sites' => [], 'form' => $form->createView()];
+            }
+
+            $this->populateSites($sites, $results, DataCompletion::class);
+
+            $repo = $this->entityMgr->getRepository(RotaVirus::class);
+            $columns = [
+                'getStoolCollectedCountBySites' => 'setStoolCollectedCount',
+                'getElisaDoneCountBySites' => 'setElisaDoneCount',
+                'getDischargeOutcomeCountBySites' => 'setOutcomeCount',
+                'getDischargeClassificationCountBySites' => 'setClassificationCount',
+            ];
+
+            $this->processResult($columns, $repo, $alias, $results, $form);
+
+            if ($form->get('export')->isClicked()) {
+                return $this->exporter->export('NSSentinelBundle:Report:RotaVirus/Export/data-completion.html.twig', ['sites' => $results]);
             }
         }
 
@@ -111,7 +158,7 @@ class RotaVirusReporter extends AbstractReporter
             $this->processResult($columns, $repo, $alias, $results, $form);
 
             if ($form->get('export')->isClicked()) {
-                $this->exporter->export('NSSentinelBundle:Report:RotaVirus/Export/site-performance.html.twig', ['sites' => $results]);
+                return $this->exporter->export('NSSentinelBundle:Report:RotaVirus/Export/site-performance.html.twig', ['sites' => $results]);
             }
         }
 

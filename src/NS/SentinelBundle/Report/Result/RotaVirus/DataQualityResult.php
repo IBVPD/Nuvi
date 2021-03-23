@@ -4,10 +4,7 @@ namespace NS\SentinelBundle\Report\Result\RotaVirus;
 
 use NS\SentinelBundle\Report\Result\AbstractSiteBasedResult;
 
-/**
- * Class DataQualityResult
- * @package NS\SentinelBundle\Result\RotaVirus
- */
+
 class DataQualityResult extends AbstractSiteBasedResult
 {
     /**
@@ -58,7 +55,8 @@ class DataQualityResult extends AbstractSiteBasedResult
 
     /**
      * @param int $stoolCollectionDateErrorCount
-     * @return DataQualityResult
+     *
+     * @return DataCompletion
      */
     public function setStoolCollectionDateErrorCount($stoolCollectionDateErrorCount)
     {
@@ -84,7 +82,8 @@ class DataQualityResult extends AbstractSiteBasedResult
 
     /**
      * @param int $missingDischargeDateCount
-     * @return DataQualityResult
+     *
+     * @return DataCompletion
      */
     public function setMissingDischargeDateCount($missingDischargeDateCount)
     {
@@ -110,7 +109,8 @@ class DataQualityResult extends AbstractSiteBasedResult
 
     /**
      * @param int $missingDischargeOutcomeCount
-     * @return DataQualityResult
+     *
+     * @return DataCompletion
      */
     public function setMissingDischargeOutcomeCount($missingDischargeOutcomeCount)
     {
@@ -136,7 +136,8 @@ class DataQualityResult extends AbstractSiteBasedResult
 
     /**
      * @param int $stoolCollectedCount
-     * @return DataQualityResult
+     *
+     * @return DataCompletion
      */
     public function setStoolCollectedCount($stoolCollectedCount)
     {
@@ -162,7 +163,8 @@ class DataQualityResult extends AbstractSiteBasedResult
 
     /**
      * @param int $elisaDoneCount
-     * @return DataQualityResult
+     *
+     * @return DataCompletion
      */
     public function setElisaDoneCount($elisaDoneCount)
     {
@@ -188,7 +190,8 @@ class DataQualityResult extends AbstractSiteBasedResult
 
     /**
      * @param int $elisaPositiveCount
-     * @return DataQualityResult
+     *
+     * @return DataCompletion
      */
     public function setElisaPositiveCount($elisaPositiveCount)
     {

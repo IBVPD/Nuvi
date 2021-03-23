@@ -6,26 +6,14 @@ use NS\SentinelBundle\Entity\Country;
 use NS\SentinelBundle\Entity\Region;
 use NS\SentinelBundle\Entity\Site;
 
-/**
- * Class AbstractSiteBasedResult
- * @package NS\SentinelBundle\Result
- */
 abstract class AbstractSiteBasedResult
 {
-    /**
-     * @var Site
-     */
+    /** @var Site */
     private $site;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     private $totalCases = 0;
 
-    /**
-     * AbstractSiteBasedResult constructor.
-     * @param Site $site
-     */
     public function __construct(Site $site)
     {
         $this->site = $site;
