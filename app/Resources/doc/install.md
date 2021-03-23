@@ -118,7 +118,7 @@ to function.
     RedirectMatch 204 .*
     Header set Cache-Control "private, no-cache, no-store, proxy-revalidate, no-transform"
     Header set Pragma "no-cache"
-  </Location>
+  </LocationMatch>
 
   SSLEngine on
   SSLCertificateFile /etc/pki/tls/certs/server.crt
