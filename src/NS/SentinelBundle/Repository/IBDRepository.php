@@ -13,6 +13,7 @@ use NS\SentinelBundle\Exceptions\NonExistentCaseException;
 use NS\SentinelBundle\Form\IBD\Types\BinaxResult;
 use NS\SentinelBundle\Form\IBD\Types\CaseResult;
 use NS\SentinelBundle\Form\IBD\Types\CultureResult;
+use NS\SentinelBundle\Form\IBD\Types\Diagnosis;
 use NS\SentinelBundle\Form\IBD\Types\HiSerotype;
 use NS\SentinelBundle\Form\IBD\Types\PCRResult;
 use NS\SentinelBundle\Form\IBD\Types\SpnSerotype;
@@ -565,5 +566,87 @@ class IBDRepository extends Common
             ->select(sprintf('COUNT(IDENTITY(%s)) as caseCount,c.code', $alias))
             ->leftJoin('cf.referenceLab', $alias)
             ->andWhere(sprintf('IDENTITY(%s) IS NULL',$alias));
+    }
+
+    /**
+     * @param $alias
+     * @param array $siteCodes
+     *
+     * @return QueryBuilder
+     */
+    public function getSuspectedCountBySites($alias, array $siteCodes): QueryBuilder
+    {
+        return $this->getCountQueryBuilder($alias, $siteCodes)
+            ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
+            ->andWhere(sprintf('(%s.adm_dx = :suspected)', $alias))
+            ->setParameter('suspected', Diagnosis::SUSPECTED_MENINGITIS);
+    }
+
+    /**
+     * @param $alias
+     * @param array $siteCodes
+     *
+     * @return QueryBuilder
+     */
+    public function getSuspectedWithXrayCountBySites($alias, array $siteCodes): QueryBuilder
+    {
+        return $this->getSuspectedCountBySites($alias, $siteCodes)
+            ->andWhere(sprintf('(%s.cxr_done = :done)', $alias))
+            ->setParameter('done', TripleChoice::YES);
+    }
+
+    /**
+     * @param $alias
+     * @param array $siteCodes
+     *
+     * @return QueryBuilder
+     */
+    public function getProbableCountBySites($alias, array $siteCodes): QueryBuilder
+    {
+        return $this->getCountQueryBuilder($alias, $siteCodes)
+            ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
+            ->andWhere(sprintf('(%s.result = :probable)', $alias))
+            ->setParameter('probable', CaseResult::PROBABLE);
+    }
+
+    /**
+     * @param $alias
+     * @param array $siteCodes
+     *
+     * @return QueryBuilder
+     */
+    public function getProbableWithBloodCountBySites($alias, array $siteCodes): QueryBuilder
+    {
+        return $this->getProbableCountBySites($alias, $siteCodes)
+            ->andWhere(sprintf('(%s.blood_collected = :bCollected)', $alias))
+            ->setParameter('bCollected', TripleChoice::YES);
+    }
+
+    /**
+     * @param $alias
+     * @param array $siteCodes
+     * @return QueryBuilder
+     */
+    public function getDischargeOutcomeCountBySites($alias, array $siteCodes): QueryBuilder
+    {
+        return $this->getCountQueryBuilder($alias, $siteCodes)
+            ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
+            ->andWhere(sprintf('(%s.disch_outcome IS NOT NULL AND %s.disch_outcome NOT IN (:noSelection,:outOfRange))', $alias, $alias))
+            ->setParameter('noSelection', ArrayChoice::NO_SELECTION)
+            ->setParameter('outOfRange', ArrayChoice::OUT_OF_RANGE);
+    }
+
+    /**
+     * @param $alias
+     * @param array $siteCodes
+     * @return QueryBuilder
+     */
+    public function getDischargeClassificationCountBySites($alias, array $siteCodes): QueryBuilder
+    {
+        return $this->getCountQueryBuilder($alias, $siteCodes)
+            ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
+            ->andWhere(sprintf('(%s.disch_class IS NOT NULL AND %s.disch_class NOT IN (:noSelection,:outOfRange))', $alias, $alias))
+            ->setParameter('noSelection', ArrayChoice::NO_SELECTION)
+            ->setParameter('outOfRange', ArrayChoice::OUT_OF_RANGE);
     }
 }

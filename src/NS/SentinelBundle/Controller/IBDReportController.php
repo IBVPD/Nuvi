@@ -156,6 +156,23 @@ class IBDReportController extends Controller
     }
 
     /**
+     * @Route("/data-completion",name="ibdReportDataCompletion")
+     * @param Request $request
+     * @return array|RedirectResponse|Response
+     */
+    public function dataCompletionAction(Request $request)
+    {
+        $form    = $this->createForm(ReportFilterType::class, null, ['site_type' => 'advanced']);
+        $service = $this->get('ns_sentinel.ibd_report');
+        $params  = $service->getDataCompletion($request, $form, 'ibdReportDataCompletion');
+        if ($params instanceof Response) {
+            return $params;
+        }
+
+        return $this->render('NSSentinelBundle:Report:IBD/data-completion.html.twig', $params);
+    }
+
+    /**
      * @Route("/site-performance",name="ibdReportSitePerformance")
      * @param Request $request
      * @return Response

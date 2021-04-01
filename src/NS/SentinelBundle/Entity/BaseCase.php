@@ -16,9 +16,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Description of BaseCase
- *
- * @author gnat
  * @ORM\MappedSuperclass
  * @SuppressWarnings(PHPMD.ShortVariable)
  * @UniqueEntity(fields={"site","case_id"}, message="The case id already exists for this site!")

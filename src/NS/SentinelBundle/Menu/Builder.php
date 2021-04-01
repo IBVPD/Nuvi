@@ -49,6 +49,7 @@ class Builder
             $rotaReport->addChild('Year / Month', ['label' => 'menu.data-reports-year-month', 'route' => 'rotaReportYearMonth']);
 
             $ibdReport->addChild('Data Quality Checks', ['label' => 'menu.data-reports-data-quality', 'route' => 'ibdReportDataQuality']);
+            $ibdReport->addChild('Data Completion', ['label' => 'menu.data-reports-data-completion', 'route' => 'ibdReportDataCompletion']);
             $ibdReport->addChild('Site Performance', ['label' => 'menu.data-reports-site-performance', 'route' => 'ibdReportSitePerformance']);
             $ibdReport->addChild('RRL Linking', ['label' => 'menu.data-reports-rrl-linking', 'route' => 'ibdReportDataLinking']);
             $ibdReport->addChild('Stats', ['label' => 'menu.data-reports-stats', 'route' => 'ibdReportStats']);
@@ -60,6 +61,7 @@ class Builder
             $ibdReport->addChild('Culture Positive', ['label' => 'menu.data-reports-culture-positive', 'route' => 'ibdReportCulturePositive']);
 
             $pneuReport->addChild('Data Quality Checks', ['label' => 'menu.data-reports-data-quality', 'route' => 'pneuReportDataQuality']);
+            $pneuReport->addChild('Data Completion', ['label' => 'menu.data-reports-data-completion', 'route' => 'pneuReportDataCompletion']);
             $pneuReport->addChild('Site Performance', ['label' => 'menu.data-reports-site-performance', 'route' => 'pneuReportSitePerformance']);
             $pneuReport->addChild('RRL Linking', ['label' => 'menu.data-reports-rrl-linking', 'route' => 'pneuReportDataLinking']);
             $pneuReport->addChild('Stats', ['label' => 'menu.data-reports-stats', 'route' => 'pneuReportStats']);
