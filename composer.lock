@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "858368b935464858bff18eb7467908fa",
+    "content-hash": "60757cb53c02fe88b5f2386e80c7edb7",
     "packages": [
         {
             "name": "adoy/oauth2",
@@ -3123,16 +3123,16 @@
         },
         {
             "name": "laminas/laminas-code",
-            "version": "4.0.0",
+            "version": "4.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-code.git",
-                "reference": "28a6d70ea8b8bca687d7163300e611ae33baf82a"
+                "reference": "5b553c274b94af3f880cbaaf8fbab047f279a31c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-code/zipball/28a6d70ea8b8bca687d7163300e611ae33baf82a",
-                "reference": "28a6d70ea8b8bca687d7163300e611ae33baf82a",
+                "url": "https://api.github.com/repos/laminas/laminas-code/zipball/5b553c274b94af3f880cbaaf8fbab047f279a31c",
+                "reference": "5b553c274b94af3f880cbaaf8fbab047f279a31c",
                 "shasum": ""
             },
             "require": {
@@ -3190,7 +3190,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2020-12-30T16:16:14+00:00"
+            "time": "2021-03-27T13:55:31+00:00"
         },
         {
             "name": "laminas/laminas-eventmanager",
@@ -3749,17 +3749,17 @@
         },
         {
             "name": "nelmio/api-doc-bundle",
-            "version": "2.13.4",
+            "version": "2.13.5",
             "target-dir": "Nelmio/ApiDocBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nelmio/NelmioApiDocBundle.git",
-                "reference": "28802f2c44dbbf29aa7f5dc80a10f44d3558f580"
+                "reference": "158149568863c688abfa3df94037257bbed628ed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nelmio/NelmioApiDocBundle/zipball/28802f2c44dbbf29aa7f5dc80a10f44d3558f580",
-                "reference": "28802f2c44dbbf29aa7f5dc80a10f44d3558f580",
+                "url": "https://api.github.com/repos/nelmio/NelmioApiDocBundle/zipball/158149568863c688abfa3df94037257bbed628ed",
+                "reference": "158149568863c688abfa3df94037257bbed628ed",
                 "shasum": ""
             },
             "require": {
@@ -3832,9 +3832,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nelmio/NelmioApiDocBundle/issues",
-                "source": "https://github.com/nelmio/NelmioApiDocBundle/tree/2.13.4"
+                "source": "https://github.com/nelmio/NelmioApiDocBundle/tree/2.13.5"
             },
-            "time": "2019-06-01T13:34:59+00:00"
+            "time": "2021-03-23T07:09:33+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -4390,34 +4390,43 @@
         },
         {
             "name": "oneup/uploader-bundle",
-            "version": "v1.0.1",
+            "version": "1.9.4",
             "target-dir": "Oneup/UploaderBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/1up-lab/OneupUploaderBundle.git",
-                "reference": "0a0bb1e9cb0d44cd6ea4dd9dfc6fe619e226adfe"
+                "reference": "8a6dc57c35e12fbc341e52e401a1d286475ec445"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/1up-lab/OneupUploaderBundle/zipball/0a0bb1e9cb0d44cd6ea4dd9dfc6fe619e226adfe",
-                "reference": "0a0bb1e9cb0d44cd6ea4dd9dfc6fe619e226adfe",
+                "url": "https://api.github.com/repos/1up-lab/OneupUploaderBundle/zipball/8a6dc57c35e12fbc341e52e401a1d286475ec445",
+                "reference": "8a6dc57c35e12fbc341e52e401a1d286475ec445",
                 "shasum": ""
             },
             "require": {
-                "symfony/finder": ">=2.2.0",
-                "symfony/framework-bundle": ">=2.2"
+                "paragonie/random_compat": "^1.1|^2.0",
+                "php": ">=5.4",
+                "symfony/asset": "^2.4|^3.0",
+                "symfony/finder": "^2.4|^3.0",
+                "symfony/framework-bundle": "^2.4|^3.0",
+                "symfony/templating": "^2.4|^3.0",
+                "symfony/translation": "^2.4|^3.0"
             },
             "require-dev": {
                 "amazonwebservices/aws-sdk-for-php": "1.5.*",
                 "knplabs/gaufrette": "0.2.*@dev",
-                "phpunit/phpunit": "3.7.*",
-                "sensio/framework-extra-bundle": "2.*",
-                "symfony/browser-kit": "2.*",
-                "symfony/class-loader": "2.*",
-                "symfony/security-bundle": "2.*"
+                "oneup/flysystem-bundle": "^1.2",
+                "phpunit/phpunit": "^4.4",
+                "sensio/framework-extra-bundle": "2.*|^3.0",
+                "symfony/browser-kit": "2.*|^3.0",
+                "symfony/class-loader": "2.*|^3.0",
+                "symfony/security-bundle": "2.*|^3.0",
+                "twistor/flysystem-stream-wrapper": "^1.0"
             },
             "suggest": {
-                "knplabs/knp-gaufrette-bundle": "0.1.*"
+                "knplabs/knp-gaufrette-bundle": "0.1.*",
+                "oneup/flysystem-bundle": "^1.2",
+                "twistor/flysystem-stream-wrapper": "^1.0 (Required when using Flysystem)"
             },
             "type": "symfony-bundle",
             "autoload": {
@@ -4454,9 +4463,9 @@
             ],
             "support": {
                 "issues": "https://github.com/1up-lab/OneupUploaderBundle/issues",
-                "source": "https://github.com/1up-lab/OneupUploaderBundle/tree/v1.0.1"
+                "source": "https://github.com/1up-lab/OneupUploaderBundle/tree/1.9.4"
             },
-            "time": "2013-11-06T18:09:25+00:00"
+            "time": "2020-02-04T12:08:35+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -7033,16 +7042,16 @@
     "packages-dev": [
         {
             "name": "composer/xdebug-handler",
-            "version": "1.4.5",
+            "version": "1.4.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/xdebug-handler.git",
-                "reference": "f28d44c286812c714741478d968104c5e604a1d4"
+                "reference": "f27e06cd9675801df441b3656569b328e04aa37c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/xdebug-handler/zipball/f28d44c286812c714741478d968104c5e604a1d4",
-                "reference": "f28d44c286812c714741478d968104c5e604a1d4",
+                "url": "https://api.github.com/repos/composer/xdebug-handler/zipball/f27e06cd9675801df441b3656569b328e04aa37c",
+                "reference": "f27e06cd9675801df441b3656569b328e04aa37c",
                 "shasum": ""
             },
             "require": {
@@ -7050,7 +7059,8 @@
                 "psr/log": "^1.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.8.35 || ^5.7 || 6.5 - 8"
+                "phpstan/phpstan": "^0.12.55",
+                "symfony/phpunit-bridge": "^4.2 || ^5"
             },
             "type": "library",
             "autoload": {
@@ -7076,7 +7086,7 @@
             "support": {
                 "irc": "irc://irc.freenode.org/composer",
                 "issues": "https://github.com/composer/xdebug-handler/issues",
-                "source": "https://github.com/composer/xdebug-handler/tree/1.4.5"
+                "source": "https://github.com/composer/xdebug-handler/tree/1.4.6"
             },
             "funding": [
                 {
@@ -7092,7 +7102,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-11-13T08:04:11+00:00"
+            "time": "2021-03-25T17:01:18+00:00"
         },
         {
             "name": "doctrine/data-fixtures",
@@ -10325,7 +10335,6 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "sonata-project/exporter": 20,
-        "oneup/uploader-bundle": 20,
         "ddeboer/data-import": 20,
         "phpmd/phpmd": 0
     },
