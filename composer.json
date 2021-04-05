@@ -4,11 +4,25 @@
   "type": "project",
   "description": "A distributed disease reporting tool",
   "autoload": {
-    "psr-4": { "": "src/" },
-    "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
+    "psr-4": {
+      "": "src/"
+    },
+    "classmap": [
+      "app/AppKernel.php",
+      "app/AppCache.php"
+    ]
   },
   "autoload-dev": {
-    "psr-4": { "NS\\ApiBundle\\Tests\\": "tests/ApiBundle", "NS\\ImportBundle\\Tests\\": "tests/ImportBundle", "NS\\SentinelBundle\\Tests\\": "tests/SentinelBundle"}
+    "psr-4": {
+      "NS\\ApiBundle\\Tests\\": "tests/ApiBundle",
+      "NS\\ImportBundle\\Tests\\": "tests/ImportBundle",
+      "NS\\SentinelBundle\\Tests\\": "tests/SentinelBundle"
+    }
+  },
+  "config": {
+    "platform": {
+      "php": "7.3.37"
+    }
   },
   "require": {
     "php": ">=7.2",
@@ -27,14 +41,12 @@
     "incenteev/composer-parameter-handler": "^2.0",
     "jms/security-extra-bundle": "^1.6",
     "jms/di-extra-bundle": "^1.8",
-
     "sonata-project/core-bundle": "3.12.0",
     "sonata-project/admin-bundle": "^3.1",
     "sonata-project/block-bundle": "^3.1",
     "sonata-project/doctrine-orm-admin-bundle": "^3.1",
     "sonata-project/intl-bundle": "^2.2",
     "sonata-project/exporter": "dev-patch-1 as 1.7.1",
-
     "ns/util-bundle": "^3.0",
     "ns/security-bundle": "^5.0",
     "ns/ace-bundle": "^3.0",
@@ -42,13 +54,10 @@
     "ns/ace-sonata-doctrine-orm-admin-bundle": "^0.1",
     "ns/flash-bundle": "^1.0",
     "ns/filtered-pagination-bundle": "^2.0",
-
     "jms/translation-bundle": "^1.2",
     "oneup/uploader-bundle": "^1.9",
-
     "knplabs/knp-paginator-bundle": "^2.4",
     "lunetics/locale-bundle": "^2.5",
-
     "friendsofsymfony/oauth-server-bundle": "^1.5",
     "nelmio/api-doc-bundle": "^2.12",
     "friendsofsymfony/rest-bundle": "^2.0",
@@ -64,52 +73,58 @@
     "twig/twig": "^1.0|^2.0",
     "ns/token-bundle": "^0.1"
   },
-    "scripts": {
-      "symfony-scripts": [
-        "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-        "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-        "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-        "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-        "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-        "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
-      ],
-      "post-install-cmd": [
-        "@symfony-scripts"
-      ],
-      "post-update-cmd": [
-        "@symfony-scripts"
-      ]
-    },
-    "minimum-stability": "stable",
-    "extra": {
-      "symfony-app-dir": "app",
-      "symfony-bin-dir": "bin",
-      "symfony-var-dir": "var",
-      "symfony-web-dir": "web",
-      "symfony-tests-dir": "tests",
-      "symfony-assets-install": "relative",
-      "incenteev-parameters": {
-        "file": "app/config/parameters.yml"
-      },
-      "symfony": {
-        "require": "3.2.*"
-      }
-    },
-    "repositories": [ 
-      { "type": "vcs", "url": "https://github.com/gnat42/data-import" },
-      { "type": "vcs", "url": "https://github.com/gnat42/exporter" }
+  "scripts": {
+    "symfony-scripts": [
+      "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
     ],
-    "require-dev": {
-      "sensio/generator-bundle": "^3.0",
-      "symfony/phpunit-bridge": "^3.0",
-      "phpunit/phpunit": "^6.0|^7.0",
-      "phpmd/phpmd": "@stable",
-      "liip/functional-test-bundle": "^1.7",
-      "liip/rmt": "^1.1",
-      "doctrine/data-fixtures": "^1.0",
-      "hautelook/alice-bundle": "^1.4",
-      "phpstan/phpstan": "^0.11.5",
-      "phpstan/phpstan-doctrine": "^0.11.5",
-      "phpstan/phpstan-symfony": "^0.11.6"
+    "post-install-cmd": [
+      "@symfony-scripts"
+    ],
+    "post-update-cmd": [
+      "@symfony-scripts"
+    ]
+  },
+  "minimum-stability": "stable",
+  "extra": {
+    "symfony-app-dir": "app",
+    "symfony-bin-dir": "bin",
+    "symfony-var-dir": "var",
+    "symfony-web-dir": "web",
+    "symfony-tests-dir": "tests",
+    "symfony-assets-install": "relative",
+    "incenteev-parameters": {
+      "file": "app/config/parameters.yml"
+    },
+    "symfony": {
+      "require": "3.2.*"
     }
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/gnat42/data-import"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/gnat42/exporter"
+    }
+  ],
+  "require-dev": {
+    "sensio/generator-bundle": "^3.0",
+    "symfony/phpunit-bridge": "^3.0",
+    "phpunit/phpunit": "^6.0|^7.0",
+    "phpmd/phpmd": "@stable",
+    "liip/functional-test-bundle": "^1.7",
+    "liip/rmt": "^1.1",
+    "doctrine/data-fixtures": "^1.0",
+    "hautelook/alice-bundle": "^1.4",
+    "phpstan/phpstan": "^0.11.5",
+    "phpstan/phpstan-doctrine": "^0.11.5",
+    "phpstan/phpstan-symfony": "^0.11.6"
+  }
 }

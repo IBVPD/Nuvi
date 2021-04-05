@@ -17,7 +17,7 @@
     symfony_project_keep_releases: 15
 
     symfony_project_branch: master
-    symfony_project_php_path: /usr/bin/php72
+    symfony_project_php_path: /usr/bin/php73
     symfony_project_php_options: ''
 
     symfony_project_composer_opts: '--optimize-autoloader --no-interaction'
