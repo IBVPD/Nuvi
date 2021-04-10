@@ -8,7 +8,7 @@ use NS\SentinelBundle\Entity\Country;
 use NS\SentinelBundle\Entity\RotaVirus;
 use NS\SentinelBundle\Entity\Site;
 use NS\SentinelBundle\Report\Result\DataLinkingResult;
-use NS\SentinelBundle\Report\Result\RotaVirus\DataCompletion;
+use NS\SentinelBundle\Report\Result\RotaVirus\DataCompletionResult;
 use NS\SentinelBundle\Report\Result\RotaVirus\DataQualityResult;
 use NS\SentinelBundle\Report\Result\RotaVirus\GeneralStatisticResult;
 use NS\SentinelBundle\Report\Result\RotaVirus\SitePerformanceResult;
@@ -20,15 +20,16 @@ use Symfony\Component\HttpFoundation\Request;
 class RotaVirusReporter extends AbstractReporter
 {
     /**
-     * @param Request $request
+     * @param Request       $request
      * @param FormInterface $form
-     * @param $redirectRoute
+     * @param               $redirectRoute
+     *
      * @return array|RedirectResponse
      */
     public function getDataQuality(Request $request, FormInterface $form, $redirectRoute)
     {
-        $results = new ArrayCollection();
-        $alias = 'i';
+        $results      = new ArrayCollection();
+        $alias        = 'i';
         $queryBuilder = $this->entityMgr->getRepository(Site::class)->getWithCasesForDate($alias, RotaVirus::class);
 
         $form->handleRequest($request);
@@ -47,14 +48,14 @@ class RotaVirusReporter extends AbstractReporter
 
             $this->populateSites($sites, $results, DataQualityResult::class);
 
-            $repo = $this->entityMgr->getRepository(RotaVirus::class);
+            $repo    = $this->entityMgr->getRepository(RotaVirus::class);
             $columns = [
                 'getStoolCollectionDateErrorCountBySites' => 'setStoolCollectionDateErrorCount',
-                'getMissingDischargeOutcomeCountBySites' => 'setMissingDischargeOutcomeCount',
-                'getMissingDischargeDateCountBySites' => 'setMissingDischargeDateCount',
-                'getStoolCollectedCountBySites' => 'setStoolCollectedCount',
-                'getElisaDoneCountBySites' => 'setElisaDoneCount',
-                'getElisaPositiveCountBySites' => 'setElisaPositiveCount',
+                'getMissingDischargeOutcomeCountBySites'  => 'setMissingDischargeOutcomeCount',
+                'getMissingDischargeDateCountBySites'     => 'setMissingDischargeDateCount',
+                'getStoolCollectedCountBySites'           => 'setStoolCollectedCount',
+                'getElisaDoneCountBySites'                => 'setElisaDoneCount',
+                'getElisaPositiveCountBySites'            => 'setElisaPositiveCount',
             ];
 
             $this->processResult($columns, $repo, $alias, $results, $form);
@@ -68,16 +69,17 @@ class RotaVirusReporter extends AbstractReporter
     }
 
     /**
-     * @param Request $request
+     * @param Request       $request
      * @param FormInterface $form
-     * @param $redirectRoute
+     * @param               $redirectRoute
+     *
      * @return array|RedirectResponse
      */
     public function getDataCompletion(Request $request, FormInterface $form, $redirectRoute)
     {
-        $results = new ArrayCollection();
-        $alias = 'i';
-        $queryBuilder = $this->entityMgr->getRepository(Site::class)->getWithCasesForDate($alias, RotaVirus::class);
+        $results      = new ArrayCollection();
+        $alias        = 'i';
+        $queryBuilder = $this->entityMgr->getRepository(Site::class)->getWithCasesForDate($alias, RotaVirus::class, true);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -93,17 +95,17 @@ class RotaVirusReporter extends AbstractReporter
                 return ['sites' => [], 'form' => $form->createView()];
             }
 
-            $this->populateSites($sites, $results, DataCompletion::class);
+            $this->populateSites($sites, $results, DataCompletionResult::class);
 
-            $repo = $this->entityMgr->getRepository(RotaVirus::class);
+            $repo    = $this->entityMgr->getRepository(RotaVirus::class);
             $columns = [
-                'getStoolCollectedCountBySites' => 'setStoolCollectedCount',
-                'getElisaDoneCountBySites' => 'setElisaDoneCount',
-                'getDischargeOutcomeCountBySites' => 'setOutcomeCount',
+                'getStoolCollectedCountBySites'          => 'setStoolCollectedCount',
+                'getElisaDoneCountBySites'               => 'setElisaDoneCount',
+                'getDischargeOutcomeCountBySites'        => 'setOutcomeCount',
                 'getDischargeClassificationCountBySites' => 'setClassificationCount',
             ];
 
-            $this->processResult($columns, $repo, $alias, $results, $form);
+            $this->processResult($columns, $repo, $alias, $results, $form, true);
 
             if ($form->get('export')->isClicked()) {
                 return $this->exporter->export('NSSentinelBundle:Report:RotaVirus/Export/data-completion.html.twig', ['sites' => $results]);
@@ -122,8 +124,8 @@ class RotaVirusReporter extends AbstractReporter
      */
     public function getSitePerformance(Request $request, FormInterface $form, $redirectRoute)
     {
-        $results = new ArrayCollection();
-        $alias = 'i';
+        $results      = new ArrayCollection();
+        $alias        = 'i';
         $queryBuilder = $this->entityMgr->getRepository(Site::class)->getWithCasesForDate($alias, RotaVirus::class);
 
         $form->handleRequest($request);
@@ -142,17 +144,17 @@ class RotaVirusReporter extends AbstractReporter
 
             $this->populateSites($sites, $results, SitePerformanceResult::class);
 
-            $repo = $this->entityMgr->getRepository(RotaVirus::class);
+            $repo    = $this->entityMgr->getRepository(RotaVirus::class);
             $columns = [
                 'getConsistentReporting' => 'addConsistentReporting',
-                'getZeroReporting' => ['alias' => 'i', 'method' => 'addConsistentReporting'],
+                'getZeroReporting'       => ['alias' => 'i', 'method' => 'addConsistentReporting'],
             ];
 
             $this->processSitePerformanceResult($columns, $repo, $alias, $results, $form);
 
             $columns = [
                 'getSpecimenCollectedWithinTwoDays' => 'setSpecimenCollection',
-                'getLabConfirmedCount' => 'setLabConfirmed',
+                'getLabConfirmedCount'              => 'setLabConfirmed',
             ];
 
             $this->processResult($columns, $repo, $alias, $results, $form);
@@ -168,7 +170,7 @@ class RotaVirusReporter extends AbstractReporter
     public function getDataLinking(Request $request, FormInterface $form, $redirectRoute)
     {
         $results = new ArrayCollection();
-        $alias = 'i';
+        $alias   = 'i';
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -195,9 +197,9 @@ class RotaVirusReporter extends AbstractReporter
             }
 
             $columns = [
-                'getLinkedCount' => 'setLinked',
+                'getLinkedCount'       => 'setLinked',
                 'getFailedLinkedCount' => 'setNotLinked',
-                'getNoLabCount' => 'setNoLab',
+                'getNoLabCount'        => 'setNoLab',
             ];
 
             $this->processLinkingResult($columns, $repo, $alias, $results, $form);
@@ -207,9 +209,10 @@ class RotaVirusReporter extends AbstractReporter
     }
 
     /**
-     * @param Request $request
+     * @param Request       $request
      * @param FormInterface $form
-     * @param $redirectRoute
+     * @param               $redirectRoute
+     *
      * @return array|RedirectResponse
      */
     public function getStats(Request $request, FormInterface $form, $redirectRoute)
@@ -226,7 +229,7 @@ class RotaVirusReporter extends AbstractReporter
                 return new RedirectResponse($this->router->generate($redirectRoute));
             }
 
-            $alias = 'i';
+            $alias        = 'i';
             $queryBuilder = $this->entityMgr->getRepository(Site::class)->getWithCasesForDate($alias, RotaVirus::class);
             $queryBuilder->addSelect('MONTH(i.adm_date) as admMonth');
 

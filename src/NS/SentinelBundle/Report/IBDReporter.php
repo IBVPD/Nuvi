@@ -30,7 +30,7 @@ class IBDReporter extends AbstractReporter
 
     public function initialize(string $class, string $exportBasePath)
     {
-        $this->class = $class;
+        $this->class          = $class;
         $this->exportBasePath = $exportBasePath;
     }
 
@@ -39,9 +39,9 @@ class IBDReporter extends AbstractReporter
      */
     public function numberEnrolled(Request $request, FormInterface $form, string $redirectRoute)
     {
-        $alias = 'c';
+        $alias        = 'c';
         $queryBuilder = $this->entityMgr->getRepository($this->class)->numberAndPercentEnrolledByAdmissionDiagnosis($alias);
-        $export = false;
+        $export       = false;
 
         $form->handleRequest($request);
 
@@ -59,23 +59,19 @@ class IBDReporter extends AbstractReporter
         $result->load($queryBuilder->getQuery()->getResult());
 
         if ($export) {
-            return $this->exporter->export($this->exportBasePath.'/number-enrolled.html.twig', ['results' => $result]);
+            return $this->exporter->export($this->exportBasePath . '/number-enrolled.html.twig', ['results' => $result]);
         }
 
         return ['results' => $result, 'form' => $form->createView()];
     }
 
     /**
-     *
-     * @param Request $request
-     * @param FormInterface $form
-     * @param string $redirectRoute
      * @return RedirectResponse|array
      */
-    public function getAnnualAgeDistribution(Request $request, FormInterface $form, $redirectRoute)
+    public function getAnnualAgeDistribution(Request $request, FormInterface $form, string $redirectRoute)
     {
-        $export = false;
-        $alias = 'i';
+        $export       = false;
+        $alias        = 'i';
         $queryBuilder = $this->entityMgr->getRepository($this->class)->getAnnualAgeDistribution($alias);
 
         $form->handleRequest($request);
@@ -89,27 +85,23 @@ class IBDReporter extends AbstractReporter
             $export = $form->get('export')->isClicked();
         }
 
-        $result = $queryBuilder->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult(Query::HYDRATE_SCALAR);
+        $result  = $queryBuilder->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult(Query::HYDRATE_SCALAR);
         $results = new AgeDistribution($result);
 
         if ($export) {
-            return $this->exporter->export($this->exportBasePath.'/annual-age.html.twig', ['results' => $results]);
+            return $this->exporter->export($this->exportBasePath . '/annual-age.html.twig', ['results' => $results]);
         }
 
         return ['results' => $results, 'form' => $form->createView()];
     }
 
     /**
-     *
-     * @param Request $request
-     * @param FormInterface $form
-     * @param string $redirectRoute
      * @return RedirectResponse|array
      */
-    public function getFieldPopulation(Request $request, FormInterface $form, $redirectRoute)
+    public function getFieldPopulation(Request $request, FormInterface $form, string $redirectRoute)
     {
-        $results = new ArrayCollection();
-        $alias = 'i';
+        $results      = new ArrayCollection();
+        $alias        = 'i';
         $queryBuilder = $this->entityMgr->getRepository(Site::class)->getWithCasesForDate($alias, $this->class);
 
         $form->handleRequest($request);
@@ -128,24 +120,24 @@ class IBDReporter extends AbstractReporter
 
             $this->populateSites($sites, $results, FieldPopulationResult::class);
 
-            $repo = $this->entityMgr->getRepository($this->class);
+            $repo    = $this->entityMgr->getRepository($this->class);
             $columns = [
-                'getCsfCollectedCountBySites' => 'setCsfCollectedCount',
+                'getCsfCollectedCountBySites'   => 'setCsfCollectedCount',
                 'getBloodCollectedCountBySites' => 'setBloodCollectedCount',
-                'getBloodResultCountBySites' => 'setBloodResultCount',
-                'getCsfBinaxDoneCountBySites' => 'setCsfBinaxDoneCount',
+                'getBloodResultCountBySites'    => 'setBloodResultCount',
+                'getCsfBinaxDoneCountBySites'   => 'setCsfBinaxDoneCount',
                 'getCsfBinaxResultCountBySites' => 'setCsfBinaxResultCount',
-                'getCsfLatDoneCountBySites' => 'setCsfLatDoneCount',
-                'getCsfLatResultCountBySites' => 'setCsfLatResultCount',
-                'getCsfPcrCountBySites' => 'setCsfPcrRecordedCount',
-                'getCsfSpnCountBySites' => 'setCsfSpnRecordedCount',
-                'getCsfHiCountBySites' => 'setCsfHiRecordedCount',
-                'getPcrPositiveCountBySites' => 'setPcrPositiveCount'];
+                'getCsfLatDoneCountBySites'     => 'setCsfLatDoneCount',
+                'getCsfLatResultCountBySites'   => 'setCsfLatResultCount',
+                'getCsfPcrCountBySites'         => 'setCsfPcrRecordedCount',
+                'getCsfSpnCountBySites'         => 'setCsfSpnRecordedCount',
+                'getCsfHiCountBySites'          => 'setCsfHiRecordedCount',
+                'getPcrPositiveCountBySites'    => 'setPcrPositiveCount'];
 
             $this->processResult($columns, $repo, $alias, $results, $form);
 
             if ($form->get('export')->isClicked()) {
-                return $this->exporter->export($this->exportBasePath.'/field-population.html.twig', ['sites' => $results]);
+                return $this->exporter->export($this->exportBasePath . '/field-population.html.twig', ['sites' => $results]);
             }
         }
 
@@ -153,19 +145,15 @@ class IBDReporter extends AbstractReporter
     }
 
     /**
-     *
-     * @param Request $request
-     * @param FormInterface $form
-     * @param string $redirectRoute
      * @return RedirectResponse|array
      */
-    public function getCulturePositive(Request $request, FormInterface $form, $redirectRoute)
+    public function getCulturePositive(Request $request, FormInterface $form, string $redirectRoute)
     {
-        $alias = 'c';
-        $repo = $this->entityMgr->getRepository($this->class);
+        $alias          = 'c';
+        $repo           = $this->entityMgr->getRepository($this->class);
         $cultPositiveQB = $repo->getCountByCulture($alias, true, null, null);
         $cultNegativeQB = $repo->getCountByCulture($alias, false, true, null);
-        $pcrPositiveQB = $repo->getCountByCulture($alias, false, false, true);
+        $pcrPositiveQB  = $repo->getCountByCulture($alias, false, false, true);
 
         $form->handleRequest($request);
 
@@ -181,26 +169,23 @@ class IBDReporter extends AbstractReporter
 
         $culturePositive = $cultPositiveQB->groupBy('theYear')->getQuery()->getResult();
         $cultureNegative = $cultNegativeQB->groupBy('theYear')->getQuery()->getResult();
-        $pcrPositive = $pcrPositiveQB->groupBy('theYear')->getQuery()->getResult();
-        $results = new CulturePositive($culturePositive, $cultureNegative, $pcrPositive);
+        $pcrPositive     = $pcrPositiveQB->groupBy('theYear')->getQuery()->getResult();
+        $results         = new CulturePositive($culturePositive, $cultureNegative, $pcrPositive);
 
         if ($form->get('export')->isClicked()) {
-            return $this->exporter->export($this->exportBasePath.'/culture-positive.html.twig', ['results' => $results]);
+            return $this->exporter->export($this->exportBasePath . '/culture-positive.html.twig', ['results' => $results]);
         }
 
         return ['results' => $results, 'form' => $form->createView()];
     }
 
     /**
-     * @param Request $request
-     * @param FormInterface $form
-     * @param $redirectRoute
      * @return array|RedirectResponse
      */
-    public function getDataQuality(Request $request, FormInterface $form, $redirectRoute)
+    public function getDataQuality(Request $request, FormInterface $form, string $redirectRoute)
     {
-        $results = new ArrayCollection();
-        $alias = 'i';
+        $results      = new ArrayCollection();
+        $alias        = 'i';
         $queryBuilder = $this->entityMgr->getRepository(Site::class)->getWithCasesForDate($alias, $this->class);
 
         $form->handleRequest($request);
@@ -219,17 +204,17 @@ class IBDReporter extends AbstractReporter
 
             $this->populateSites($sites, $results, DataQualityResult::class);
 
-            $repo = $this->entityMgr->getRepository($this->class);
+            $repo    = $this->entityMgr->getRepository($this->class);
             $columns = [
                 'getMissingAdmissionDiagnosisCountBySites' => 'setMissingAdmissionDiagnosisCount',
-                'getMissingDischargeOutcomeCountBySites' => 'setMissingDischargeOutcomeCount',
+                'getMissingDischargeOutcomeCountBySites'   => 'setMissingDischargeOutcomeCount',
                 'getMissingDischargeDiagnosisCountBySites' => 'setMissingDischargeDiagnosisCount',
             ];
 
             $this->processResult($columns, $repo, $alias, $results, $form);
 
             if ($form->get('export')->isClicked()) {
-                return $this->exporter->export($this->exportBasePath.'/data-quality.html.twig', ['sites' => $results], 'xls');
+                return $this->exporter->export($this->exportBasePath . '/data-quality.html.twig', ['sites' => $results], 'xls');
             }
         }
 
@@ -237,16 +222,13 @@ class IBDReporter extends AbstractReporter
     }
 
     /**
-     * @param Request $request
-     * @param FormInterface $form
-     * @param $redirectRoute
      * @return array|RedirectResponse
      */
-    public function getDataCompletion(Request $request, FormInterface $form, $redirectRoute)
+    public function getDataCompletion(Request $request, FormInterface $form, string $redirectRoute)
     {
-        $results = new ArrayCollection();
-        $alias = 'i';
-        $queryBuilder = $this->entityMgr->getRepository(Site::class)->getWithCasesForDate($alias, $this->class);
+        $results      = new ArrayCollection();
+        $alias        = 'i';
+        $queryBuilder = $this->entityMgr->getRepository(Site::class)->getWithCasesForDate($alias, $this->class, true);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -264,20 +246,20 @@ class IBDReporter extends AbstractReporter
 
             $this->populateSites($sites, $results, DataCompletionResult::class);
 
-            $repo = $this->entityMgr->getRepository($this->class);
+            $repo    = $this->entityMgr->getRepository($this->class);
             $columns = [
-                'getSuspectedCountBySites' => 'setSuspected',
-                'getSuspectedWithXrayCountBySites' => 'setSuspectedXray',
-                'getProbableCountBySites' => 'setProbable',
-                'getProbableWithBloodCountBySites' => 'setProbableWithBlood',
-                'getDischargeOutcomeCountBySites' => 'setOutcomeAtDischarge',
+                'getSuspectedCountBySites'               => 'setSuspected',
+                'getSuspectedWithXrayCountBySites'       => 'setSuspectedXray',
+                'getProbableCountBySites'                => 'setProbable',
+                'getProbableWithBloodCountBySites'       => 'setProbableWithBlood',
+                'getDischargeOutcomeCountBySites'        => 'setOutcomeAtDischarge',
                 'getDischargeClassificationCountBySites' => 'setClassificationAtDischarge',
             ];
 
-            $this->processResult($columns, $repo, $alias, $results, $form);
+            $this->processResult($columns, $repo, $alias, $results, $form, true);
 
             if ($form->get('export')->isClicked()) {
-                return $this->exporter->export($this->exportBasePath.'/data-completion.html.twig', ['sites' => $results], 'xls');
+                return $this->exporter->export($this->exportBasePath . '/data-completion.html.twig', ['sites' => $results], 'xls');
             }
         }
 
@@ -285,15 +267,16 @@ class IBDReporter extends AbstractReporter
     }
 
     /**
-     * @param Request $request
+     * @param Request       $request
      * @param FormInterface $form
-     * @param $redirectRoute
+     * @param               $redirectRoute
+     *
      * @return array|RedirectResponse
      */
     public function getSitePerformance(Request $request, FormInterface $form, $redirectRoute)
     {
-        $results = new ArrayCollection();
-        $alias = 'i';
+        $results      = new ArrayCollection();
+        $alias        = 'i';
         $queryBuilder = $this->entityMgr->getRepository(Site::class)->getWithCasesForDate($alias, $this->class);
 
         $form->handleRequest($request);
@@ -312,18 +295,18 @@ class IBDReporter extends AbstractReporter
 
             $this->populateSites($sites, $results, SitePerformanceResult::class);
 
-            $repo = $this->entityMgr->getRepository($this->class);
+            $repo    = $this->entityMgr->getRepository($this->class);
             $columns = [
                 'getConsistentReporting' => 'addConsistentReporting',
-                'getZeroReporting' => ['method' => 'addConsistentReporting', 'alias' => 'i'],
+                'getZeroReporting'       => ['method' => 'addConsistentReporting', 'alias' => 'i'],
             ];
 
             $this->processSitePerformanceResult($columns, $repo, $alias, $results, $form);
 
             $columns = [
                 'getNumberOfSpecimenCollectedCount' => 'setSpecimenCollection',
-                'getNumberOfConfirmedCount' => 'setConfirmed',
-                'getNumberOfLabConfirmedCount' => 'setLabConfirmed',
+                'getNumberOfConfirmedCount'         => 'setConfirmed',
+                'getNumberOfLabConfirmedCount'      => 'setLabConfirmed',
             ];
 
             $this->processResult($columns, $repo, $alias, $results, $form);
@@ -333,15 +316,16 @@ class IBDReporter extends AbstractReporter
     }
 
     /**
-     * @param Request $request
+     * @param Request       $request
      * @param FormInterface $form
-     * @param $redirectRoute
+     * @param               $redirectRoute
+     *
      * @return array|RedirectResponse
      */
     public function getDataLinking(Request $request, FormInterface $form, $redirectRoute)
     {
         $results = new ArrayCollection();
-        $alias = 'i';
+        $alias   = 'i';
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -364,13 +348,13 @@ class IBDReporter extends AbstractReporter
 
             if ($form->get('export')->isClicked()) {
                 $results = $repo->getFailedLink($alias, $results->getKeys())->getQuery()->getResult();
-                return $this->exporter->export($this->exportBasePath.'/data-linking.html.twig', ['results' => $results]);
+                return $this->exporter->export($this->exportBasePath . '/data-linking.html.twig', ['results' => $results]);
             }
 
             $columns = [
-                'getLinkedCount' => 'setLinked',
+                'getLinkedCount'       => 'setLinked',
                 'getFailedLinkedCount' => 'setNotLinked',
-                'getNoLabCount' => 'setNoLab',
+                'getNoLabCount'        => 'setNoLab',
             ];
 
             $this->processLinkingResult($columns, $repo, $alias, $results, $form);
@@ -380,9 +364,10 @@ class IBDReporter extends AbstractReporter
     }
 
     /**
-     * @param Request $request
+     * @param Request       $request
      * @param FormInterface $form
-     * @param $redirectRoute
+     * @param               $redirectRoute
+     *
      * @return array|RedirectResponse
      */
     public function getStats(Request $request, FormInterface $form, $redirectRoute)
@@ -399,7 +384,7 @@ class IBDReporter extends AbstractReporter
                 return new RedirectResponse($this->router->generate($redirectRoute));
             }
 
-            $alias = 'i';
+            $alias        = 'i';
             $queryBuilder = $this->entityMgr->getRepository(Site::class)->getWithCasesForDate($alias, $this->class);
             $queryBuilder->addSelect('MONTH(i.adm_date) as admMonth');
 

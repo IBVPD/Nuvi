@@ -75,13 +75,23 @@ class SiteRepository extends CommonRepository
         return $this->secure($this->_em->createQueryBuilder('s')->select('s')->from('NS\SentinelBundle\Entity\Site','s','s.code')->where('s.active = :isActive')->setParameter('isActive', true)->orderBy('s.name', 'ASC'))->getQuery()->getResult();
     }
 
-    /**
-     * @param $alias
-     * @param $caseClass
-     * @return QueryBuilder
-     */
-    public function getWithCasesForDate($alias, $caseClass): QueryBuilder
+    public function getWithCasesForDate(string $alias, string $caseClass, ?bool $groupByYear = null): QueryBuilder
     {
+        if ($groupByYear) {
+            return $this->secure($this->_em->createQueryBuilder()
+                ->select("$alias, s, c, r, COUNT($alias) as totalCases, YEAR($alias.adm_date) as caseYear")
+                ->from($caseClass, $alias)
+                ->innerJoin("$alias.site", 's', 's.code')
+                ->innerJoin('s.country', 'c')
+                ->innerJoin('c.region', 'r')
+                ->groupBy("$alias.site")
+                ->addOrderBy('r.name', 'ASC')
+                ->addOrderBy('c.name', 'ASC')
+                ->addOrderBy('s.name', 'ASC')
+                ->groupBy('s.code, caseYear')
+            );
+        }
+
         return $this->secure($this->_em->createQueryBuilder()
             ->select("$alias, s, c, r, COUNT($alias) as totalCases")
             ->from($caseClass, $alias)

@@ -15,10 +15,10 @@ use NS\SentinelBundle\Exceptions\NonExistentCaseException;
 use NS\SentinelBundle\Form\IBD\Types\CaseResult;
 use NS\SentinelBundle\Form\IBD\Types\Diagnosis;
 use NS\SentinelBundle\Form\Types\TripleChoice;
-use NS\SentinelBundle\Repository\Common;
+use NS\SentinelBundle\Repository\AbstractReportCommonRepository;
 use NS\UtilBundle\Form\Types\ArrayChoice;
 
-class PneumoniaRepository extends Common
+class PneumoniaRepository extends AbstractReportCommonRepository
 {
     /**
      * @param string $alias
@@ -257,7 +257,7 @@ class PneumoniaRepository extends Common
      *
      * @return QueryBuilder
      */
-    private function getCountQueryBuilder($alias, array $siteCodes): QueryBuilder
+    public function getCountQueryBuilder($alias, array $siteCodes): QueryBuilder
     {
         $queryBuilder = $this->createQueryBuilder($alias)
             ->leftJoin(sprintf('%s.siteLab', $alias), 'sl')
@@ -403,7 +403,7 @@ class PneumoniaRepository extends Common
         }
     }
 
-    private function getByCountryCountQueryBuilder($alias, array $countryCodes): QueryBuilder
+    private function getByCountryCountQueryBuilder(string $alias, array $countryCodes): QueryBuilder
     {
         $queryBuilder = $this->createQueryBuilder($alias)
             ->innerJoin($alias.'.country', 'c')
@@ -441,14 +441,17 @@ class PneumoniaRepository extends Common
             ->andWhere(sprintf('IDENTITY(%s) IS NULL',$alias));
     }
 
-    /**
-     * @param $alias
-     * @param array $siteCodes
-     *
-     * @return QueryBuilder
-     */
-    public function getSuspectedCountBySites($alias, array $siteCodes): QueryBuilder
+    public function getSuspectedCountBySites(string $alias, array $siteCodes, ?bool $groupByYear = null): QueryBuilder
     {
+        if ($groupByYear === true) {
+            return $this->getCountQueryBuilder($alias, $siteCodes)
+                ->select(sprintf('%s.id,COUNT(%s.id) as caseCount, YEAR(%s.adm_date) as caseYear, s.code', $alias, $alias, $alias))
+                ->andWhere(sprintf('(%s.adm_dx IN (:suspected,:severe))', $alias))
+                ->setParameter('suspected', Diagnosis::SUSPECTED_PNEUMONIA)
+                ->setParameter('severe', Diagnosis::SUSPECTED_SEVERE_PNEUMONIA)
+                ->addGroupBy('caseYear');
+        }
+
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
             ->andWhere(sprintf('(%s.adm_dx IN (:suspected,:severe))', $alias))
@@ -456,58 +459,26 @@ class PneumoniaRepository extends Common
             ->setParameter('severe', Diagnosis::SUSPECTED_SEVERE_PNEUMONIA);
     }
 
-    /**
-     * @param $alias
-     * @param array $siteCodes
-     *
-     * @return QueryBuilder
-     */
-    public function getSuspectedWithCSFCountBySites($alias, array $siteCodes): QueryBuilder
+    public function getSuspectedWithCSFCountBySites(string $alias, array $siteCodes, ?bool $groupByYear = null): QueryBuilder
     {
-        return $this->getSuspectedCountBySites($alias, $siteCodes)
+        return $this->getSuspectedCountBySites($alias, $siteCodes, $groupByYear)
             ->andWhere(sprintf('(%s.cxr_done = :done)', $alias))
             ->setParameter('done', TripleChoice::YES);
     }
 
-    /**
-     * @param $alias
-     * @param array $siteCodes
-     *
-     * @return QueryBuilder
-     */
-    public function getProbableCountBySites($alias, array $siteCodes): QueryBuilder
+    public function getProbableCountBySites(string $alias, array $siteCodes, ?bool $groupByYear = null): QueryBuilder
     {
+        if ($groupByYear === true) {
+            return $this->getCountQueryBuilder($alias, $siteCodes)
+                ->select(sprintf('%s.id,COUNT(%s.id) as caseCount, YEAR(%s.adm_date) as caseYear, s.code', $alias, $alias, $alias))
+                ->andWhere(sprintf('(%s.result = :probable)', $alias))
+                ->setParameter('probable', CaseResult::PROBABLE)
+                ->addGroupBy('caseYear');
+        }
+
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
             ->andWhere(sprintf('(%s.result = :probable)', $alias))
             ->setParameter('probable', CaseResult::PROBABLE);
-    }
-
-    /**
-     * @param $alias
-     * @param array $siteCodes
-     * @return QueryBuilder
-     */
-    public function getDischargeOutcomeCountBySites($alias, array $siteCodes): QueryBuilder
-    {
-        return $this->getCountQueryBuilder($alias, $siteCodes)
-            ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
-            ->andWhere(sprintf('(%s.disch_outcome IS NOT NULL AND %s.disch_outcome NOT IN (:noSelection,:outOfRange))', $alias, $alias))
-            ->setParameter('noSelection', ArrayChoice::NO_SELECTION)
-            ->setParameter('outOfRange', ArrayChoice::OUT_OF_RANGE);
-    }
-
-    /**
-     * @param $alias
-     * @param array $siteCodes
-     * @return QueryBuilder
-     */
-    public function getDischargeClassificationCountBySites($alias, array $siteCodes): QueryBuilder
-    {
-        return $this->getCountQueryBuilder($alias, $siteCodes)
-            ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
-            ->andWhere(sprintf('(%s.disch_class IS NOT NULL AND %s.disch_class NOT IN (:noSelection,:outOfRange))', $alias, $alias))
-            ->setParameter('noSelection', ArrayChoice::NO_SELECTION)
-            ->setParameter('outOfRange', ArrayChoice::OUT_OF_RANGE);
     }
 }

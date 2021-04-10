@@ -7,6 +7,9 @@ use NS\SentinelBundle\Report\Result\AbstractSiteBasedResult;
 class DataCompletionResult extends AbstractSiteBasedResult
 {
     /** @var int */
+    private $year = 0;
+
+    /** @var int */
     private $suspected = 0;
 
     /** @var int */
@@ -20,6 +23,16 @@ class DataCompletionResult extends AbstractSiteBasedResult
 
     /** @var int */
     private $classificationAtDischarge = 0;
+
+    public function getYear(): int
+    {
+        return $this->year;
+    }
+
+    public function setYear(int $year): void
+    {
+        $this->year = $year;
+    }
 
     public function getSuspected(): int
     {

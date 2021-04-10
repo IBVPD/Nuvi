@@ -20,11 +20,12 @@ use NS\SentinelBundle\Form\IBD\Types\SpnSerotype;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\UtilBundle\Form\Types\ArrayChoice;
 
-class IBDRepository extends Common
+class IBDRepository extends AbstractReportCommonRepository
 {
     /**
      * @param string $alias
-     * @param int $ageInMonths
+     * @param int    $ageInMonths
+     *
      * @return QueryBuilder
      */
     public function numberAndPercentEnrolledByAdmissionDiagnosis($alias = 'c', $ageInMonths = 59): QueryBuilder
@@ -40,7 +41,7 @@ class IBDRepository extends Common
 
     public function getStats(): array
     {
-        $results = [];
+        $results      = [];
         $queryBuilder = $this->createQueryBuilder('m')
             ->select('COUNT(m.id) theCount')
             ->where('m.cxr_done = :cxr')
@@ -120,6 +121,7 @@ class IBDRepository extends Common
 
     /**
      * @param $objId
+     *
      * @return mixed
      * @throws NonExistentCaseException
      */
@@ -149,6 +151,7 @@ class IBDRepository extends Common
 
     /**
      * @param $objId
+     *
      * @return mixed
      * @throws NonExistentCaseException
      */
@@ -172,7 +175,7 @@ class IBDRepository extends Common
      *
      * @return BaseCase|null
      */
-    public function find($objId, $lockMode = NULL, $lockVersion = NULL): ?BaseCase
+    public function find($objId, $lockMode = null, $lockVersion = null): ?BaseCase
     {
         try {
             $queryBuilder = $this->createQueryBuilder('m')
@@ -194,9 +197,9 @@ class IBDRepository extends Common
         return $this->secure(
             $this->createQueryBuilder($alias)
                 ->select($alias . ',sl,rl,nl,s,c,r')
-                ->leftJoin($alias.'.siteLab','sl')
-                ->leftJoin($alias.'.referenceLab','rl')
-                ->leftJoin($alias.'.nationalLab','nl')
+                ->leftJoin($alias . '.siteLab', 'sl')
+                ->leftJoin($alias . '.referenceLab', 'rl')
+                ->leftJoin($alias . '.nationalLab', 'nl')
                 ->innerJoin($alias . '.site', 's')
                 ->innerJoin($alias . '.country', 'c')
                 ->innerJoin($alias . '.region', 'r')
@@ -210,6 +213,7 @@ class IBDRepository extends Common
 
     /**
      * @param null $modifiedSince
+     *
      * @return array
      */
     public function findModified($modifiedSince = null): array
@@ -245,7 +249,7 @@ class IBDRepository extends Common
         return $this->secure($queryBuilder);
     }
 
-    private function getCountQueryBuilder(string $alias, array $siteCodes): QueryBuilder
+    public function getCountQueryBuilder(string $alias, array $siteCodes): QueryBuilder
     {
         $queryBuilder = $this->createQueryBuilder($alias)
             ->leftJoin(sprintf('%s.siteLab', $alias), 'sl')
@@ -335,8 +339,8 @@ class IBDRepository extends Common
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
-            ->leftJoin(sprintf('%s.referenceLab',$alias),'rl')
-            ->leftJoin(sprintf('%s.nationalLab',$alias),'nl')
+            ->leftJoin(sprintf('%s.referenceLab', $alias), 'rl')
+            ->leftJoin(sprintf('%s.nationalLab', $alias), 'nl')
             ->andWhere('(rl.spn_serotype != :other OR rl.spn_serotype != :notDone OR nl.spn_serotype != :other OR nl.spn_serotype != :notDone)')
             ->setParameter('other', SpnSerotype::OTHER)
             ->setParameter('notDone', SpnSerotype::_NOT_DONE);
@@ -346,8 +350,8 @@ class IBDRepository extends Common
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
-            ->leftJoin(sprintf('%s.referenceLab',$alias),'rl')
-            ->leftJoin(sprintf('%s.nationalLab',$alias),'nl')
+            ->leftJoin(sprintf('%s.referenceLab', $alias), 'rl')
+            ->leftJoin(sprintf('%s.nationalLab', $alias), 'nl')
             ->andWhere('(rl.hi_serotype != :other OR rl.hi_serotype != :notDone OR nl.hi_serotype != :other OR nl.hi_serotype != :notDone)')
             ->setParameter('other', HiSerotype::OTHER)
             ->setParameter('notDone', HiSerotype::NOT_DONE);
@@ -400,7 +404,7 @@ class IBDRepository extends Common
     }
 
     /**
-     * @param $alias
+     * @param       $alias
      * @param array $siteCodes
      *
      * @return QueryBuilder
@@ -415,7 +419,7 @@ class IBDRepository extends Common
     }
 
     /**
-     * @param $alias
+     * @param       $alias
      * @param array $siteCodes
      *
      * @return QueryBuilder
@@ -430,7 +434,7 @@ class IBDRepository extends Common
     }
 
     /**
-     * @param $alias
+     * @param       $alias
      * @param array $siteCodes
      *
      * @return QueryBuilder
@@ -448,8 +452,7 @@ class IBDRepository extends Common
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,MONTH(%s.adm_date) as theMonth,COUNT(%s.id) as caseCount,s.code', $alias, $alias, $alias))
-            ->addGroupBy('theMonth')
-            ;
+            ->addGroupBy('theMonth');
     }
 
     public function getZeroReporting($alias, array $siteCodes): QueryBuilder
@@ -465,8 +468,8 @@ class IBDRepository extends Common
         }
 
         return $queryBuilder->where("($alias.type = :type AND $alias.caseType = :classType AND $alias.site IN (:sites))")
-            ->setParameter('type', 'zero' )
-            ->setParameter('classType', 'NSSentinelBundle:IBD' )
+            ->setParameter('type', 'zero')
+            ->setParameter('classType', 'NSSentinelBundle:IBD')
             ->setParameter('sites', $siteCodes);
     }
 
@@ -483,16 +486,16 @@ class IBDRepository extends Common
         $tier1Req = 'sl.csf_cult_result IN (:csfResult) OR sl.csf_pcr_result IN (:csfResult)';
         $tier2Req = 'sl.csf_cult_result IN (:csfResult) OR sl.csf_pcr_result IN (:csfResult) OR sl.blood_cult_result IN (:csfResult) OR sl.blood_pcr_result IN (:csfResult)';
         return $this->getCountQueryBuilder($alias, $siteCodes)
-            ->leftJoin($alias.'.nationalLab','nl')
-            ->leftJoin($alias.'.referenceLab','rl')
+            ->leftJoin($alias . '.nationalLab', 'nl')
+            ->leftJoin($alias . '.referenceLab', 'rl')
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
             ->andWhere(sprintf('(
             (nl.spn_serotype > 0 OR rl.spn_serotype > 0 OR nl.hi_serotype > 0 OR rl.hi_serotype > 0 OR nl.nm_serogroup > 0 OR rl.nm_serogroup > 0)
             AND (
                     (s.ibdTier = 1 AND ( %s ) ) OR (s.ibdTier = 2 AND ( %s ) )
                 )
-            )',$tier1Req,$tier2Req))
-            ->setParameter('csfResult', [CultureResult::SPN,CultureResult::HI,CultureResult::NM]);
+            )', $tier1Req, $tier2Req))
+            ->setParameter('csfResult', [CultureResult::SPN, CultureResult::HI, CultureResult::NM]);
     }
 
     public function getNumberOfConfirmedCount($alias, array $siteCodes): QueryBuilder
@@ -500,11 +503,11 @@ class IBDRepository extends Common
         $tier1Req = 'sl.csf_cult_result IN (:csfResult) OR sl.csf_pcr_result IN (:csfResult)';
         $tier2Req = 'sl.csf_cult_result IN (:csfResult) OR sl.csf_pcr_result IN (:csfResult) OR sl.blood_cult_result IN (:csfResult) OR sl.blood_pcr_result IN (:csfResult)';
         return $this->getCountQueryBuilder($alias, $siteCodes)
-            ->leftJoin($alias.'.nationalLab','nl')
-            ->leftJoin($alias.'.referenceLab','rl')
+            ->leftJoin($alias . '.nationalLab', 'nl')
+            ->leftJoin($alias . '.referenceLab', 'rl')
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
-            ->andWhere(sprintf('(  (s.ibdTier = 1 AND ( %s ) ) OR (s.ibdTier = 2 AND ( %s ) ) )',$tier1Req,$tier2Req))
-            ->setParameter('csfResult', [CultureResult::SPN,CultureResult::HI,CultureResult::NM]);
+            ->andWhere(sprintf('(  (s.ibdTier = 1 AND ( %s ) ) OR (s.ibdTier = 2 AND ( %s ) ) )', $tier1Req, $tier2Req))
+            ->setParameter('csfResult', [CultureResult::SPN, CultureResult::HI, CultureResult::NM]);
     }
 
     /**
@@ -533,14 +536,14 @@ class IBDRepository extends Common
     private function getByCountryCountQueryBuilder($alias, array $countryCodes): QueryBuilder
     {
         $queryBuilder = $this->createQueryBuilder($alias)
-            ->innerJoin($alias.'.country', 'c')
-            ->groupBy($alias.'.country');
+            ->innerJoin($alias . '.country', 'c')
+            ->groupBy($alias . '.country');
 
         if (empty($countryCodes)) {
             return $queryBuilder;
         }
 
-        return $queryBuilder->where("($alias.country IN (:countries) )")->setParameter('countries',array_unique($countryCodes));
+        return $queryBuilder->where("($alias.country IN (:countries) )")->setParameter('countries', array_unique($countryCodes));
     }
 
     public function getLinkedCount($alias, array $countryCodes)
@@ -565,17 +568,25 @@ class IBDRepository extends Common
         return $this->getByCountryCountQueryBuilder('cf', $countryCodes)
             ->select(sprintf('COUNT(IDENTITY(%s)) as caseCount,c.code', $alias))
             ->leftJoin('cf.referenceLab', $alias)
-            ->andWhere(sprintf('IDENTITY(%s) IS NULL',$alias));
+            ->andWhere(sprintf('IDENTITY(%s) IS NULL', $alias));
     }
 
     /**
-     * @param $alias
+     * @param       $alias
      * @param array $siteCodes
      *
      * @return QueryBuilder
      */
-    public function getSuspectedCountBySites($alias, array $siteCodes): QueryBuilder
+    public function getSuspectedCountBySites($alias, array $siteCodes, ?bool $groupByYear): QueryBuilder
     {
+        if ($groupByYear === true) {
+            return $this->getCountQueryBuilder($alias, $siteCodes)
+                ->select(sprintf('%s.id, COUNT(%s.id) as caseCount, YEAR(%s.adm_date) as caseYear, s.code', $alias, $alias, $alias))
+                ->andWhere(sprintf('(%s.adm_dx = :suspected)', $alias))
+                ->setParameter('suspected', Diagnosis::SUSPECTED_MENINGITIS)
+                ->addGroupBy('caseYear');
+        }
+
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
             ->andWhere(sprintf('(%s.adm_dx = :suspected)', $alias))
@@ -583,70 +594,45 @@ class IBDRepository extends Common
     }
 
     /**
-     * @param $alias
+     * @param       $alias
      * @param array $siteCodes
      *
      * @return QueryBuilder
      */
-    public function getSuspectedWithXrayCountBySites($alias, array $siteCodes): QueryBuilder
+    public function getSuspectedWithXrayCountBySites($alias, array $siteCodes, ?bool $groupByYear = null): QueryBuilder
     {
-        return $this->getSuspectedCountBySites($alias, $siteCodes)
+        return $this->getSuspectedCountBySites($alias, $siteCodes, $groupByYear)
             ->andWhere(sprintf('(%s.cxr_done = :done)', $alias))
             ->setParameter('done', TripleChoice::YES);
     }
 
     /**
-     * @param $alias
+     * @param       $alias
      * @param array $siteCodes
      *
      * @return QueryBuilder
      */
-    public function getProbableCountBySites($alias, array $siteCodes): QueryBuilder
+    public function getProbableCountBySites($alias, array $siteCodes, ?bool $groupByYear = null): QueryBuilder
     {
+        if ($groupByYear) {
+            return $this->getCountQueryBuilder($alias, $siteCodes)
+                ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,YEAR(%s.adm_date) AS caseYear, s.code', $alias, $alias, $alias))
+                ->andWhere(sprintf('(%s.result = :probable)', $alias))
+                ->setParameter('probable', CaseResult::PROBABLE)
+                ->addGroupBy('caseYear');
+        }
+
         return $this->getCountQueryBuilder($alias, $siteCodes)
-            ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
+            ->select(sprintf('%s.id,COUNT(%s.id) as caseCount, s.code', $alias, $alias))
             ->andWhere(sprintf('(%s.result = :probable)', $alias))
             ->setParameter('probable', CaseResult::PROBABLE);
+
     }
 
-    /**
-     * @param $alias
-     * @param array $siteCodes
-     *
-     * @return QueryBuilder
-     */
-    public function getProbableWithBloodCountBySites($alias, array $siteCodes): QueryBuilder
+    public function getProbableWithBloodCountBySites(string $alias, array $siteCodes, ?bool $groupByYear = null): QueryBuilder
     {
-        return $this->getProbableCountBySites($alias, $siteCodes)
+        return $this->getProbableCountBySites($alias, $siteCodes, $groupByYear)
             ->andWhere(sprintf('(%s.blood_collected = :bCollected)', $alias))
             ->setParameter('bCollected', TripleChoice::YES);
-    }
-
-    /**
-     * @param $alias
-     * @param array $siteCodes
-     * @return QueryBuilder
-     */
-    public function getDischargeOutcomeCountBySites($alias, array $siteCodes): QueryBuilder
-    {
-        return $this->getCountQueryBuilder($alias, $siteCodes)
-            ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
-            ->andWhere(sprintf('(%s.disch_outcome IS NOT NULL AND %s.disch_outcome NOT IN (:noSelection,:outOfRange))', $alias, $alias))
-            ->setParameter('noSelection', ArrayChoice::NO_SELECTION)
-            ->setParameter('outOfRange', ArrayChoice::OUT_OF_RANGE);
-    }
-
-    /**
-     * @param $alias
-     * @param array $siteCodes
-     * @return QueryBuilder
-     */
-    public function getDischargeClassificationCountBySites($alias, array $siteCodes): QueryBuilder
-    {
-        return $this->getCountQueryBuilder($alias, $siteCodes)
-            ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
-            ->andWhere(sprintf('(%s.disch_class IS NOT NULL AND %s.disch_class NOT IN (:noSelection,:outOfRange))', $alias, $alias))
-            ->setParameter('noSelection', ArrayChoice::NO_SELECTION)
-            ->setParameter('outOfRange', ArrayChoice::OUT_OF_RANGE);
     }
 }

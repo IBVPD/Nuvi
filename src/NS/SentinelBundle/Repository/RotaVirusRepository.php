@@ -13,7 +13,7 @@ use NS\SentinelBundle\Form\RotaVirus\Types\ElisaResult;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\UtilBundle\Form\Types\ArrayChoice;
 
-class RotaVirusRepository extends Common
+class RotaVirusRepository extends AbstractReportCommonRepository
 {
     /**
      * @param string $alias
@@ -151,11 +151,7 @@ class RotaVirusRepository extends Common
         }
     }
 
-    /**
-     * @param $alias
-     * @return QueryBuilder
-     */
-    public function exportQuery($alias): QueryBuilder
+    public function exportQuery(string $alias): QueryBuilder
     {
         return $this->secure(
             $this->createQueryBuilder($alias)
@@ -166,21 +162,12 @@ class RotaVirusRepository extends Common
         );
     }
 
-    /**
-     * @param string $alias
-     * @return QueryBuilder
-     */
-    public function getFilterQueryBuilder($alias = 'm'): QueryBuilder
+    public function getFilterQueryBuilder(string $alias = 'm'): QueryBuilder
     {
         return $this->secure($this->createQueryBuilder($alias)->orderBy($alias . '.id', 'DESC'));
     }
 
-    /**
-     * @param $alias
-     * @param array $siteCodes
-     * @return QueryBuilder
-     */
-    private function getCountQueryBuilder($alias, array $siteCodes): QueryBuilder
+    public function getCountQueryBuilder(string $alias, array $siteCodes): QueryBuilder
     {
         $queryBuilder = $this->createQueryBuilder($alias)
             ->leftJoin("$alias.siteLab", 'sl')
@@ -203,12 +190,7 @@ class RotaVirusRepository extends Common
         return $queryBuilder->where('(' . implode(' OR ', $where) . ')')->setParameters($params);
     }
 
-    /**
-     * @param $alias
-     * @param array $siteCodes
-     * @return QueryBuilder
-     */
-    public function getMissingDischargeOutcomeCountBySites($alias, array $siteCodes): QueryBuilder
+    public function getMissingDischargeOutcomeCountBySites(string $alias, array $siteCodes): QueryBuilder
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
@@ -217,40 +199,7 @@ class RotaVirusRepository extends Common
             ->setParameter('outOfRange', ArrayChoice::OUT_OF_RANGE);
     }
 
-    /**
-     * @param $alias
-     * @param array $siteCodes
-     * @return QueryBuilder
-     */
-    public function getDischargeOutcomeCountBySites($alias, array $siteCodes): QueryBuilder
-    {
-        return $this->getCountQueryBuilder($alias, $siteCodes)
-            ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
-            ->andWhere(sprintf('(%s.disch_outcome IS NOT NULL AND %s.disch_outcome NOT IN (:noSelection,:outOfRange))', $alias, $alias))
-            ->setParameter('noSelection', ArrayChoice::NO_SELECTION)
-            ->setParameter('outOfRange', ArrayChoice::OUT_OF_RANGE);
-    }
-
-    /**
-     * @param $alias
-     * @param array $siteCodes
-     * @return QueryBuilder
-     */
-    public function getDischargeClassificationCountBySites($alias, array $siteCodes): QueryBuilder
-    {
-        return $this->getCountQueryBuilder($alias, $siteCodes)
-            ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
-            ->andWhere(sprintf('(%s.disch_class IS NOT NULL AND %s.disch_class NOT IN (:noSelection,:outOfRange))', $alias, $alias))
-            ->setParameter('noSelection', ArrayChoice::NO_SELECTION)
-            ->setParameter('outOfRange', ArrayChoice::OUT_OF_RANGE);
-    }
-
-    /**
-     * @param $alias
-     * @param array $siteCodes
-     * @return QueryBuilder
-     */
-    public function getStoolCollectionDateErrorCountBySites($alias, array $siteCodes): QueryBuilder
+    public function getStoolCollectionDateErrorCountBySites(string $alias, array $siteCodes): QueryBuilder
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
@@ -258,26 +207,21 @@ class RotaVirusRepository extends Common
             ->setParameter('collectedYes', TripleChoice::YES);
     }
 
-    /**
-     * @param $alias
-     * @param array $siteCodes
-     * @return QueryBuilder
-     */
-    public function getMissingDischargeDateCountBySites($alias, array $siteCodes): QueryBuilder
+    public function getMissingDischargeDateCountBySites(string $alias, array $siteCodes): QueryBuilder
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
             ->andWhere(sprintf('%s.disch_date IS NULL', $alias));
     }
 
-    public function getConsistentReporting($alias, array $siteCodes): QueryBuilder
+    public function getConsistentReporting(string $alias, array $siteCodes): QueryBuilder
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,MONTH(%s.adm_date) as theMonth,COUNT(%s.id) as caseCount,s.code', $alias, $alias, $alias))
             ->addGroupBy('theMonth');
     }
 
-    public function getZeroReporting($alias, array $siteCodes): QueryBuilder
+    public function getZeroReporting(string $alias, array $siteCodes): QueryBuilder
     {
         $queryBuilder = $this->_em
             ->getRepository(ZeroReport::class)
@@ -295,7 +239,7 @@ class RotaVirusRepository extends Common
             ->setParameter('sites', $siteCodes);
     }
 
-    public function getSpecimenCollectedWithinTwoDays($alias, array $siteCodes): QueryBuilder
+    public function getSpecimenCollectedWithinTwoDays(string $alias, array $siteCodes): QueryBuilder
     {
         $config = $this->_em->getConfiguration();
         $config->addCustomDatetimeFunction('DATEDIFF', DateDiff::class);
@@ -306,7 +250,7 @@ class RotaVirusRepository extends Common
             ;
     }
 
-    public function getLabConfirmedCount($alias, array $siteCodes): QueryBuilder
+    public function getLabConfirmedCount(string $alias, array $siteCodes): QueryBuilder
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
@@ -315,7 +259,7 @@ class RotaVirusRepository extends Common
             ;
     }
 
-    private function getByCountryCountQueryBuilder($alias, array $countryCodes): QueryBuilder
+    private function getByCountryCountQueryBuilder(string $alias, array $countryCodes): QueryBuilder
     {
         $queryBuilder = $this->createQueryBuilder($alias)
             ->innerJoin('cf.country', 'c')
@@ -337,7 +281,7 @@ class RotaVirusRepository extends Common
         return $queryBuilder->where('(' . implode(' OR ', $where) . ')')->setParameters($params);
     }
 
-    public function getLinkedCount($alias, array $countryCodes): QueryBuilder
+    public function getLinkedCount(string $alias, array $countryCodes): QueryBuilder
     {
         return $this->getByCountryCountQueryBuilder($alias, $countryCodes)
             ->select(sprintf('IDENTITY(%s),COUNT(IDENTITY(%s)) as caseCount,c.code', $alias, $alias))
@@ -345,7 +289,7 @@ class RotaVirusRepository extends Common
             ->innerJoin('cf.site', 's');
     }
 
-    public function getFailedLinkedCount($alias, array $countryCodes): QueryBuilder
+    public function getFailedLinkedCount(string $alias, array $countryCodes): QueryBuilder
     {
         return $this->getByCountryCountQueryBuilder($alias, $countryCodes)
             ->select(sprintf('IDENTITY(%s),COUNT(IDENTITY(%s)) as caseCount,c.code', $alias, $alias))
@@ -354,7 +298,7 @@ class RotaVirusRepository extends Common
             ->andWhere('s.code IS NULL');
     }
 
-    public function getNoLabCount($alias, array $countryCodes): QueryBuilder
+    public function getNoLabCount(string $alias, array $countryCodes): QueryBuilder
     {
         return $this->getByCountryCountQueryBuilder($alias, $countryCodes)
             ->select(sprintf('IDENTITY(%s),COUNT(IDENTITY(%s)) as caseCount,c.code', $alias, $alias))
@@ -362,23 +306,39 @@ class RotaVirusRepository extends Common
             ->andWhere("IDENTITY($alias) IS NULL");
     }
 
-    public function getStoolCollectedCountBySites($alias, array $siteCodes): QueryBuilder
+    public function getStoolCollectedCountBySites(string $alias, array $siteCodes, ?bool $groupByYear): QueryBuilder
     {
+        if ($groupByYear === true) {
+            return $this->getCountQueryBuilder($alias, $siteCodes)
+                ->select(sprintf('%s.id,COUNT(%s.id) as caseCount, YEAR(%s.adm_date) as caseYear, s.code', $alias, $alias, $alias))
+                ->andWhere(sprintf('%s.stool_collected = :collectedYes', $alias))
+                ->setParameter('collectedYes', TripleChoice::YES)
+                ->addGroupBy('caseYear');
+        }
+
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
             ->andWhere(sprintf('%s.stool_collected = :collectedYes', $alias))
             ->setParameter('collectedYes', TripleChoice::YES);
     }
 
-    public function getElisaDoneCountBySites($alias, array $siteCodes): QueryBuilder
+    public function getElisaDoneCountBySites(string $alias, array $siteCodes, ?bool $groupByYear): QueryBuilder
     {
+        if ($groupByYear === true) {
+            return $this->getCountQueryBuilder($alias, $siteCodes)
+                ->select(sprintf('%s.id,COUNT(%s.id) as caseCount, YEAR(%s.adm_date) caseYear, s.code', $alias, $alias, $alias))
+                ->andWhere(sprintf('%s.stool_collected = :collectedYes AND sl.elisaDone = :collectedYes', $alias))
+                ->setParameter('collectedYes', TripleChoice::YES)
+                ->addGroupBy('caseYear');
+        }
+
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
             ->andWhere(sprintf('%s.stool_collected = :collectedYes AND sl.elisaDone = :collectedYes', $alias))
             ->setParameter('collectedYes', TripleChoice::YES);
     }
 
-    public function getElisaPositiveCountBySites($alias, array $siteCodes): QueryBuilder
+    public function getElisaPositiveCountBySites(string $alias, array $siteCodes): QueryBuilder
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))

@@ -19,55 +19,33 @@ abstract class AbstractSiteBasedResult
         $this->site = $site;
     }
 
-    /**
-     * @return Site
-     */
-    public function getSite()
+    public function getSite(): Site
     {
         return $this->site;
     }
 
-    /**
-     * @param Site $site
-     * @return AbstractSiteBasedResult
-     */
-    public function setSite(Site $site)
+    public function setSite(Site $site): void
     {
         $this->site = $site;
-        return $this;
     }
 
-    /**
-     * @return Country
-     */
-    public function getCountry()
+    public function getCountry(): Country
     {
         return $this->site->getCountry();
     }
 
-    /**
-     * @return Region
-     */
-    public function getRegion()
+    public function getRegion(): Region
     {
         return $this->site->getCountry()->getRegion();
     }
 
-    /**
-     * @return int
-     */
-    public function getTotalCases()
+    public function getTotalCases(): int
     {
         return $this->totalCases;
     }
 
-    /**
-     * @param int $totalCases
-     * @return AbstractSiteBasedResult
-     */
-    public function setTotalCases($totalCases)
+    public function setTotalCases(int $totalCases): void
     {
         $this->totalCases = $totalCases;
-        return $this;
     }
 }

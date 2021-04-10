@@ -13,24 +13,18 @@ use NS\ImportBundle\Exceptions\DuplicateCaseException;
 use NS\SecurityBundle\Doctrine\SecuredEntityRepository;
 use NS\SentinelBundle\Entity\BaseCase;
 use NS\SentinelBundle\Entity\Site;
+use NS\UtilBundle\Form\Types\ArrayChoice;
 use NS\UtilBundle\Service\AjaxAutocompleteRepositoryInterface;
 use NS\SentinelBundle\Entity\Country;
 
 class Common extends SecuredEntityRepository implements AjaxAutocompleteRepositoryInterface
 {
-    /**
-    * @param QueryBuilder $queryBuilder
-    * @return QueryBuilder
-     */
-    public function secure(QueryBuilder $queryBuilder)
+    public function secure(QueryBuilder $queryBuilder): QueryBuilder
     {
         return $this->hasSecuredQuery() ? parent::secure($queryBuilder) : $queryBuilder;
     }
 
-    /**
-     * @return array
-     */
-    public function getAll()
+    public function getAll(): array
     {
         return $this->getAllSecuredQueryBuilder()->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult();
     }
@@ -188,7 +182,9 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
 
         if (empty($ret)) {
             return null;
-        } elseif (count($ret) == 1) {
+        }
+
+        if (count($ret) === 1) {
             return current($ret);
         }
 
@@ -210,42 +206,42 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
         return $caseRet;
     }
 
-    public function getGenderDistribution($alias)
+    public function getGenderDistribution($alias): QueryBuilder
     {
         return $this->createQueryBuilder($alias)
             ->select(sprintf('%s.gender, COUNT(%s.id) as caseCount',$alias,$alias))
             ->groupBy(sprintf('%s.gender',$alias));
     }
 
-    public function getAgeInMonthDistribution($alias)
+    public function getAgeInMonthDistribution($alias): QueryBuilder
     {
         return $this->createQueryBuilder($alias)
             ->select(sprintf('%s.age_months, COUNT(%s.id) as caseCount',$alias,$alias))
             ->groupBy(sprintf('%s.age_months',$alias));
     }
 
-    public function getLocationDistribution($alias)
+    public function getLocationDistribution($alias): QueryBuilder
     {
         return $this->createQueryBuilder($alias)
             ->select(sprintf('%s.state, %s.district, COUNT(%s.id) as caseCount',$alias,$alias,$alias))
             ->groupBy(sprintf('%s.state,%s.district',$alias,$alias));
     }
 
-    public function getDischargeOutcomeDistribution($alias)
+    public function getDischargeOutcomeDistribution($alias): QueryBuilder
     {
         return $this->createQueryBuilder($alias)
             ->select(sprintf('%s.disch_outcome as outcome, COUNT(%s.id) as caseCount',$alias,$alias))
             ->groupBy(sprintf('%s.disch_outcome',$alias));
     }
 
-    public function getMonthlyDistribution($alias)
+    public function getMonthlyDistribution($alias): QueryBuilder
     {
         return $this->createQueryBuilder($alias)
             ->select(sprintf('MONTH(%s.adm_date) as theMonth, COUNT(%s.id) as caseCount',$alias,$alias))
             ->groupBy('theMonth');
     }
 
-    public function getFailedLink($alias, array $countryCodes)
+    public function getFailedLink($alias, array $countryCodes): QueryBuilder
     {
         $queryBuilder = $this->createQueryBuilder($alias)
             ->addSelect('sl,r,c,rl')
@@ -264,7 +260,7 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
             ->setParameter('countries',array_unique($countryCodes));
     }
 
-    public function getCasesPerMonth(DateTime $from, DateTime $to)
+    public function getCasesPerMonth(DateTime $from, DateTime $to): array
     {
         return $this->secure(
                 $this->_em->createQueryBuilder()

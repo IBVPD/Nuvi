@@ -32,34 +32,40 @@ class AbstractReporter
 
     public function __construct(FilterBuilderUpdaterInterface $filter, ObjectManager $entityMgr, RouterInterface $router, Exporter $exporter)
     {
-        $this->filter = $filter;
+        $this->filter    = $filter;
         $this->entityMgr = $entityMgr;
-        $this->router = $router;
-        $this->exporter = $exporter;
+        $this->router    = $router;
+        $this->exporter  = $exporter;
     }
 
-    /**
-     * @param $sites
-     * @param ArrayCollection $results
-     * @param $resultClass
-     */
-    public function populateSites($sites, ArrayCollection $results, $resultClass): void
+    public function populateSites(array $sites, ArrayCollection $results, string $resultClass): void
     {
         foreach ($sites as $values) {
-            $resultObj = new $resultClass($values[0]->getSite());
+            /** @var Site $site */
+            $site      = $values[0]->getSite();
+            $resultObj = new $resultClass($site);
             $resultObj->setTotalCases($values['totalCases']);
-
-            $results->set($resultObj->getSite()->getCode(), $resultObj);
+            $key = $site->getCode();
+            if (isset($values['caseYear'])) {
+                $resultObj->setYear($values['caseYear']);
+                $key .= '::' . $values['caseYear'];
+            }
+            $results->set($key, $resultObj);
         }
     }
 
     public function processColumn(ArrayCollection $results, array $counts, string $function): void
     {
         foreach ($counts as $c) {
-            $fpr = $results->get($c['code']);
+            $key = $c['code'];
+            if (isset($c['caseYear'])) {
+                $key .= "::{$c['caseYear']}";
+            }
+
+            $fpr = $results->get($key);
             // this should always be true.
             if ($fpr && method_exists($fpr, $function)) {
-                call_user_func([$fpr, $function], $c['caseCount']);
+                $fpr->$function($c['caseCount']);
             } else {
                 throw new RuntimeException(sprintf('method error %s', $function));
             }
@@ -73,11 +79,19 @@ class AbstractReporter
      * @param $results
      * @param $form
      */
-    public function processResult($columns, $repo, $alias, &$results, $form): void
+    public function processResult($columns, $repo, $alias, &$results, $form, ?bool $groupByYear = null): void
     {
+        $siteKeys = $results->getKeys();
+        if ($groupByYear) {
+            $siteKeys = array_map(static function ($value) {
+                $x = explode('::', $value);
+                return $x[0];
+            }, $siteKeys);
+        }
+
         foreach ($columns as $func => $pf) {
             if (method_exists($repo, $func)) {
-                $query = $repo->$func($alias, $results->getKeys());
+                $query = $repo->$func($alias, $siteKeys, $groupByYear);
 
                 $res = $this->filter
                     ->addFilterConditions($form, $query, $alias)
@@ -103,7 +117,7 @@ class AbstractReporter
                 $query = $repo->$func($alias, $results->getKeys());
 
                 $res = $this->filter
-                    ->addFilterConditions($form, $query, is_array($pf) ? $pf['alias']: $alias)
+                    ->addFilterConditions($form, $query, is_array($pf) ? $pf['alias'] : $alias)
                     ->getQuery()
                     ->getResult(Query::HYDRATE_SCALAR);
 
@@ -124,9 +138,9 @@ class AbstractReporter
     }
 
     /**
-     * @param $countries
+     * @param                 $countries
      * @param ArrayCollection $results
-     * @param $resultClass
+     * @param                 $resultClass
      */
     public function populateCountries($countries, ArrayCollection $results, $resultClass): void
     {
@@ -158,7 +172,7 @@ class AbstractReporter
                         ->getQuery()
                         ->getResult(Query::HYDRATE_SCALAR);
                 } catch (Exception $exception) {
-                    throw new RuntimeException('SQL Exception with func: '.$func, null, $exception);
+                    throw new RuntimeException('SQL Exception with func: ' . $func, null, $exception);
                 }
 
                 $this->processColumn($results, $res, $pf);
@@ -167,11 +181,12 @@ class AbstractReporter
     }
 
     /**
-     * @param string $repoClass
+     * @param string                         $repoClass
      * @param AbstractGeneralStatisticResult $result
-     * @param Request $request
-     * @param FormInterface $form
-     * @param $redirectRoute
+     * @param Request                        $request
+     * @param FormInterface                  $form
+     * @param                                $redirectRoute
+     *
      * @return array|RedirectResponse
      */
     public function retrieveStats($repoClass, AbstractGeneralStatisticResult $result, Request $request, FormInterface $form, $redirectRoute)
@@ -184,13 +199,13 @@ class AbstractReporter
                 return new RedirectResponse($this->router->generate($redirectRoute));
             }
 
-            $repo = $this->entityMgr->getRepository($repoClass);
+            $repo    = $this->entityMgr->getRepository($repoClass);
             $columns = [
-                'getGenderDistribution' => 'setGenderDistribution',
-                'getAgeInMonthDistribution' => 'setAgeInMonthDistribution',
-                'getLocationDistribution' => 'setLocationDistribution',
+                'getGenderDistribution'           => 'setGenderDistribution',
+                'getAgeInMonthDistribution'       => 'setAgeInMonthDistribution',
+                'getLocationDistribution'         => 'setLocationDistribution',
                 'getDischargeOutcomeDistribution' => 'setDischargeOutcomeDistribution',
-                'getMonthlyDistribution' => 'setMonthlyDistribution'
+                'getMonthlyDistribution'          => 'setMonthlyDistribution',
             ];
 
             foreach ($columns as $repoFunction => $resultFunction) {
@@ -213,7 +228,7 @@ class AbstractReporter
             /** @var Site $site */
             $site = $values[0]->getSite();
 
-            if(!isset($siteCodes[$site->getCode()])) {
+            if (!isset($siteCodes[$site->getCode()])) {
                 $siteCodes[$site->getCode()] = new $resultClass($site);
                 $results->set($site->getCode(), $siteCodes[$site->getCode()]);
             }

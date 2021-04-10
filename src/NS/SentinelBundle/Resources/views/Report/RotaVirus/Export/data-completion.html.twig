@@ -4,6 +4,7 @@
         <th rowspan="2">{{ 'Region'|trans }}</th>
         <th rowspan="2">{{ 'Country'|trans }}</th>
         <th rowspan="2">{{ 'Site'|trans }}</th>
+        <th rowspan="2">{{ 'Year'|trans }}</th>
         <th rowspan="2">{{ 'Total Cases'|trans }}</th>
         <th colspan="2">{{ 'Stool Collected'|trans }}</th>
         <th colspan="2">{{ 'ELISA Done'|trans }}</th>
@@ -31,6 +32,7 @@
             <td>{{ result.site.country.region.code }}</td>
             <td>{{ result.site.country.code }}</td>
             <td>{{ result.site.code }}</td>
+            <td>{{ result.year }}</td>
             <td>{{ result.totalCases }}</td>
 
             <td>{{ result.stoolCollectedCount }}</td>

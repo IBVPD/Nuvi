@@ -5,8 +5,11 @@ namespace NS\SentinelBundle\Report\Result\RotaVirus;
 use NS\SentinelBundle\Report\Result\AbstractSiteBasedResult;
 
 
-class DataCompletion extends AbstractSiteBasedResult
+class DataCompletionResult extends AbstractSiteBasedResult
 {
+    /** @var int */
+    private $year = 0;
+
     /** @var int */
     private $stoolCollectedCount = 0;
 
@@ -19,6 +22,16 @@ class DataCompletion extends AbstractSiteBasedResult
     /** @var int */
     private $classificationCount = 0;
 
+    public function getYear(): int
+    {
+        return $this->year;
+    }
+
+    public function setYear(int $year): void
+    {
+        $this->year = $year;
+    }
+
     public function getStoolCollectedCount(): int
     {
         return $this->stoolCollectedCount;
@@ -29,9 +42,6 @@ class DataCompletion extends AbstractSiteBasedResult
         return $this->getTotalCases() > 0 ? $this->stoolCollectedCount/$this->getTotalCases()*100:0;
     }
 
-    /**
-     * @return int
-     */
     public function getOutcomeCount(): int
     {
         return $this->outcomeCount;
@@ -42,17 +52,11 @@ class DataCompletion extends AbstractSiteBasedResult
         return $this->getTotalCases() > 0 ? $this->outcomeCount/$this->getTotalCases()*100:0;
     }
 
-    /**
-     * @param int $outcomeCount
-     */
     public function setOutcomeCount(int $outcomeCount): void
     {
         $this->outcomeCount = $outcomeCount;
     }
 
-    /**
-     * @return int
-     */
     public function getClassificationCount(): int
     {
         return $this->classificationCount;
@@ -63,9 +67,6 @@ class DataCompletion extends AbstractSiteBasedResult
         return $this->getTotalCases() > 0 ? $this->classificationCount/$this->getTotalCases()*100:0;
     }
 
-    /**
-     * @param int $classificationCount
-     */
     public function setClassificationCount(int $classificationCount): void
     {
         $this->classificationCount = $classificationCount;
@@ -90,6 +91,4 @@ class DataCompletion extends AbstractSiteBasedResult
     {
         $this->elisaDoneCount = $elisaDoneCount;
     }
-
-
 }

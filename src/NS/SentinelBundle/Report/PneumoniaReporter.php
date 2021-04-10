@@ -5,7 +5,6 @@ namespace NS\SentinelBundle\Report;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query;
 use NS\SentinelBundle\Entity\Site;
-use NS\SentinelBundle\Report\Result\IBD\DataQualityResult;
 use NS\SentinelBundle\Report\Result\Pneumonia\DataCompletionResult;
 use RuntimeException;
 use Symfony\Component\Form\FormInterface;
@@ -20,16 +19,17 @@ class PneumoniaReporter extends IBDReporter
     }
 
     /**
-     * @param Request $request
+     * @param Request       $request
      * @param FormInterface $form
-     * @param $redirectRoute
+     * @param               $redirectRoute
+     *
      * @return array|RedirectResponse
      */
     public function getDataCompletion(Request $request, FormInterface $form, $redirectRoute)
     {
-        $results = new ArrayCollection();
-        $alias = 'i';
-        $queryBuilder = $this->entityMgr->getRepository(Site::class)->getWithCasesForDate($alias, $this->class);
+        $results      = new ArrayCollection();
+        $alias        = 'i';
+        $queryBuilder = $this->entityMgr->getRepository(Site::class)->getWithCasesForDate($alias, $this->class, true);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -47,19 +47,19 @@ class PneumoniaReporter extends IBDReporter
 
             $this->populateSites($sites, $results, DataCompletionResult::class);
 
-            $repo = $this->entityMgr->getRepository($this->class);
+            $repo    = $this->entityMgr->getRepository($this->class);
             $columns = [
-                'getSuspectedCountBySites' => 'setSuspected',
-                'getSuspectedWithCSFCountBySites' => 'setSuspectedCSF',
-                'getProbableCountBySites' => 'setProbable',
-                'getDischargeOutcomeCountBySites' => 'setOutcomeAtDischarge',
+                'getSuspectedCountBySites'               => 'setSuspected',
+                'getSuspectedWithCSFCountBySites'        => 'setSuspectedCSF',
+                'getProbableCountBySites'                => 'setProbable',
+                'getDischargeOutcomeCountBySites'        => 'setOutcomeAtDischarge',
                 'getDischargeClassificationCountBySites' => 'setClassificationAtDischarge',
             ];
 
-            $this->processResult($columns, $repo, $alias, $results, $form);
+            $this->processResult($columns, $repo, $alias, $results, $form, true);
 
             if ($form->get('export')->isClicked()) {
-                return $this->exporter->export($this->exportBasePath.'/data-completion.html.twig', ['sites' => $results], 'xls');
+                return $this->exporter->export($this->exportBasePath . '/data-completion.html.twig', ['sites' => $results], 'xls');
             }
         }
 

@@ -4,198 +4,113 @@ namespace NS\SentinelBundle\Report\Result\RotaVirus;
 
 use NS\SentinelBundle\Report\Result\AbstractSiteBasedResult;
 
-
 class DataQualityResult extends AbstractSiteBasedResult
 {
-    /**
-     * @var int
-     */
+    /** @var int */
     private $stoolCollectionDateErrorCount = 0;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     private $missingDischargeDateCount = 0;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     private $missingDischargeOutcomeCount = 0;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     private $stoolCollectedCount = 0;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     private $elisaDoneCount = 0;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     private $elisaPositiveCount = 0;
 
-    /**
-     * @return int
-     */
-    public function getStoolCollectionDateErrorCount()
+    public function getStoolCollectionDateErrorCount(): int
     {
         return $this->stoolCollectionDateErrorCount;
     }
 
-    /**
-     * @return float|int
-     */
-    public function getStoolCollectionDateErrorPercent()
+    public function getStoolCollectionDateErrorPercent(): string
     {
-        return ($this->getTotalCases()>0) ? $this->stoolCollectionDateErrorCount/$this->getTotalCases()*100:0;
+        return ($this->getTotalCases() > 0) ? (string)($this->stoolCollectionDateErrorCount / $this->getTotalCases() * 100) : '0';
     }
 
-    /**
-     * @param int $stoolCollectionDateErrorCount
-     *
-     * @return DataCompletion
-     */
-    public function setStoolCollectionDateErrorCount($stoolCollectionDateErrorCount)
+    public function setStoolCollectionDateErrorCount(int $stoolCollectionDateErrorCount): void
     {
         $this->stoolCollectionDateErrorCount = $stoolCollectionDateErrorCount;
-        return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getMissingDischargeDateCount()
+    public function getMissingDischargeDateCount(): string
     {
         return $this->missingDischargeDateCount;
     }
 
-    /**
-     * @return float|int
-     */
-    public function getMissingDischargeDatePercent()
+    public function getMissingDischargeDatePercent(): string
     {
-        return ($this->getTotalCases()>0) ? $this->missingDischargeDateCount/$this->getTotalCases()*100:0;
+        return ($this->getTotalCases() > 0) ? (string)($this->missingDischargeDateCount / $this->getTotalCases() * 100) : '0';
     }
 
-    /**
-     * @param int $missingDischargeDateCount
-     *
-     * @return DataCompletion
-     */
-    public function setMissingDischargeDateCount($missingDischargeDateCount)
+    public function setMissingDischargeDateCount(int $missingDischargeDateCount): void
     {
         $this->missingDischargeDateCount = $missingDischargeDateCount;
-        return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getMissingDischargeOutcomeCount()
+    public function getMissingDischargeOutcomeCount(): int
     {
         return $this->missingDischargeOutcomeCount;
     }
 
-    /**
-     * @return float|int
-     */
-    public function getMissingDischargeOutcomePercent()
+    public function getMissingDischargeOutcomePercent(): string
     {
-        return ($this->getTotalCases()>0) ? $this->missingDischargeOutcomeCount/$this->getTotalCases()*100:0;
+        return ($this->getTotalCases() > 0) ? (string)($this->missingDischargeOutcomeCount / $this->getTotalCases() * 100) : '0';
     }
 
-    /**
-     * @param int $missingDischargeOutcomeCount
-     *
-     * @return DataCompletion
-     */
-    public function setMissingDischargeOutcomeCount($missingDischargeOutcomeCount)
+    public function setMissingDischargeOutcomeCount(int $missingDischargeOutcomeCount): void
     {
         $this->missingDischargeOutcomeCount = $missingDischargeOutcomeCount;
-        return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getStoolCollectedCount()
+    public function getStoolCollectedCount(): int
     {
         return $this->stoolCollectedCount;
     }
 
-    /**
-     * @return float|int
-     */
-    public function getStoolCollectedPercent()
+    public function getStoolCollectedPercent(): string
     {
-        return $this->getTotalCases() > 0 ? $this->stoolCollectedCount/$this->getTotalCases()*100:0;
+        return $this->getTotalCases() > 0 ? (string)($this->stoolCollectedCount / $this->getTotalCases() * 100) : '0';
     }
 
-    /**
-     * @param int $stoolCollectedCount
-     *
-     * @return DataCompletion
-     */
-    public function setStoolCollectedCount($stoolCollectedCount)
+    public function setStoolCollectedCount($stoolCollectedCount): void
     {
         $this->stoolCollectedCount = $stoolCollectedCount;
-        return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getElisaDoneCount()
+    public function getElisaDoneCount(): int
     {
         return $this->elisaDoneCount;
     }
 
-    /**
-     * @return float|int
-     */
-    public function getElisaDonePercent()
+    public function getElisaDonePercent(): string
     {
-        return ($this->stoolCollectedCount>0) ? $this->elisaDoneCount/$this->stoolCollectedCount * 100 : 0;
+        return ($this->stoolCollectedCount > 0) ? (string)($this->elisaDoneCount / $this->stoolCollectedCount * 100) : '0';
     }
 
-    /**
-     * @param int $elisaDoneCount
-     *
-     * @return DataCompletion
-     */
-    public function setElisaDoneCount($elisaDoneCount)
+    public function setElisaDoneCount(int $elisaDoneCount): void
     {
         $this->elisaDoneCount = $elisaDoneCount;
-        return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getElisaPositiveCount()
+    public function getElisaPositiveCount(): int
     {
         return $this->elisaPositiveCount;
     }
 
-    /**
-     * @return float|int
-     */
-    public function getElisaPositivePercent()
+    public function getElisaPositivePercent(): string
     {
-        return ($this->elisaDoneCount > 0) ? $this->elisaPositiveCount/$this->elisaDoneCount * 100: 0;
+        return ($this->elisaDoneCount > 0) ? (string)($this->elisaPositiveCount / $this->elisaDoneCount * 100) : '0';
     }
 
-    /**
-     * @param int $elisaPositiveCount
-     *
-     * @return DataCompletion
-     */
-    public function setElisaPositiveCount($elisaPositiveCount)
+    public function setElisaPositiveCount(int $elisaPositiveCount): void
     {
         $this->elisaPositiveCount = $elisaPositiveCount;
-        return $this;
     }
 }
