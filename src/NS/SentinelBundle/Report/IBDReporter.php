@@ -249,7 +249,7 @@ class IBDReporter extends AbstractReporter
             $repo    = $this->entityMgr->getRepository($this->class);
             $columns = [
                 'getSuspectedCountBySites'               => 'setSuspected',
-                'getSuspectedWithXrayCountBySites'       => 'setSuspectedXray',
+                'getSuspectedWithCSFCountBySites'        => 'setSuspectedCSF',
                 'getProbableCountBySites'                => 'setProbable',
                 'getProbableWithBloodCountBySites'       => 'setProbableWithBlood',
                 'getDischargeOutcomeCountBySites'        => 'setOutcomeAtDischarge',

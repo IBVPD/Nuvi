@@ -12,15 +12,17 @@ use NS\SentinelBundle\Entity\Meningitis\Meningitis;
 use NS\SentinelBundle\Entity\ZeroReport;
 use NS\SentinelBundle\Exceptions\NonExistentCaseException;
 use NS\SentinelBundle\Form\IBD\Types\BinaxResult;
+use NS\SentinelBundle\Form\IBD\Types\CaseResult;
 use NS\SentinelBundle\Form\IBD\Types\CultureResult;
+use NS\SentinelBundle\Form\IBD\Types\Diagnosis;
 use NS\SentinelBundle\Form\IBD\Types\HiSerotype;
 use NS\SentinelBundle\Form\IBD\Types\PCRResult;
 use NS\SentinelBundle\Form\IBD\Types\SpnSerotype;
 use NS\SentinelBundle\Form\Types\TripleChoice;
-use NS\SentinelBundle\Repository\Common;
+use NS\SentinelBundle\Repository\AbstractReportCommonRepository;
 use NS\UtilBundle\Form\Types\ArrayChoice;
 
-class MeningitisRepository extends Common
+class MeningitisRepository extends AbstractReportCommonRepository
 {
     /**
      * @param string $alias
@@ -202,11 +204,7 @@ class MeningitisRepository extends Common
         }
     }
 
-    /**
-     * @param $alias
-     * @return QueryBuilder
-     */
-    public function exportQuery($alias): QueryBuilder
+    public function exportQuery(string $alias): QueryBuilder
     {
         return $this->secure(
             $this->createQueryBuilder($alias)
@@ -240,11 +238,7 @@ class MeningitisRepository extends Common
         return $queryBuilder->getQuery()->getResult();
     }
 
-    /**
-     * @param string $alias
-     * @return QueryBuilder
-     */
-    public function getAnnualAgeDistribution($alias = 'm'): QueryBuilder
+    public function getAnnualAgeDistribution(string $alias = 'm'): QueryBuilder
     {
         $this->_em->getConfiguration()->addCustomDatetimeFunction('YEAR', Year::class);
 
@@ -256,12 +250,7 @@ class MeningitisRepository extends Common
         return $this->secure($queryBuilder);
     }
 
-    /**
-     * @param $alias
-     * @param array $siteCodes
-     * @return QueryBuilder
-     */
-    private function getCountQueryBuilder($alias, array $siteCodes): QueryBuilder
+    public function getCountQueryBuilder(string $alias, array $siteCodes): QueryBuilder
     {
         $queryBuilder = $this->createQueryBuilder($alias)
             ->leftJoin(sprintf('%s.siteLab', $alias), 'sl')
@@ -275,11 +264,6 @@ class MeningitisRepository extends Common
         return $queryBuilder->where("($alias.site IN (:sites) )")->setParameter('sites', $siteCodes);
     }
 
-    /**
-     * @param $alias
-     * @param array $siteCodes
-     * @return QueryBuilder
-     */
     public function getCsfCollectedCountBySites(string $alias, array $siteCodes): QueryBuilder
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
@@ -288,11 +272,6 @@ class MeningitisRepository extends Common
             ->setParameter('csfCollected', TripleChoice::YES);
     }
 
-    /**
-     * @param $alias
-     * @param array $siteCodes
-     * @return QueryBuilder
-     */
     public function getBloodCollectedCountBySites(string $alias, array $siteCodes): QueryBuilder
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
@@ -301,11 +280,6 @@ class MeningitisRepository extends Common
             ->setParameter('bloodCollected', TripleChoice::YES);
     }
 
-    /**
-     * @param $alias
-     * @param array $siteCodes
-     * @return QueryBuilder
-     */
     public function getBloodResultCountBySites(string $alias, array $siteCodes): QueryBuilder
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
@@ -392,14 +366,6 @@ class MeningitisRepository extends Common
             ->setParameter('spn', PCRResult::SPN);
     }
 
-    /**
-     * @param string    $alias
-     * @param bool      $culture
-     * @param bool|null $binax
-     * @param bool|null $pcr
-     * @param array     $siteCodes
-     * @return QueryBuilder
-     */
     public function getCountByCulture(string $alias, bool $culture, bool $binax = null, bool $pcr = null, array $siteCodes = []): QueryBuilder
     {
         $this->_em->getConfiguration()->addCustomDatetimeFunction('YEAR', Year::class);
@@ -585,5 +551,52 @@ class MeningitisRepository extends Common
             ->select(sprintf('COUNT(IDENTITY(%s)) as caseCount,c.code', $alias))
             ->leftJoin('cf.referenceLab', $alias)
             ->andWhere(sprintf('IDENTITY(%s) IS NULL',$alias));
+    }
+
+    public function getSuspectedCountBySites(string $alias, array $siteCodes, ?bool $groupByYear): QueryBuilder
+    {
+        if ($groupByYear === true) {
+            return $this->getCountQueryBuilder($alias, $siteCodes)
+                ->select(sprintf('%s.id, COUNT(%s.id) as caseCount, YEAR(%s.adm_date) as caseYear, s.code', $alias, $alias, $alias))
+                ->andWhere(sprintf('(%s.adm_dx = :suspected)', $alias))
+                ->setParameter('suspected', Diagnosis::SUSPECTED_MENINGITIS)
+                ->addGroupBy('caseYear');
+        }
+
+        return $this->getCountQueryBuilder($alias, $siteCodes)
+            ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
+            ->andWhere(sprintf('(%s.adm_dx = :suspected)', $alias))
+            ->setParameter('suspected', Diagnosis::SUSPECTED_MENINGITIS);
+    }
+
+    public function getSuspectedWithCSFCountBySites(string $alias, array $siteCodes, ?bool $groupByYear = null): QueryBuilder
+    {
+        return $this->getSuspectedCountBySites($alias, $siteCodes, $groupByYear)
+            ->andWhere(sprintf('(%s.csf_collected = :done)', $alias))
+            ->setParameter('done', TripleChoice::YES);
+    }
+
+    public function getProbableCountBySites(string $alias, array $siteCodes, ?bool $groupByYear = null): QueryBuilder
+    {
+        if ($groupByYear) {
+            return $this->getCountQueryBuilder($alias, $siteCodes)
+                ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,YEAR(%s.adm_date) AS caseYear, s.code', $alias, $alias, $alias))
+                ->andWhere(sprintf('(%s.result = :probable)', $alias))
+                ->setParameter('probable', CaseResult::PROBABLE)
+                ->addGroupBy('caseYear');
+        }
+
+        return $this->getCountQueryBuilder($alias, $siteCodes)
+            ->select(sprintf('%s.id,COUNT(%s.id) as caseCount, s.code', $alias, $alias))
+            ->andWhere(sprintf('(%s.result = :probable)', $alias))
+            ->setParameter('probable', CaseResult::PROBABLE);
+
+    }
+
+    public function getProbableWithBloodCountBySites(string $alias, array $siteCodes, ?bool $groupByYear = null): QueryBuilder
+    {
+        return $this->getProbableCountBySites($alias, $siteCodes, $groupByYear)
+            ->andWhere(sprintf('(%s.blood_collected = :bCollected)', $alias))
+            ->setParameter('bCollected', TripleChoice::YES);
     }
 }

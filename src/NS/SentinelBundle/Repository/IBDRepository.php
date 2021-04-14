@@ -546,7 +546,7 @@ class IBDRepository extends AbstractReportCommonRepository
         return $queryBuilder->where("($alias.country IN (:countries) )")->setParameter('countries', array_unique($countryCodes));
     }
 
-    public function getLinkedCount($alias, array $countryCodes)
+    public function getLinkedCount($alias, array $countryCodes): QueryBuilder
     {
         return $this->getByCountryCountQueryBuilder('cf', $countryCodes)
             ->select(sprintf('COUNT(IDENTITY(%s)) as caseCount,c.code', $alias))
@@ -554,7 +554,7 @@ class IBDRepository extends AbstractReportCommonRepository
             ->innerJoin('cf.site', 's');
     }
 
-    public function getFailedLinkedCount($alias, array $countryCodes)
+    public function getFailedLinkedCount($alias, array $countryCodes): QueryBuilder
     {
         return $this->getByCountryCountQueryBuilder('cf', $countryCodes)
             ->select(sprintf('COUNT(IDENTITY(%s)) as caseCount,c.code', $alias))
@@ -563,7 +563,7 @@ class IBDRepository extends AbstractReportCommonRepository
             ->andWhere('s.code IS NULL');
     }
 
-    public function getNoLabCount($alias, array $countryCodes)
+    public function getNoLabCount($alias, array $countryCodes): QueryBuilder
     {
         return $this->getByCountryCountQueryBuilder('cf', $countryCodes)
             ->select(sprintf('COUNT(IDENTITY(%s)) as caseCount,c.code', $alias))
@@ -571,13 +571,7 @@ class IBDRepository extends AbstractReportCommonRepository
             ->andWhere(sprintf('IDENTITY(%s) IS NULL', $alias));
     }
 
-    /**
-     * @param       $alias
-     * @param array $siteCodes
-     *
-     * @return QueryBuilder
-     */
-    public function getSuspectedCountBySites($alias, array $siteCodes, ?bool $groupByYear): QueryBuilder
+    public function getSuspectedCountBySites(string $alias, array $siteCodes, ?bool $groupByYear): QueryBuilder
     {
         if ($groupByYear === true) {
             return $this->getCountQueryBuilder($alias, $siteCodes)
@@ -593,26 +587,14 @@ class IBDRepository extends AbstractReportCommonRepository
             ->setParameter('suspected', Diagnosis::SUSPECTED_MENINGITIS);
     }
 
-    /**
-     * @param       $alias
-     * @param array $siteCodes
-     *
-     * @return QueryBuilder
-     */
-    public function getSuspectedWithXrayCountBySites($alias, array $siteCodes, ?bool $groupByYear = null): QueryBuilder
+    public function getSuspectedWithCSFCountBySites(string $alias, array $siteCodes, ?bool $groupByYear = null): QueryBuilder
     {
         return $this->getSuspectedCountBySites($alias, $siteCodes, $groupByYear)
-            ->andWhere(sprintf('(%s.cxr_done = :done)', $alias))
+            ->andWhere(sprintf('(%s.csf_collected = :done)', $alias))
             ->setParameter('done', TripleChoice::YES);
     }
 
-    /**
-     * @param       $alias
-     * @param array $siteCodes
-     *
-     * @return QueryBuilder
-     */
-    public function getProbableCountBySites($alias, array $siteCodes, ?bool $groupByYear = null): QueryBuilder
+    public function getProbableCountBySites(string $alias, array $siteCodes, ?bool $groupByYear = null): QueryBuilder
     {
         if ($groupByYear) {
             return $this->getCountQueryBuilder($alias, $siteCodes)

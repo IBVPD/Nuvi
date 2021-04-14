@@ -13,7 +13,7 @@ class DataCompletionResult extends AbstractSiteBasedResult
     private $suspected = 0;
 
     /** @var int */
-    private $suspectedXray = 0;
+    private $suspectedCSF = 0;
 
     /** @var int */
     private $probable = 0;
@@ -47,19 +47,19 @@ class DataCompletionResult extends AbstractSiteBasedResult
         $this->suspected = $suspected;
     }
 
-    public function getSuspectedXray(): int
+    public function getSuspectedCSF(): int
     {
-        return $this->suspectedXray;
+        return $this->suspectedCSF;
     }
 
-    public function getSuspectedXrayPercent(): string
+    public function getSuspectedCSFPercent(): string
     {
-        return ($this->getTotalCases() > 0) ? (string)($this->suspectedXray / $this->getTotalCases() * 100) : '0';
+        return ($this->getTotalCases() > 0) ? (string)($this->suspectedCSF / $this->getTotalCases() * 100) : '0';
     }
 
-    public function setSuspectedXray(int $suspectedXray): void
+    public function setSuspectedCSF(int $suspectedCSF): void
     {
-        $this->suspectedXray = $suspectedXray;
+        $this->suspectedCSF = $suspectedCSF;
     }
 
     public function getProbable(): int

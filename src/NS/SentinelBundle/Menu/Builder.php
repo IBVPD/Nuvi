@@ -71,6 +71,8 @@ class Builder
             $pneuReport->addChild('Enrolment %', ['label' => 'menu.data-reports-percent-enrolled', 'route' => 'pneuReportPercentEnrolled']);
 
             $meningReport->addChild('Data Quality Checks', ['label' => 'menu.data-reports-data-quality', 'route' => 'meningReportDataQuality']);
+            $meningReport->addChild('Data Completion', ['label' => 'menu.data-reports-data-completion', 'route' => 'meningReportDataCompletion']);
+
             $meningReport->addChild('Site Performance', ['label' => 'menu.data-reports-site-performance', 'route' => 'meningReportSitePerformance']);
             $meningReport->addChild('RRL Linking', ['label' => 'menu.data-reports-rrl-linking', 'route' => 'meningReportDataLinking']);
             $meningReport->addChild('Stats', ['label' => 'menu.data-reports-stats', 'route' => 'meningReportStats']);
