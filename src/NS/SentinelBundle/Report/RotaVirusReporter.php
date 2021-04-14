@@ -10,6 +10,7 @@ use NS\SentinelBundle\Entity\Site;
 use NS\SentinelBundle\Report\Result\DataLinkingResult;
 use NS\SentinelBundle\Report\Result\RotaVirus\DataCompletionResult;
 use NS\SentinelBundle\Report\Result\RotaVirus\DataQualityResult;
+use NS\SentinelBundle\Report\Result\RotaVirus\DischargeClassificationResult;
 use NS\SentinelBundle\Report\Result\RotaVirus\GeneralStatisticResult;
 use NS\SentinelBundle\Report\Result\RotaVirus\SitePerformanceResult;
 use NS\SentinelBundle\Report\Result\SiteMonthResult;
@@ -69,13 +70,9 @@ class RotaVirusReporter extends AbstractReporter
     }
 
     /**
-     * @param Request       $request
-     * @param FormInterface $form
-     * @param               $redirectRoute
-     *
      * @return array|RedirectResponse
      */
-    public function getDataCompletion(Request $request, FormInterface $form, $redirectRoute)
+    public function getDataCompletion(Request $request, FormInterface $form, string $redirectRoute)
     {
         $results      = new ArrayCollection();
         $alias        = 'i';
@@ -106,6 +103,61 @@ class RotaVirusReporter extends AbstractReporter
             ];
 
             $this->processResult($columns, $repo, $alias, $results, $form, true);
+
+            if ($form->get('export')->isClicked()) {
+                return $this->exporter->export('NSSentinelBundle:Report:RotaVirus/Export/data-completion.html.twig', ['sites' => $results]);
+            }
+        }
+
+        return ['sites' => $results, 'form' => $form->createView()];
+    }
+    /**
+     * @return array|RedirectResponse
+     */
+    public function getDischargeByHospital(Request $request, FormInterface $form, string $redirectRoute)
+    {
+        $results      = new ArrayCollection();
+        $alias        = 'i';
+        $queryBuilder = $this->entityMgr->getRepository(Site::class)->getWithCasesForDate($alias, RotaVirus::class, true);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get('reset')->isClicked()) {
+                return new RedirectResponse($this->router->generate($redirectRoute));
+            }
+
+            $this->filter->addFilterConditions($form, $queryBuilder, $alias);
+
+            $sites = $queryBuilder->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult();
+
+            if (empty($sites)) {
+                return ['sites' => [], 'form' => $form->createView()];
+            }
+
+            $this->populateSites($sites, $results, DischargeClassificationResult::class);
+
+            $siteKeys = array_map(static function ($value) {
+                $x = explode('::', $value);
+                return $x[0];
+            }, $results->getKeys());
+
+            $reportQuery = $this->entityMgr->getRepository(RotaVirus::class)->getByDischargeClassificationCountBySites($alias, $siteKeys);
+
+            $res = $this->filter
+                ->addFilterConditions($form, $reportQuery, $alias)
+                ->getQuery()
+                ->getResult(Query::HYDRATE_SCALAR);
+
+            foreach ($res as $c) {
+                $key = "{$c['code']}::{$c['caseYear']}";
+
+                /** @var DischargeClassificationResult|null $fpr */
+                $fpr = $results->get($key);
+                // this should always be true.
+                if ($fpr) {
+                    $fpr->set($c['disch_class'], $c['caseCount']);
+                }
+            }
 
             if ($form->get('export')->isClicked()) {
                 return $this->exporter->export('NSSentinelBundle:Report:RotaVirus/Export/data-completion.html.twig', ['sites' => $results]);

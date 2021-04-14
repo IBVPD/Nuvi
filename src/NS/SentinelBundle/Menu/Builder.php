@@ -43,6 +43,7 @@ class Builder
 
             $rotaReport->addChild('Data Quality Checks', ['label' => 'menu.data-reports-data-quality', 'route' => 'rotaReportDataQuality']);
             $rotaReport->addChild('Data Completion', ['label' => 'menu.data-reports-data-completion', 'route' => 'rotaReportDataCompletion']);
+            $rotaReport->addChild('Discharge Classification', ['label' => 'menu.data-reports-discharge-classification', 'route' => 'rotaReportDischargeClassification']);
             $rotaReport->addChild('Site Performance', ['label' => 'menu.data-reports-site-performance', 'route' => 'rotaReportSitePerformance']);
             $rotaReport->addChild('RRL Linking', ['label' => 'menu.data-reports-rrl-linking', 'route' => 'rotaReportDataLinking']);
             $rotaReport->addChild('Stats', ['label' => 'menu.data-reports-stats', 'route' => 'rotaReportStats']);

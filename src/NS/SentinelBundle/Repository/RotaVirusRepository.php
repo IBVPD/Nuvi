@@ -346,4 +346,14 @@ class RotaVirusRepository extends AbstractReportCommonRepository
             ->setParameter('collectedYes', TripleChoice::YES)
             ->setParameter('elisaPositive', ElisaResult::POSITIVE);
     }
+
+    public function getByDischargeClassificationCountBySites(string $alias, array $siteCodes): QueryBuilder
+    {
+        return $this->getCountQueryBuilder($alias, $siteCodes)
+            ->select(sprintf('%s.id, COUNT(%s.id) as caseCount, YEAR(%s.adm_date) as caseYear, %s.disch_class, s.code', $alias, $alias, $alias, $alias))
+            ->addGroupBy("caseYear,$alias.disch_class");
+//            ->andWhere(sprintf('%s.stool_collected = :collectedYes AND sl.elisaDone = :collectedYes AND sl.elisaResult = :elisaPositive', $alias))
+//            ->setParameter('collectedYes', TripleChoice::YES)
+//            ->setParameter('elisaPositive', ElisaResult::POSITIVE);
+    }
 }

@@ -12,7 +12,7 @@ abstract class AbstractSiteBasedResult
     private $site;
 
     /** @var int */
-    private $totalCases = 0;
+    protected $totalCases = 0;
 
     public function __construct(Site $site)
     {

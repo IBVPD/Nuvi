@@ -37,9 +37,9 @@ class DataCompletionResult extends AbstractSiteBasedResult
         return $this->stoolCollectedCount;
     }
 
-    public function getStoolCollectedPercent()
+    public function getStoolCollectedPercent(): string
     {
-        return $this->getTotalCases() > 0 ? $this->stoolCollectedCount/$this->getTotalCases()*100:0;
+        return $this->totalCases > 0 ? (string)($this->stoolCollectedCount / $this->totalCases * 100) : '0';
     }
 
     public function getOutcomeCount(): int
@@ -47,9 +47,9 @@ class DataCompletionResult extends AbstractSiteBasedResult
         return $this->outcomeCount;
     }
 
-    public function getOutcomePercent()
+    public function getOutcomePercent(): string
     {
-        return $this->getTotalCases() > 0 ? $this->outcomeCount/$this->getTotalCases()*100:0;
+        return $this->totalCases > 0 ? (string)($this->outcomeCount / $this->totalCases * 100) : '0';
     }
 
     public function setOutcomeCount(int $outcomeCount): void
@@ -62,9 +62,9 @@ class DataCompletionResult extends AbstractSiteBasedResult
         return $this->classificationCount;
     }
 
-    public function getClassificationPercent()
+    public function getClassificationPercent(): string
     {
-        return $this->getTotalCases() > 0 ? $this->classificationCount/$this->getTotalCases()*100:0;
+        return $this->totalCases > 0 ? (string)($this->classificationCount / $this->totalCases * 100) : '0';
     }
 
     public function setClassificationCount(int $classificationCount): void
@@ -82,9 +82,9 @@ class DataCompletionResult extends AbstractSiteBasedResult
         return $this->elisaDoneCount;
     }
 
-    public function getElisaDonePercent()
+    public function getElisaDonePercent(): string
     {
-        return ($this->stoolCollectedCount>0) ? $this->elisaDoneCount/$this->stoolCollectedCount * 100 : 0;
+        return ($this->stoolCollectedCount > 0) ? (string)($this->elisaDoneCount / $this->stoolCollectedCount * 100) : '0';
     }
 
     public function setElisaDoneCount($elisaDoneCount): void
