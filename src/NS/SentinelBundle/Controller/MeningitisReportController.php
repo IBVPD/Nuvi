@@ -193,6 +193,25 @@ class MeningitisReportController extends Controller
     }
 
     /**
+     * @Route("/discharge-classificiation-doses", name="meningReportDischargeClassificationDoses")
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function dischargeClassificationDosesAction(Request $request): Response
+    {
+        $form = $this->createForm(ReportFilterType::class, null, ['site_type' => 'advanced', 'validation_groups' => ['FieldPopulation']]);
+        $service = $this->get('ns_sentinel.mening_report');
+        $params = $service->getDischargeByDoses($request, $form, 'meningReportDischargeClassificationDoses');
+        if ($params instanceof Response) {
+            return $params;
+        }
+
+        return $this->render('NSSentinelBundle:Report:Meningitis/discharge-classification-doses.html.twig', $params);
+    }
+
+    /**
      * @Route("/site-performance",name="meningReportSitePerformance")
      * @param Request $request
      * @return RedirectResponse|Response

@@ -606,4 +606,9 @@ class MeningitisRepository extends AbstractReportCommonRepository
             ->select(sprintf('%s.id, COUNT(%s.id) as caseCount, YEAR(%s.adm_date) as caseYear, %s.disch_class, s.code', $alias, $alias, $alias, $alias))
             ->addGroupBy("caseYear,$alias.disch_class");
     }
+
+    public function getByDischargeClassificationDosesAndAge(string $alias, array $siteCodes, string $doseAlias = 'hib_doses'): QueryBuilder
+    {
+        return $this->_getByDischargeClassificationDosesAndAge($alias, $siteCodes,$doseAlias);
+    }
 }

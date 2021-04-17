@@ -7,9 +7,11 @@ use Doctrine\ORM\Query;
 use NS\SentinelBundle\Entity\Country;
 use NS\SentinelBundle\Entity\RotaVirus;
 use NS\SentinelBundle\Entity\Site;
+use NS\SentinelBundle\Form\RotaVirus\Types\DischargeClassification;
 use NS\SentinelBundle\Report\Result\DataLinkingResult;
 use NS\SentinelBundle\Report\Result\RotaVirus\DataCompletionResult;
 use NS\SentinelBundle\Report\Result\RotaVirus\DataQualityResult;
+use NS\SentinelBundle\Report\Result\RotaVirus\DischargeClassificationDosesAgeResult;
 use NS\SentinelBundle\Report\Result\RotaVirus\DischargeClassificationResult;
 use NS\SentinelBundle\Report\Result\RotaVirus\GeneralStatisticResult;
 use NS\SentinelBundle\Report\Result\RotaVirus\SitePerformanceResult;
@@ -161,7 +163,62 @@ class RotaVirusReporter extends AbstractReporter
             }
 
             if ($form->get('export')->isClicked()) {
-                return $this->exporter->export('NSSentinelBundle:Report:RotaVirus/Export/data-completion.html.twig', ['sites' => $results]);
+                return $this->exporter->export('NSSentinelBundle:Report:RotaVirus/Export/discharge-classification.html.twig', ['sites' => $results]);
+            }
+        }
+
+        return ['sites' => $results, 'form' => $form->createView()];
+    }
+
+    /**
+     * @return array|RedirectResponse
+     */
+    public function getDischargeByDoses(Request $request, FormInterface $form, string $redirectRoute)
+    {
+        $results = [
+            DischargeClassification::CONFIRMED  => new DischargeClassificationDosesAgeResult(DischargeClassification::CONFIRMED),
+            DischargeClassification::DISCARDED  => new DischargeClassificationDosesAgeResult(DischargeClassification::DISCARDED),
+            DischargeClassification::INADEQUATE => new DischargeClassificationDosesAgeResult(DischargeClassification::INADEQUATE),
+            DischargeClassification::UNKNOWN    => new DischargeClassificationDosesAgeResult(DischargeClassification::UNKNOWN),
+        ];
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get('reset')->isClicked()) {
+                return new RedirectResponse($this->router->generate($redirectRoute));
+            }
+
+            $alias        = 'i';
+            $queryBuilder = $this->entityMgr->getRepository(Site::class)->getWithCasesForDate($alias, RotaVirus::class);
+            $this->filter->addFilterConditions($form, $queryBuilder, $alias);
+
+            $sites = $queryBuilder->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult();
+
+            if (empty($sites)) {
+                return ['sites' => [], 'form' => $form->createView()];
+            }
+
+            $siteKeys = [];
+            foreach ($sites as $values) {
+                $siteKeys[] = $values[0]->getSite()->getCode();
+            }
+
+            $reportQuery = $this->entityMgr->getRepository(RotaVirus::class)->getByDischargeClassificationDosesAndAge($alias, $siteKeys);
+
+            $res = $this->filter
+                ->addFilterConditions($form, $reportQuery, $alias)
+                ->getQuery()
+                ->getResult(Query::HYDRATE_SCALAR);
+
+            foreach ($res as $c) {
+                $classification = (int)$c['disch_class'];
+                if (isset($results[$classification])) {
+                    $results[$classification]->set($c['rv_doses'], $c['age'], $c['caseCount']);
+                }
+            }
+
+            if ($form->get('export')->isClicked()) {
+                return $this->exporter->export('NSSentinelBundle:Report:RotaVirus/Export/discharge-classification-doses.html.twig', ['sites' => $results]);
             }
         }
 

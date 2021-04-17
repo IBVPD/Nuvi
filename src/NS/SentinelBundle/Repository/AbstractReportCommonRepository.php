@@ -44,4 +44,22 @@ abstract class AbstractReportCommonRepository extends Common
             ->setParameter('noSelection', ArrayChoice::NO_SELECTION)
             ->setParameter('outOfRange', ArrayChoice::OUT_OF_RANGE);
     }
+
+    protected function _getByDischargeClassificationDosesAndAge(string $alias, array $siteCodes, string $doseAlias): QueryBuilder
+    {
+        return $this->getCountQueryBuilder($alias, $siteCodes)
+            ->select("
+            CASE 
+                WHEN $alias.age_months < 0 THEN -1
+                WHEN $alias.age_months <= 2 THEN 2 
+                WHEN $alias.age_months <= 3 THEN 3 
+                WHEN $alias.age_months <= 11 THEN 11 
+                WHEN $alias.age_months <= 23 THEN 23 
+                WHEN $alias.age_months <= 59 THEN 59 
+            ELSE -1
+            END as age,
+            $alias.id, COUNT($alias.id) as caseCount, $alias.disch_class, $alias.ageDistribution, $alias.$doseAlias, s.code")
+            ->andWhere("$alias.$doseAlias IS NOT NULL AND $alias.$doseAlias > 0 AND $alias.disch_class >= 0")
+            ->groupBy("$alias.disch_class, age, $alias.$doseAlias");
+    }
 }

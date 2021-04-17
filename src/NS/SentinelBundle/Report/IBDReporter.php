@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query;
 use NS\SentinelBundle\Entity\Country;
 use NS\SentinelBundle\Entity\Site;
+use NS\SentinelBundle\Form\IBD\Types\DischargeClassification;
 use NS\SentinelBundle\Report\Result\AgeDistribution;
 use NS\SentinelBundle\Report\Result\CulturePositive;
 use NS\SentinelBundle\Report\Result\DataLinkingResult;
@@ -15,6 +16,7 @@ use NS\SentinelBundle\Report\Result\IBD\DataQualityResult;
 use NS\SentinelBundle\Report\Result\IBD\GeneralStatisticResult;
 use NS\SentinelBundle\Report\Result\IBD\SitePerformanceResult;
 use NS\SentinelBundle\Report\Result\NumberEnrolledResult;
+use NS\SentinelBundle\Report\Result\Pneumonia\DischargeClassificationDosesAgeResult;
 use NS\SentinelBundle\Report\Result\Pneumonia\DischargeClassificationResult;
 use NS\SentinelBundle\Report\Result\SiteMonthResult;
 use Symfony\Component\Form\FormInterface;
@@ -457,6 +459,67 @@ class IBDReporter extends AbstractReporter
 
             if ($form->get('export')->isClicked()) {
                 return $this->exporter->export('NSSentinelBundle:Report:Pneumonia/Export/discharge-classification.html.twig', ['sites' => $results]);
+            }
+        }
+
+        return ['sites' => $results, 'form' => $form->createView()];
+    }
+
+    /**
+     * @return array|RedirectResponse
+     */
+    public function getDischargeByDoses(Request $request, FormInterface $form, string $redirectRoute)
+    {
+        $results = [
+            DischargeClassification::CONFIRMED_HI    => new DischargeClassificationDosesAgeResult(DischargeClassification::CONFIRMED_HI),
+            DischargeClassification::CONFIRMED_SPN   => new DischargeClassificationDosesAgeResult(DischargeClassification::CONFIRMED_SPN),
+            DischargeClassification::CONFIRMED_NM    => new DischargeClassificationDosesAgeResult(DischargeClassification::CONFIRMED_NM),
+            DischargeClassification::CONFIRMED_OTHER => new DischargeClassificationDosesAgeResult(DischargeClassification::CONFIRMED_OTHER),
+            DischargeClassification::PROBABLE        => new DischargeClassificationDosesAgeResult(DischargeClassification::PROBABLE),
+            DischargeClassification::SUSPECT         => new DischargeClassificationDosesAgeResult(DischargeClassification::SUSPECT),
+            DischargeClassification::INCOMPLETE      => new DischargeClassificationDosesAgeResult(DischargeClassification::INCOMPLETE),
+            DischargeClassification::DISCARDED       => new DischargeClassificationDosesAgeResult(DischargeClassification::DISCARDED),
+            DischargeClassification::SEPSIS          => new DischargeClassificationDosesAgeResult(DischargeClassification::SEPSIS),
+            DischargeClassification::UNKNOWN         => new DischargeClassificationDosesAgeResult(DischargeClassification::UNKNOWN),
+        ];
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get('reset')->isClicked()) {
+                return new RedirectResponse($this->router->generate($redirectRoute));
+            }
+
+            $alias        = 'i';
+            $queryBuilder = $this->entityMgr->getRepository(Site::class)->getWithCasesForDate($alias, $this->class);
+            $this->filter->addFilterConditions($form, $queryBuilder, $alias);
+
+            $sites = $queryBuilder->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult();
+
+            if (empty($sites)) {
+                return ['sites' => [], 'form' => $form->createView()];
+            }
+
+            $siteKeys = [];
+            foreach ($sites as $values) {
+                $siteKeys[] = $values[0]->getSite()->getCode();
+            }
+            $dose = 'hib_doses';
+            $reportQuery = $this->entityMgr->getRepository($this->class)->getByDischargeClassificationDosesAndAge($alias, $siteKeys, $dose);
+
+            $res = $this->filter
+                ->addFilterConditions($form, $reportQuery, $alias)
+                ->getQuery()
+                ->getResult(Query::HYDRATE_SCALAR);
+
+            foreach ($res as $c) {
+                $classification = (int)$c['disch_class'];
+                if (isset($results[$classification])) {
+                    $results[$classification]->set($c[$dose], $c['age'], $c['caseCount']);
+                }
+            }
+
+            if ($form->get('export')->isClicked()) {
+                return $this->exporter->export('NSSentinelBundle:Report:Pneumonia/Export/data-completion.html.twig', ['sites' => $results]);
             }
         }
 

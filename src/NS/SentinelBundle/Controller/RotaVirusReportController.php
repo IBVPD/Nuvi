@@ -72,6 +72,25 @@ class RotaVirusReportController extends Controller
     }
 
     /**
+     * @Route("/discharge-classificiation-doses", name="rotaReportDischargeClassificationDoses")
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function dischargeClassificationDosesAction(Request $request): Response
+    {
+        $form = $this->createForm(ReportFilterType::class, null, ['site_type' => 'advanced', 'validation_groups' => ['FieldPopulation']]);
+        $service = $this->get('ns_sentinel.rotavirus_report');
+        $params = $service->getDischargeByDoses($request, $form, 'rotaReportDischargeClassificationDoses');
+        if ($params instanceof Response) {
+            return $params;
+        }
+
+        return $this->render('NSSentinelBundle:Report:RotaVirus/discharge-classification-doses.html.twig', $params);
+    }
+
+    /**
      * @Route("/site-performance",name="rotaReportSitePerformance")
      * @param Request $request
      * @return Response

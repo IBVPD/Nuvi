@@ -147,6 +147,25 @@ class PneumoniaReportController extends Controller
     }
 
     /**
+     * @Route("/discharge-classificiation-doses", name="pneuReportDischargeClassificationDoses")
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function dischargeClassificationDosesAction(Request $request): Response
+    {
+        $form = $this->createForm(ReportFilterType::class, null, ['site_type' => 'advanced', 'validation_groups' => ['FieldPopulation']]);
+        $service = $this->get('ns_sentinel.pneu_report');
+        $params = $service->getDischargeByDoses($request, $form, 'pneuReportDischargeClassificationDoses');
+        if ($params instanceof Response) {
+            return $params;
+        }
+
+        return $this->render('NSSentinelBundle:Report:Pneumonia/discharge-classification-doses.html.twig', $params);
+    }
+
+    /**
      * @Route("/site-performance",name="pneuReportSitePerformance")
      * @param Request $request
      * @return Response

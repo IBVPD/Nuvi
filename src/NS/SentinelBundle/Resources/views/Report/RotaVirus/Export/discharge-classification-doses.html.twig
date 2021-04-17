@@ -1,0 +1,30 @@
+<table class="table table-responsive table-striped table-bordered table-hover">
+    <thead>
+    <tr>
+        <th>{{ 'Discharge Classification'|trans }}</th>
+        <th>{{ 'Doses'|trans }}</th>
+        <th>Unknown</th>
+        <th>0-2</th>
+        <th>3</th>
+        <th>4-11</th>
+        <th>12-23</th>
+        <th>24-59</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for result in sites %}
+        {% for dose in result.doses %}
+            <tr>
+                <td>{{ result.classification }}</td>
+                <td>{{ dose }}</td>
+                <td>{{ result.get(dose,-1) }}</td>
+                <td>{{ result.get(dose,2) }}</td>
+                <td>{{ result.get(dose,3) }}</td>
+                <td>{{ result.get(dose,11) }}</td>
+                <td>{{ result.get(dose,23) }}</td>
+                <td>{{ result.get(dose,59) }}</td>
+            </tr>
+        {% endfor %}
+    {% endfor %}
+    </tbody>
+</table>
