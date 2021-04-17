@@ -124,7 +124,6 @@ class RotaVirusReportController extends Controller
         return $this->render('NSSentinelBundle:Report/RotaVirus:stats.html.twig', $params);
     }
 
-
     /**
      * @Route("/year-month", name="rotaReportYearMonth")
      *

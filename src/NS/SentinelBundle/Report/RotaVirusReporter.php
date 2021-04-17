@@ -111,6 +111,7 @@ class RotaVirusReporter extends AbstractReporter
 
         return ['sites' => $results, 'form' => $form->createView()];
     }
+
     /**
      * @return array|RedirectResponse
      */

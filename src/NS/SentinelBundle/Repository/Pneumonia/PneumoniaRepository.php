@@ -481,4 +481,11 @@ class PneumoniaRepository extends AbstractReportCommonRepository
             ->andWhere(sprintf('(%s.result = :probable)', $alias))
             ->setParameter('probable', CaseResult::PROBABLE);
     }
+
+    public function getByDischargeClassificationCountBySites(string $alias, array $siteCodes): QueryBuilder
+    {
+        return $this->getCountQueryBuilder($alias, $siteCodes)
+            ->select(sprintf('%s.id, COUNT(%s.id) as caseCount, YEAR(%s.adm_date) as caseYear, %s.disch_class, s.code', $alias, $alias, $alias, $alias))
+            ->addGroupBy("caseYear,$alias.disch_class");
+    }
 }

@@ -63,6 +63,7 @@ class Builder
 
             $pneuReport->addChild('Data Quality Checks', ['label' => 'menu.data-reports-data-quality', 'route' => 'pneuReportDataQuality']);
             $pneuReport->addChild('Data Completion', ['label' => 'menu.data-reports-data-completion', 'route' => 'pneuReportDataCompletion']);
+            $pneuReport->addChild('Discharge Classification', ['label' => 'menu.data-reports-discharge-classification', 'route' => 'pneuReportDischargeClassification']);
             $pneuReport->addChild('Site Performance', ['label' => 'menu.data-reports-site-performance', 'route' => 'pneuReportSitePerformance']);
             $pneuReport->addChild('RRL Linking', ['label' => 'menu.data-reports-rrl-linking', 'route' => 'pneuReportDataLinking']);
             $pneuReport->addChild('Stats', ['label' => 'menu.data-reports-stats', 'route' => 'pneuReportStats']);
@@ -73,6 +74,7 @@ class Builder
 
             $meningReport->addChild('Data Quality Checks', ['label' => 'menu.data-reports-data-quality', 'route' => 'meningReportDataQuality']);
             $meningReport->addChild('Data Completion', ['label' => 'menu.data-reports-data-completion', 'route' => 'meningReportDataCompletion']);
+            $meningReport->addChild('Discharge Classification', ['label' => 'menu.data-reports-discharge-classification', 'route' => 'meningReportDischargeClassification']);
 
             $meningReport->addChild('Site Performance', ['label' => 'menu.data-reports-site-performance', 'route' => 'meningReportSitePerformance']);
             $meningReport->addChild('RRL Linking', ['label' => 'menu.data-reports-rrl-linking', 'route' => 'meningReportDataLinking']);

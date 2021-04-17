@@ -15,6 +15,7 @@ use NS\SentinelBundle\Report\Result\IBD\DataQualityResult;
 use NS\SentinelBundle\Report\Result\IBD\GeneralStatisticResult;
 use NS\SentinelBundle\Report\Result\IBD\SitePerformanceResult;
 use NS\SentinelBundle\Report\Result\NumberEnrolledResult;
+use NS\SentinelBundle\Report\Result\Pneumonia\DischargeClassificationResult;
 use NS\SentinelBundle\Report\Result\SiteMonthResult;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -400,6 +401,62 @@ class IBDReporter extends AbstractReporter
 
             if ($form->get('export')->isClicked()) {
                 return $this->exporter->export('NSSentinelBundle:Report:Export/year-month.html.twig', ['sites' => $results]);
+            }
+        }
+
+        return ['sites' => $results, 'form' => $form->createView()];
+    }
+
+    /**
+     * @return array|RedirectResponse
+     */
+    public function getDischargeByHospital(Request $request, FormInterface $form, string $redirectRoute)
+    {
+        $results      = new ArrayCollection();
+        $alias        = 'i';
+        $queryBuilder = $this->entityMgr->getRepository(Site::class)->getWithCasesForDate($alias, $this->class, true);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get('reset')->isClicked()) {
+                return new RedirectResponse($this->router->generate($redirectRoute));
+            }
+
+            $this->filter->addFilterConditions($form, $queryBuilder, $alias);
+
+            $sites = $queryBuilder->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult();
+
+            if (empty($sites)) {
+                return ['sites' => [], 'form' => $form->createView()];
+            }
+
+            $this->populateSites($sites, $results, DischargeClassificationResult::class);
+
+            $siteKeys = array_map(static function ($value) {
+                $x = explode('::', $value);
+                return $x[0];
+            }, $results->getKeys());
+
+            $reportQuery = $this->entityMgr->getRepository($this->class)->getByDischargeClassificationCountBySites($alias, $siteKeys);
+
+            $res = $this->filter
+                ->addFilterConditions($form, $reportQuery, $alias)
+                ->getQuery()
+                ->getResult(Query::HYDRATE_SCALAR);
+
+            foreach ($res as $c) {
+                $key = "{$c['code']}::{$c['caseYear']}";
+
+                /** @var DischargeClassificationResult|null $fpr */
+                $fpr = $results->get($key);
+                // this should always be true.
+                if ($fpr) {
+                    $fpr->set($c['disch_class'], $c['caseCount']);
+                }
+            }
+
+            if ($form->get('export')->isClicked()) {
+                return $this->exporter->export('NSSentinelBundle:Report:Pneumonia/Export/discharge-classification.html.twig', ['sites' => $results]);
             }
         }
 
