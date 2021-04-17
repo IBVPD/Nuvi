@@ -136,20 +136,23 @@ class ACL extends BaseACL
                 case 'import':
                     $baseRoles[] = 'ROLE_IMPORT';
                     break;
-                case 'api';
+                case 'api':
                     $baseRoles[] = 'ROLE_API';
                     break;
-                case 'case';
+                case 'case':
                     $baseRoles[] = 'ROLE_CAN_CREATE_CASE';
                     break;
-                case 'lab';
+                case 'lab':
                     $baseRoles[] = 'ROLE_CAN_CREATE_LAB';
                     break;
-                case 'nl';
+                case 'nl':
                     $baseRoles[] = 'ROLE_CAN_CREATE_NL_LAB';
                     break;
-                case 'rrl';
+                case 'rrl':
                     $baseRoles[] = 'ROLE_CAN_CREATE_RRL_LAB';
+                    break;
+                case 'names':
+                    $baseRoles[] = 'ROLE_CAN_SEE_NAMES';
                     break;
             }
         }

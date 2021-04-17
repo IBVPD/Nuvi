@@ -40,6 +40,10 @@ class CaseTemplates extends AbstractExtension
     {
         $params = ['results' => $results, 'tableId' => $tableId];
 
+        if ($this->authChecker->isGranted('ROLE_CAN_SEE_NAMES')) {
+            return $this->twig->render('NSSentinelBundle:Case:country.html.twig', $params);
+        }
+
         if ($this->authChecker->isGranted('ROLE_SITE_LEVEL')) {
             return $this->twig->render('NSSentinelBundle:Case:site.html.twig', $params);
         }

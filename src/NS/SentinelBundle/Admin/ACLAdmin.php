@@ -58,7 +58,9 @@ class ACLAdmin extends AbstractAdmin
                     'Can Create Case' => 'case',
                     'Can Create Site Lab' => 'lab',
                     'Can Create NL' => 'nl',
-                    'Can Create RRL' => 'rrl']]
+                    'Can Create RRL' => 'rrl',
+                    'Can See Names' => 'names',
+                ]]
             )
             ->add('object_id', ACLAutoCompleterType::class, [
                                                         'label'               => 'Specific - Site / Country / Region',
