@@ -17,21 +17,27 @@
                                         {{ form_row(form.adm_date) }}
                                         {{ form_row(form.createdAt) }}
                                     </div>
-                                    <div class="col-xs-3">
-                                        {% if form.region is defined %}
-                                            {{ form_row(form.region) }}
-                                        {% endif %}
-                                    </div>
-                                    <div class="col-xs-3">
-                                        {% if form.country is defined %}
-                                            {{ form_row(form.country) }}
-                                        {% endif %}
-
-                                    </div>
-                                    <div class="col-xs-3">
-                                        {% if form.site is defined %}
-                                            {{ form_row(form.site) }}
-                                        {% endif %}
+                                    <div class="col-xs-8">
+                                        <div class="row">
+                                            <div class="col-xs-6">
+                                                {% if form.region is defined %}
+                                                    {{ form_row(form.region) }}
+                                                {% endif %}
+                                                {% if form.country is defined %}
+                                                    {{ form_row(form.country) }}
+                                                {% endif %}
+                                            </div>
+                                            <div class="col-xs-6">
+                                                {% if form.site is defined %}
+                                                    {{ form_row(form.site) }}
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                {{ form_row(form.vaccine) }}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">

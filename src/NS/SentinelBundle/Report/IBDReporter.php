@@ -503,7 +503,8 @@ class IBDReporter extends AbstractReporter
             foreach ($sites as $values) {
                 $siteKeys[] = $values[0]->getSite()->getCode();
             }
-            $dose = 'hib_doses';
+
+            $dose = $form->get('vaccine')->getData();
             $reportQuery = $this->entityMgr->getRepository($this->class)->getByDischargeClassificationDosesAndAge($alias, $siteKeys, $dose);
 
             $res = $this->filter
@@ -519,7 +520,7 @@ class IBDReporter extends AbstractReporter
             }
 
             if ($form->get('export')->isClicked()) {
-                return $this->exporter->export('NSSentinelBundle:Report:Pneumonia/Export/data-completion.html.twig', ['sites' => $results]);
+                return $this->exporter->export('NSSentinelBundle:Report:Pneumonia/Export/discharge-classification-doses.html.twig', ['sites' => $results]);
             }
         }
 

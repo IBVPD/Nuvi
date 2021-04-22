@@ -6,6 +6,7 @@ use NS\SentinelBundle\Entity\Pneumonia\Pneumonia;
 use NS\SentinelBundle\Filter\Type\BaseQuarterlyFilterType;
 use NS\SentinelBundle\Filter\Type\IBD\QuarterlyLinkingReportFilterType;
 use NS\SentinelBundle\Filter\Type\IBD\ReportFilterType;
+use NS\SentinelBundle\Filter\Type\IBD\VaccineReportFilterType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -155,7 +156,7 @@ class PneumoniaReportController extends Controller
      */
     public function dischargeClassificationDosesAction(Request $request): Response
     {
-        $form = $this->createForm(ReportFilterType::class, null, ['site_type' => 'advanced', 'validation_groups' => ['FieldPopulation']]);
+        $form = $this->createForm(VaccineReportFilterType::class, null, ['site_type' => 'advanced', 'validation_groups' => ['FieldPopulation']]);
         $service = $this->get('ns_sentinel.pneu_report');
         $params = $service->getDischargeByDoses($request, $form, 'pneuReportDischargeClassificationDoses');
         if ($params instanceof Response) {
