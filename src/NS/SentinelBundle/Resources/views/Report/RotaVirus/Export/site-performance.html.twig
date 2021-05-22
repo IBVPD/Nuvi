@@ -8,7 +8,6 @@
         <th colspan="2">{{ 'Consistent Reporting'|trans }}</th>
         <th>{{ 'Minimum No. Cases'|trans }}</th>
         <th>{{ 'Specimen Collection'|trans }}</th>
-        <th>{{ 'Lab Confirmed'|trans }}</th>
     </tr>
     </thead>
     {% for result in sites %}
@@ -27,16 +26,11 @@
             <td>{{ consistentReporting(result) }}</td>
             <td>{{ result.consistentReportingCount }}</td>
 
-            {#2. ≥100 suspected diarrhea cases reported annually#}
-            <td>{{ minimumCases(result) }}<br/>{{ result.minimumNumberOfCasesString|trans }}
-            </td>
+            {#2. ≥50 suspected diarrhea cases reported annually#}
+            <td>{{ minimumCases(result) }}</td>
             {#3. ≥90% of suspect cases with specimen collected within 2 days of admission#}
             <td class="no-padding specimenCollection">
-                <div class="well no-margin no-padding">{{ specimenCollected(result) }}</div>
-            </td>
-            {#4. ≥90% of specimens tested for rotavirus by EIA#}
-            <td class="no-padding specimenCollection">
-                <div class="well no-margin no-padding">{{ labConfirmed(result) }}</div>
+                <div class="well no-margin no-padding">{{ specimenCollectedCount(result) }}</div>
             </td>
         </tr>
     {% endfor %}

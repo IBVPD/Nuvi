@@ -183,7 +183,9 @@ abstract class AbstractSitePerformanceResult extends AbstractSiteBasedResult
     {
         if ($percent >= $firstPercent) {
             return self::GOOD;
-        } elseif ($percent >= $secondPercent) {
+        }
+
+        if ($percent >= $secondPercent) {
             return self::WARN;
         }
 

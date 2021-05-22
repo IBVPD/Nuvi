@@ -3,6 +3,7 @@
 namespace NS\SentinelBundle\Twig\Report;
 
 use NS\SentinelBundle\Report\Result\AbstractSitePerformanceResult;
+use Twig\TwigFunction;
 use Twig_Environment;
 use Twig_Extension;
 use Twig_SimpleFunction;
@@ -30,10 +31,11 @@ class SitePerformanceTwig extends Twig_Extension
     public function getFunctions()
     {
         return [
-            new Twig_SimpleFunction('consistentReporting', [$this, 'renderConsistentReporting'], ['is_safe'=> ['html']]),
-            new Twig_SimpleFunction('minimumCases', [$this, 'renderMinimumCases'], ['is_safe'=> ['html']]),
-            new Twig_SimpleFunction('specimenCollected', [$this, 'renderSpecimenCollected'], ['is_safe'=> ['html']]),
-            new Twig_SimpleFunction('labConfirmed', [$this, 'renderLabConfirmed'], ['is_safe'=> ['html']]),
+            new TwigFunction('consistentReporting', [$this, 'renderConsistentReporting'], ['is_safe'=> ['html']]),
+            new TwigFunction('minimumCases', [$this, 'renderMinimumCases'], ['is_safe'=> ['html']]),
+            new TwigFunction('specimenCollected', [$this, 'renderSpecimenCollected'], ['is_safe'=> ['html']]),
+            new TwigFunction('specimenCollectedCount', [$this, 'renderSpecimenCollectedCount'], ['is_safe'=> ['html']]),
+            new TwigFunction('labConfirmed', [$this, 'renderLabConfirmed'], ['is_safe'=> ['html']]),
         ];
     }
 
@@ -71,6 +73,22 @@ class SitePerformanceTwig extends Twig_Extension
     {
         $params = [
             'result' => sprintf('%d %%',(int)$result->getSpecimenCollectionPercent()),
+            'value'  => $result->getSpecimenCollection(),
+            'flag'   => $result->hasMinimumSpecimenCollected(),
+            'string' => $result->getMinimumSpecimenCollectedString(),
+        ];
+
+        return $this->twig->render('NSSentinelBundle:Report:flag.html.twig',$params);
+    }
+
+    /**
+     * @param AbstractSitePerformanceResult $result
+     * @return string
+     */
+    public function renderSpecimenCollectedCount(AbstractSitePerformanceResult $result)
+    {
+        $params = [
+            'result' => sprintf('%d',(int)$result->getSpecimenCollection()),
             'value'  => $result->getSpecimenCollection(),
             'flag'   => $result->hasMinimumSpecimenCollected(),
             'string' => $result->getMinimumSpecimenCollectedString(),

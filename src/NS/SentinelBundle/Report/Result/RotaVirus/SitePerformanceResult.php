@@ -6,37 +6,13 @@ use NS\SentinelBundle\Report\Result\AbstractSitePerformanceResult;
 
 class SitePerformanceResult extends AbstractSitePerformanceResult
 {
-    //    /**
-//     * @return string
-//     */
-//    public function hasMinimumNumberOfCases()
-//    {
-//        return $this->getTotalCases() >= 100 ? 'Yes':'No';
-//    }
-//
-//    /**
-//     * @return string
-//     */
-//    public function hasMinimumSpecimenCollected()
-//    {
-//        return ($this->getSpecimenCollectionPercent() >= 90 ? 'Yes':'No');
-//    }
-//
-//    /**
-//     * @return string
-//     */
-//    public function hasMinimumLabConfirmed()
-//    {
-//        return ($this->getLabConfirmedPercent() >= 90 ? 'Yes':'No');
-//    }
-//O
     public function getMinimumNumberOfCases()
     {
         $total = $this->getTotalCases();
-        return $this->getState($total, 100, 80);
+        return $this->getState($total, 50, 40);
     }
 
-    public const MIN_CASES_STR = '≥ 100 cases';
+    public const MIN_CASES_STR = '≥ 50 cases';
     public function getMinimumNumberOfCasesString()
     {
         return self::MIN_CASES_STR;
@@ -44,11 +20,11 @@ class SitePerformanceResult extends AbstractSitePerformanceResult
 
     public function hasMinimumSpecimenCollected()
     {
-        $percent = $this->getSpecimenCollectionPercent();
-        return $this->getState($percent);
+        $specimens = $this->getSpecimenCollection();
+        return $this->getState($specimens, 50, 40);
     }
 
-    public const MIN_SPECIMEN_STR = '≥ 90% with specimen';
+    public const MIN_SPECIMEN_STR = '≥ 50 samples';
     public function getMinimumSpecimenCollectedString()
     {
         return self::MIN_SPECIMEN_STR;
