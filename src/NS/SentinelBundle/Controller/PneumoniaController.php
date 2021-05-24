@@ -2,7 +2,6 @@
 
 namespace NS\SentinelBundle\Controller;
 
-use NS\SentinelBundle\Entity\BaseCase;
 use NS\SentinelBundle\Entity\Pneumonia\NationalLab;
 use NS\SentinelBundle\Entity\Pneumonia\Pneumonia;
 use NS\SentinelBundle\Entity\Pneumonia\ReferenceLab;

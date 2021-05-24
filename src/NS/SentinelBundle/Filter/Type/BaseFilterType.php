@@ -72,7 +72,7 @@ class BaseFilterType extends AbstractType
                 ->add('site', SiteType::class);
         }
 
-        if ($this->authChecker->isGranted('ROLE_COUNTRY')) {
+        if ($this->authChecker->isGranted('ROLE_COUNTRY') || $this->authChecker->isGranted('ROLE_CAN_SEE_NAMES')) {
             $objectIds = $this->aclConverter->getObjectIdsForRole($token, 'ROLE_COUNTRY');
             if (count($objectIds) > 1) {
                 $form->add('country', CountryType::class, ['required'=>false, 'placeholder'=>'']);
@@ -93,7 +93,6 @@ class BaseFilterType extends AbstractType
             $form
                 ->add('firstName', TextFilterType::class, ['condition_pattern' => FilterOperands::STRING_CONTAINS])
                 ->add('lastName', TextFilterType::class, ['condition_pattern' => FilterOperands::STRING_CONTAINS]);
-
         }
 
         $form->add('find', SubmitType::class, [
