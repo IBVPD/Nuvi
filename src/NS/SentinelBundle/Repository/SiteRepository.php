@@ -127,7 +127,7 @@ class SiteRepository extends CommonRepository
             ->innerJoin('s.country','c')
             ->setMaxResults($limit);
 
-        if (!empty($value) && $value['value'][0] == '*') {
+        if (!empty($value) && $value['value'][0] === '*') {
             return $queryBuilder->getQuery();
         }
 

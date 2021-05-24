@@ -74,7 +74,7 @@ class BaseQuarterlyFilterType extends AbstractType
         $form     = $event->getForm();
         $options  = $form->getConfig()->getOptions();
         $siteType = (isset($options['site_type']) && $options['site_type'] === 'advanced') ? SiteFilterType::class : SiteType::class;
-        $siteOpt  = SiteFilterType::class === $siteType ? ['include_intense' => $options['include_intense'], 'label' => 'Site'] : [];
+        $siteOpt  = SiteFilterType::class === $siteType ? ['required' => false, 'include_intense' => $options['include_intense'], 'label' => 'Site'] : [];
 
         $token    = $this->tokenStorage->getToken();
 

@@ -83,14 +83,14 @@ class BaseReportFilterType extends AbstractType
             }
 
             $form->add('country', CountryType::class, ['placeholder' => '', 'required' => false]);
-            $form->add('site', $siteType);
+            $form->add('site', $siteType, ['required' => false]);
         } elseif ($this->authChecker->isGranted('ROLE_COUNTRY')) {
-            $form->add('site', $siteType);
+            $form->add('site', $siteType, ['required' => false]);
         } elseif ($this->authChecker->isGranted('ROLE_SITE')) {
             $token     = $this->tokenStorage->getToken();
             $objectIds = $this->converter->getObjectIdsForRole($token, 'ROLE_SITE');
             if (count($objectIds) > 1) {
-                $form->add('site', $siteType);
+                $form->add('site', $siteType, ['required' => false]);
             }
         }
 
